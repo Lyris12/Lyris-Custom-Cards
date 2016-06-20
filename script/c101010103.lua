@@ -1,13 +1,14 @@
 --襲雷属性－水
-function c101010088.initial_effect(c)
-	--self-destruct
+local id,ref=GIR()
+function ref.start(c)
+--self-destruct
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCode(EVENT_ATTACK_ANNOUNCE)
-	e2:SetCondition(c101010088.descon)
-	e2:SetOperation(c101010088.desop)
+	e2:SetCondition(ref.descon)
+	e2:SetOperation(ref.desop)
 	c:RegisterEffect(e2)
 	--attribute
 	local e2=Effect.CreateEffect(c)
@@ -17,8 +18,8 @@ function c101010088.initial_effect(c)
 	e2:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e2:SetValue(ATTRIBUTE_DARK)
 	c:RegisterEffect(e2)
-	if not c101010088.global_check then
-		c101010088.global_check=true
+	if not ref.global_check then
+		ref.global_check=true
 		local ge1=Effect.CreateEffect(c)
 		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge1:SetCode(EVENT_DESTROYED)
@@ -35,30 +36,30 @@ function c101010088.initial_effect(c)
 	e1:SetRange(0x32)
 	e1:SetHintTiming(TIMING_MAIN_END,TIMING_MAIN_END)
 	e1:SetCountLimit(1,101010088)
-	e1:SetCondition(c101010088.con)
-	e1:SetTarget(c101010088.target)
-	e1:SetOperation(c101010088.operation)
+	e1:SetCondition(ref.con)
+	e1:SetTarget(ref.target)
+	e1:SetOperation(ref.operation)
 	c:RegisterEffect(e1)
 end
-function c101010088.descon(e,tp,eg,ep,ev,re,r,rp)
+function ref.descon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return Duel.GetTurnPlayer()~=tp and c:IsFaceup() and Duel.GetAttackTarget()==c
 end
-function c101010088.desop(e,tp,eg,ep,ev,re,r,rp)
+function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
 		Duel.Destroy(c,REASON_EFFECT)
 	end
 end
-function c101010088.con(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.con(e,tp,eg,ep,ev,re,r,rp,chk)
 	return e:GetHandler():GetFlagEffect(101010088)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
 end
-function c101010088.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return Duel.GetFieldGroupCount(tp,0,LOCATION_HAND)>0 end
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,nil,1,0,LOCATION_HAND)
 end
-function c101010088.operation(e,tp,eg,ep,ev,re,r,rp)
+function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(Card.IsAbleToRemove,tp,0,LOCATION_HAND,nil)
 	if g:GetCount()==1 then
 		Duel.Remove(g,POS_FACEUP,REASON_EFFECT)

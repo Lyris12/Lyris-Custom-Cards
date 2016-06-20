@@ -1,10 +1,11 @@
 --Time Dragon Cryptor
-function c101010515.initial_effect(c)
-	--material
+local id,ref=GIR()
+function ref.start(c)
+--material
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_BE_PRE_MATERIAL)
-	e0:SetOperation(c101010515.mat)
+	e0:SetOperation(ref.mat)
 	c:RegisterEffect(e0)
 	local ed=Effect.CreateEffect(c)
 	ed:SetType(EFFECT_TYPE_SINGLE)
@@ -17,8 +18,8 @@ function c101010515.initial_effect(c)
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOKEN)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e4:SetCode(EVENT_SUMMON_SUCCESS)
-	e4:SetTarget(c101010515.sptg)
-	e4:SetOperation(c101010515.spop)
+	e4:SetTarget(ref.sptg)
+	e4:SetOperation(ref.spop)
 	c:RegisterEffect(e4)
 	--spsummon
 	local e3=Effect.CreateEffect(c)
@@ -26,7 +27,7 @@ function c101010515.initial_effect(c)
 	e3:SetCode(EFFECT_SPSUMMON_PROC)
 	e3:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e3:SetRange(LOCATION_HAND)
-	e3:SetCondition(c101010515.spcon)
+	e3:SetCondition(ref.spcon)
 	c:RegisterEffect(e3)
 	--to deck
 	local e2=Effect.CreateEffect(c)
@@ -35,42 +36,42 @@ function c101010515.initial_effect(c)
 	e2:SetCode(EVENT_BE_MATERIAL)
 	e2:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
 	e2:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return c:IsLocation(LOCATION_DECK) end)
-	e2:SetTarget(c101010515.mattg)
-	e2:SetOperation(c101010515.matop)
+	e2:SetTarget(ref.mattg)
+	e2:SetOperation(ref.matop)
 	c:RegisterEffect(e2)
 end
-function c101010515.mat(e,tp,eg,ep,ev,re,r,rp)
+function ref.mat(e,tp,eg,ep,ev,re,r,rp)
 	if r==REASON_XYZ then
 		Duel.SendtoDeck(e:GetHandler(),nil,2,REASON_EFFECT)
 	end
 end
-function c101010515.spcon(e,tp,eg,ep,ev,re,r,rp)
+function ref.spcon(e,tp,eg,ep,ev,re,r,rp)
 	if c==nil then return true end
 	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_MZONE,0,1,nil,101010512)
 end
-function c101010515.filter(c)
+function ref.filter(c)
 	return c:IsAbleToDeck() and c:IsType(TYPE_SPELL+TYPE_TRAP)
 end
-function c101010515.mattg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and c101010515.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c101010515.filter,tp,0,LOCATION_ONFIELD,1,nil) end
+function ref.mattg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and ref.filter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(ref.filter,tp,0,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local g=Duel.SelectTarget(tp,c101010515.filter,tp,0,LOCATION_ONFIELD,1,1,nil)
+	local g=Duel.SelectTarget(tp,ref.filter,tp,0,LOCATION_ONFIELD,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
 end
-function c101010515.matop(e,tp,eg,ep,ev,re,r,rp)
+function ref.matop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)
 	end
 end
-function c101010515.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end
-function c101010515.spop(e,tp,eg,ep,ev,re,r,rp)
+function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local c=e:GetHandler()
 	if Duel.IsPlayerCanSpecialSummonMonster(tp,101010516,0x4db,0x4011,c:GetAttack(),c:GetDefence(),c:GetLevel(),RACE_MACHINE,ATTRIBUTE_LIGHT) then

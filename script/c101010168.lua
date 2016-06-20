@@ -1,13 +1,14 @@
 --アトリビュート・クロスボー
-function c101010061.initial_effect(c)
-	--Activate
+local id,ref=GIR()
+function ref.start(c)
+--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_EQUIP)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetTarget(c101010061.tg)
-	e1:SetOperation(c101010061.op)
+	e1:SetTarget(ref.tg)
+	e1:SetOperation(ref.op)
 	c:RegisterEffect(e1)
 	--
 	local e2=Effect.CreateEffect(c)
@@ -16,9 +17,9 @@ function c101010061.initial_effect(c)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetTargetRange(0,LOCATION_MZONE)
 	e2:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
-	e2:SetCondition(c101010061.ocon)
-	e2:SetTarget(c101010061.targ)
-	e2:SetValue(c101010061.val)
+	e2:SetCondition(ref.ocon)
+	e2:SetTarget(ref.targ)
+	e2:SetValue(ref.val)
 	c:RegisterEffect(e2)
 	e1:SetLabelObject(e2)
 	--Double Attack
@@ -35,7 +36,7 @@ function c101010061.initial_effect(c)
 	e4:SetValue(1)
 	c:RegisterEffect(e4)
 end
-function c101010061.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
@@ -46,21 +47,21 @@ function c101010061.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	e:GetHandler():SetHint(CHINT_ATTRIBUTE,rc)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,e:GetHandler(),1,0,0)
 end
-function c101010061.op(e,tp,eg,ep,ev,re,r,rp)
+function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if e:GetHandler():IsRelateToEffect(e) and tc:IsRelateToEffect(e) and tc:IsFaceup() then
 		Duel.Equip(tp,e:GetHandler(),tc)
 	end
 end
-function c101010061.ocon(e)
+function ref.ocon(e)
 	local c=e:GetHandler()
 	return Duel.GetAttacker()==c:GetEquipTarget()
 end
-function c101010061.targ(e,c)
+function ref.targ(e,c)
 	local at=e:GetLabel()
 	return not c:IsAttribute(at)
 end
-function c101010061.val(e,c)
+function ref.val(e,c)
 	if c:IsFaceup() then
 		return 1
 	else

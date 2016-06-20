@@ -1,9 +1,10 @@
 --any amount of LP in multiples of 100
 --Flame Flight Dragon - Friday
-function c101010559.initial_effect(c)
-	--fusion summon
+local id,ref=GIR()
+function ref.start(c)
+--fusion summon
 	c:EnableReviveLimit()
-	aux.AddFusionProcFun2(c,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_FIRE),aux.FilterBoolFunction(c101010559.ffilter),true)
+	aux.AddFusionProcFun2(c,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_FIRE),aux.FilterBoolFunction(ref.ffilter),true)
 	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -19,18 +20,18 @@ function c101010559.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetCountLimit(1)
-	e2:SetCondition(c101010559.con)
-	e2:SetCost(c101010559.cost)
-	e2:SetOperation(c101010559.op)
+	e2:SetCondition(ref.con)
+	e2:SetCost(ref.cost)
+	e2:SetOperation(ref.op)
 	c:RegisterEffect(e2)
 end
-function c101010559.ffilter(c)
+function ref.ffilter(c)
 	return c:IsType(TYPE_FUSION) and (c:IsAttribute(ATTRIBUTE_FIRE) or (c:IsHasEffect(101010560) and not c:IsLocation(LOCATION_DECK)))
 end
-function c101010559.con(e,tp,eg,ep,ev,re,r,rp)
+function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()
 end
-function c101010559.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local lv=Duel.GetLP(tp)
 	local lp=Duel.GetLP(1-tp)
 	local c=e:GetHandler()
@@ -52,7 +53,7 @@ function c101010559.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabel(Duel.AnnounceNumber(tp,table.unpack(t))*100)
 	Duel.PayLPCost(tp,e:GetLabel())
 end
-function c101010559.op(e,tp,eg,ep,ev,re,r,rp)
+function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local lp=e:GetLabel()
 	if c:IsFaceup() and c:IsRelateToEffect(e) then

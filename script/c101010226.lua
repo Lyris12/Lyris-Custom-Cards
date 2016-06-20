@@ -1,6 +1,7 @@
 --Victorious Inscription
-function c101010414.initial_effect(c)
-	--Activate
+local id,ref=GIR()
+function ref.start(c)
+--Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
@@ -10,19 +11,19 @@ function c101010414.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetCountLimit(1,101010414)
-	e1:SetTarget(c101010414.target)
-	e1:SetOperation(c101010414.operation)
+	e1:SetTarget(ref.target)
+	e1:SetOperation(ref.operation)
 	c:RegisterEffect(e1)
 end
-function c101010414.filter(c)
+function ref.filter(c)
 	if c:IsType(TYPE_PENDULUM) and c:IsHasEffect(10001000) and not c:IsAbleToDeck() then return false end
 	return c:IsFaceup() and c:IsSetCard(0x50b)
 end
-function c101010414.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c101010414.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c101010414.filter,tp,LOCATION_MZONE,0,1,nil) end
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and ref.filter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(ref.filter,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	local g=Duel.SelectTarget(tp,c101010414.filter,tp,LOCATION_MZONE,0,1,1,nil)
+	local g=Duel.SelectTarget(tp,ref.filter,tp,LOCATION_MZONE,0,1,1,nil)
 	local c=g:GetFirst()
 	if c:IsType(TYPE_PENDULUM) and c:IsHasEffect(10001000) then
 		e:SetCategory(CATEGORY_TODECK)
@@ -33,7 +34,7 @@ function c101010414.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	end
 end
 --if that target is a Relay Monster, shuffle that target into the Deck, otherwise, take 800 damage, and if you do, this turn, it becomes unaffected by other card effects during the Battle Phase only.
-function c101010414.operation(e,tp,eg,ep,ev,re,r,rp)
+function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
@@ -46,13 +47,13 @@ function c101010414.operation(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 			e1:SetRange(LOCATION_MZONE)
 			e1:SetCountLimit(1)
-			e1:SetOperation(c101010414.effect)
+			e1:SetOperation(ref.effect)
 			e1:SetReset(RESET_PHASE+PHASE_END+RESET_EVENT+0x1fe0000)
 			tc:RegisterEffect(e1)
 		end
 	end
 end
-function c101010414.effect(e,tp,eg,ep,ev,re,r,rp)
+function ref.effect(e,tp,eg,ep,ev,re,r,rp)
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)

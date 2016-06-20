@@ -1,11 +1,12 @@
 --Radiant Sacred Dragun
-function c101010185.initial_effect(c)
-	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_LIGHT),4,2)
+local id,ref=GIR()
+function ref.start(c)
+aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_LIGHT),4,2)
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e0:SetCode(EVENT_PRE_BATTLE_DAMAGE)
-	e0:SetCondition(c101010185.con)
-	e0:SetOperation(c101010185.hop)
+	e0:SetCondition(ref.con)
+	e0:SetOperation(ref.hop)
 	c:RegisterEffect(e0)
 	
 	local e1=Effect.CreateEffect(c)
@@ -14,8 +15,8 @@ function c101010185.initial_effect(c)
 	e1:SetCode(EFFECT_CANNOT_MSET)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e1:SetTargetRange(1,1)
-	e1:SetCondition(function(e) return Duel.GetMatchingGroupCount(c101010185.radon,e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)==1 end)
-	e1:SetTarget(c101010185.tg)
+	e1:SetCondition(function(e) return Duel.GetMatchingGroupCount(ref.radon,e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)==1 end)
+	e1:SetTarget(ref.tg)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
 	e2:SetCode(EFFECT_CANNOT_SSET)
@@ -26,31 +27,31 @@ function c101010185.initial_effect(c)
 	e3:SetCode(EFFECT_DEVINE_LIGHT)
 	e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e3:SetTargetRange(1,1)
-	e1:SetCondition(function(e) return Duel.GetMatchingGroupCount(c101010185.radon,e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)==1 end)
+	e1:SetCondition(function(e) return Duel.GetMatchingGroupCount(ref.radon,e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)==1 end)
 	c:RegisterEffect(e3)
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD)
 	e4:SetCode(EFFECT_PUBLIC)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetTargetRange(LOCATION_HAND,LOCATION_HAND)
-	e4:SetTarget(c101010185.tg)
+	e4:SetTarget(ref.tg)
 	c:RegisterEffect(e4)
 end
-function c101010185.radon(c)
+function ref.radon(c)
 	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_LIGHT)
 end
-function c101010185.tg(e,c)
-	if Duel.GetMatchingGroupCount(c101010185.radon,e:GetHandlerPlayer(),LOCATION_MZONE,0,e:GetHandler())~=0 then return false end
+function ref.tg(e,c)
+	if Duel.GetMatchingGroupCount(ref.radon,e:GetHandlerPlayer(),LOCATION_MZONE,0,e:GetHandler())~=0 then return false end
 	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_LIGHT)
 end
-function c101010185.filter(c)
+function ref.filter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsPublic()
 end
-function c101010185.con(e,tp,eg,ep,ev,re,r,rp)
+function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
 end
-function c101010185.hop(e,tp,eg,ep,ev,re,r,rp)
+function ref.hop(e,tp,eg,ep,ev,re,r,rp)
 	local val=ev/2
-	if Duel.IsExistingMatchingCard(c101010185.filter,tp,LOCATION_HAND,0,1,nil) then val=val/2 end
+	if Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_HAND,0,1,nil) then val=val/2 end
 	Duel.ChangeBattleDamage(ep,val)
 end

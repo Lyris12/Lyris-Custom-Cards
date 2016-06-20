@@ -1,42 +1,43 @@
 --Rainbow-Eyes Amaranth Pulse
-function c101010303.initial_effect(c)
-	local e1=Effect.CreateEffect(c)
+local id,ref=GIR()
+function ref.start(c)
+local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCost(c101010303.cost)
-	e1:SetTarget(c101010303.target)
-	e1:SetOperation(c101010303.activate)
+	e1:SetCost(ref.cost)
+	e1:SetTarget(ref.target)
+	e1:SetOperation(ref.activate)
 	c:RegisterEffect(e1)
-	Duel.AddCustomActivityCounter(101010303,ACTIVITY_SPSUMMON,c101010303.ctfilter)
+	Duel.AddCustomActivityCounter(101010303,ACTIVITY_SPSUMMON,ref.ctfilter)
 end
-function c101010303.ctfilter(c)
+function ref.ctfilter(c)
 	return c:GetSummonLocation()~=LOCATION_EXTRA or c:IsSetCard(0x1be)
 end
-function c101010303.cfilter(c,e,tp)
+function ref.cfilter(c,e,tp)
 	return c:IsSetCard(0x1be) and c:GetFlagEffect(c:GetCode())==0 and (c:IsSetCard(0xb2d) or (c:IsRace(RACE_DRAGON) and c:GetAttack()==2500 and c:GetDefence()==2000))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ+0x7150,tp,true,false)
 end
-function c101010303.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c101010303.cfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp) and Duel.GetCustomActivityCount(101010303,tp,ACTIVITY_SPSUMMON)==0 end
-	local g=Duel.SelectMatchingCard(tp,c101010303.cfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
+function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp) and Duel.GetCustomActivityCount(101010303,tp,ACTIVITY_SPSUMMON)==0 end
+	local g=Duel.SelectMatchingCard(tp,ref.cfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
 	if g:GetFirst() then
 		Duel.ConfirmCards(1-tp,g)
 		e:SetLabelObject(g:GetFirst())
 		else return false
 	end
 end
-function c101010303.filter(c)
+function ref.filter(c)
 	return not c:IsSetCard(0) and c:GetLevel()>0 and c:IsAbleToRemoveAsCost()
 end
-function c101010303.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c101010303.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c101010303.filter,tp,LOCATION_MZONE,0,1,nil) end
-	local g=Duel.SelectTarget(tp,c101010303.filter,tp,LOCATION_MZONE,0,1,1,nil)
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and ref.filter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(ref.filter,tp,LOCATION_MZONE,0,1,nil) end
+	local g=Duel.SelectTarget(tp,ref.filter,tp,LOCATION_MZONE,0,1,1,nil)
 	if g:GetFirst():IsFacedown() then Duel.ConfirmCards(1-tp,g:GetFirst()) e:GetHandler()RegisterFlagEffect(101010303,RESET_CHAIN,0,1) end
 end
-function c101010303.activate(e,tp,eg,ep,ev,re,r,rp)
+function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 	local sc=e:GetLabelObject()
 	local tc=Duel.GetFirstTarget()
 	if tc:IsControler(1-tp) or not tc:IsRelateToEffect(e) then return end
@@ -56,7 +57,7 @@ function c101010303.activate(e,tp,eg,ep,ev,re,r,rp)
 		local e0=Effect.CreateEffect(sc)
 		e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 		e0:SetCode(EVENT_TO_DECK)
-		e0:SetOperation(c101010303.splimit)
+		e0:SetOperation(ref.splimit)
 		e0:SetReset(RESET_EVENT+EVENT_TO_DECK)
 		sc:RegisterEffect(e0)
 	end
@@ -67,13 +68,13 @@ function c101010303.activate(e,tp,eg,ep,ev,re,r,rp)
 	e0:SetReset(RESET_PHASE+PHASE_END)
 	e0:SetLabelObject(e)
 	e0:SetTargetRange(1,0)
-	e0:SetTarget(c101010303.sumlimit)
+	e0:SetTarget(ref.sumlimit)
 	Duel.RegisterEffect(e0,tp)
 end
-function c101010303.splimit(e,tp,eg,ep,ev,re,r,rp)
+function ref.splimit(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	c:RegisterFlagEffect(c:GetOriginalCode(),RESET_PHASE+PHASE_END,0,2)
 end
-function c101010303.sumlimit(e,c,sump,sumtype,sumpos,targetp,se)
+function ref.sumlimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return e:GetLabelObject()~=se and c:IsSetCard(0x1be)--((not c:IsType(0x100a040) and c:GetEffectCount(EFFECT_CHANGE_RANK)>0) or sumtype==0x7150)
 end

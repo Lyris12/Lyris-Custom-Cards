@@ -1,5 +1,6 @@
 --サイバー・サーペント
-function c101010018.initial_effect(c)
+local id,ref=GIR()
+function ref.start(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
 	--Activate
@@ -14,7 +15,7 @@ function c101010018.initial_effect(c)
 	e4:SetRange(LOCATION_PZONE)
 	e4:SetTargetRange(LOCATION_MZONE,0)
 	e4:SetCountLimit(1)
-	e4:SetValue(c101010018.value)
+	e4:SetValue(ref.value)
 	c:RegisterEffect(e4)
 	--scale
 	local e2=Effect.CreateEffect(c)
@@ -22,19 +23,19 @@ function c101010018.initial_effect(c)
 	e2:SetCode(EFFECT_CHANGE_LSCALE)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e2:SetRange(LOCATION_PZONE)
-	e2:SetCondition(c101010018.slcon)
+	e2:SetCondition(ref.slcon)
 	e2:SetValue(5)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
 	e3:SetCode(EFFECT_CHANGE_RSCALE)
 	c:RegisterEffect(e3)
 end
-function c101010018.slcon(e)
+function ref.slcon(e)
 	local seq=e:GetHandler():GetSequence()
 	if seq~=6 and seq~=7 then return false end
 	local tc=Duel.GetFieldCard(e:GetHandlerPlayer(),LOCATION_SZONE,13-seq)
 	return not tc or (not (tc:IsSetCard(0x93) or tc:IsSetCard(0x94)))
 end
-function c101010018.value(e,c)
+function ref.value(e,c)
 	return c:IsSetCard(0x93) and c:IsReason(REASON_BATTLE)
 end

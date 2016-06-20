@@ -1,6 +1,7 @@
 --Victorial Dragon Aqualeios
-function c101010411.initial_effect(c)
-	--attack
+local id,ref=GIR()
+function ref.start(c)
+--attack
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -13,17 +14,17 @@ function c101010411.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e2:SetCode(EVENT_BATTLE_DAMAGE)
 	e2:SetCondition(function(e) return not e:GetHandler():IsDisabled() and e:GetHandler():GetEquipGroup():IsExists(Card.IsSetCard,1,nil,0x150b) end)
-	e2:SetTarget(c101010411.target)
-	e2:SetOperation(c101010411.operation)
+	e2:SetTarget(ref.target)
+	e2:SetOperation(ref.operation)
 	c:RegisterEffect(e2)
 end
-function c101010411.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetTargetPlayer(tp)
 	Duel.SetTargetParam(ev/2)
 	Duel.SetOperationInfo(0,CATEGORY_RECOVER,nil,0,tp,ev/2)
 end
-function c101010411.operation(e,tp,eg,ep,ev,re,r,rp)
+function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	Duel.Recover(p,d,REASON_EFFECT)
 end

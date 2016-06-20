@@ -1,6 +1,7 @@
 --Ragna Clarissa of Stellar Vine
-function c101010601.initial_effect(c)
-	--grave > remove
+local id,ref=GIR()
+function ref.start(c)
+--grave > remove
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetCategory(CATEGORY_REMOVE)
 	ae1:SetType(EFFECT_TYPE_QUICK_O)
@@ -9,9 +10,9 @@ function c101010601.initial_effect(c)
 	ae1:SetRange(LOCATION_MZONE)
 	ae1:SetCountLimit(1,101010601)
 	ae1:SetLabel(LOCATION_GRAVE)
-	ae1:SetCondition(c101010601.con)
-	ae1:SetTarget(c101010601.tg1)
-	ae1:SetOperation(c101010601.op1)
+	ae1:SetCondition(ref.con)
+	ae1:SetTarget(ref.tg1)
+	ae1:SetOperation(ref.op1)
 	c:RegisterEffect(ae1)
 	--grave < remove
 	local ae2=Effect.CreateEffect(c)
@@ -21,9 +22,9 @@ function c101010601.initial_effect(c)
 	ae2:SetRange(LOCATION_MZONE)
 	ae2:SetCountLimit(1,101010601)
 	ae2:SetLabel(LOCATION_REMOVED)
-	ae2:SetCondition(c101010601.con)
-	ae2:SetTarget(c101010601.tg2)
-	ae2:SetOperation(c101010601.op2)
+	ae2:SetCondition(ref.con)
+	ae2:SetTarget(ref.tg2)
+	ae2:SetOperation(ref.op2)
 	c:RegisterEffect(ae2)
 	--refill
 	local ae3=Effect.CreateEffect(c)
@@ -32,9 +33,9 @@ function c101010601.initial_effect(c)
 	ae3:SetCode(EVENT_TO_GRAVE)
 	ae3:SetRange(LOCATION_MZONE)
 	ae3:SetCountLimit(1)
-	ae3:SetCondition(c101010601.condition)
-	ae3:SetTarget(c101010601.target)
-	ae3:SetOperation(c101010601.operation)
+	ae3:SetCondition(ref.condition)
+	ae3:SetTarget(ref.target)
+	ae3:SetOperation(ref.operation)
 	c:RegisterEffect(ae3)
 	--special summon (Do Not Remove)
 	c:EnableReviveLimit()
@@ -43,8 +44,8 @@ function c101010601.initial_effect(c)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e1:SetRange(LOCATION_EXTRA)
-	e1:SetCondition(c101010601.spcon)
-	e1:SetOperation(c101010601.spop)
+	e1:SetCondition(ref.spcon)
+	e1:SetOperation(ref.spop)
 	e1:SetValue(SUMMON_TYPE_XYZ+7150)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
@@ -64,95 +65,95 @@ function c101010601.initial_effect(c)
 	ge1:SetValue(LOCATION_REMOVED)
 	Duel.RegisterEffect(ge1,0)
 end
-function c101010601.sfilter1(c,x,g)
+function ref.sfilter1(c,x,g)
 	local lv=c:GetLevel()
 	local rk=c:GetRank()
-	return g:IsExists(c101010601.sfilter2,1,c,x,lv,rk)
+	return g:IsExists(ref.sfilter2,1,c,x,lv,rk)
 end
-function c101010601.sfilter2(c,x,lv,rk)
+function ref.sfilter2(c,x,lv,rk)
 	return math.abs(c:GetLevel()-lv==x) or math.abs(c:GetLevel()-rk)==x
 end
-function c101010601.spcon(e,c)
+function ref.spcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<-1 then return end
 	local g=Duel.GetMatchingGroup(Card.IsAbleToRemoveAsCost,tp,LOCATION_MZONE,0,nil)
-	return g:IsExists(c101010601.sfilter1,1,nil,4,g)
+	return g:IsExists(ref.sfilter1,1,nil,4,g)
 end
-function c101010601.spop(e,tp,eg,ep,ev,re,r,rp,c)
+function ref.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	local mg=Group.CreateGroup()
 	local x=4
 	local g=Duel.GetMatchingGroup(Card.IsAbleToRemoveAsCost,tp,LOCATION_MZONE,0,nil)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local tc1=g:FilterSelect(tp,c101010601.sfilter1,1,1,nil,x,g):GetFirst()
+	local tc1=g:FilterSelect(tp,ref.sfilter1,1,1,nil,x,g):GetFirst()
 	mg:AddCard(tc1)
-	local tc2=g:FilterSelect(tp,c101010601.sfilter2,1,1,tc1,x,tc1:GetLevel(),tc1:GetRank())
+	local tc2=g:FilterSelect(tp,ref.sfilter2,1,1,tc1,x,tc1:GetLevel(),tc1:GetRank())
 	mg:AddCard(tc2)
 	c:SetMaterial(mg)
 	local fg=mg:Filter(Card.IsFacedown,nil)
 	if fg:GetCount()>0 then Duel.ConfirmCards(1-tp,fg) end
 	Duel.Remove(mg,POS_FACEUP,REASON_MATERIAL+7150)
 end
-function c101010601.rfilter(c)
+function ref.rfilter(c)
 	return c:IsPreviousLocation(LOCATION_REMOVED) and c:IsSetCard(0x785e) and bit.band(c:GetReason(),REASON_RETURN)==REASON_RETURN
 end
-function c101010601.condition(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c101010601.rfilter,1,nil)
+function ref.condition(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(ref.rfilter,1,nil)
 end
-function c101010601.filter(c)
+function ref.filter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x785e) and c:IsAbleToRemove()
 end
-function c101010601.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c101010601.filter,tp,LOCATION_DECK,0,1,nil) end
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,nil,1,tp,LOCATION_DECK)
 end
-function c101010601.operation(e,tp,eg,ep,ev,re,r,rp)
+function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,c101010601.filter,tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
 		Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
 	end
 end
-function c101010601.cfilter(c)
+function ref.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x785e)
 end
-function c101010601.con(e,tp,eg,ep,ev,re,r,rp)
+function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	local loc1=e:GetLabel()
 	local loc2=0x30-loc1
-	return Duel.GetMatchingGroupCount(c101010601.cfilter,tp,loc1,0,nil)>Duel.GetMatchingGroupCount(c101010601.cfilter,tp,loc2,0,nil)
+	return Duel.GetMatchingGroupCount(ref.cfilter,tp,loc1,0,nil)>Duel.GetMatchingGroupCount(ref.cfilter,tp,loc2,0,nil)
 end
-function c101010601.tg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function ref.tg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(1-tp) and chkc:IsAbleToRemove() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToRemove,tp,0,LOCATION_GRAVE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectTarget(tp,Card.IsAbleToRemove,tp,0,LOCATION_GRAVE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
 end
-function c101010601.tg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function ref.tg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
-	local mg=Duel.GetMatchingGroup(c101010601.filter,tp,LOCATION_REMOVED,LOCATION_REMOVED,nil,e,tp)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and mg:GetCount()>1 and Duel.IsExistingMatchingCard(c101010601.xyzfilter,tp,LOCATION_EXTRA,0,1,nil,mg) end
+	local mg=Duel.GetMatchingGroup(ref.filter,tp,LOCATION_REMOVED,LOCATION_REMOVED,nil,e,tp)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and mg:GetCount()>1 and Duel.IsExistingMatchingCard(ref.xyzfilter,tp,LOCATION_EXTRA,0,1,nil,mg) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local sg1=mg:Select(tp,2,2,nil)
 	Duel.SetTargetCard(sg1)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function c101010601.filter(c,e,tp)
+function ref.filter(c,e,tp)
 	return c:IsSetCard(0x785e) and c:IsCanBeEffectTarget(e)
 end
-function c101010601.xyzfilter(c,mg)
+function ref.xyzfilter(c,mg)
 	return c:IsAttribute(ATTRIBUTE_WATER) and (c:IsSetCard(0x785e) or (c.xyz_count==2 and c:IsXyzSummonable(mg)))
 end
-function c101010601.mfilter1(c,exg)
-	return exg:IsExists(c101010601.mfilter2,1,nil,c)
+function ref.mfilter1(c,exg)
+	return exg:IsExists(ref.mfilter2,1,nil,c)
 end
-function c101010601.mfilter2(c,mc)
+function ref.mfilter2(c,mc)
 	return c.xyz_filter(mc)
 end
-function c101010601.op1(e,tp,eg,ep,ev,re,r,rp)
+function ref.op1(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	local ct1=Duel.GetMatchingGroupCount(c101010601.cfilter,tp,LOCATION_GRAVE,0,nil)
-	local ct2=Duel.GetMatchingGroupCount(c101010601.cfilter,tp,LOCATION_REMOVED,0,nil)
+	local ct1=Duel.GetMatchingGroupCount(ref.cfilter,tp,LOCATION_GRAVE,0,nil)
+	local ct2=Duel.GetMatchingGroupCount(ref.cfilter,tp,LOCATION_REMOVED,0,nil)
 	if tc:IsRelateToEffect(e) and Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)~=0 and ct1>ct2 then
 		local ct=ct1-ct2
 		local g=Duel.GetDecktopGroup(tp,ct)
@@ -161,11 +162,11 @@ function c101010601.op1(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
 	end
 end
-function c101010601.op2(e,tp,eg,ep,ev,re,r,rp)
+function ref.op2(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
 	if g:GetCount()<2 then return end
-	local xyzg=Duel.GetMatchingGroup(c101010601.xyzfilter,tp,LOCATION_EXTRA,0,nil,g)
+	local xyzg=Duel.GetMatchingGroup(ref.xyzfilter,tp,LOCATION_EXTRA,0,nil,g)
 	if xyzg:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local xyz=xyzg:Select(tp,1,1,nil):GetFirst()

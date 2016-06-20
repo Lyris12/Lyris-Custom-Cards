@@ -1,27 +1,28 @@
 --Pegasus of Stellar Vine
-function c101010599.initial_effect(c)
-	--summon with no tribute
+local id,ref=GIR()
+function ref.start(c)
+--summon with no tribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(83274244,0))
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_SUMMON_PROC)
-	e1:SetCondition(c101010599.ntcon)
-	e1:SetOperation(c101010599.nsop)
+	e1:SetCondition(ref.ntcon)
+	e1:SetOperation(ref.nsop)
 	c:RegisterEffect(e1)
 end
-function c101010599.cfilter(c)
+function ref.cfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsSetCard(0x785e) and c:IsAbleToGraveAsCost()
 end
-function c101010599.ntcon(e,c,minc)
+function ref.ntcon(e,c,minc)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	return minc==0 and c:GetLevel()>4 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(c101010599.cfilter,tp,LOCATION_REMOVED,0,1,nil)
+		and Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_REMOVED,0,1,nil)
 end
-function c101010599.nsop(e,tp,eg,ep,ev,re,r,rp,c)
+function ref.nsop(e,tp,eg,ep,ev,re,r,rp,c)
 	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010599,0))
-	local g=Duel.SelectMatchingCard(tp,c101010599.cfilter,tp,LOCATION_REMOVED,0,1,3,nil)
+	local g=Duel.SelectMatchingCard(tp,ref.cfilter,tp,LOCATION_REMOVED,0,1,3,nil)
 	local ct=Duel.SendtoGrave(g,REASON_COST+REASON_RETURN)
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)

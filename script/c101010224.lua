@@ -1,6 +1,7 @@
 --アトリビュート・ゲッコー
-function c101010062.initial_effect(c)
-	--Activate
+local id,ref=GIR()
+function ref.start(c)
+--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
@@ -11,7 +12,7 @@ function c101010062.initial_effect(c)
 	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e0:SetCode(EVENT_SUMMON_SUCCESS)
 	e0:SetRange(LOCATION_SZONE)
-	e0:SetOperation(c101010062.check)
+	e0:SetOperation(ref.check)
 	c:RegisterEffect(e0)
 	local e3=e0:Clone()
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -25,11 +26,11 @@ function c101010062.initial_effect(c)
 	e4:SetCode(101010062)
 	e4:SetCountLimit(1,101010062)
 	e4:SetLabel(0)
-	e4:SetTarget(c101010062.tg)
-	e4:SetOperation(c101010062.op)
+	e4:SetTarget(ref.tg)
+	e4:SetOperation(ref.op)
 	c:RegisterEffect(e4)
 end
-function c101010062.check(e,tp,eg,ep,ev,re,r,rp)
+function ref.check(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=eg:GetFirst()
 	local trg=false
@@ -39,7 +40,7 @@ function c101010062.check(e,tp,eg,ep,ev,re,r,rp)
 	end
 	if trg then Duel.RaiseSingleEvent(c,101010062,e,r,rp,tp,0) end
 end
-function c101010062.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsRelateToEffect(e) and Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,563)
 	local at=Duel.AnnounceAttribute(tp,1,0xffff)
@@ -47,7 +48,7 @@ function c101010062.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
 	Duel.SelectTarget(tp,Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 end
-function c101010062.op(e,tp,eg,ep,ev,re,r,rp)
+function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local at=e:GetLabel()
 	local tc=Duel.GetFirstTarget()
 	if at==0 or not e:GetHandler():IsRelateToEffect(e) or not tc or not tc:IsRelateToEffect(e) or tc:IsFacedown() then return end

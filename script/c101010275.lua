@@ -1,6 +1,7 @@
 --
-function c101010031.initial_effect(c)
-	--fusion material
+local id,ref=GIR()
+function ref.start(c)
+--fusion material
 	c:EnableReviveLimit()
 	aux.AddFusionProcCodeRep(c,101010030,3,true,true)
 	--Once per turn, during your Main Phase 1: you can activate this effect; and if you do, during the Battle Phase this turn, this card can attack all monsters your opponent controls.
@@ -9,8 +10,8 @@ function c101010031.initial_effect(c)
 	e5:SetType(EFFECT_TYPE_IGNITION)
 	e5:SetRange(LOCATION_MZONE)
 	e5:SetCountLimit(1)
-	e5:SetCondition(c101010031.atkdncon)
-	e5:SetOperation(c101010031.atkdnop)
+	e5:SetCondition(ref.atkdncon)
+	e5:SetOperation(ref.atkdnop)
 	c:RegisterEffect(e5)
 	--During your End Phase: you can pay 1000 LP; this card gains 1000 ATK.
 	local e4=Effect.CreateEffect(c)
@@ -18,15 +19,15 @@ function c101010031.initial_effect(c)
 	e4:SetCode(EVENT_FREE_CHAIN)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetCountLimit(1)
-	e4:SetCondition(c101010031.atkupcon)
-	e4:SetTarget(c101010031.atkuptg)
-	e4:SetOperation(c101010031.atkupop)
+	e4:SetCondition(ref.atkupcon)
+	e4:SetTarget(ref.atkuptg)
+	e4:SetOperation(ref.atkupop)
 	c:RegisterEffect(e4)
 end
-function c101010031.atkdncon(e,tp,eg,ep,ev,re,r,rp)
+function ref.atkdncon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()==PHASE_MAIN1
 end
-function c101010031.atkdnop(e,tp,eg,ep,ev,re,r,rp)
+function ref.atkdnop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
@@ -42,38 +43,38 @@ function c101010031.atkdnop(e,tp,eg,ep,ev,re,r,rp)
 		c:RegisterEffect(e3)
 		local e4=e3:Clone()
 		e4:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
-		e4:SetCondition(c101010031.dircon)
+		e4:SetCondition(ref.dircon)
 		c:RegisterEffect(e4)
 		local e5=e3:Clone()
 		e5:SetCode(EFFECT_CANNOT_ATTACK)
-		e5:SetCondition(c101010031.atkcon)
+		e5:SetCondition(ref.atkcon)
 		c:RegisterEffect(e5)
 	end
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CANNOT_ATTACK_ANNOUNCE)
 	e1:SetTargetRange(LOCATION_MZONE,0)
-	e1:SetTarget(c101010031.antarget)
+	e1:SetTarget(ref.antarget)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
 end
-function c101010031.antarget(e,c)
+function ref.antarget(e,c)
 	return c~=e:GetHandler()
 end
-function c101010031.dircon(e)
+function ref.dircon(e)
 	return e:GetHandler():GetAttackAnnouncedCount()>0
 end
-function c101010031.atkcon(e)
+function ref.atkcon(e)
 	return e:GetHandler():IsDirectAttacked()
 end
-function c101010031.atkupcon(e,tp,eg,ep,ev,re,r,rp)
+function ref.atkupcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()==PHASE_END and tp==Duel.GetTurnPlayer()
 end
-function c101010031.atkuptg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.atkuptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,1000) end
 	Duel.PayLPCost(tp,1000)
 end
-function c101010031.atkupop(e,tp,eg,ep,ev,re,r,rp)
+function ref.atkupop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)

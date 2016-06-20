@@ -1,43 +1,44 @@
 --オーバーレイ・フュージョン
-function c101010281.initial_effect(c)
-	--Activate
+local id,ref=GIR()
+function ref.start(c)
+--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetTarget(c101010281.target)
-	e1:SetOperation(c101010281.activate)
+	e1:SetTarget(ref.target)
+	e1:SetOperation(ref.activate)
 	c:RegisterEffect(e1)
 end
-function c101010281.filter1(c,e)
+function ref.filter1(c,e)
 	return c:IsCanBeFusionMaterial() and c:IsAbleToGrave() and (c:IsFaceup() or c:IsLocation(LOCATION_MZONE)) and not c:IsImmuneToEffect(e)
 end
-function c101010281.filter2(c,e,tp,m,f,chkf)
+function ref.filter2(c,e,tp,m,f,chkf)
 	return c:IsType(TYPE_FUSION) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_MACHINE) and (not f or f(c))
 	and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
-function c101010281.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-		local mg1=Duel.GetMatchingGroup(c101010281.filter1,tp,LOCATION_MZONE+LOCATION_REMOVED,0,nil,e)
-		local res=Duel.IsExistingMatchingCard(c101010281.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
+		local mg1=Duel.GetMatchingGroup(ref.filter1,tp,LOCATION_MZONE+LOCATION_REMOVED,0,nil,e)
+		local res=Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
 		if not res then
 			local ce=Duel.GetChainMaterial(tp)
 			if ce~=nil then
 				local fgroup=ce:GetTarget()
 				local mg2=fgroup(ce,e,tp)
 				local mf=ce:GetValue()
-				res=Duel.IsExistingMatchingCard(c101010281.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg2,mf,chkf)
+				res=Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg2,mf,chkf)
 			end
 		end
 		return res
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function c101010281.activate(e,tp,eg,ep,ev,re,r,rp)
+function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 	local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-	local mg1=Duel.GetMatchingGroup(c101010281.filter1,tp,LOCATION_REMOVED+LOCATION_MZONE,0,nil,e)
-	local sg1=Duel.GetMatchingGroup(c101010281.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
+	local mg1=Duel.GetMatchingGroup(ref.filter1,tp,LOCATION_REMOVED+LOCATION_MZONE,0,nil,e)
+	local sg1=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
 	local mg2=nil
 	local sg2=nil
 	local ce=Duel.GetChainMaterial(tp)
@@ -45,7 +46,7 @@ function c101010281.activate(e,tp,eg,ep,ev,re,r,rp)
 		local fgroup=ce:GetTarget()
 		mg2=fgroup(ce,e,tp)
 		local mf=ce:GetValue()
-		sg2=Duel.GetMatchingGroup(c101010281.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,mf,chkf)
+		sg2=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,mf,chkf)
 	end
 	if sg1:GetCount()>0 or (sg2~=nil and sg2:GetCount()>0) then
 		local sg=sg1:Clone()

@@ -1,13 +1,14 @@
 --Action Field - Crystal Cavern
-function c101010453.initial_effect(c)
-	--Activate  
+local id,ref=GIR()
+function ref.start(c)
+--Activate  
 	local e1=Effect.CreateEffect(c) 
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_PREDRAW)
-	e1:SetCountLimit(1,101010453+EFFECT_COUNT_CODE_DUEL)
+	e1:SetCountLimit(1,id+EFFECT_COUNT_CODE_DUEL)
 	e1:SetRange(0xff)
-	e1:SetOperation(c101010453.op)
+	e1:SetOperation(ref.op)
 	c:RegisterEffect(e1)
 	--unaffectable
 	local e2=Effect.CreateEffect(c)
@@ -19,7 +20,7 @@ function c101010453.initial_effect(c)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
 	e3:SetCode(EFFECT_IMMUNE_EFFECT)
-	e3:SetValue(c101010453.ctcon2)
+	e3:SetValue(ref.ctcon2)
 	c:RegisterEffect(e3)
 	--cannot set
 	local e4=Effect.CreateEffect(c)
@@ -28,7 +29,7 @@ function c101010453.initial_effect(c)
 	e4:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e4:SetRange(LOCATION_SZONE)
 	e4:SetTargetRange(1,1)
-	e4:SetTarget(c101010453.aclimit2)
+	e4:SetTarget(ref.aclimit2)
 	c:RegisterEffect(e4)
 	local e8=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD)
@@ -36,7 +37,7 @@ function c101010453.initial_effect(c)
 	e4:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e4:SetRange(LOCATION_SZONE)
 	e4:SetTargetRange(1,1)
-	e4:SetValue(c101010453.aclimit2)
+	e4:SetValue(ref.aclimit2)
 	c:RegisterEffect(e8)
 	--~ Add Action Card
 	local e5=Effect.CreateEffect(c)
@@ -44,9 +45,9 @@ function c101010453.initial_effect(c)
 	e5:SetType(EFFECT_TYPE_QUICK_O)
 	e5:SetRange(LOCATION_SZONE)
 	e5:SetCode(EVENT_FREE_CHAIN)
-	e5:SetCondition(c101010453.condition)
-	e5:SetTarget(c101010453.Acttarget)
-	e5:SetOperation(c101010453.operation)
+	e5:SetCondition(ref.condition)
+	e5:SetTarget(ref.Acttarget)
+	e5:SetOperation(ref.operation)
 	c:RegisterEffect(e5)
 	--cannot change zone
 	local eb=Effect.CreateEffect(c)
@@ -71,7 +72,7 @@ function c101010453.initial_effect(c)
 	ef:SetCode(EVENT_PREDRAW)
 	ef:SetCountLimit(1)
 	ef:SetRange(0xff)
-	ef:SetOperation(c101010453.Cheatercheck1)
+	ef:SetOperation(ref.Cheatercheck1)
 	c:RegisterEffect(ef)
 	-- Draw when removed
 	local ef3=Effect.CreateEffect(c)
@@ -79,9 +80,9 @@ function c101010453.initial_effect(c)
 	ef3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	ef3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	ef3:SetCode(EVENT_REMOVE)
-	ef3:SetCondition(c101010453.descon)
-	ef3:SetTarget(c101010453.drtarget)
-	ef3:SetOperation(c101010453.drop)
+	ef3:SetCondition(ref.descon)
+	ef3:SetTarget(ref.drtarget)
+	ef3:SetOperation(ref.drop)
 	c:RegisterEffect(ef3)
 	--cannot be target
 	local e6=Effect.CreateEffect(c)
@@ -89,62 +90,62 @@ function c101010453.initial_effect(c)
 	e6:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e6:SetRange(LOCATION_FZONE)
 	e6:SetTargetRange(LOCATION_SZONE,0)
-	e6:SetTarget(c101010453.pendulum)
+	e6:SetTarget(ref.pendulum)
 	e6:SetValue(aux.tgoval)
 	c:RegisterEffect(e6)
 	--to hand
 	local e7=Effect.CreateEffect(c)
-	e7:SetDescription(aux.Stringid(101010453,0))
+	e7:SetDescription(aux.Stringid(id,0))
 	e7:SetCategory(CATEGORY_DESTROY+CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e7:SetType(EFFECT_TYPE_IGNITION)
 	e7:SetRange(LOCATION_FZONE)
 	e7:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e7:SetCountLimit(1,101010453)
-	e7:SetTarget(c101010453.thtg)
-	e7:SetOperation(c101010453.thop)
+	e7:SetCountLimit(1,id)
+	e7:SetTarget(ref.thtg)
+	e7:SetOperation(ref.thop)
 	c:RegisterEffect(e7)
 end
-function c101010453.Cheatercheck1(e,c)
-	if Duel.GetMatchingGroupCount(c101010453.Fieldfilter,tp,0,LOCATION_DECK+LOCATION_HAND,nil)>1
+function ref.Cheatercheck1(e,c)
+	if Duel.GetMatchingGroupCount(ref.Fieldfilter,tp,0,LOCATION_DECK+LOCATION_HAND,nil)>1
 		then
 		local WIN_REASON_ACTION_FIELD=0x55
 		Duel.Win(tp,WIN_REASON_ACTION_FIELD)
 	end
-	local sg=Duel.GetMatchingGroup(c101010453.Fieldfilter,tp,LOCATION_DECK+LOCATION_HAND,LOCATION_DECK+LOCATION_HAND,nil)
+	local sg=Duel.GetMatchingGroup(ref.Fieldfilter,tp,LOCATION_DECK+LOCATION_HAND,LOCATION_DECK+LOCATION_HAND,nil)
 	Duel.Remove(sg,POS_FACEUP,REASON_EFFECT)
 end
-function c101010453.descon(e,tp,eg,ep,ev,re,r,rp)
+function ref.descon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsFaceup() and e:GetHandler():IsPreviousLocation(LOCATION_HAND)
 end
-function c101010453.drtarget(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function ref.drtarget(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return true end
 	Duel.SetTargetPlayer(tp)
 	Duel.SetTargetParam(1)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 end
-function c101010453.drop(e,tp,eg,ep,ev,re,r,rp)
+function ref.drop(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	Duel.Draw(p,d,REASON_RULE)
 end
-function c101010453.Fieldfilter(c)
+function ref.Fieldfilter(c)
 	return c:IsSetCard(0xac2)
 end
-function c101010453.ctcon2(e,re)
+function ref.ctcon2(e,re)
 	return re:GetHandler()~=e:GetHandler()
 end
-function c101010453.aclimit2(e,c)
+function ref.aclimit2(e,c)
 	return c:IsType(TYPE_FIELD)
 end
-function c101010453.tgn(e,c)
+function ref.tgn(e,c)
 	return c==e:GetHandler()
 end
-function c101010453.op(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.op(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
 	local tc2=Duel.GetFieldCard(1-tp,LOCATION_SZONE,5)  
 	if tc==nil then
 		Duel.MoveToField(e:GetHandler(),tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 		if tc2==nil then
-			local token=Duel.CreateToken(tp,101010453,nil,nil,nil,nil,nil,nil)  
+			local token=Duel.CreateToken(tp,id,nil,nil,nil,nil,nil,nil)  
 			Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
 			local e1=Effect.CreateEffect(e:GetHandler())
 			e1:SetCode(EFFECT_CHANGE_TYPE)
@@ -162,7 +163,7 @@ function c101010453.op(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 -- Add Action Card
-function c101010453.Acttarget(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.Acttarget(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.Hint(HINT_SELECTMSG,tp,564)
 	if Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)~=0
@@ -178,20 +179,20 @@ function c101010453.Acttarget(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 	e:SetLabel(tableAction[ac])
 end
-function c101010453.spfilter(c,e,tp)
+function ref.spfilter(c,e,tp)
 	return c:IsSetCard(0x1613) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c101010453.atkfilter(c)
+function ref.atkfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x1613)
 end
-function c101010453.operation(e,tp,eg,ep,ev,re,r,rp)
+function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.SelectYesNo(1-tp,aux.Stringid(95000043,0)) then
 		local dc=Duel.TossDice(tp,1)
 		if dc==2 or dc==3 or dc==4 or dc==6 then
-			e:GetHandler():RegisterFlagEffect(101010453,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+			e:GetHandler():RegisterFlagEffect(id,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 		end
 		if dc==1 or dc==2 then
-			if not Duel.IsExistingMatchingCard(c101010453.cfilter,tp,LOCATION_SZONE+LOCATION_HAND,0,1,nil) then
+			if not Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_SZONE+LOCATION_HAND,0,1,nil) then
 				--- check action Trap
 				if e:GetLabel()==101010458 or e:GetLabel()==101010460 then
 					local token=Duel.CreateToken(tp,e:GetLabel(),nil,nil,nil,nil,nil,nil)   
@@ -205,7 +206,7 @@ function c101010453.operation(e,tp,eg,ep,ev,re,r,rp)
 					token:RegisterEffect(e1)
 					Duel.MoveToField(token,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 					Duel.SpecialSummonComplete()
-					if (e:GetLabel()==101010458 and not Duel.IsExistingTarget(c101010453.atkfilter,tp,LOCATION_MZONE,0,1,nil)) or (e:GetLabel()==101010460 and not (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(c101010453.spfilter,tp,LOCATION_DECK,LOCATION_DECK,1,nil,e,tp))) then Duel.SendtoGrave(token,nil,REASON_RULE) end
+					if (e:GetLabel()==101010458 and not Duel.IsExistingTarget(ref.atkfilter,tp,LOCATION_MZONE,0,1,nil)) or (e:GetLabel()==101010460 and not (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(ref.spfilter,tp,LOCATION_DECK,LOCATION_DECK,1,nil,e,tp))) then Duel.SendtoGrave(token,nil,REASON_RULE) end
 					local tc=token
 					local te=tc:GetActivateEffect()
 					local tep=tc:GetControler()
@@ -257,7 +258,7 @@ function c101010453.operation(e,tp,eg,ep,ev,re,r,rp)
 			end
 		end
 		if dc==5 or dc==6 then
-			if not Duel.IsExistingMatchingCard(c101010453.cfilter,1-tp,LOCATION_SZONE+LOCATION_HAND,0,1,nil) then
+			if not Duel.IsExistingMatchingCard(ref.cfilter,1-tp,LOCATION_SZONE+LOCATION_HAND,0,1,nil) then
 				--- check action Trap
 				if e:GetLabel()==101010458 or e:GetLabel()==101010460 then
 					local token=Duel.CreateToken(1-tp,e:GetLabel(),nil,nil,nil,nil,nil,nil)   
@@ -271,7 +272,7 @@ function c101010453.operation(e,tp,eg,ep,ev,re,r,rp)
 					token:RegisterEffect(e1)
 					Duel.MoveToField(token,1-tp,1-tp,LOCATION_SZONE,POS_FACEUP,true)
 					Duel.SpecialSummonComplete()
-					if (e:GetLabel()==101010458 and not Duel.IsExistingTarget(c101010453.atkfilter,1-tp,LOCATION_MZONE,0,1,nil)) or (e:GetLabel()==101010460 and not (Duel.GetLocationCount(1-tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(c101010453.spfilter,tp,LOCATION_DECK,LOCATION_DECK,1,nil,e,1-tp))) then Duel.SendtoGrave(token,nil,REASON_RULE) end
+					if (e:GetLabel()==101010458 and not Duel.IsExistingTarget(ref.atkfilter,1-tp,LOCATION_MZONE,0,1,nil)) or (e:GetLabel()==101010460 and not (Duel.GetLocationCount(1-tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(ref.spfilter,tp,LOCATION_DECK,LOCATION_DECK,1,nil,e,1-tp))) then Duel.SendtoGrave(token,nil,REASON_RULE) end
 					local tc=token
 					local te=tc:GetActivateEffect()
 					local tep=tc:GetControler()
@@ -323,7 +324,7 @@ function c101010453.operation(e,tp,eg,ep,ev,re,r,rp)
 			end
 		end
 	else 
-		if not Duel.IsExistingMatchingCard(c101010453.cfilter,tp,LOCATION_SZONE+LOCATION_HAND,0,1,nil) then
+		if not Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_SZONE+LOCATION_HAND,0,1,nil) then
 			--- check action Trap
 			if e:GetLabel()==101010458 or e:GetLabel()==101010460 then
 				local token=Duel.CreateToken(tp,e:GetLabel(),nil,nil,nil,nil,nil,nil)   
@@ -337,7 +338,7 @@ function c101010453.operation(e,tp,eg,ep,ev,re,r,rp)
 				token:RegisterEffect(e1)
 				Duel.MoveToField(token,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 				Duel.SpecialSummonComplete()
-				if (e:GetLabel()==101010458 and not Duel.IsExistingTarget(c101010453.atkfilter,tp,LOCATION_MZONE,0,1,nil)) or (e:GetLabel()==101010460 and not (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(c101010453.spfilter,tp,LOCATION_DECK,LOCATION_DECK,1,nil,e,tp))) then Duel.SendtoGrave(token,nil,REASON_RULE) end
+				if (e:GetLabel()==101010458 and not Duel.IsExistingTarget(ref.atkfilter,tp,LOCATION_MZONE,0,1,nil)) or (e:GetLabel()==101010460 and not (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(ref.spfilter,tp,LOCATION_DECK,LOCATION_DECK,1,nil,e,tp))) then Duel.SendtoGrave(token,nil,REASON_RULE) end
 				local tc=token
 				local te=tc:GetActivateEffect()
 				local tep=tc:GetControler()
@@ -389,13 +390,13 @@ function c101010453.operation(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function c101010453.aclimit2(e,c)
+function ref.aclimit2(e,c)
 	return c:IsType(TYPE_FIELD)
 end
-function c101010453.condition(e,tp,eg,ep,ev,re,r,rp)
-	return not Duel.IsExistingMatchingCard(c101010453.cfilter,tp,LOCATION_SZONE+LOCATION_HAND,0,1,nil) and e:GetHandler():GetFlagEffect(101010453)==0 and not e:GetHandler():IsStatus(STATUS_CHAINING)
+function ref.condition(e,tp,eg,ep,ev,re,r,rp)
+	return not Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_SZONE+LOCATION_HAND,0,1,nil) and e:GetHandler():GetFlagEffect(id)==0 and not e:GetHandler():IsStatus(STATUS_CHAINING)
 end
-function c101010453.cfilter(c)
+function ref.cfilter(c)
 	return c:IsSetCard(0xac1)
 end
 tableAction = {
@@ -413,27 +414,27 @@ tableAction = {
 101010460
 } 
 tableAction_size=12
-function c101010453.pendulum(e,c)
+function ref.pendulum(e,c)
 	local seq=c:GetSequence()
 	return seq==7 or seq==6
 end
-function c101010453.filter(c)
+function ref.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0x1613) and c:IsDestructable()
 end
-function c101010453.thfilter(c)
+function ref.thfilter(c)
 	return c:IsSetCard(0x613) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
 end
-function c101010453.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c101010453.filter(chkc) end
-	if chk==0 then return Duel.IsExistingMatchingCard(c101010453.thfilter,tp,LOCATION_DECK,0,1,nil)
-		and Duel.IsExistingTarget(c101010453.filter,tp,LOCATION_MZONE,0,1,nil) end
+function ref.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and ref.filter(chkc) end
+	if chk==0 then return Duel.IsExistingMatchingCard(ref.thfilter,tp,LOCATION_DECK,0,1,nil)
+		and Duel.IsExistingTarget(ref.filter,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,c101010453.filter,tp,LOCATION_MZONE,0,1,1,nil)
+	local g=Duel.SelectTarget(tp,ref.filter,tp,LOCATION_MZONE,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
-function c101010453.thop(e,tp,eg,ep,ev,re,r,rp)
-	local sg=Duel.GetMatchingGroup(c101010453.thfilter,tp,LOCATION_DECK,0,nil)
+function ref.thop(e,tp,eg,ep,ev,re,r,rp)
+	local sg=Duel.GetMatchingGroup(ref.thfilter,tp,LOCATION_DECK,0,nil)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT)~=0 and sg:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)

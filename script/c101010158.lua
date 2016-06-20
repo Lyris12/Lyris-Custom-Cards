@@ -1,6 +1,7 @@
 --Ｓ・Ｖｉｎｅの少女－ジャッキー
-function c101010592.initial_effect(c)
-	local e1=Effect.CreateEffect(c)
+local id,ref=GIR()
+function ref.start(c)
+local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_AVOID_BATTLE_DAMAGE)
 	e1:SetValue(1)
@@ -15,19 +16,19 @@ function c101010592.initial_effect(c)
 	e3:SetCategory(CATEGORY_REMOVE)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e3:SetCode(EVENT_BATTLED)
-	e3:SetCondition(c101010592.condition)
-	e3:SetTarget(c101010592.target)
-	e3:SetOperation(c101010592.operation)
+	e3:SetCondition(ref.condition)
+	e3:SetTarget(ref.target)
+	e3:SetOperation(ref.operation)
 	c:RegisterEffect(e3)
 end
-function c101010592.condition(e,tp,eg,ep,ev,re,r,rp)
+function ref.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetAttackTarget()==e:GetHandler()
 end
-function c101010592.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,Duel.GetAttacker(),1,0,0)
 end
-function c101010592.operation(e,tp,eg,ep,ev,re,r,rp)
+function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local a=Duel.GetAttacker()
 	if not a:IsRelateToBattle() then return end
@@ -42,16 +43,16 @@ function c101010592.operation(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_PHASE+PHASE_END)
 		e1:SetCountLimit(1)
 		e1:SetLabelObject(g)
-		e1:SetOperation(c101010592.retop)
+		e1:SetOperation(ref.retop)
 		Duel.RegisterEffect(e1,tp)
 	end
 end
-function c101010592.retfilter(c)
+function ref.retfilter(c)
 	return c:GetFlagEffect(101010592)~=0
 end
-function c101010592.retop(e,tp,eg,ep,ev,re,r,rp)
+function ref.retop(e,tp,eg,ep,ev,re,r,rp)
 	local g=e:GetLabelObject()
-	local sg=g:Filter(c101010592.retfilter,nil)
+	local sg=g:Filter(ref.retfilter,nil)
 	g:DeleteGroup()
 	local tc=sg:GetFirst()
 	while tc do

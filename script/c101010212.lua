@@ -1,8 +1,9 @@
 --サイバー・ドラゴン・ジュッぺЯノヴァ
-function c101010022.initial_effect(c)
-	c:EnableReviveLimit()
+local id,ref=GIR()
+function ref.start(c)
+c:EnableReviveLimit()
 	--xyz summon
-	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_MACHINE),-1,3,c101010022.ovfilter,aux.Stringid(101010022,0))
+	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_MACHINE),-1,3,ref.ovfilter,aux.Stringid(101010022,0))
 	--pendulum summon (regular)
 	aux.AddPendulumProcedure(c)
 	--invincibility (spell)
@@ -12,7 +13,7 @@ function c101010022.initial_effect(c)
 	e1:SetRange(LOCATION_PZONE)
 	e1:SetTargetRange(LOCATION_MZONE,0)
 	e1:SetCountLimit(2)
-	e1:SetValue(c101010022.value)
+	e1:SetValue(ref.value)
 	c:RegisterEffect(e1)
 	--spsummon condition
 	local e3=Effect.CreateEffect(c)
@@ -25,7 +26,7 @@ function c101010022.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EFFECT_SEND_REPLACE)
-	e2:SetTarget(c101010022.pentg)
+	e2:SetTarget(ref.pentg)
 	c:RegisterEffect(e2)
 	--detach
 	local e4=Effect.CreateEffect(c)
@@ -35,9 +36,9 @@ function c101010022.initial_effect(c)
 	e4:SetCode(EVENT_FREE_CHAIN)
 	e4:SetCountLimit(1)
 	e4:SetRange(LOCATION_MZONE)
-	e4:SetCost(c101010022.cost)
-	e4:SetTarget(c101010022.tg)
-	e4:SetOperation(c101010022.op)
+	e4:SetCost(ref.cost)
+	e4:SetTarget(ref.tg)
+	e4:SetOperation(ref.op)
 	c:RegisterEffect(e4)
 	--Яeborn the Nova
 	local e5=Effect.CreateEffect(c)
@@ -45,8 +46,8 @@ function c101010022.initial_effect(c)
 	e5:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
 	e5:SetRange(LOCATION_MZONE)
 	e5:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e5:SetCondition(c101010022.con)
-	e5:SetOperation(c101010022.rtnop)
+	e5:SetCondition(ref.con)
+	e5:SetOperation(ref.rtnop)
 	c:RegisterEffect(e5)
 	--pendulum summon (special)
 	local e6=Effect.CreateEffect(c)
@@ -56,29 +57,29 @@ function c101010022.initial_effect(c)
 	e6:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e6:SetRange(LOCATION_PZONE)
 	e6:SetCountLimit(1,101010022)
-	e6:SetCondition(c101010022.pscon)
-	e6:SetOperation(c101010022.psop)
+	e6:SetCondition(ref.pscon)
+	e6:SetOperation(ref.psop)
 	e6:SetValue(SUMMON_TYPE_PENDULUM)
 	c:RegisterEffect(e6)
-	Duel.AddCustomActivityCounter(101010022,ACTIVITY_SPSUMMON,c101010022.counterfilter)
+	Duel.AddCustomActivityCounter(101010022,ACTIVITY_SPSUMMON,ref.counterfilter)
 end
-function c101010022.counterfilter(c)
+function ref.counterfilter(c)
 	return c:IsRace(RACE_MACHINE)
 end
-function c101010022.ovfilter(c)
+function ref.ovfilter(c)
 	return c:IsFaceup() and c:GetOriginalCode()==58069384 and c:GetOverlayCount()==0
 end
-function c101010022.pentg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.pentg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	local tc1=Duel.GetFieldCard(e:GetHandlerPlayer(),LOCATION_SZONE,6)
 	local tc2=Duel.GetFieldCard(e:GetHandlerPlayer(),LOCATION_SZONE,7)
 	if chk==0 then return c:IsLocation(LOCATION_MZONE) and (not tc1 or not tc2) end
 	Duel.MoveToField(c,c:GetControler(),c:GetControler(),LOCATION_SZONE,POS_FACEUP,true)
 end
-function c101010022.value(c)
+function ref.value(c)
 	return (c:GetPreviousLocation()==LOCATION_EXTRA and c:IsRace(RACE_MACHINE)) and c:IsReason(REASON_EFFECT)
 end
-function c101010022.psfilter(c,e,tp,lscale,rscale)
+function ref.psfilter(c,e,tp,lscale,rscale)
 	local lv=0
 	if c.pendulum_level then
 		lv=c.pendulum_level
@@ -89,7 +90,7 @@ function c101010022.psfilter(c,e,tp,lscale,rscale)
 	and lv>lscale and lv<rscale and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_PENDULUM,tp,true,true)
 		and not c:IsForbidden()
 end
-function c101010022.pscon(e,c,og)
+function ref.pscon(e,c,og)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	if c:GetSequence()~=6 then return false end
@@ -103,12 +104,12 @@ function c101010022.pscon(e,c,og)
 	if c:IsForbidden() then return false end
 	if Duel.GetCustomActivityCount(101010022,tp,ACTIVITY_SPSUMMON)~=0 then return false end
 	if og then
-		return og:IsExists(c101010022.psfilter,1,nil,e,tp,lscale,rscale)
+		return og:IsExists(ref.psfilter,1,nil,e,tp,lscale,rscale)
 		else
-		return Duel.IsExistingMatchingCard(c101010022.psfilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,nil,e,tp,lscale,rscale)
+		return Duel.IsExistingMatchingCard(ref.psfilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,nil,e,tp,lscale,rscale)
 	end
 end
-function c101010022.psop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
+function ref.psop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	local rpz=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
 	local lscale=c:GetLeftScale()
 	local rscale=rpz:GetRightScale()
@@ -116,11 +117,11 @@ function c101010022.psop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if og then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local g=og:FilterSelect(tp,c101010022.psfilter,1,ft,nil,e,tp,lscale,rscale)
+		local g=og:FilterSelect(tp,ref.psfilter,1,ft,nil,e,tp,lscale,rscale)
 		sg:Merge(g)
 		else
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local g=Duel.SelectMatchingCard(tp,c101010022.psfilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,ft,nil,e,tp,lscale,rscale)
+		local g=Duel.SelectMatchingCard(tp,ref.psfilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,ft,nil,e,tp,lscale,rscale)
 		sg:Merge(g)
 	end
 	Duel.HintSelection(Group.FromCards(c))
@@ -139,31 +140,31 @@ function c101010022.psop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	e1:SetTargetRange(1,0)
-	e1:SetTarget(c101010022.splimit)
+	e1:SetTarget(ref.splimit)
 	Duel.RegisterEffect(e1,tp)
 end
-function c101010022.splimit(e,c,sump,sumtype,sumpos,targetp,se)
+function ref.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return c:GetRace()~=RACE_MACHINE
 end
-function c101010022.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
-function c101010022.filter(c,e,tp)
+function ref.filter(c,e,tp)
 	return c:IsSetCard(0x1093) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c101010022.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c101010022.filter(chkc,e,tp) end
+function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and ref.filter(chkc,e,tp) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	and Duel.IsExistingMatchingCard(c101010022.filter,tp,LOCATION_REMOVED,0,1,nil,e,tp) end
+	and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_REMOVED,0,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectTarget(tp,c101010022.filter,tp,LOCATION_REMOVED,0,1,1,nil,e,tp)
+	local g=Duel.SelectTarget(tp,ref.filter,tp,LOCATION_REMOVED,0,1,1,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,g:GetCount(),0,0)
 end
-function c101010022.mfilter(c)
+function ref.mfilter(c)
 	return c:IsType(TYPE_SPELL) and (c:IsSetCard(0x46) or c:GetActivateEffect():IsHasCategory(CATEGORY_SPECIAL_SUMMON)) and c:IsAbleToHand()
 end
-function c101010022.op(e,tp,eg,ep,ev,re,r,rp)
+function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local sg=Duel.GetFirstTarget()
 	if sg and sg:IsRelateToEffect(e) then
@@ -171,10 +172,10 @@ function c101010022.op(e,tp,eg,ep,ev,re,r,rp)
 		if Duel.SelectYesNo(tp,aux.Stringid(101010022,1)) then
 			Duel.BreakEffect()
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-			local g1=Duel.SelectMatchingCard(tp,c101010022.mfilter,tp,LOCATION_DECK,0,1,1,nil)
+			local g1=Duel.SelectMatchingCard(tp,ref.mfilter,tp,LOCATION_DECK,0,1,1,nil)
 			local tc1=g1:GetFirst()
 			Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_ATOHAND)
-			local g2=Duel.SelectMatchingCard(1-tp,c101010022.mfilter,tp,0,LOCATION_DECK,1,1,nil)
+			local g2=Duel.SelectMatchingCard(1-tp,ref.mfilter,tp,0,LOCATION_DECK,1,1,nil)
 			local tc2=g2:GetFirst()
 			g1:Merge(g2)
 			Duel.SendtoHand(g1,nil,REASON_EFFECT)
@@ -184,7 +185,7 @@ function c101010022.op(e,tp,eg,ep,ev,re,r,rp)
 				local e1=Effect.CreateEffect(c)
 				e1:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 				e1:SetCode(EVENT_CHAIN_ACTIVATING)
-				e1:SetOperation(c101010022.actop)
+				e1:SetOperation(ref.actop)
 				e1:SetLabelObject(tc1)
 				Duel.RegisterEffect(e1,tp)
 			end
@@ -197,27 +198,27 @@ function c101010022.op(e,tp,eg,ep,ev,re,r,rp)
 			e0:SetRange(LOCATION_MZONE)
 			e0:SetCode(EFFECT_IMMUNE_EFFECT)
 			e0:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-			e0:SetValue(c101010022.efilter)
+			e0:SetValue(ref.efilter)
 			c:RegisterEffect(e0)
 		end
 	end
 end
-function c101010022.efilter(e,tp,ep,rp)
+function ref.efilter(e,tp,ep,rp)
 	return rp~=tp
 end
-function c101010022.con(e,tp,eg,ep,ev,re,r,rp)
+function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	local tg=eg:GetFirst()
 	return re:GetActiveType()==TYPE_SPELL and tg:IsControler(1-tp) and tg:IsPreviousLocation(LOCATION_EXTRA)
 end
-function c101010022.confilter(c,tp)
+function ref.confilter(c,tp)
 	return c:GetSummonPlayer()~=tp and c:IsControlerCanBeChanged()
 end
-function c101010022.rtnop(e,tp,eg,ep,ev,re,r,rp)
+function ref.rtnop(e,tp,eg,ep,ev,re,r,rp)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	local c=e:GetHandler()
 	if ft<=0 then return end
-	local cong=Duel.GetMatchingGroup(c101010022.confilter,tp,0,LOCATION_MZONE,nil,tp)
-	local g=eg:Filter(c101010022.confilter,nil,tp)
+	local cong=Duel.GetMatchingGroup(ref.confilter,tp,0,LOCATION_MZONE,nil,tp)
+	local g=eg:Filter(ref.confilter,nil,tp)
 	if g:GetCount()>0 then
 		local tc=g:GetFirst()
 		while tc do
@@ -227,7 +228,7 @@ function c101010022.rtnop(e,tp,eg,ep,ev,re,r,rp)
 			e0:SetType(EFFECT_TYPE_SINGLE)
 			e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_OATH)
 			e0:SetCode(EFFECT_CANNOT_ATTACK)
-			e0:SetCondition(c101010022.catkcon)
+			e0:SetCondition(ref.catkcon)
 			e0:SetReset(RESET_EVENT+0x1fe0000)
 			tc:RegisterEffect(e0)
 			tc=g:GetNext()
@@ -236,7 +237,7 @@ function c101010022.rtnop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_OATH)
 		e1:SetCode(EFFECT_CANNOT_ATTACK)
-		e1:SetCondition(c101010022.catkcon)
+		e1:SetCondition(ref.catkcon)
 		e1:SetReset(RESET_EVENT+0x1fe0000)
 		c:RegisterEffect(e1)
 		local ph=Duel.GetCurrentPhase()
@@ -256,10 +257,10 @@ function c101010022.rtnop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SkipPhase(1-tp,PHASE_END,RESET_PHASE+PHASE_END,1)
 	end
 end
-function c101010022.catkcon(e)
+function ref.catkcon(e)
 	return Duel.GetFlagEffect(tp,101010022)~=0
 end
-function c101010022.actop(e,tp,eg,ep,ev,re,r,rp)
+function ref.actop(e,tp,eg,ep,ev,re,r,rp)
 	if ep~=tp or re:GetHandler()~=e:GetLabelObject() then return end
 	if e:GetLabelObject():GetFlagEffect(101010022)~=0 then
 		local e1=Effect.CreateEffect(e:GetHandler())
@@ -269,13 +270,13 @@ function c101010022.actop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetTargetRange(1,0)
 		if Duel.GetTurnPlayer()==tp and Duel.GetCurrentPhase()==PHASE_BATTLE then
 			e1:SetLabel(Duel.GetTurnCount())
-			e1:SetCondition(c101010022.skipcon)
+			e1:SetCondition(ref.skipcon)
 		end
 		e1:SetReset(RESET_PHASE+PHASE_BATTLE)
 		Duel.RegisterEffect(e1,tp)
 		e:GetLabelObject():ResetFlagEffect(101010022)
 	end
 end
-function c101010022.skipcon(e)
+function ref.skipcon(e)
 	return Duel.GetTurnCount()~=e:GetLabel()
 end

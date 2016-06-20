@@ -1,6 +1,7 @@
 --FF－ファルコン・ラプター
-function c101010562.initial_effect(c)
-	--spsummon condition
+local id,ref=GIR()
+function ref.start(c)
+--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -14,41 +15,41 @@ function c101010562.initial_effect(c)
 	e0:SetCountLimit(1)
 	e0:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e0:SetRange(LOCATION_MZONE)
-	e0:SetCondition(c101010562.con)
-	e0:SetCost(c101010562.cost)
-	e0:SetOperation(c101010562.spellop)
+	e0:SetCondition(ref.con)
+	e0:SetCost(ref.cost)
+	e0:SetOperation(ref.spellop)
 	c:RegisterEffect(e0)
 	--fusion summon
 	c:EnableReviveLimit()
-	aux.AddFusionProcFun2(c,c101010562.ffilter1,c101010562.ffilter2,true)
+	aux.AddFusionProcFun2(c,ref.ffilter1,ref.ffilter2,true)
 end
-function c101010562.ffilter1(c)
+function ref.ffilter1(c)
 	return c:IsAttribute(ATTRIBUTE_DARK) or (c:IsHasEffect(101010560) and not c:IsLocation(LOCATION_DECK))
 end
-function c101010562.ffilter2(c)
+function ref.ffilter2(c)
 	return c:IsRace(RACE_WINDBEAST) or (c:IsHasEffect(101010576) and not c:IsLocation(LOCATION_DECK))
 end
-function c101010562.con(e,tp)
+function ref.con(e,tp)
 	return Duel.GetTurnPlayer()~=tp
 end
-function c101010562.filter(c)
+function ref.filter(c)
 	return (c:GetType()==TYPE_SPELL or c:GetType()==TYPE_TRAP) and c:IsAbleToRemove()
 end
-function c101010562.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingTarget(c101010562.filter,tp,0,LOCATION_GRAVE,1,nil) end
+function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingTarget(ref.filter,tp,0,LOCATION_GRAVE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local tc=Duel.SelectTarget(tp,c101010562.filter,tp,0,LOCATION_GRAVE,1,1,nil)
+	local tc=Duel.SelectTarget(tp,ref.filter,tp,0,LOCATION_GRAVE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,tc,1,0,0)
 	if e:GetHandler():IsHasEffect(101010552) then
-		Duel.SetChainLimit(c101010562.limit(tc:GetFirst()))
+		Duel.SetChainLimit(ref.limit(tc:GetFirst()))
 	end
 end
-function c101010562.limit(c)
+function ref.limit(c)
 	return  function (e,lp,tp)
 				return e:GetHandler()~=c
 			end
 end
-function c101010562.spellop(e,tp,eg,ep,ev,re,r,rp)
+function ref.spellop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)~=0 then

@@ -1,6 +1,7 @@
 --Bladewing Tara
-function c101010647.initial_effect(c)
-	--pierce
+local id,ref=GIR()
+function ref.start(c)
+--pierce
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_PIERCE)
@@ -11,21 +12,21 @@ function c101010647.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
-	e2:SetTarget(c101010647.target)
-	e2:SetOperation(c101010647.operation)
+	e2:SetTarget(ref.target)
+	e2:SetOperation(ref.operation)
 	c:RegisterEffect(e2)
 end
-function c101010647.filter(c)
+function ref.filter(c)
 	return (c:IsSetCard(0xbb2) or c:IsSetCard(0xbb3)) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeck()
 end
-function c101010647.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c101010647.filter,tp,LOCATION_GRAVE+LOCATION_HAND,0,3,nil) end
-	local g=Duel.GetMatchingGroup(c101010647.filter,tp,LOCATION_GRAVE+LOCATION_HAND,0,nil)
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_GRAVE+LOCATION_HAND,0,3,nil) end
+	local g=Duel.GetMatchingGroup(ref.filter,tp,LOCATION_GRAVE+LOCATION_HAND,0,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,3,0,0)
 end
-function c101010647.operation(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.operation(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local g=Duel.SelectMatchingCard(tp,c101010647.filter,tp,LOCATION_GRAVE+LOCATION_HAND,0,3,3,nil)
+	local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_GRAVE+LOCATION_HAND,0,3,3,nil)
 	if g:GetCount()>0 then
 		Duel.ConfirmCards(1-tp,g)
 		Duel.ShuffleHand(tp)

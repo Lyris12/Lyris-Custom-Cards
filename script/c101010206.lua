@@ -1,12 +1,13 @@
 --ＳＳＤ－ファイナレヴォン
-function c101010214.initial_effect(c)
-	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsType,TYPE_SYNCHRO),aux.NonTuner(Card.IsType,TYPE_SYNCHRO),1)
+local id,ref=GIR()
+function ref.start(c)
+aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsType,TYPE_SYNCHRO),aux.NonTuner(Card.IsType,TYPE_SYNCHRO),1)
 	--double
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_PRE_BATTLE_DAMAGE)
-	e4:SetCondition(c101010214.damcon)
-	e4:SetOperation(c101010214.damop)
+	e4:SetCondition(ref.damcon)
+	e4:SetOperation(ref.damop)
 	c:RegisterEffect(e4)
 	--actlimit
 	local e3=Effect.CreateEffect(c)
@@ -15,8 +16,8 @@ function c101010214.initial_effect(c)
 	e3:SetCode(EFFECT_CANNOT_ACTIVATE)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetTargetRange(0,1)
-	e3:SetValue(c101010214.aclimit)
-	e3:SetCondition(c101010214.actcon)
+	e3:SetValue(ref.aclimit)
+	e3:SetCondition(ref.actcon)
 	c:RegisterEffect(e3)
 	local e2=e3:Clone()
 	e2:SetCode(EFFECT_CANNOT_TRIGGER)
@@ -27,41 +28,41 @@ function c101010214.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_BE_BATTLE_TARGET)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetCondition(c101010214.con)
-	e1:SetCost(c101010214.cost)
-	e1:SetTarget(c101010214.tg)
-	e1:SetOperation(c101010214.op)
+	e1:SetCondition(ref.con)
+	e1:SetCost(ref.cost)
+	e1:SetTarget(ref.tg)
+	e1:SetOperation(ref.op)
 	c:RegisterEffect(e1)
 end
-function c101010214.aclimit(e,re,tp)
+function ref.aclimit(e,re,tp)
 	return not re:GetHandler():IsImmuneToEffect(e)
 end
-function c101010214.actcon(e)
+function ref.actcon(e)
 	return Duel.GetAttacker()==e:GetHandler()
 end
-function c101010214.damcon(e,tp,eg,ep,ev,re,r,rp)
+function ref.damcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp and e:GetHandler():GetBattleTarget()~=nil
 end
-function c101010214.damop(e,tp,eg,ep,ev,re,r,rp)
+function ref.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,ev*2)
 end
-function c101010214.con(e,tp,eg,ep,ev,re,r,rp)
+function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local bt=eg:GetFirst()
 	return r~=REASON_REPLACE and c~=bt and bt:GetControler()==c:GetControler()
 end
-function c101010214.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return c:IsAbleToRemoveAsCost() end
 	Duel.Remove(c,POS_FACEUP,REASON_COST)
 end
-function c101010214.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
 	local bc=Duel.GetAttacker()
 	if chk==0 then return bc:IsAbleToRemove() end
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,bc,1,0,0)
 end
-function c101010214.op(e,tp,eg,ep,ev,re,r,rp)
+function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetAttacker()
 	local g=Group.FromCards(tc)
@@ -81,24 +82,24 @@ function c101010214.op(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_PHASE+PHASE_END)
 		e1:SetCountLimit(1)
 		e1:SetLabelObject(og)
-		e1:SetTarget(c101010214.rettg)
-		e1:SetOperation(c101010214.retop)
+		e1:SetTarget(ref.rettg)
+		e1:SetOperation(ref.retop)
 		Duel.RegisterEffect(e1,tp)
 	end
 end
-function c101010214.rettg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.rettg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetOwner()
 	if chk==0 then return c:GetFlagEffect(101010214)~=0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
 end
-function c101010214.retfilter(c)
+function ref.retfilter(c)
 	return c:GetFlagEffect(101010214)~=0
 end
-function c101010214.retop(e,tp,eg,ep,ev,re,r,rp)
+function ref.retop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetOwner()
 	local g=e:GetLabelObject()
-	local sg=g:Filter(c101010214.retfilter,nil)
+	local sg=g:Filter(ref.retfilter,nil)
 	g:DeleteGroup()
 	local tc=sg:GetFirst()
 	if Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)~=0 then

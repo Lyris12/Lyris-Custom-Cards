@@ -1,29 +1,30 @@
 --襲雷渦動
-function c101010112.initial_effect(c)
-	--Activate
+local id,ref=GIR()
+function ref.start(c)
+--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DISABLE_SUMMON+CATEGORY_TODECK+CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_SPSUMMON)
-	e1:SetCost(c101010112.cost)
-	e1:SetTarget(c101010112.target)
-	e1:SetOperation(c101010112.activate)
+	e1:SetCost(ref.cost)
+	e1:SetTarget(ref.target)
+	e1:SetOperation(ref.activate)
 	c:RegisterEffect(e1)
 	local e0=e1:Clone()
 	e0:SetCode(EVENT_SUMMON)
 	c:RegisterEffect(e0)
 end
-function c101010112.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,1000) end
 	Duel.PayLPCost(tp,1000)
 end
-function c101010112.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE)
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE_SUMMON,eg,eg:GetCount(),0,0)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,eg,eg:GetCount(),0,0)
 end
-function c101010112.activate(e,tp,eg,ep,ev,re,r,rp)
+function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(Card.IsSetCard,tp,LOCATION_GRAVE,0,nil,0x167)
 	local tc=eg:GetFirst()
 	while tc do

@@ -1,6 +1,7 @@
 --サイバー・ドラゴン・ティマイオス
-function c101010282.initial_effect(c)
-	--add code
+local id,ref=GIR()
+function ref.start(c)
+--add code
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_ADD_FUSION_CODE)
@@ -14,8 +15,8 @@ function c101010282.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCountLimit(1,101010282+EFFECT_COUNT_CODE_OATH)
-	e1:SetTarget(c101010282.target)
-	e1:SetOperation(c101010282.activate)
+	e1:SetTarget(ref.target)
+	e1:SetOperation(ref.activate)
 	c:RegisterEffect(e1)
 	--add code
 	local e0=Effect.CreateEffect(c)
@@ -25,27 +26,27 @@ function c101010282.initial_effect(c)
 	e0:SetValue(TYPE_MONSTER+TYPE_EFFECT)
 	c:RegisterEffect(e0)
 end
-function c101010282.tgfilter0(c,e,tp)
+function ref.tgfilter0(c,e,tp)
 	return c:IsFaceup() and c:IsCode(70095154)
 		and c:IsCanBeFusionMaterial()
 end
-function c101010282.tgfilter(c,e,tp)
+function ref.tgfilter(c,e,tp)
 	return c:IsFaceup() and c:IsCode(70095154)
 		and c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e)
 end
-function c101010282.spfilter(c,e,tp,g)
+function ref.spfilter(c,e,tp,g)
 	return aux.IsMaterialListCode(c,70095154) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(g,nil,tp)
 end
-function c101010282.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc==0 then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c101010282.tgfilter(chkc,e,tp) end
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc==0 then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and ref.tgfilter(chkc,e,tp) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
-		and Duel.IsExistingTarget(c101010282.tgfilter0,tp,LOCATION_MZONE,0,1,nil,e,tp) end
+		and Duel.IsExistingTarget(ref.tgfilter0,tp,LOCATION_MZONE,0,1,nil,e,tp) end
 	e:SetLabel(Duel.AnnounceNumber(tp,2,3,4,5,6))
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
-	Duel.SelectTarget(tp,c101010282.tgfilter,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+	Duel.SelectTarget(tp,ref.tgfilter,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function c101010282.activate(e,tp,eg,ep,ev,re,r,rp)
+function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<0 then return end
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and tc:IsFaceup() and tc:IsCanBeFusionMaterial() and not tc:IsImmuneToEffect(e) then
@@ -55,7 +56,7 @@ function c101010282.activate(e,tp,eg,ep,ev,re,r,rp)
 			mg:AddCard(ck)
 		end
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local sg=Duel.SelectMatchingCard(tp,c101010282.spfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,mg)
+		local sg=Duel.SelectMatchingCard(tp,ref.spfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,mg)
 		local sc=sg:GetFirst()
 		if sc then
 			sc:SetMaterial(mg)
@@ -71,7 +72,7 @@ function c101010282.activate(e,tp,eg,ep,ev,re,r,rp)
 					e2:SetLabel(sc:GetBaseAttack())
 					e2:SetLabelObject(sc)
 					e2:SetReset(RESET_PHASE+PHASE_END)
-					e2:SetOperation(c101010282.damop)
+					e2:SetOperation(ref.damop)
 					Duel.RegisterEffect(e2,tp)
 				end
 				if e:GetLabel()>3 or not Duel.SelectYesNo(tp,aux.Stringid(101010282,0)) then return end
@@ -81,7 +82,7 @@ function c101010282.activate(e,tp,eg,ep,ev,re,r,rp)
 				e0:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
 				e0:SetReset(RESET_PHASE+PHASE_END)
 				e0:SetTargetRange(1,0)
-				e0:SetTarget(c101010282.splimit)
+				e0:SetTarget(ref.splimit)
 				Duel.RegisterEffect(e0,tp)
 				local e1=Effect.CreateEffect(e:GetHandler())
 				e1:SetType(EFFECT_TYPE_SINGLE)
@@ -93,10 +94,10 @@ function c101010282.activate(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function c101010282.splimit(e,c,sump,sumtype,sumpos,targetp,se)
+function ref.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return c:GetRace()~=RACE_MACHINE
 end
-function c101010282.damop(e,tp,eg,ep,ev,re,r,rp)
+function ref.damop(e,tp,eg,ep,ev,re,r,rp)
 	local dam=e:GetLabel()
 	if e:GetLabelObject():GetAttack()>dam then
 		Duel.Damage(tp,dam,REASON_EFFECT)

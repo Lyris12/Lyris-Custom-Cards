@@ -1,6 +1,7 @@
 --ＳＳ－リーム・イクスパンス・ドラゴン
-function c101010215.initial_effect(c)
-	--synchro summon
+local id,ref=GIR()
+function ref.start(c)
+--synchro summon
 	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsType,TYPE_SYNCHRO),aux.NonTuner(Card.IsType,TYPE_SYNCHRO),2)
 	c:EnableReviveLimit()
 	--cannot special summon
@@ -16,8 +17,8 @@ function c101010215.initial_effect(c)
 	e3:SetCode(EFFECT_CANNOT_ACTIVATE)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetTargetRange(1,1)
-	e3:SetValue(c101010215.aclimit)
-	e3:SetCondition(c101010215.actcon)
+	e3:SetValue(ref.aclimit)
+	e3:SetCondition(ref.actcon)
 	c:RegisterEffect(e3)
 	local e2=e3:Clone()
 	e2:SetCode(EFFECT_CANNOT_TRIGGER)
@@ -28,21 +29,21 @@ function c101010215.initial_effect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e0:SetCode(EVENT_DAMAGE_STEP_END)
 	e0:SetCountLimit(1,101010215)
-	e0:SetCondition(c101010215.con)
-	e0:SetTarget(c101010215.tg)
-	e0:SetOperation(c101010215.op)
+	e0:SetCondition(ref.con)
+	e0:SetTarget(ref.tg)
+	e0:SetOperation(ref.op)
 	c:RegisterEffect(e0)
 end
-function c101010215.con(e,tp,eg,ep,ev,re,r,rp)
+function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsRelateToBattle()
 end
-function c101010215.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetTargetPlayer(tp)
 	Duel.SetTargetParam(1)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 end
-function c101010215.op(e,tp,eg,ep,ev,re,r,rp)
+function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	if Duel.Draw(p,d,REASON_EFFECT)==0 then return end
@@ -60,9 +61,9 @@ function c101010215.op(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function c101010215.aclimit(e,re,tp)
+function ref.aclimit(e,re,tp)
 	return re:GetHandler()~=e:GetHandler() and not re:GetHandler():IsImmuneToEffect(e)
 end
-function c101010215.actcon(e)
+function ref.actcon(e)
 	return Duel.GetAttacker()==e:GetHandler()
 end

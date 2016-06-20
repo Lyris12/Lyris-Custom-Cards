@@ -1,6 +1,7 @@
 --超竜星ドゥニンル
-function c101010262.initial_effect(c)
-	--attribute(field)
+local id,ref=GIR()
+function ref.start(c)
+--attribute(field)
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_ADD_ATTRIBUTE)
@@ -14,9 +15,9 @@ function c101010262.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e1:SetCode(EVENT_TO_GRAVE)
-	e1:SetCondition(c101010262.condition)
-	e1:SetTarget(c101010262.target)
-	e1:SetOperation(c101010262.operation)
+	e1:SetCondition(ref.condition)
+	e1:SetTarget(ref.target)
+	e1:SetOperation(ref.operation)
 	c:RegisterEffect(e1)
 	--synchro effect
 	local e2=Effect.CreateEffect(c)
@@ -25,9 +26,9 @@ function c101010262.initial_effect(c)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetHintTiming(0,TIMING_BATTLE_START+TIMING_BATTLE_END)
-	e2:SetCondition(c101010262.sccon)
-	e2:SetTarget(c101010262.sctg)
-	e2:SetOperation(c101010262.scop)
+	e2:SetCondition(ref.sccon)
+	e2:SetTarget(ref.sctg)
+	e2:SetOperation(ref.scop)
 	c:RegisterEffect(e2)
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE)
@@ -42,46 +43,46 @@ function c101010262.initial_effect(c)
 	e3:SetCode(EVENT_BE_PRE_MATERIAL)
 	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e3:SetLabel(0)
-	e3:SetCondition(c101010262.tcon)
-	e3:SetOperation(c101010262.tnop)
+	e3:SetCondition(ref.tcon)
+	e3:SetOperation(ref.tnop)
 	c:RegisterEffect(e3)
 end
-function c101010262.condition(e,tp,eg,ep,ev,re,r,rp)
+function ref.condition(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
 		and c:IsPreviousLocation(LOCATION_ONFIELD) and c:GetPreviousControler()==tp
 end
-function c101010262.filter(c,e,tp)
+function ref.filter(c,e,tp)
 	return c:IsSetCard(0x9e) and not c:IsCode(101010262) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c101010262.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(c101010262.filter,tp,LOCATION_DECK,0,1,nil,e,tp) end
+		and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil,e,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
-function c101010262.operation(e,tp,eg,ep,ev,re,r,rp)
+function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c101010262.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
 	Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 end
-function c101010262.sccon(e,tp,eg,ep,ev,re,r,rp)
+function ref.sccon(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetTurnPlayer()==tp then return false end
 	local ph=Duel.GetCurrentPhase()
 	return ph==PHASE_MAIN1 or ph==PHASE_BATTLE or ph==PHASE_MAIN2
 end
-function c101010262.mfilter(c)
+function ref.mfilter(c)
 	return c:IsSetCard(0x9e)
 end
-function c101010262.sctg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.sctg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
-		local mg=Duel.GetMatchingGroup(c101010262.mfilter,tp,LOCATION_MZONE,0,nil)
+		local mg=Duel.GetMatchingGroup(ref.mfilter,tp,LOCATION_MZONE,0,nil)
 		return Duel.IsExistingMatchingCard(Card.IsSynchroSummonable,tp,LOCATION_EXTRA,0,1,nil,nil,mg)
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function c101010262.scop(e,tp,eg,ep,ev,re,r,rp)
-	local mg=Duel.GetMatchingGroup(c101010262.mfilter,tp,LOCATION_MZONE,0,nil)
+function ref.scop(e,tp,eg,ep,ev,re,r,rp)
+	local mg=Duel.GetMatchingGroup(ref.mfilter,tp,LOCATION_MZONE,0,nil)
 	local g=Duel.GetMatchingGroup(Card.IsSynchroSummonable,tp,LOCATION_EXTRA,0,nil,nil,mg)
 	if g:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
@@ -89,10 +90,10 @@ function c101010262.scop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SynchroSummon(tp,sg:GetFirst(),nil,mg)
 	end
 end
-function c101010262.tcon(e,tp,eg,ep,ev,re,r,rp)
+function ref.tcon(e,tp,eg,ep,ev,re,r,rp)
 	return r==REASON_SYNCHRO
 end
-function c101010262.tnop(e,tp,eg,ep,ev,re,r,rp)
+function ref.tnop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local rc=c:GetReasonCard()
 	if bit.band(e:GetHandler():GetSummonType(),SUMMON_TYPE_SPECIAL)==0 or not c:IsLocation(LOCATION_GRAVE) then return end
@@ -119,11 +120,11 @@ function c101010262.tnop(e,tp,eg,ep,ev,re,r,rp)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCode(EFFECT_IMMUNE_EFFECT)
 	e3:SetLabel(at)
-	e3:SetValue(c101010262.efilter)
+	e3:SetValue(ref.efilter)
 	e3:SetReset(RESET_EVENT+0x1fe0000)
 	rc:RegisterEffect(e3)
 end
-function c101010262.efilter(e,te)
+function ref.efilter(e,te)
 	local tc=te:GetOwner()
 	return te:IsActiveType(TYPE_MONSTER) and bit.band(tc:GetAttribute(),e:GetLabel())~=0 and tc~=e:GetOwner()
 end

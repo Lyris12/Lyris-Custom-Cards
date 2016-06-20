@@ -1,6 +1,7 @@
 --ＳＳーマリフレアー
-function c101010202.initial_effect(c)
-	--direct
+local id,ref=GIR()
+function ref.start(c)
+--direct
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_DIRECT_ATTACK)

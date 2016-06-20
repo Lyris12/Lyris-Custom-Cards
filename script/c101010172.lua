@@ -1,19 +1,20 @@
 --ネオ光の波動
-function c101010009.initial_effect(c)
-	local e0=Effect.CreateEffect(c)
+local id,ref=GIR()
+function ref.start(c)
+local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_EQUIP)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	e0:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e0:SetTarget(c101010009.target)
-	e0:SetOperation(c101010009.operation)
+	e0:SetTarget(ref.target)
+	e0:SetOperation(ref.operation)
 	c:RegisterEffect(e0)
 	--negate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetRange(LOCATION_SZONE)
 	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
-	e1:SetOperation(c101010009.lmop)
+	e1:SetOperation(ref.lmop)
 	c:RegisterEffect(e1)
 	--Equip limit
 	local e3=Effect.CreateEffect(c)
@@ -29,20 +30,20 @@ function c101010009.initial_effect(c)
 	e4:SetValue(ATTRIBUTE_LIGHT)
 	c:RegisterEffect(e4)
 end
-function c101010009.eqfilter(c)
+function ref.eqfilter(c)
 	local atk=c:GetTextAttack()
 	if atk==-2 then atk=c:GetBaseAttack() end
 	if atk~=c:GetAttack() and atk==0 then return false end
 	return c:IsFaceup() and not c:IsAttribute(ATTRIBUTE_LIGHT)
 end
-function c101010009.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:GetLocation()==LOCATION_MZONE and chkc:IsControler(tp) and c101010009.eqfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c101010009.eqfilter,tp,LOCATION_MZONE,0,1,nil) end
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:GetLocation()==LOCATION_MZONE and chkc:IsControler(tp) and ref.eqfilter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(ref.eqfilter,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	Duel.SelectTarget(tp,c101010009.eqfilter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.SelectTarget(tp,ref.eqfilter,tp,LOCATION_MZONE,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,e:GetHandler(),1,0,0)
 end
-function c101010009.operation(e,tp,eg,ep,ev,re,r,rp)
+function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) and tc:IsFaceup() then
@@ -54,19 +55,19 @@ function c101010009.operation(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetCode(EVENT_CHAIN_SOLVING)
 		e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e2:SetLabel(Duel.GetLP(c:GetControler()))
-		e2:SetOperation(c101010009.ldop)
+		e2:SetOperation(ref.ldop)
 		e2:SetReset(RESET_EVENT+0x1fe0000)
 		c:RegisterEffect(e2)
 	end
 end
-function c101010009.lmop(e,tp,eg,ep,ev,re,r,rp)
+function ref.lmop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetAttacker()~=e:GetHandler():GetEquipTarget() then return end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CANNOT_TRIGGER)
 	e1:SetRange(LOCATION_SZONE)
 	e1:SetTargetRange(0,0xff)
-	e1:SetTarget(c101010009.aclimit)
+	e1:SetTarget(ref.aclimit)
 	e1:SetReset(RESET_PHASE+PHASE_DAMAGE)
 	Duel.RegisterEffect(e1,tp)
 	local g=Duel.GetMatchingGroup(Card.IsType,tp,0xff,0xff,e:GetHandler():GetEquipTarget(),TYPE_MONSTER)
@@ -88,13 +89,13 @@ function c101010009.lmop(e,tp,eg,ep,ev,re,r,rp)
 		tc=g:GetNext()
 	end
 end
-function c101010009.aclimit(e,c)
+function ref.aclimit(e,c)
 	return c:IsType(TYPE_MONSTER)
 end
-function c101010009.distg(c,e)
+function ref.distg(c,e)
 	return c~=e:GetHandler():GetEquipTarget() and c:IsType(TYPE_MONSTER)
 end
-function c101010009.ldop(e,tp,eg,ep,ev,re,r,rp)
+function ref.ldop(e,tp,eg,ep,ev,re,r,rp)
 	local q=e:GetHandler():GetEquipTarget()
 	local qp=q:GetControler()
 	if Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_PLAYER)~=qp or Duel.GetCurrentPhase()~=PHASE_DAMAGE then return end

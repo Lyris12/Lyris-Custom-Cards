@@ -1,6 +1,7 @@
 --FF－レイニアス
-function c101010560.initial_effect(c)
-	local e3=Effect.CreateEffect(c)
+local id,ref=GIR()
+function ref.start(c)
+local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(101010560)
 	e3:SetRange(0xfe)
@@ -9,14 +10,14 @@ function c101010560.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_BE_MATERIAL)
-	e2:SetCondition(c101010560.con)
-	e2:SetOperation(c101010560.mat)
+	e2:SetCondition(ref.con)
+	e2:SetOperation(ref.mat)
 	c:RegisterEffect(e2)
 end
-function c101010560.con(e,tp,eg,ep,ev,re,r,rp)
+function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	return r==REASON_FUSION
 end
-function c101010560.mat(e,tp,eg,ep,ev,re,r,rp)
+function ref.mat(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local rc=c:GetReasonCard()
 	if not rc:IsAttribute(ATTRIBUTE_FIRE) and c:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) then Duel.SendtoDeck(c,nil,2,REASON_EFFECT) end

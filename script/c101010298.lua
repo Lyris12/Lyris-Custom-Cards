@@ -1,18 +1,19 @@
 --Magma Fusion
-function c101010573.initial_effect(c)
-	--Activate
+local id,ref=GIR()
+function ref.start(c)
+--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetTarget(c101010573.target)
-	e1:SetOperation(c101010573.activate)
+	e1:SetTarget(ref.target)
+	e1:SetOperation(ref.activate)
 	c:RegisterEffect(e1)
 end
-function c101010573.atcon(e,c)
+function ref.atcon(e,c)
 	return c==e:GetHandler()
 end
-function c101010573.filter0(c)
+function ref.filter0(c)
 	if not c:IsCanBeFusionMaterial() then return false end
 	--Deck, Hand, Field
 	return (c:IsLocation(LOCATION_DECK+LOCATION_HAND+LOCATION_MZONE) and c:IsAbleToGrave())
@@ -21,7 +22,7 @@ function c101010573.filter0(c)
 		--Grave
 		or (c:IsLocation(LOCATION_GRAVE) and c:IsAbleToRemove())
 end
-function c101010573.filter1(c,e)
+function ref.filter1(c,e)
 	if not c:IsCanBeFusionMaterial() or c:IsImmuneToEffect(e) then return false end
 	--Deck, Hand, Field
 	return (c:IsLocation(LOCATION_DECK+LOCATION_HAND+LOCATION_MZONE) and c:IsAbleToGrave())
@@ -30,43 +31,43 @@ function c101010573.filter1(c,e)
 		--Grave
 		or (c:IsLocation(LOCATION_GRAVE) and c:IsAbleToRemove())
 end
-function c101010573.filter2(c,e,tp,m,f,chkf)
+function ref.filter2(c,e,tp,m,f,chkf)
 	return c:IsType(TYPE_FUSION) and c:IsSetCard(0xa88) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
-function c101010573.cfilter(c)
+function ref.cfilter(c)
 	return bit.band(c:GetSummonType(),SUMMON_TYPE_SPECIAL)==SUMMON_TYPE_SPECIAL
 end
-function c101010573.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-		local mg1=Duel.GetMatchingGroup(c101010573.filter0,tp,LOCATION_HAND+LOCATION_MZONE+LOCATION_REMOVED,0,nil)
-		if Duel.IsExistingMatchingCard(c101010573.cfilter,tp,0,LOCATION_MZONE,1,nil) then
-			local sg=Duel.GetMatchingGroup(c101010573.filter0,tp,LOCATION_DECK+LOCATION_GRAVE,0,nil)
+		local mg1=Duel.GetMatchingGroup(ref.filter0,tp,LOCATION_HAND+LOCATION_MZONE+LOCATION_REMOVED,0,nil)
+		if Duel.IsExistingMatchingCard(ref.cfilter,tp,0,LOCATION_MZONE,1,nil) then
+			local sg=Duel.GetMatchingGroup(ref.filter0,tp,LOCATION_DECK+LOCATION_GRAVE,0,nil)
 			mg1:Merge(sg)
 		end
-		local res=Duel.IsExistingMatchingCard(c101010573.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
+		local res=Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
 		if not res then
 			local ce=Duel.GetChainMaterial(tp)
 			if ce~=nil then
 				local fgroup=ce:GetTarget()
 				local mg2=fgroup(ce,e,tp)
 				local mf=ce:GetValue()
-				res=Duel.IsExistingMatchingCard(c101010573.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg2,mf,chkf)
+				res=Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg2,mf,chkf)
 			end
 		end
 		return res
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function c101010573.activate(e,tp,eg,ep,ev,re,r,rp)
+function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 	local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-	local mg1=Duel.GetMatchingGroup(c101010573.filter1,tp,LOCATION_HAND+LOCATION_MZONE+LOCATION_REMOVED,0,nil,e)
-	if Duel.IsExistingMatchingCard(c101010573.cfilter,tp,0,LOCATION_MZONE,1,nil) then
-		local sg=Duel.GetMatchingGroup(c101010573.filter1,tp,LOCATION_DECK+LOCATION_GRAVE,0,nil,e)
+	local mg1=Duel.GetMatchingGroup(ref.filter1,tp,LOCATION_HAND+LOCATION_MZONE+LOCATION_REMOVED,0,nil,e)
+	if Duel.IsExistingMatchingCard(ref.cfilter,tp,0,LOCATION_MZONE,1,nil) then
+		local sg=Duel.GetMatchingGroup(ref.filter1,tp,LOCATION_DECK+LOCATION_GRAVE,0,nil,e)
 		mg1:Merge(sg)
 	end
-	local sg1=Duel.GetMatchingGroup(c101010573.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
+	local sg1=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
 	local mg2=nil
 	local sg2=nil
 	local ce=Duel.GetChainMaterial(tp)
@@ -74,7 +75,7 @@ function c101010573.activate(e,tp,eg,ep,ev,re,r,rp)
 		local fgroup=ce:GetTarget()
 		mg2=fgroup(ce,e,tp)
 		local mf=ce:GetValue()
-		sg2=Duel.GetMatchingGroup(c101010573.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,mf,chkf)
+		sg2=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,mf,chkf)
 	end
 	if sg1:GetCount()>0 or (sg2~=nil and sg2:GetCount()>0) then
 		local sg=sg1:Clone()

@@ -1,11 +1,12 @@
 --
-function c101010108.initial_effect(c)
-	--Activate
+local id,ref=GIR()
+function ref.start(c)
+--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetOperation(c101010108.activate)
+	e1:SetOperation(ref.activate)
 	c:RegisterEffect(e1)
 	--disable
 	local e2=Effect.CreateEffect(c)
@@ -25,8 +26,8 @@ function c101010108.initial_effect(c)
 	e5:SetRange(LOCATION_SZONE)
 	e5:SetCountLimit(1,101010108)
 	e5:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return Duel.GetTurnPlayer()~=tp end)
-	e5:SetTarget(c101010108.tg1)
-	e5:SetOperation(c101010108.op1)
+	e5:SetTarget(ref.tg1)
+	e5:SetOperation(ref.op1)
 	c:RegisterEffect(e5)
 	--choice 2: gain LP
 	local e6=Effect.CreateEffect(c)
@@ -37,16 +38,16 @@ function c101010108.initial_effect(c)
 	e6:SetRange(LOCATION_SZONE)
 	e6:SetCountLimit(1,101010108)
 	e6:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return Duel.GetTurnPlayer()~=tp end)
-	e6:SetTarget(c101010108.tg)
-	e6:SetOperation(c101010108.op)
+	e6:SetTarget(ref.tg)
+	e6:SetOperation(ref.op)
 	c:RegisterEffect(e6)
 end
-function c101010108.filter(c)
+function ref.filter(c)
 	return c:IsSetCard(0x167) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
-function c101010108.activate(e,tp,eg,ep,ev,re,r,rp)
+function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
-	local g=Duel.GetMatchingGroup(c101010108.filter,tp,LOCATION_DECK,0,nil)
+	local g=Duel.GetMatchingGroup(ref.filter,tp,LOCATION_DECK,0,nil)
 	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101010108,0)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local sg=g:Select(tp,1,1,nil)
@@ -54,17 +55,17 @@ function c101010108.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,sg)
 	end
 end
-function c101010108.dfilter(c,tid)
+function ref.dfilter(c,tid)
 	return bit.band(c:GetReason(),0x41)==0x41 and c:GetTurnID()==tid
 end
-function c101010108.tg1(e,tp,eg,ep,ev,re,r,rp,chk)
-	local ct=Duel.GetMatchingGroupCount(c101010108.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
+function ref.tg1(e,tp,eg,ep,ev,re,r,rp,chk)
+	local ct=Duel.GetMatchingGroupCount(ref.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,ct) end
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,ct)
 end
-function c101010108.op1(e,tp,eg,ep,ev,re,r,rp)
+function ref.op1(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
-	local ct=Duel.GetMatchingGroupCount(c101010108.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
+	local ct=Duel.GetMatchingGroupCount(ref.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
 	Duel.Draw(tp,ct,REASON_EFFECT)
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -74,13 +75,13 @@ function c101010108.op1(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetReset(RESET_PHASE+PHASE_END,2)
 	Duel.RegisterEffect(e1,tp)
 end
-function c101010108.tg(e,tp,eg,ep,ev,re,r,rp,chk)
-	local ct=Duel.GetMatchingGroupCount(c101010108.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
+function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+	local ct=Duel.GetMatchingGroupCount(ref.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_RECOVER,nil,0,tp,ct*300)
 end
-function c101010108.op(e,tp,eg,ep,ev,re,r,rp)
+function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
-	local ct=Duel.GetMatchingGroupCount(c101010108.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
+	local ct=Duel.GetMatchingGroupCount(ref.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
 	Duel.Recover(tp,ct*300,REASON_EFFECT)
 end

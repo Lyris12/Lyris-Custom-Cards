@@ -1,6 +1,7 @@
 --Cyber Light Twin Dragon
-function c101010036.initial_effect(c)
-	--fusion material
+local id,ref=GIR()
+function ref.start(c)
+--fusion material
 	c:EnableReviveLimit()
 	aux.AddFusionProcCodeRep(c,101010030,2,false,true)
 	--pierce

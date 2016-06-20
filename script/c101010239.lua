@@ -1,6 +1,7 @@
 --ライリス
-function c101010258.initial_effect(c)
-	--race/attribute
+local id,ref=GIR()
+function ref.start(c)
+--race/attribute
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_ADD_RACE)
@@ -17,7 +18,7 @@ function c101010258.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_BE_MATERIAL)
-	e2:SetOperation(c101010258.immop)
+	e2:SetOperation(ref.immop)
 	c:RegisterEffect(e2)
 	--double tribute
 	local e3=Effect.CreateEffect(c)
@@ -29,7 +30,7 @@ function c101010258.initial_effect(c)
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE)
 	e4:SetCode(EFFECT_RITUAL_LEVEL)
-	e4:SetValue(c101010258.rlv)
+	e4:SetValue(ref.rlv)
 	c:RegisterEffect(e4)
 	--nontuner
 	local e5=Effect.CreateEffect(c)
@@ -44,12 +45,12 @@ function c101010258.initial_effect(c)
 	e6:SetType(EFFECT_TYPE_IGNITION)
 	e6:SetRange(LOCATION_HAND)
 	e6:SetCountLimit(1,101010258)
-	e6:SetCost(c101010258.cost)
-	e6:SetTarget(c101010258.target)
-	e6:SetOperation(c101010258.operation)
+	e6:SetCost(ref.cost)
+	e6:SetTarget(ref.target)
+	e6:SetOperation(ref.operation)
 	c:RegisterEffect(e6)
 end
-function c101010258.immop(e,tp,eg,ep,ev,re,r,rp)
+function ref.immop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local rc=c:GetReasonCard()
 	--race/attribute
@@ -66,43 +67,43 @@ function c101010258.immop(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetValue(0xff)
 	rc:RegisterEffect(e2)
 end
-function c101010258.rlv(e,c)
+function ref.rlv(e,c)
 	local lv=e:GetHandler():GetLevel()
 	local clv=c:GetLevel()
 	return lv*65536+clv
 end
-function c101010258.cfilter(c)
+function ref.cfilter(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:GetActivateEffect():IsHasCategory(CATEGORY_SPECIAL_SUMMON) and not c:IsPublic()
 end
-function c101010258.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return not c:IsPublic() and Duel.IsExistingMatchingCard(c101010258.cfilter,tp,LOCATION_HAND,0,1,c) end
-	local g=Duel.SelectMatchingCard(tp,c101010258.cfilter,tp,LOCATION_HAND,0,1,1,c)
+	if chk==0 then return not c:IsPublic() and Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_HAND,0,1,c) end
+	local g=Duel.SelectMatchingCard(tp,ref.cfilter,tp,LOCATION_HAND,0,1,1,c)
 	Duel.SetTargetCard(g)
 	g:AddCard(c)
 	Duel.ConfirmCards(1-tp,g)
 end
-function c101010258.filter(c,e)
+function ref.filter(c,e)
 	return c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e)
 end
-function c101010258.spfilter(c,e,tp)
+function ref.spfilter(c,e,tp)
 	local st=SUMMON_TYPE_FUSION
 	if c:IsSetCard(0x102) then st=st+0x10 end
 	return c:IsType(TYPE_FUSION) and c:IsCanBeSpecialSummoned(e,st,tp,true,true)
 end
-function c101010258.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsExistingMatchingCard(Card.IsCanBeFusionMaterial,tp,LOCATION_DECK+LOCATION_HAND,0,1,nil)
-		and Duel.IsExistingMatchingCard(c101010258.spfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp) end
+		and Duel.IsExistingMatchingCard(ref.spfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function c101010258.filter(c,e)
+function ref.filter(c,e)
 	return c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e)
 end
-function c101010258.operation(e,tp,eg,ep,ev,re,r,rp)
+function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=Group.FromCards(e:GetHandler(),Duel.GetFirstTarget()):Filter(Card.IsRelateToEffect,nil,e)
-	local g1=Duel.GetMatchingGroup(c101010258.filter,tp,LOCATION_DECK+LOCATION_HAND,0,nil,e)
-	local g2=Duel.GetMatchingGroup(c101010258.spfilter,tp,LOCATION_EXTRA,0,nil,e,tp)
+	local g1=Duel.GetMatchingGroup(ref.filter,tp,LOCATION_DECK+LOCATION_HAND,0,nil,e)
+	local g2=Duel.GetMatchingGroup(ref.spfilter,tp,LOCATION_EXTRA,0,nil,e,tp)
 	if Duel.SendtoGrave(g,REASON_EFFECT)==2 and g1:GetCount()>0 and g2:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 		local mg=g1:Select(tp,1,63,nil)

@@ -1,21 +1,22 @@
 --If this card was Synchro Summoned using "Sea Scout - Sotileo of the Quiet Tide" as a Synchro Material Monster, this card gains 400 ATK. At the end of the Damage Step, if this card attacked: Target 1 other WATER monster you control that has attacked this turn; that target gains 300 ATK, also, it can make a second attack during this Battle Phase.
 --ＳＳ－高まる潮バオルス
-function c101010218.initial_effect(c)
-	--synchro summon
+local id,ref=GIR()
+function ref.start(c)
+--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
 	c:EnableReviveLimit()
 	--mat check
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_MATERIAL_CHECK)
-	e0:SetValue(c101010218.matcheck)
+	e0:SetValue(ref.matcheck)
 	c:RegisterEffect(e0)
 	--atkup
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetCondition(c101010218.atkcon)
+	e1:SetCondition(ref.atkcon)
 	e1:SetValue(400)
 	e1:SetLabelObject(e0)
 	c:RegisterEffect(e1)
@@ -23,23 +24,23 @@ function c101010218.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e2:SetCode(EVENT_DAMAGE_STEP_END)
-	e2:SetCondition(c101010218.atcon)
-	e2:SetTarget(c101010218.attg)
-	e2:SetOperation(c101010218.atop)
+	e2:SetCondition(ref.atcon)
+	e2:SetTarget(ref.attg)
+	e2:SetOperation(ref.atop)
 	c:RegisterEffect(e2)
 end
-function c101010218.atcon(e,tp,eg,ep,ev,re,r,rp)
+function ref.atcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsRelateToBattle() and tp==Duel.GetTurnPlayer()
 end
-function c101010218.filter(c)
+function ref.filter(c)
 	return c:GetAttackedCount()>0 and c:IsAttribute(ATTRIBUTE_WATER)
 end
-function c101010218.attg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	Duel.SelectTarget(tp,c101010218.filter,tp,LOCATION_MZONE,0,1,1,e:GetHandler())
+	Duel.SelectTarget(tp,ref.filter,tp,LOCATION_MZONE,0,1,1,e:GetHandler())
 end
-function c101010218.atop(e,tp,eg,ep,ev,re,r,rp)
+function ref.atop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		local e1=Effect.CreateEffect(e:GetHandler())
@@ -56,7 +57,7 @@ function c101010218.atop(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e0)
 	end
 end
-function c101010218.matcheck(e,c)
+function ref.matcheck(e,c)
 	local g=c:GetMaterial()
 	local sotl=0
 	local tc=g:GetFirst()
@@ -66,6 +67,6 @@ function c101010218.matcheck(e,c)
 	end
 	e:SetLabel(sotl)
 end
-function c101010218.atkcon(e)
+function ref.atkcon(e)
 	return e:GetLabelObject():GetLabel()~=0
 end

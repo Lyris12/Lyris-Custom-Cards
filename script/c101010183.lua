@@ -1,23 +1,24 @@
 --Sea Scout - Relic Trainee
-function c101010227.initial_effect(c)
-	--Synchro
+local id,ref=GIR()
+function ref.start(c)
+--Synchro
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(101010227,1))
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e3:SetCost(c101010227.spcost)
-	e3:SetTarget(c101010227.sptg)
-	e3:SetOperation(c101010227.spop)
+	e3:SetCost(ref.spcost)
+	e3:SetTarget(ref.sptg)
+	e3:SetOperation(ref.spop)
 	c:RegisterEffect(e3)
 	--lv change
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetCountLimit(1)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetTarget(c101010227.tg)
-	e1:SetOperation(c101010227.lvop)
+	e1:SetTarget(ref.tg)
+	e1:SetOperation(ref.lvop)
 	c:RegisterEffect(e1)
 	--limit
 	local e2=Effect.CreateEffect(c)
@@ -27,10 +28,10 @@ function c101010227.initial_effect(c)
 	e2:SetValue(1)
 	c:RegisterEffect(e2)
 end
-function c101010227.sfilter(c)
+function ref.sfilter(c)
 	return c:IsType(TYPE_SYNCHRO) and c:IsAttribute(ATTRIBUTE_WATER)
 end
-function c101010227.op(e,tp,eg,ep,ev,re,r,rp)
+function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local g=Duel.GetMatchingGroup(Card.IsType,0,LOCATION_GRAVE,LOCATION_GRAVE,nil,TYPE_SYNCHRO)
 	local tc=g:GetFirst()
@@ -43,8 +44,8 @@ function c101010227.op(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 			e1:SetRange(LOCATION_GRAVE)
 			e1:SetValue(SUMMON_TYPE_SYNCHRO)
-			e1:SetCondition(c101010227.syncon)
-			e1:SetOperation(c101010227.synop)
+			e1:SetCondition(ref.syncon)
+			e1:SetOperation(ref.synop)
 			e1:SetLabelObject(tck)
 			e1:SetReset(RESET_EVENT+EVENT_ADJUST,1)
 			tc:RegisterEffect(e1)
@@ -53,20 +54,20 @@ function c101010227.op(e,tp,eg,ep,ev,re,r,rp)
 		tc=g:GetNext()
 	end
 end
-function c101010227.syncon(e,c,smat,mg)
+function ref.syncon(e,c,smat,mg)
 	if c==nil then return true end
 	local code=c:GetOriginalCode()
 	local mt=_G["c" .. code]
-	local tuner=Duel.GetMatchingGroup(c101010227.matfilter1,tp,LOCATION_MZONE,LOCATION_MZONE,nil,c)
-	local nontuner=Duel.GetMatchingGroup(c101010227.matfilter2,tp,LOCATION_MZONE,LOCATION_MZONE,nil,c)
+	local tuner=Duel.GetMatchingGroup(ref.matfilter1,tp,LOCATION_MZONE,LOCATION_MZONE,nil,c)
+	local nontuner=Duel.GetMatchingGroup(ref.matfilter2,tp,LOCATION_MZONE,LOCATION_MZONE,nil,c)
 	if not mt.sync then return false end
 	if c:IsSetCard(0x301) then
-		return nontuner:IsExists(c101010227.lvfilter2,1,nil,c,tuner)
+		return nontuner:IsExists(ref.lvfilter2,1,nil,c,tuner)
 	else
-		return tuner:IsExists(c101010227.lvfilter,1,nil,c,nontuner)
+		return tuner:IsExists(ref.lvfilter,1,nil,c,nontuner)
 	end
 end
-function c101010227.lvfilter(c,syncard,nontuner)
+function ref.lvfilter(c,syncard,nontuner)
 	local code=syncard:GetOriginalCode()
 	local mt=_G["c" .. code]
 	local lv=c:GetSynchroLevel(syncard)
@@ -74,7 +75,7 @@ function c101010227.lvfilter(c,syncard,nontuner)
 	local nt=nontuner:Filter(Card.IsCanBeSynchroMaterial,nil,syncard,c)
 	return mt.minntct and mt.maxntct and slv-lv>0 and nt:CheckWithSumEqual(Card.GetSynchroLevel,slv-lv,mt.minntct,mt.maxntct,syncard)
 end
-function c101010227.lvfilter2(c,syncard,tuner)
+function ref.lvfilter2(c,syncard,tuner)
 	local code=syncard:GetOriginalCode()
 	local mt=_G["c" .. code]
 	local lv=c:GetSynchroLevel(syncard)
@@ -82,40 +83,40 @@ function c101010227.lvfilter2(c,syncard,tuner)
 	local nt=tuner:Filter(Card.IsCanBeSynchroMaterial,nil,syncard,c)
 	return mt.minntct and mt.maxntct and lv+slv>0 and nt:CheckWithSumEqual(Card.GetSynchroLevel,lv+slv,mt.minntct,mt.maxntct,syncard)
 end
-function c101010227.matfilter1(c,syncard)
+function ref.matfilter1(c,syncard)
 	local code=syncard:GetOriginalCode()
 	local mt=_G["c" .. code]
 	return c:IsType(TYPE_TUNER) and c:IsHasEffect(511002081) and c:IsCanBeSynchroMaterial(syncard) and c:IsAbleToGrave() 
 		and mt.tuner_filter and mt.tuner_filter(c)
 end
-function c101010227.matfilter2(c,syncard)
+function ref.matfilter2(c,syncard)
 	local code=syncard:GetOriginalCode()
 	local mt=_G["c" .. code]
 	return c:IsCanBeSynchroMaterial(syncard) and c:IsAbleToGrave()
 		and mt.nontuner_filter and mt.nontuner_filter(c)
 end
-function c101010227.dtfilter1(c,syncard,lv,g1,g2,g3,g4)
+function ref.dtfilter1(c,syncard,lv,g1,g2,g3,g4)
 	if not syncard.synfilter1 then return false end
 	return syncard.synfilter1(c,syncard,lv,g1,g2,g3,g4)
 end
-function c101010227.dtfilter2(c,syncard,lv,g2,g4,f1,tuner1)
+function ref.dtfilter2(c,syncard,lv,g2,g4,f1,tuner1)
 	if not syncard.synfilter2 then return false end
 	return syncard.synfilter2(c,syncard,lv,g2,g4,f1,tuner1)
 end
-function c101010227.dtfilter3(c,syncard,lv,f1,f2)
+function ref.dtfilter3(c,syncard,lv,f1,f2)
 	if not syncard.synfilter3 then return false end
 	return syncard.synfilter3(c,syncard,lv,f1,f2)
 end
-function c101010227.synop(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
+function ref.synop(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
 	local code=c:GetOriginalCode()
 	local mt=_G["c" .. code]
-	local tuner=Duel.GetMatchingGroup(c101010227.matfilter1,tp,LOCATION_MZONE,LOCATION_MZONE,nil,c)
-	local nontuner=Duel.GetMatchingGroup(c101010227.matfilter2,tp,LOCATION_MZONE,LOCATION_MZONE,nil,c)
-	local htuner=Duel.GetMatchingGroup(c101010227.matfilter1,tp,LOCATION_MZONE+LOCATION_HAND,LOCATION_MZONE,nil,c)
-	local hnontuner=Duel.GetMatchingGroup(c101010227.matfilter2,tp,LOCATION_MZONE+LOCATION_HAND,LOCATION_MZONE,nil,c)
+	local tuner=Duel.GetMatchingGroup(ref.matfilter1,tp,LOCATION_MZONE,LOCATION_MZONE,nil,c)
+	local nontuner=Duel.GetMatchingGroup(ref.matfilter2,tp,LOCATION_MZONE,LOCATION_MZONE,nil,c)
+	local htuner=Duel.GetMatchingGroup(ref.matfilter1,tp,LOCATION_MZONE+LOCATION_HAND,LOCATION_MZONE,nil,c)
+	local hnontuner=Duel.GetMatchingGroup(ref.matfilter2,tp,LOCATION_MZONE+LOCATION_HAND,LOCATION_MZONE,nil,c)
 	local mat1
 	if c:IsSetCard(0x301) then
-		nontuner=nontuner:Filter(c101010227.lvfilter2,nil,c,tuner)
+		nontuner=nontuner:Filter(ref.lvfilter2,nil,c,tuner)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SMATERIAL)
 		mat1=nontuner:Select(tp,1,1,nil)
 		local tlv=mat1:GetFirst():GetSynchroLevel(c)
@@ -126,7 +127,7 @@ function c101010227.synop(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
 	elseif mt.dobtun then
 		mat1=Group.CreateGroup()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SMATERIAL)
-		local t1=tuner:FilterSelect(tp,c101010227.dtfilter1,1,1,nil,c,c:GetLevel(),tuner,nontuner,htuner,hnontuner)
+		local t1=tuner:FilterSelect(tp,ref.dtfilter1,1,1,nil,c,c:GetLevel(),tuner,nontuner,htuner,hnontuner)
 		tuner1=t1:GetFirst()
 		mat1:AddCard(tuner1)
 		nontuner:RemoveCard(tuner1)
@@ -134,7 +135,7 @@ function c101010227.synop(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
 		local f1=tuner1.tuner_filter
 		local t2=nil
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SMATERIAL)
-		t2=tuner:FilterSelect(tp,c101010227.dtfilter2,1,1,tuner1,c,c:GetLevel()-lv1,nontuner,hnontuner,f1,tuner1)
+		t2=tuner:FilterSelect(tp,ref.dtfilter2,1,1,tuner1,c,c:GetLevel()-lv1,nontuner,hnontuner,f1,tuner1)
 		local tuner2=t2:GetFirst()
 		mat1:AddCard(tuner2)
 		nontuner:RemoveCard(tuner2)
@@ -143,10 +144,10 @@ function c101010227.synop(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SMATERIAL)
 		local m3=nil
 		if c.dtmlt then m3=nontuner:SelectWithSumEqual(tp,Card.GetSynchroLevel,c:GetLevel()-lv1-lv2,1,99,c)
-		else m3=nontuner:FilterSelect(tp,c101010227.dtfilter3,1,1,nil,c,c:GetLevel()-lv1-lv2,f1,f2) end
+		else m3=nontuner:FilterSelect(tp,ref.dtfilter3,1,1,nil,c,c:GetLevel()-lv1-lv2,f1,f2) end
 		mat1:Merge(m3)
 	else
-		tuner=tuner:Filter(c101010227.lvfilter,nil,c,nontuner)
+		tuner=tuner:Filter(ref.lvfilter,nil,c,nontuner)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SMATERIAL)
 		mat1=tuner:Select(tp,1,1,nil)
 		local tlv=mat1:GetFirst():GetSynchroLevel(c)
@@ -158,7 +159,7 @@ function c101010227.synop(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
 	c:SetMaterial(mat1)
 	Duel.SendtoGrave(mat1,REASON_MATERIAL+REASON_SYNCHRO)
 end
-function c101010227.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	local t={}
 	local i=1
@@ -171,7 +172,7 @@ function c101010227.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010227,1))
 	e:SetLabel(Duel.AnnounceNumber(tp,table.unpack(t)))
 end
-function c101010227.lvop(e,tp,eg,ep,ev,re,r,rp)
+function ref.lvop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsFaceup() and c:IsRelateToEffect(e) then
 		local e1=Effect.CreateEffect(c)
@@ -182,15 +183,15 @@ function c101010227.lvop(e,tp,eg,ep,ev,re,r,rp)
 		c:RegisterEffect(e1)
 	end
 end
-function c101010227.cfilter(c,ck)
+function ref.cfilter(c,ck)
 	return c:IsAbleToGraveAsCost() and c:IsLevelAbove(1)
 end
-function c101010227.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	local mg=Duel.GetMatchingGroup(c101010227.cfilter,tp,LOCATION_MZONE,0,c)
-	if chk==0 then return c:IsAbleToGraveAsCost() and Duel.IsExistingMatchingCard(c101010227.sptgfil,tp,LOCATION_GRAVE,0,1,nil,e,tp,c:GetLevel(),mg) end
+	local mg=Duel.GetMatchingGroup(ref.cfilter,tp,LOCATION_MZONE,0,c)
+	if chk==0 then return c:IsAbleToGraveAsCost() and Duel.IsExistingMatchingCard(ref.sptgfil,tp,LOCATION_GRAVE,0,1,nil,e,tp,c:GetLevel(),mg) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c101010227.spfil1,tp,LOCATION_GRAVE,0,1,1,nil,e,tp,c)
+	local g=Duel.SelectMatchingCard(tp,ref.spfil1,tp,LOCATION_GRAVE,0,1,1,nil,e,tp,c)
 	local sc=g:GetFirst()
 	e:SetLabelObject(sc)
 	local lv=c:GetLevel()
@@ -198,7 +199,7 @@ function c101010227.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tglv=sc:GetLevel()
 	while lv<tglv do
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-			local g2=mg:FilterSelect(tp,c101010227.spfil2,1,1,nil,tglv-lv,mg,sc)
+			local g2=mg:FilterSelect(tp,ref.spfil2,1,1,nil,tglv-lv,mg,sc)
 			local gc=g2:GetFirst()
 			lv=lv+gc:GetLevel()
 			mg:RemoveCard(gc)
@@ -206,31 +207,31 @@ function c101010227.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 	Duel.Remove(g1,POS_FACEUP,REASON_COST)
 end
-function c101010227.sptgfil(c,e,tp,lv,mg)
+function ref.sptgfil(c,e,tp,lv,mg)
 	return c:IsSetCard(0x5cd) and c:IsType(TYPE_SYNCHRO) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and mg:CheckWithSumEqual(Card.GetOriginalLevel,c:GetLevel()-lv,1,63,c) and c:IsCanBeEffectTarget(e)
 end
-function c101010227.spfil1(c,e,tp,tc)
+function ref.spfil1(c,e,tp,tc)
 	if c:IsSetCard(0x5cd) and c:IsType(TYPE_SYNCHRO) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:IsCanBeEffectTarget(e) then
-		local mg=Duel.GetMatchingGroup(c101010227.cfilter,tp,LOCATION_MZONE,0,tc)
-		return mg:IsExists(c101010227.spfil2,1,nil,c:GetLevel()-tc:GetLevel(),mg,c)
+		local mg=Duel.GetMatchingGroup(ref.cfilter,tp,LOCATION_MZONE,0,tc)
+		return mg:IsExists(ref.spfil2,1,nil,c:GetLevel()-tc:GetLevel(),mg,c)
 	else
 		return false
 	end
 end
-function c101010227.spfil2(c,limlv,mg,sc)
+function ref.spfil2(c,limlv,mg,sc)
 	local fg=mg:Clone()
 	fg:RemoveCard(c)
 	local newlim=limlv-c:GetLevel()
 	if newlim==0 then return true else return fg:CheckWithSumEqual(Card.GetOriginalLevel,newlim,1,63,sc) end
 end
-function c101010227.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
 	local sc=e:GetLabelObject()
 	Duel.SetTargetCard(sc)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,sc,1,0,0)
 end
-function c101010227.spop(e,tp,eg,ep,ev,re,r,rp)
+function ref.spop(e,tp,eg,ep,ev,re,r,rp)
   local tc=Duel.GetFirstTarget()
   if tc:IsRelateToEffect(e) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 then
 		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)

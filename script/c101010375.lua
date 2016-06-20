@@ -1,14 +1,15 @@
 --Victorious Weapon - Aries
-function c101010417.initial_effect(c)
-	--Activate
+local id,ref=GIR()
+function ref.start(c)
+--Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetDescription(1068)
 	e0:SetCategory(CATEGORY_EQUIP)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	e0:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e0:SetTarget(c101010417.target)
-	e0:SetOperation(c101010417.operation)
+	e0:SetTarget(ref.target)
+	e0:SetOperation(ref.operation)
 	c:RegisterEffect(e0)
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE)
@@ -26,7 +27,7 @@ function c101010417.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetCode(EVENT_ATTACK_ANNOUNCE)
-	e2:SetOperation(c101010417.lmop)
+	e2:SetOperation(ref.lmop)
 	c:RegisterEffect(e2)
 	--second effect
 	local e3=Effect.CreateEffect(c)
@@ -34,41 +35,41 @@ function c101010417.initial_effect(c)
 	e3:SetCode(EVENT_BATTLED)
 	e3:SetRange(LOCATION_SZONE)
 	e3:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return Duel.GetAttacker()==e:GetHandler():GetEquipTarget() end)
-	e3:SetTarget(c101010417.destg)
-	e3:SetOperation(c101010417.desop)
+	e3:SetTarget(ref.destg)
+	e3:SetOperation(ref.desop)
 	c:RegisterEffect(e3)
 end
-function c101010417.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
 	Duel.SelectTarget(tp,Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,e:GetHandler(),1,0,0)
 end
-function c101010417.operation(e,tp,eg,ep,ev,re,r,rp)
+function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if e:GetHandler():IsRelateToEffect(e) and tc:IsRelateToEffect(e) and tc:IsFaceup() then
 		Duel.Equip(tp,e:GetHandler(),tc)
 	end
 end
-function c101010417.lmop(e,tp,eg,ep,ev,re,r,rp)
+function ref.lmop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetAttacker()~=e:GetHandler():GetEquipTarget() then return end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e1:SetCode(EFFECT_CANNOT_ACTIVATE)
 	e1:SetTargetRange(0,1)
-	e1:SetValue(c101010417.aclimit)
+	e1:SetValue(ref.aclimit)
 	e1:SetReset(RESET_PHASE+PHASE_DAMAGE)
 	Duel.RegisterEffect(e1,tp)
 end
-function c101010417.aclimit(c,re,tp)
+function ref.aclimit(c,re,tp)
 	local c=re:GetHandler()
 	if not c:IsOnField() then return false end
 	if c:IsFacedown() then return true end
 	return c:IsHasEffect(EVENT_FLIP) or re:IsActiveType(EFFECT_TYPE_FLIP)
 end
-function c101010417.destg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	local ec=c:GetEquipTarget()
 	e:SetLabelObject(ec)
@@ -76,7 +77,7 @@ function c101010417.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(c,REASON_COST)
 	Duel.SetTargetCard(ec)
 end
-function c101010417.desop(e,tp,eg,ep,ev,re,r,rp)
+function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local ec=e:GetLabelObject()
 	if ec:IsLocation(LOCATION_MZONE) and ec:IsFaceup() and ec:IsRelateToEffect(e) then

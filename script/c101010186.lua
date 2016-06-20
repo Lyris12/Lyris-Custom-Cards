@@ -1,28 +1,29 @@
 --Red-Eyed Blazing Dragon
-function c101010283.initial_effect(c)
-	--special summon
+local id,ref=GIR()
+function ref.start(c)
+--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e1:SetRange(LOCATION_HAND)
-	e1:SetCondition(c101010283.spcon)
-	e1:SetOperation(c101010283.spop)
+	e1:SetCondition(ref.spcon)
+	e1:SetOperation(ref.spop)
 	c:RegisterEffect(e1)
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_IGNITION)
 	e5:SetRange(LOCATION_MZONE)
-	e5:SetTarget(c101010283.destg)
-	e5:SetOperation(c101010283.desop)
+	e5:SetTarget(ref.destg)
+	e5:SetOperation(ref.desop)
 	c:RegisterEffect(e5)
 end
-function c101010283.spcon(e,c)
+function ref.spcon(e,c)
 	if c==nil then return true end
 	return Duel.GetFieldGroupCount(c:GetControler(),LOCATION_MZONE,0)==0
 		and Duel.GetFieldGroupCount(c:GetControler(),0,LOCATION_MZONE)>0
 		and Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
 end
-function c101010283.spop(e,tp,eg,ep,ev,re,r,rp,c)
+function ref.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -35,13 +36,13 @@ function c101010283.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	e2:SetCode(EFFECT_UPDATE_DEFENCE)
 	c:RegisterEffect(e2)
 end
-function c101010283.destg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetAttack()>=1000 and e:GetHandler():GetDefence()>=1000 end
 	Duel.SetTargetPlayer(1-tp)
 	Duel.SetTargetParam(1000)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,1000)
 end
-function c101010283.desop(e,tp,eg,ep,ev,re,r,rp)
+function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and c:GetAttack()>=1000 and c:GetDefence()>=1000 then
 		local e1=Effect.CreateEffect(c)

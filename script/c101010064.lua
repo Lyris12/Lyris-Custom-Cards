@@ -1,14 +1,15 @@
 --襲雷の大振り
-function c101010106.initial_effect(c)
-	--Activate
+local id,ref=GIR()
+function ref.start(c)
+--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e1:SetHintTiming(TIMING_DESTROY)
-	e1:SetCondition(c101010106.spcon1)
-	e1:SetTarget(c101010106.sptg1)
-	e1:SetOperation(c101010106.spop)
+	e1:SetCondition(ref.spcon1)
+	e1:SetTarget(ref.sptg1)
+	e1:SetOperation(ref.spop)
 	c:RegisterEffect(e1)
 	--spsummon
 	local e2=Effect.CreateEffect(c)
@@ -19,10 +20,10 @@ function c101010106.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetCountLimit(1,101010106)
-	e2:SetCondition(c101010106.spcon2)
-	e2:SetCost(c101010106.spcost)
-	e2:SetTarget(c101010106.sptg2)
-	e2:SetOperation(c101010106.spop)
+	e2:SetCondition(ref.spcon2)
+	e2:SetCost(ref.spcost)
+	e2:SetTarget(ref.sptg2)
+	e2:SetOperation(ref.spop)
 	c:RegisterEffect(e2)
 	--
 	local e1=Effect.CreateEffect(c)
@@ -30,42 +31,42 @@ function c101010106.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetProperty(EFFECT_FLAG_BOTH_SIDE)
 	e1:SetCode(EVENT_CHAIN_SOLVED)
-	e1:SetOperation(c101010106.desop)
+	e1:SetOperation(ref.desop)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
 	e2:SetCode(EVENT_ADJUST)
 	c:RegisterEffect(e2)
 end
-function c101010106.desfilter(c)
+function ref.desfilter(c)
 	return c:IsPreviousLocation(LOCATION_EXTRA) and bit.band(c:GetSummonType(),SUMMON_TYPE_SPECIAL)==SUMMON_TYPE_SPECIAL and not c:IsAttribute(ATTRIBUTE_DARK+ATTRIBUTE_LIGHT+ATTRIBUTE_WIND)
 end
-function c101010106.desop(e,tp,eg,ep,ev,re,r,rp)
+function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local g=Duel.GetFieldGroup(tp,LOCATION_MZONE,LOCATION_MZONE)
 	--if g:GetCount()>0 then
 	local tc=g:GetFirst()
 	while tc do
-		if c101010106.desfilter(tc) then
+		if ref.desfilter(tc) then
 			Duel.Destroy(tc,REASON_EFFECT)
 		end
 		tc=g:GetNext()
 	end
 	--end
 end
-function c101010106.spcon1(e,tp,eg,ep,ev,re,r,rp)
+function ref.spcon1(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetCurrentPhase()~=PHASE_DAMAGE then return true end
 	local res,teg,tep,tev,tre,tr,trp=Duel.CheckEvent(EVENT_DESTROYED,true)
-	return res and teg:IsExists(c101010106.cfilter,1,nil,tp)
+	return res and teg:IsExists(ref.cfilter,1,nil,tp)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(c101010106.filter,tp,LOCATION_DECK,0,1,nil,e,tp)
+		and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil,e,tp)
 end
-function c101010106.sptg1(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.sptg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	local res,teg,tep,tev,tre,tr,trp=Duel.CheckEvent(EVENT_DESTROYED,true)
 	if Duel.GetCurrentPhase()==PHASE_DAMAGE
-		or (res and teg:IsExists(c101010106.cfilter,1,nil,tp)
+		or (res and teg:IsExists(ref.cfilter,1,nil,tp)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(c101010106.filter,tp,LOCATION_DECK,0,1,nil,e,tp)
+		and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil,e,tp)
 		and Duel.SelectYesNo(tp,aux.Stringid(101010106,1))) then
 		e:SetCategory(CATEGORY_SPECIAL_SUMMON)
 		Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
@@ -75,31 +76,31 @@ function c101010106.sptg1(e,tp,eg,ep,ev,re,r,rp,chk)
 		e:SetCategory(0)
 	end
 end
-function c101010106.cfilter(c,tp)
+function ref.cfilter(c,tp)
 	return c:IsReason(REASON_BATTLE+REASON_EFFECT)
 		and c:IsPreviousLocation(LOCATION_MZONE) and c:GetPreviousControler()==tp
 end
-function c101010106.spcon2(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c101010106.cfilter,1,nil,tp)
+function ref.spcon2(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(ref.cfilter,1,nil,tp)
 end
-function c101010106.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFlagEffect(tp,101010106)==0 end
 	Duel.RegisterFlagEffect(tp,101010106,RESET_PHASE+PHASE_END,0,1)
 end
-function c101010106.filter(c,e,tp)
+function ref.filter(c,e,tp)
 	return c:IsSetCard(0x167) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c101010106.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsRelateToEffect(e)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(c101010106.filter,tp,LOCATION_DECK,0,1,nil,e,tp) end
+		and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil,e,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
-function c101010106.spop(e,tp,eg,ep,ev,re,r,rp)
+function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetFlagEffect(101010106)==0 then return end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c101010106.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
 	if g:GetCount()>0 then
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 	end

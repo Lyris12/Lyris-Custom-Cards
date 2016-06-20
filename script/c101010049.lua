@@ -1,14 +1,15 @@
 --サイバー・ドラゴン・メイ
-function c101010021.initial_effect(c)
-	c:EnableReviveLimit()
+local id,ref=GIR()
+function ref.start(c)
+c:EnableReviveLimit()
 	--xyz summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e1:SetRange(LOCATION_EXTRA)
-	e1:SetCondition(c101010021.xyzcon)
-	e1:SetOperation(c101010021.xyzop)
+	e1:SetCondition(ref.xyzcon)
+	e1:SetOperation(ref.xyzop)
 	e1:SetValue(SUMMON_TYPE_XYZ)
 	c:RegisterEffect(e1)
 	--detach
@@ -17,8 +18,8 @@ function c101010021.initial_effect(c)
 	e3:SetCode(EVENT_PHASE+PHASE_END)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCountLimit(1)
-	e3:SetCondition(c101010021.rmcon)
-	e3:SetOperation(c101010021.rmop)
+	e3:SetCondition(ref.rmcon)
+	e3:SetOperation(ref.rmop)
 	c:RegisterEffect(e3)
 	--cannot fuse
 	local e4=Effect.CreateEffect(c)
@@ -35,8 +36,8 @@ function c101010021.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_BECOME_TARGET)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCondition(c101010021.detcon)
-	e2:SetOperation(c101010021.detop)
+	e2:SetCondition(ref.detcon)
+	e2:SetOperation(ref.detop)
 	c:RegisterEffect(e2)
 	--indes
 	local e6=Effect.CreateEffect(c)
@@ -44,7 +45,7 @@ function c101010021.initial_effect(c)
 	e6:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
 	e6:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e6:SetRange(LOCATION_MZONE)
-	e6:SetValue(c101010021.efilter)
+	e6:SetValue(ref.efilter)
 	c:RegisterEffect(e6)
 	--You can return all banished Machine-Type monsters to the graveyard; Special Summon 1 Machine-Type monster from your Deck or Extra Deck whose Level/Rank is equal to or less than the number of cards returned, ignoring the Summoning conditions. This card must have an Xyz Material(s) attached to it to activate and resolve this effect.
 	local e7=Effect.CreateEffect(c)
@@ -52,74 +53,74 @@ function c101010021.initial_effect(c)
 	e7:SetType(EFFECT_TYPE_IGNITION)
 	e7:SetRange(LOCATION_MZONE)
 	e7:SetLabel(0)
-	e7:SetCondition(c101010021.con)
-	e7:SetCost(c101010021.cost)
-	e7:SetTarget(c101010021.tg)
-	e7:SetOperation(c101010021.op)
+	e7:SetCondition(ref.con)
+	e7:SetCost(ref.cost)
+	e7:SetTarget(ref.tg)
+	e7:SetOperation(ref.op)
 	c:RegisterEffect(e7)
 end
-function c101010021.detcon(e,tp,eg,ep,ev,re,r,rp)
+function ref.detcon(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	return g:IsContains(e:GetHandler())
 end
-function c101010021.detop(e,tp,eg,ep,ev,re,r,rp)
+function ref.detop(e,tp,eg,ep,ev,re,r,rp)
 	local g=e:GetHandler():GetOverlayGroup()
 	g:AddCard(e:GetHandler())
 	Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
 end
-function c101010021.xyzfilter(c)
+function ref.xyzfilter(c)
 	return c:IsCode(70095154) and c:IsCanBeXyzMaterial(c,true)
 end
-function c101010021.xyzcon(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroupCount(c101010021.xyzfilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
+function ref.xyzcon(e,tp,eg,ep,ev,re,r,rp)
+	local g=Duel.GetMatchingGroupCount(ref.xyzfilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
 	return g>1 and g<6
 end
-function c101010021.xyzop(e,tp,eg,ep,ev,re,r,rp)
-	local mg=Duel.SelectMatchingCard(tp,c101010021.xyzfilter,tp,LOCATION_MZONE,LOCATION_MZONE,2,5,nil)
+function ref.xyzop(e,tp,eg,ep,ev,re,r,rp)
+	local mg=Duel.SelectMatchingCard(tp,ref.xyzfilter,tp,LOCATION_MZONE,LOCATION_MZONE,2,5,nil)
 	e:GetHandler():SetMaterial(mg)
 	Duel.Overlay(e:GetHandler(),mg)
 end
-function c101010021.rmcon(e,tp,eg,ep,ev,re,r,rp)
+function ref.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
 end
-function c101010021.rmop(e,tp,eg,ep,ev,re,r,rp)
+function ref.rmop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:GetOverlayCount()>0 then
 		c:RemoveOverlayCard(tp,1,1,REASON_EFFECT)
 	end
 end
-function c101010021.efilter(e,re,rp)
+function ref.efilter(e,re,rp)
 	if not re:IsActiveType(TYPE_TRAP) then return false end
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return true end
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	return not g:IsContains(e:GetHandler())
 end
-function c101010021.con(e,tp,eg,ep,ev,re,r,rp)
+function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetOverlayCount()~=0
 end
-function c101010021.cfilter(c)
+function ref.cfilter(c)
 	return c:IsRace(RACE_MACHINE) and c:IsFaceup()
 end
-function c101010021.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c101010021.cfilter,tp,LOCATION_REMOVED,LOCATION_REMOVED,1,nil) end
-	local ct=Duel.GetMatchingGroupCount(c101010021.cfilter,tp,LOCATION_REMOVED,LOCATION_REMOVED,nil)
+function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_REMOVED,LOCATION_REMOVED,1,nil) end
+	local ct=Duel.GetMatchingGroupCount(ref.cfilter,tp,LOCATION_REMOVED,LOCATION_REMOVED,nil)
 	e:SetLabel(ct)
-	local g=Duel.GetMatchingGroup(c101010021.cfilter,tp,LOCATION_REMOVED,LOCATION_REMOVED,nil)
+	local g=Duel.GetMatchingGroup(ref.cfilter,tp,LOCATION_REMOVED,LOCATION_REMOVED,nil)
 	Duel.SendtoGrave(g,REASON_COST+REASON_RETURN)
 end
-function c101010021.filter(c,e,tp,lv)
+function ref.filter(c,e,tp,lv)
 	return c:IsRace(RACE_MACHINE) and (c:IsLevelBelow(lv) or c:IsRankBelow(lv)) and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
 end
-function c101010021.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
 	local lv=e:GetLabel()
-	local g=Duel.GetMatchingGroup(c101010021.filter,tp,LOCATION_EXTRA+LOCATION_DECK,0,nil,e,tp,lv)
+	local g=Duel.GetMatchingGroup(ref.filter,tp,LOCATION_EXTRA+LOCATION_DECK,0,nil,e,tp,lv)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,tp,LOCATION_EXTRA+LOCATION_DECK)
 end
-function c101010021.op(e,tp,eg,ep,ev,re,r,rp)
+function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():GetOverlayCount()==0 or Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local lv=e:GetLabel()
-	local g=Duel.GetMatchingGroup(c101010021.filter,tp,LOCATION_EXTRA+LOCATION_DECK,0,nil,e,tp,lv)
+	local g=Duel.GetMatchingGroup(ref.filter,tp,LOCATION_EXTRA+LOCATION_DECK,0,nil,e,tp,lv)
 	if g:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local tc=g:Select(tp,1,1,nil):GetFirst()

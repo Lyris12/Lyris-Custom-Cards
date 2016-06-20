@@ -1,6 +1,7 @@
 --Victorial Dragon Sagitton
-function c101010409.initial_effect(c)
-	c:EnableReviveLimit()
+local id,ref=GIR()
+function ref.start(c)
+c:EnableReviveLimit()
 	aux.AddFusionProcFunFunRep(c,aux.FilterBoolFunction(Card.IsSetCard,0x50b),aux.FilterBoolFunction(Card.IsSetCard,0x50b),1,63,true)
 	--spsum condition
 	local rl=Effect.CreateEffect(c)
@@ -8,7 +9,7 @@ function c101010409.initial_effect(c)
 	rl:SetCode(EFFECT_SPSUMMON_CONDITION)
 	rl:SetRange(LOCATION_EXTRA)
 	rl:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-	rl:SetValue(aux.fuslimit and c101010409.splimit)
+	rl:SetValue(aux.fuslimit and ref.splimit)
 	c:RegisterEffect(rl)
 	--attack all
 	local e1=Effect.CreateEffect(c)
@@ -22,8 +23,8 @@ function c101010409.initial_effect(c)
 	e2:SetCode(EFFECT_DESTROY_REPLACE)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetLabel(1)
-	e2:SetTarget(c101010409.reptg)
-	e2:SetValue(c101010409.repval)
+	e2:SetTarget(ref.reptg)
+	e2:SetValue(ref.repval)
 	c:RegisterEffect(e2)
 	--Do Not Remove
 	local point=Effect.CreateEffect(c)
@@ -32,15 +33,15 @@ function c101010409.initial_effect(c)
 	point:SetCode(EVENT_PHASE_START+PHASE_DRAW)
 	point:SetRange(0xff)
 	point:SetCountLimit(1)
-	point:SetOperation(c101010409.ipoint)
+	point:SetOperation(ref.ipoint)
 	c:RegisterEffect(point)
 	--redirect (Do Not Remove)
 	local ge0=Effect.CreateEffect(c)
 	ge0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	ge0:SetCode(EFFECT_SEND_REPLACE)
 	ge0:SetRange(LOCATION_ONFIELD)
-	ge0:SetTarget(c101010409.reen)
-	ge0:SetOperation(c101010409.reenop)
+	ge0:SetTarget(ref.reen)
+	ge0:SetOperation(ref.reenop)
 	c:RegisterEffect(ge0)
 	--counter (Do Not Remove)
 	if not relay_check then
@@ -48,17 +49,17 @@ function c101010409.initial_effect(c)
 		local ge1=Effect.CreateEffect(c)
 		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge1:SetCode(EVENT_ATTACK_ANNOUNCE)
-		ge1:SetOperation(c101010409.recount)
+		ge1:SetOperation(ref.recount)
 		Duel.RegisterEffect(ge1,0)
 		local ge2=Effect.CreateEffect(c)
 		ge2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge2:SetCode(EVENT_ATTACK_DISABLED)
-		ge2:SetOperation(c101010409.recheck)
+		ge2:SetOperation(ref.recheck)
 		Duel.RegisterEffect(ge2,0)
 		local ge3=Effect.CreateEffect(c)
 		ge3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge3:SetCode(EVENT_BATTLED)
-		ge3:SetOperation(c101010409.recount2)
+		ge3:SetOperation(ref.recount2)
 		Duel.RegisterEffect(ge3,0)
 	end
 	--relay summon (Do Not Remove)
@@ -69,8 +70,8 @@ function c101010409.initial_effect(c)
 	ge4:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_IGNORE_IMMUNE)
 	ge4:SetRange(LOCATION_EXTRA)
 	ge4:SetCountLimit(1,10001000)
-	ge4:SetCondition(c101010409.rescon)
-	ge4:SetOperation(c101010409.resop)
+	ge4:SetCondition(ref.rescon)
+	ge4:SetOperation(ref.resop)
 	ge4:SetValue(0x8773)
 	c:RegisterEffect(ge4)
 	--check collected points (Do Not Remove)
@@ -79,8 +80,8 @@ function c101010409.initial_effect(c)
 	ge5:SetType(EFFECT_TYPE_IGNITION)
 	ge5:SetRange(LOCATION_MZONE)
 	ge5:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_IGNORE_IMMUNE+EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_BOTH_SIDE)
-	ge5:SetTarget(c101010409.pointchk)
-	ge5:SetOperation(c101010409.point)
+	ge5:SetTarget(ref.pointchk)
+	ge5:SetOperation(ref.point)
 	c:RegisterEffect(ge5)
 	--identifier (Do Not Remove)
 	local ge6=Effect.CreateEffect(c)
@@ -88,21 +89,21 @@ function c101010409.initial_effect(c)
 	ge6:SetCode(10001000)
 	c:RegisterEffect(ge6)
 end
-function c101010409.ipoint(e,tp,eg,ep,ev,re,r,rp)
+function ref.ipoint(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:GetFlagEffect(10001100)==0 then
 		c:RegisterFlagEffect(10001100,0,EFFECT_FLAG_CLIENT_HINT+EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE,1,3,aux.Stringid(101010401,1))
 	end
 end
-function c101010409.pointchk(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.pointchk(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return c:GetFlagEffect(10001100)>0 and not c:IsStatus(STATUS_CHAINING) end
 	Duel.SetChainLimitTillChainEnd(aux.FALSE)
 end
-function c101010409.point(e,tp,eg,ep,ev,re,r,rp)
+function ref.point(e,tp,eg,ep,ev,re,r,rp)
 	Debug.ShowHint("Number of Points: " .. tostring(e:GetHandler():GetFlagEffectLabel(10001100)))
 end
-function c101010409.reen(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.reen(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return bit.band(c:GetDestination(),LOCATION_DECK+LOCATION_HAND+LOCATION_GRAVE)~=0 end
 	if c:GetDestination()==LOCATION_GRAVE then
@@ -115,7 +116,7 @@ function c101010409.reen(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.PSendtoExtra(c,c:GetOwner(),r)
 	return true
 end
-function c101010409.recount(e,tp,eg,ep,ev,re,r,rp)
+function ref.recount(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	local ct=tc:GetFlagEffectLabel(10001000)
 	if ct then
@@ -124,44 +125,44 @@ function c101010409.recount(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterFlagEffect(10001000,RESET_PHASE+PHASE_END,0,1,1)
 	end
 end
-function c101010409.recheck(e,tp,eg,ep,ev,re,r,rp)
+function ref.recheck(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	local ct=tc:GetFlagEffectLabel(10001000)
 	if ct then
 		tc:SetFlagEffectLabel(10001000,0)
 	end
 end
-function c101010409.recount2(e,tp,eg,ep,ev,re,r,rp)
+function ref.recount2(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterFlagEffect(tp,10001000,RESET_PHASE+PHASE_END,0,1)
 end
-function c101010409.resfilter(c)
+function ref.resfilter(c)
 	if c:IsLocation(LOCATION_REMOVED) and c:IsFacedown() then return false end
 	return c:GetFlagEffect(10001000)>0 and c:GetFlagEffectLabel(10001000)>0 and c:IsAbleToDeck() and not (c:IsType(TYPE_PENDULUM) and c:IsHasEffect(10001000))
 end
-function c101010409.rescon(e,c)
+function ref.rescon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
-	local g=Duel.GetMatchingGroup(c101010409.resfilter,tp,0xbe,0,nil)
+	local g=Duel.GetMatchingGroup(ref.resfilter,tp,0xbe,0,nil)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if ft<=-g:FilterCount(Card.IsLocation,nil,LOCATION_MZONE) then return false end
-	return g:GetCount()>0 and Duel.IsExistingMatchingCard(c101010409.refilter,tp,LOCATION_EXTRA,0,1,nil,e,tp)
+	return g:GetCount()>0 and Duel.IsExistingMatchingCard(ref.refilter,tp,LOCATION_EXTRA,0,1,nil,e,tp)
 end
-function c101010409.fdfilter(c)
+function ref.fdfilter(c)
 	return c:IsFacedown() or c:IsLocation(LOCATION_HAND)
 end
-function c101010409.refilter(c,e,tp)
+function ref.refilter(c,e,tp)
 	return c:IsFaceup() and c:IsType(TYPE_PENDULUM)
 	and not c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsForbidden()
 end
-function c101010409.refilter1(c,e,tp)
-	return not c:IsType(TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) and c101010409.refilter(c,e,tp)
+function ref.refilter1(c,e,tp)
+	return not c:IsType(TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) and ref.refilter(c,e,tp)
 end
-function c101010409.refilter2(c,e,tp)
-	return c:IsType(TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) and c101010409.refilter(c,e,tp)
+function ref.refilter2(c,e,tp)
+	return c:IsType(TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) and ref.refilter(c,e,tp)
 end
-function c101010409.resop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
-	local g=Duel.GetMatchingGroup(c101010409.resfilter,tp,0xbe,0,nil)
-	local fg=g:Filter(c101010409.fdfilter,nil)
+function ref.resop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
+	local g=Duel.GetMatchingGroup(ref.resfilter,tp,0xbe,0,nil)
+	local fg=g:Filter(ref.fdfilter,nil)
 	if fg:GetCount()>0 then Duel.ConfirmCards(1-tp,fg) end
 	local mg=g:Clone()
 	local pt2=0
@@ -172,14 +173,14 @@ function c101010409.resop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 		mg:Sub(tc)
 	end
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-	if Duel.IsExistingMatchingCard(c101010409.refilter1,tp,LOCATION_EXTRA,0,1,nil,e,tp) and Duel.SelectYesNo(tp,aux.Stringid(101010401,5)) then
+	if Duel.IsExistingMatchingCard(ref.refilter1,tp,LOCATION_EXTRA,0,1,nil,e,tp) and Duel.SelectYesNo(tp,aux.Stringid(101010401,5)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local rg=Duel.SelectMatchingCard(tp,c101010409.refilter1,tp,LOCATION_EXTRA,0,1,ft,nil,e,tp)
+		local rg=Duel.SelectMatchingCard(tp,ref.refilter1,tp,LOCATION_EXTRA,0,1,ft,nil,e,tp)
 		sg:Merge(rg)
 	end
-	if (not rg or ft>rg:GetCount()) and Duel.IsExistingMatchingCard(c101010409.refilter2,tp,LOCATION_EXTRA,0,1,nil,e,tp) and (not rg or Duel.SelectYesNo(tp,aux.Stringid(101010401,1))) then
+	if (not rg or ft>rg:GetCount()) and Duel.IsExistingMatchingCard(ref.refilter2,tp,LOCATION_EXTRA,0,1,nil,e,tp) and (not rg or Duel.SelectYesNo(tp,aux.Stringid(101010401,1))) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local pc=Duel.SelectMatchingCard(tp,c101010409.refilter2,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
+		local pc=Duel.SelectMatchingCard(tp,ref.refilter2,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
 		sg:Merge(pc)
 	end
 	local sc=sg:GetFirst()
@@ -190,12 +191,12 @@ function c101010409.resop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 		e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 		e1:SetLabel(pt1+pt2)
-		e1:SetOperation(c101010409.pointop)
+		e1:SetOperation(ref.pointop)
 		sc:RegisterEffect(e1)
 		sc=sg:GetNext()
 	end
 end
-function c101010409.pointop(e,tp,eg,ep,ev,re,r,rp)
+function ref.pointop(e,tp,eg,ep,ev,re,r,rp)
 	local pt=e:GetLabel()
 	local c=e:GetHandler()
 	local point=c:GetFlagEffectLabel(10001100)
@@ -205,17 +206,17 @@ function c101010409.pointop(e,tp,eg,ep,ev,re,r,rp)
 		c:SetFlagEffectLabel(10001100,point+pt)
 	end
 end
-function c101010409.splimit(e,se,sp,st)
+function ref.splimit(e,se,sp,st)
 	return bit.band(st,0x8773)==0x8773
 end
-function c101010409.repfilter(c,tp)
+function ref.repfilter(c,tp)
 	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0x50b)
 end
-function c101010409.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ct=e:GetLabel()
 	local c=e:GetHandler()
 	local point=c:GetFlagEffectLabel(10001100)
-	if chk==0 then return eg:IsExists(c101010409.repfilter,1,nil,tp) end
+	if chk==0 then return eg:IsExists(ref.repfilter,1,nil,tp) end
 	if c:GetFlagEffect(10001100)>=ct and Duel.SelectYesNo(tp,aux.Stringid(101010409,1)) then
 		if point==ct then
 			c:ResetFlagEffect(10001100)
@@ -226,6 +227,6 @@ function c101010409.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 		return true
 	else return false end
 end
-function c101010409.repval(e,c)
-	return c101010409.repfilter(c,e:GetHandlerPlayer())
+function ref.repval(e,c)
+	return ref.repfilter(c,e:GetHandlerPlayer())
 end

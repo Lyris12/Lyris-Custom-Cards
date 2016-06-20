@@ -1,12 +1,13 @@
 --クリアー・シャーク
-function c101010052.initial_effect(c)
-	--pendulum summon
+local id,ref=GIR()
+function ref.start(c)
+--pendulum summon
 	aux.AddPendulumProcedure(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCondition(c101010052.con)
+	e1:SetCondition(ref.con)
 	c:RegisterEffect(e1)
 	--scale
 	local e2=Effect.CreateEffect(c)
@@ -14,7 +15,7 @@ function c101010052.initial_effect(c)
 	e2:SetCode(EFFECT_CHANGE_LSCALE)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e2:SetRange(LOCATION_PZONE)
-	e2:SetCondition(c101010052.slcon)
+	e2:SetCondition(ref.slcon)
 	e2:SetValue(6)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -26,8 +27,8 @@ function c101010052.initial_effect(c)
 	e6:SetRange(LOCATION_PZONE)
 	e6:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e6:SetCountLimit(1,101010052)
-	e6:SetTarget(c101010052.tg)
-	e6:SetOperation(c101010052.op)
+	e6:SetTarget(ref.tg)
+	e6:SetOperation(ref.op)
 	c:RegisterEffect(e6)
 	--remove attribute
 	local e4=Effect.CreateEffect(c)
@@ -43,7 +44,7 @@ function c101010052.initial_effect(c)
 	e5:SetRange(LOCATION_MZONE)
 	e5:SetCode(EFFECT_REMOVE_ATTRIBUTE)
 	e5:SetTargetRange(LOCATION_MZONE,0)
-	e5:SetTarget(c101010052.ratg)
+	e5:SetTarget(ref.ratg)
 	e5:SetValue(ATTRIBUTE_DARK)
 	c:RegisterEffect(e5)
 	--normal summon
@@ -52,27 +53,27 @@ function c101010052.initial_effect(c)
 	e7:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e7:SetType(EFFECT_TYPE_SINGLE)
 	e7:SetCode(EFFECT_SUMMON_PROC)
-	e7:SetCondition(c101010052.otcon)
+	e7:SetCondition(ref.otcon)
 	e7:SetValue(SUMMON_TYPE_NORMAL)
 	c:RegisterEffect(e7)
 end
-function c101010052.con(e,tp,eg,ep,ev,re,r,rp)
+function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(Card.IsAttribute,tp,0,LOCATION_MZONE,1,nil,ATTRIBUTE_WATER)
 end
-function c101010052.ratg(e)
+function ref.ratg(e)
 	return e:GetHandler()
 end
-function c101010052.slcon(e)
+function ref.slcon(e)
 	local seq=e:GetHandler():GetSequence()
 	local tc=Duel.GetFieldCard(e:GetHandlerPlayer(),LOCATION_SZONE,13-seq)
 	return not tc or (not tc:IsSetCard(0x306))
 end
-function c101010052.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
 	Duel.SelectTarget(tp,Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 end
-function c101010052.op(e,tp,eg,ep,ev,re,r,rp)
+function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if not c:IsRelateToEffect(e) or not tc:IsRelateToEffect(e) or tc:IsFacedown() then return end
@@ -84,14 +85,14 @@ function c101010052.op(e,tp,eg,ep,ev,re,r,rp)
 	e5:SetValue(ATTRIBUTE_FIRE)
 	tc:RegisterEffect(e5)
 end
-function c101010052.cfilter1(c)
-	return Duel.IsExistingMatchingCard(c101010052.cfilter2,tp,0,LOCATION_MZONE,1,nil,c:GetOriginalAttribute())
+function ref.cfilter1(c)
+	return Duel.IsExistingMatchingCard(ref.cfilter2,tp,0,LOCATION_MZONE,1,nil,c:GetOriginalAttribute())
 end
-function c101010052.cfilter2(c,att)
+function ref.cfilter2(c,att)
 	return c:GetOriginalAttribute()~=att
 end
-function c101010052.otcon(e,c)
+function ref.otcon(e,c)
 	if c==nil then return true end
-	local g=Duel.GetMatchingGroup(c101010052.cfilter1,c:GetControler(),0,LOCATION_MZONE,nil)
+	local g=Duel.GetMatchingGroup(ref.cfilter1,c:GetControler(),0,LOCATION_MZONE,nil)
 	return c:GetLevel()>4 and g:GetCount()>1 and Duel.GetTributeCount(c)>0
 end

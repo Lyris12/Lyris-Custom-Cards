@@ -1,22 +1,23 @@
 --Blademaster's Guidance
-function c101010585.initial_effect(c)
-	--Activate When an attack is declared involving a "Blademaster" monster you control: That monster gains ATK equal to the DEF of the opponent's monster, but during your turn, its original ATK is halved until the end of this turn. You can only activate 1 "Blademaster's Guidance" per turn.
+local id,ref=GIR()
+function ref.start(c)
+--Activate When an attack is declared involving a "Blademaster" monster you control: That monster gains ATK equal to the DEF of the opponent's monster, but during your turn, its original ATK is halved until the end of this turn. You can only activate 1 "Blademaster's Guidance" per turn.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_ATKCHANGE)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e1:SetCountLimit(1,101010585+EFFECT_COUNT_CODE_OATH)
-	e1:SetCondition(c101010585.condition)
-	e1:SetOperation(c101010585.activate)
+	e1:SetCondition(ref.condition)
+	e1:SetOperation(ref.activate)
 	c:RegisterEffect(e1)
 end
-function c101010585.condition(e,tp,eg,ep,ev,re,r,rp)
+function ref.condition(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
 	local at=Duel.GetAttackTarget()
 	return at and ((a:IsControler(tp) and (a:IsSetCard(0xbb2) or a:IsSetCard(0xbb3)))
 		or (at:IsControler(tp) and at:IsFaceup() and (at:IsSetCard(0xbb2) or at:IsSetCard(0xbb3))))
 end
-function c101010585.activate(e,tp,eg,ep,ev,re,r,rp)
+function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
 	local at=Duel.GetAttackTarget()
 	if a:IsControler(1-tp) then a,at=at,a end

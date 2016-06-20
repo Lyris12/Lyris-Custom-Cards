@@ -1,6 +1,7 @@
 --F・HEROネクロガイ
-function c101010163.initial_effect(c)
-	--set
+local id,ref=GIR()
+function ref.start(c)
+--set
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_MONSTER_SSET)
@@ -12,9 +13,9 @@ function c101010163.initial_effect(c)
 	e2:SetCategory(CATEGORY_DESTROY+CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_ACTIVATE+EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
-	e2:SetCondition(c101010163.actcon)
-	e2:SetTarget(c101010163.acttg)
-	e2:SetOperation(c101010163.act)
+	e2:SetCondition(ref.actcon)
+	e2:SetTarget(ref.acttg)
+	e2:SetOperation(ref.act)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
 	e3:SetDescription(aux.Stringid(101010161,1))
@@ -27,16 +28,16 @@ function c101010163.initial_effect(c)
 	e0:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e0:SetRange(LOCATION_MZONE)
 	e0:SetCountLimit(1,101010163)
-	e0:SetCondition(c101010163.condition)
-	e0:SetCost(c101010163.cost)
-	e0:SetTarget(c101010163.target)
-	e0:SetOperation(c101010163.operation)
+	e0:SetCondition(ref.condition)
+	e0:SetCost(ref.cost)
+	e0:SetTarget(ref.target)
+	e0:SetOperation(ref.operation)
 	c:RegisterEffect(e0)
 end
-function c101010163.condition(e,tp,eg,ep,ev,re,r,rp)
+function ref.condition(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPosition(POS_FACEUP_DEFENCE)
 end
-function c101010163.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetActivityCount(tp,ACTIVITY_BATTLE_PHASE)==0 end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -46,17 +47,17 @@ function c101010163.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
 end
-function c101010163.filter(c)
+function ref.filter(c)
 	return c:IsFaceup() and c:IsAbleToRemove()
 end
-function c101010163.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsAbleToRemove() end
-	if chk==0 then return Duel.IsExistingTarget(c101010163.filter,tp,0,LOCATION_MZONE,1,nil) end
+	if chk==0 then return Duel.IsExistingTarget(ref.filter,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectTarget(tp,c101010163.filter,tp,0,LOCATION_MZONE,1,1,nil)
+	local g=Duel.SelectTarget(tp,ref.filter,tp,0,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
 end
-function c101010163.operation(e,tp,eg,ep,ev,re,r,rp)
+function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and c:IsFaceup() and tc:IsRelateToEffect(e) and Duel.Remove(tc,tc:GetPosition(),REASON_EFFECT+REASON_TEMPORARY)~=0 then
@@ -78,21 +79,21 @@ function c101010163.operation(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_PHASE+PHASE_END)
 		e1:SetCountLimit(1)
 		e1:SetLabelObject(g)
-		e1:SetOperation(c101010163.retop)
+		e1:SetOperation(ref.retop)
 		Duel.RegisterEffect(e1,tp)
 	end
 end
-function c101010163.actcon(e,tp,eg,ep,ev,re,r,rp)
+function ref.actcon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(101010170)~=0
 end
-function c101010163.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
 	local g=Duel.GetMatchingGroup(Card.IsDestructable,tp,0,LOCATION_MZONE,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
-function c101010163.act(e,tp,eg,ep,ev,re,r,rp)
+function ref.act(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
@@ -101,10 +102,10 @@ function c101010163.act(e,tp,eg,ep,ev,re,r,rp)
 			local ef=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_EFFECT)
 			if ef~=nil and ef:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then Card.ReleaseEffectRelation(c,ef) end
 		end
-		c101010163.after(e,tp)
+		ref.after(e,tp)
 	end
 end
-function c101010163.after(e,tp)
+function ref.after(e,tp)
 	local g=Duel.SelectMatchingCard(tp,Card.IsDestructable,tp,0,LOCATION_MZONE,1,1,nil)
 	local tc=g:GetFirst()
 	if tc then
@@ -113,13 +114,13 @@ function c101010163.after(e,tp)
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end
-function c101010163.retfilter(c,e,tp)
+function ref.retfilter(c,e,tp)
 	return c:GetFlagEffect(101010163)~=0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c101010163.retop(e,tp,eg,ep,ev,re,r,rp)
+function ref.retop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetOwner()
 	local g=e:GetLabelObject()
-	local sg=g:Filter(c101010163.retfilter,nil,e,tp)
+	local sg=g:Filter(ref.retfilter,nil,e,tp)
 	g:DeleteGroup()
 	local ct=0
 	if sg:GetCount()>0 then

@@ -1,13 +1,14 @@
 --EE・キャルファーレー
-function c101010497.initial_effect(c)
-	c:EnableReviveLimit()
+local id,ref=GIR()
+function ref.start(c)
+c:EnableReviveLimit()
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_SPSUMMON_PROC)
 	e0:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e0:SetRange(LOCATION_EXTRA)
-	e0:SetCondition(c101010497.xcon)
-	e0:SetTarget(c101010497.xtg)
+	e0:SetCondition(ref.xcon)
+	e0:SetTarget(ref.xtg)
 	e0:SetOperation(aux.XyzOperation(aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_EARTH),0,2,2))
 	e0:SetValue(SUMMON_TYPE_XYZ)
 	c:RegisterEffect(e0)
@@ -16,9 +17,9 @@ function c101010497.initial_effect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e2:SetCondition(c101010497.con)
-	e2:SetTarget(c101010497.tg)
-	e2:SetOperation(c101010497.op)
+	e2:SetCondition(ref.con)
+	e2:SetTarget(ref.tg)
+	e2:SetOperation(ref.op)
 	c:RegisterEffect(e2)
 	--draw
 	local e1=Effect.CreateEffect(c)
@@ -28,31 +29,31 @@ function c101010497.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetCountLimit(1)
-	e1:SetCost(c101010497.cost)
-	e1:SetTarget(c101010497.target)
-	e1:SetOperation(c101010497.activate)
+	e1:SetCost(ref.cost)
+	e1:SetTarget(ref.target)
+	e1:SetOperation(ref.activate)
 	c:RegisterEffect(e1)
 end
-function c101010497.xfilter(c,tc,tp)
+function ref.xfilter(c,tc,tp)
 	return c:IsAttribute(ATTRIBUTE_EARTH) and c:IsCanBeXyzMaterial(tc)
-		and Duel.IsExistingMatchingCard(c101010497.xyzfilter,tp,LOCATION_MZONE,0,1,c,tc,c:GetLevel())
+		and Duel.IsExistingMatchingCard(ref.xyzfilter,tp,LOCATION_MZONE,0,1,c,tc,c:GetLevel())
 end
-function c101010497.xyzfilter(c,tc,lv)
+function ref.xyzfilter(c,tc,lv)
 	return c:IsAttribute(ATTRIBUTE_EARTH) and c:IsCanBeXyzMaterial(tc)
 		and c:GetLevel()~=lv
 end
-function c101010497.xcon(e,c,og)
+function ref.xcon(e,c,og)
 	if c==nil then return true end
 	if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
 	local tp=c:GetControler()
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=-2 then return false end
-	return Duel.IsExistingMatchingCard(c101010497.xfilter,tp,LOCATION_MZONE,0,1,nil,c,tp)
+	return Duel.IsExistingMatchingCard(ref.xfilter,tp,LOCATION_MZONE,0,1,nil,c,tp)
 end
-function c101010497.xtg(e,tp,eg,ep,ev,re,r,rp,chk,c,og)
+function ref.xtg(e,tp,eg,ep,ev,re,r,rp,chk,c,og)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
-	local g=Duel.SelectMatchingCard(tp,c101010497.xfilter,tp,LOCATION_MZONE,0,1,1,nil,c,tp)
+	local g=Duel.SelectMatchingCard(tp,ref.xfilter,tp,LOCATION_MZONE,0,1,1,nil,c,tp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
-	local g1=Duel.SelectMatchingCard(tp,c101010497.xyzfilter,tp,LOCATION_MZONE,0,1,1,g:GetFirst(),c,c:GetLevel())
+	local g1=Duel.SelectMatchingCard(tp,ref.xyzfilter,tp,LOCATION_MZONE,0,1,1,g:GetFirst(),c,c:GetLevel())
 	g:AddCard(g1:GetFirst())
 	if g then
 		g:KeepAlive()
@@ -60,35 +61,35 @@ function c101010497.xtg(e,tp,eg,ep,ev,re,r,rp,chk,c,og)
 		return true
 	else return false end
 end
-function c101010497.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
-function c101010497.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) end
 	Duel.SetTargetPlayer(tp)
 	Duel.SetTargetParam(1)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 end
-function c101010497.activate(e,tp,eg,ep,ev,re,r,rp)
+function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	Duel.Draw(p,d,REASON_EFFECT)
 end
-function c101010497.con(e,tp,eg,ep,ev,re,r,rp)
+function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_XYZ
 end
-function c101010497.filter(c,atk)
+function ref.filter(c,atk)
 	return not c:IsType(TYPE_TOKEN)
 		and ((c:IsLocation(LOCATION_HAND) and c:IsSetCard(0xeeb)) or (c:GetBaseAttack()<atk and c:IsAbleToChangeControler()))
 end
-function c101010497.tg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c101010497.filter,tp,LOCATION_HAND,LOCATION_MZONE,1,nil,e:GetHandler():GetAttack()) end
+function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_HAND,LOCATION_MZONE,1,nil,e:GetHandler():GetAttack()) end
 end
-function c101010497.op(e,tp,eg,ep,ev,re,r,rp)
+function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
-	local g=Duel.SelectMatchingCard(tp,c101010497.filter,tp,LOCATION_HAND,LOCATION_MZONE,1,1,nil,c:GetAttack())
+	local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_HAND,LOCATION_MZONE,1,1,nil,c:GetAttack())
 	if g:GetCount()>=0 then
 		local og=g:GetFirst():GetOverlayGroup()
 		if og:GetCount()>0 then

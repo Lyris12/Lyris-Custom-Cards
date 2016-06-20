@@ -1,6 +1,7 @@
 --バトル・シティ
-function c101010008.initial_effect(c)
-	--Activate
+local id,ref=GIR()
+function ref.start(c)
+--Activate
 	local e2=Effect.CreateEffect(c)
 	e2:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -8,7 +9,7 @@ function c101010008.initial_effect(c)
 	e2:SetCode(EVENT_STARTUP)
 	e2:SetCountLimit(1)
 	e2:SetRange(LOCATION_DECK+LOCATION_HAND)
-	e2:SetOperation(c101010008.op)
+	e2:SetOperation(ref.op)
 	c:RegisterEffect(e2)
 	local e1=e2:Clone()
 	e1:SetCode(EVENT_PHASE_START+PHASE_DRAW)
@@ -18,7 +19,7 @@ function c101010008.initial_effect(c)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_SUMMON_SUCCESS)
 	e0:SetRange(LOCATION_REMOVED)
-	e0:SetOperation(c101010008.fdop)
+	e0:SetOperation(ref.fdop)
 	c:RegisterEffect(e0)
 	--cannot be affected
 	local e5=Effect.CreateEffect(c)
@@ -46,7 +47,7 @@ function c101010008.initial_effect(c)
 	ee:SetCode(EFFECT_CANNOT_REMOVE)
 	c:RegisterEffect(ee)
 end
-function c101010008.op(e,tp,eg,ep,ev,re,r,rp)
+function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	Duel.Remove(c,POS_FACEUP,REASON_RULE)
 	if e:GetHandler():GetPreviousLocation()==LOCATION_HAND then
@@ -58,11 +59,11 @@ function c101010008.op(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-		e1:SetOperation(c101010008.fusop)
+		e1:SetOperation(ref.fusop)
 		Duel.RegisterEffect(e1,tp)
 	end
 end
-function c101010008.fdop(e,tp,eg,ep,ev,re,r,rp)
+function ref.fdop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	while tc do
 		if Duel.SelectYesNo(tc:GetControler(),aux.Stringid(101010008,1)) then
@@ -71,7 +72,7 @@ function c101010008.fdop(e,tp,eg,ep,ev,re,r,rp)
 		tc=eg:GetNext()
 	end
 end
-function c101010008.fusop(e,tp,eg,ep,ev,re,r,rp)
+function ref.fusop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	while tc do
 		if tc:IsType(TYPE_FUSION) then

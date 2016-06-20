@@ -1,6 +1,7 @@
 --F・HEROジュリーガイ
-function c101010173.initial_effect(c)
-	c:EnableReviveLimit()
+local id,ref=GIR()
+function ref.start(c)
+c:EnableReviveLimit()
 	--set
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -13,10 +14,10 @@ function c101010173.initial_effect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_ACTIVATE+EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
-	e2:SetCondition(c101010173.actcon)
-	e2:SetCost(c101010173.actcost)
-	e2:SetTarget(c101010173.acttg)
-	e2:SetOperation(c101010173.act)
+	e2:SetCondition(ref.actcon)
+	e2:SetCost(ref.actcost)
+	e2:SetTarget(ref.acttg)
+	e2:SetOperation(ref.act)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
 	e3:SetDescription(aux.Stringid(101010161,1))
@@ -32,34 +33,34 @@ function c101010173.initial_effect(c)
 	e4:SetValue(LOCATION_REMOVED)
 	c:RegisterEffect(e4)
 end
-function c101010173.mat_filter(c)
+function ref.mat_filter(c)
 	return c:GetLevel()~=10
 end
-function c101010173.actcon(e,tp,eg,ep,ev,re,r,rp)
+function ref.actcon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(101010170)~=0
 end
-function c101010173.cfilter(c)
-	return c:IsReleasableByEffect() and (c:IsLevelBelow(9) or c101010173.star(c))
+function ref.cfilter(c)
+	return c:IsReleasableByEffect() and (c:IsLevelBelow(9) or ref.star(c))
 end
-function c101010173.star(c)
+function ref.star(c)
 	return c:IsCode(101010176) and c:IsHasEffect(101010176)
 end
-function c101010173.actcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	local cg=Duel.GetMatchingGroup(c101010173.cfilter,tp,LOCATION_MZONE+LOCATION_HAND,0,nil)
-	if chk==0 then return cg:IsExists(c101010173.star,1,nil) or cg:CheckWithSumEqual(Card.GetLevel,12,1,99) end
+function ref.actcost(e,tp,eg,ep,ev,re,r,rp,chk)
+	local cg=Duel.GetMatchingGroup(ref.cfilter,tp,LOCATION_MZONE+LOCATION_HAND,0,nil)
+	if chk==0 then return cg:IsExists(ref.star,1,nil) or cg:CheckWithSumEqual(Card.GetLevel,12,1,99) end
 	local g=nil
-	if not cg:CheckWithSumEqual(Card.GetLevel,12,1,99) or (cg:IsExists(c101010173.star,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(101010176,0))) then
-		g=cg:FilterSelect(tp,c101010173.star,1,1,nil)
+	if not cg:CheckWithSumEqual(Card.GetLevel,12,1,99) or (cg:IsExists(ref.star,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(101010176,0))) then
+		g=cg:FilterSelect(tp,ref.star,1,1,nil)
 	else
 		g=cg:SelectWithSumEqual(tp,Card.GetLevel,12,1,99)
 	end
 	Duel.Release(g,REASON_COST)
 end
-function c101010173.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,true,true) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
-function c101010173.act(e,tp,eg,ep,ev,re,r,rp)
+function ref.act(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
@@ -69,19 +70,19 @@ function c101010173.act(e,tp,eg,ep,ev,re,r,rp)
 			if ef~=nil and ef:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then Card.ReleaseEffectRelation(c,ef) end
 		end
 		c:CompleteProcedure()
-		c101010173.after(e,tp)
+		ref.after(e,tp)
 	end
 end
-function c101010173.after(e,tp)
+function ref.after(e,tp)
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)
 	e1:SetTargetRange(0,1)
-	e1:SetTarget(c101010173.splimit)
+	e1:SetTarget(ref.splimit)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
 end
-function c101010173.splimit(e,c,sump,sumtype,sumpos,targetp,se)
+function ref.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return c:IsLevelAbove(4) or (c:IsRankAbove(4) and c:IsType(TYPE_XYZ))
 end

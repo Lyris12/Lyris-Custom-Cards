@@ -1,40 +1,41 @@
 --Change all monsters your opponent controls to face-up Attack Position, and if you do, those monsters cannot change their Battle Position, also, they must attack this card next turn.
 --FFD-Eternity
-function c101010551.initial_effect(c)
-	--bounce
+local id,ref=GIR()
+function ref.start(c)
+--bounce
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e0:SetCode(EVENT_DAMAGE_STEP_END)
 	e0:SetRange(LOCATION_MZONE)
-	e0:SetCondition(c101010551.rtcon)
-	e0:SetTarget(c101010551.rttg)
-	e0:SetOperation(c101010551.rtop)
+	e0:SetCondition(ref.rtcon)
+	e0:SetTarget(ref.rttg)
+	e0:SetOperation(ref.rtop)
 	c:RegisterEffect(e0)
 	--fusion summon
 	c:EnableReviveLimit()
-	aux.AddFusionProcFun2(c,c101010551.ffilter1,c101010551.ffilter2,true)
+	aux.AddFusionProcFun2(c,ref.ffilter1,ref.ffilter2,true)
 end
-function c101010551.ffilter1(c)
+function ref.ffilter1(c)
 	return c:IsAttribute(ATTRIBUTE_FIRE) or (c:IsHasEffect(101010560) and not c:IsLocation(LOCATION_DECK))
 end
-function c101010551.FConditionFilterF2c(c)
+function ref.FConditionFilterF2c(c)
 	return c:IsRace(RACE_DRAGON) or (c:IsHasEffect(101010576) and not c:IsLocation(LOCATION_DECK))
 end
-function c101010551.rtcon(e,tp,eg,ep,ev,re,r,rp)
+function ref.rtcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsRelateToBattle()
 end
-function c101010551.filter(c)
+function ref.filter(c)
 	return c:IsFaceup() and c:IsAttackPos()
 end
-function c101010551.rttg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c101010551.filter,tp,0,LOCATION_MZONE,1,nil) end
+function ref.rttg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter,tp,0,LOCATION_MZONE,1,nil) end
 end
-function c101010551.splimit(c)
+function ref.splimit(c)
 	return c:IsHasEffect(101010552)
 end
-function c101010551.rtop(e,tp,eg,ep,ev,re,r,rp)
+function ref.rtop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local g=Duel.GetMatchingGroup(c101010551.filter,0,0,LOCATION_MZONE,nil)
+	local g=Duel.GetMatchingGroup(ref.filter,0,0,LOCATION_MZONE,nil)
 	local tc=g:GetFirst()
 	if g:GetCount()>0 then
 		if not c:IsHasEffect(101010552) then

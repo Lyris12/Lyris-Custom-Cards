@@ -1,6 +1,7 @@
 --Sea Scout - Bladace
-function c101010235.initial_effect(c)
-	aux.EnablePendulumAttribute(c)
+local id,ref=GIR()
+function ref.start(c)
+aux.EnablePendulumAttribute(c)
 	--You can also Pendulum Summon "Sea Scout" Synchro Monsters from your Extra Deck. (This is also treated as those monsters being Synchro Summoned.) This effect cannot be negated.
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010235,0))
@@ -9,8 +10,8 @@ function c101010235.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetRange(LOCATION_PZONE)
 	e1:SetCountLimit(1,10000000)
-	e1:SetCondition(c101010235.pscon)
-	e1:SetOperation(c101010235.psop)
+	e1:SetCondition(ref.pscon)
+	e1:SetOperation(ref.psop)
 	e1:SetValue(SUMMON_TYPE_PENDULUM)
 	c:RegisterEffect(e1)
 	--Unless you have a card in your other Pendulum Zone that was originally WATER, this card's Pendulum Scale becomes 3.
@@ -19,7 +20,7 @@ function c101010235.initial_effect(c)
 	e2:SetCode(EFFECT_CHANGE_LSCALE)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e2:SetRange(LOCATION_PZONE)
-	e2:SetCondition(c101010235.slcon)
+	e2:SetCondition(ref.slcon)
 	e2:SetValue(4)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -30,8 +31,8 @@ function c101010235.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_PZONE)
 	e2:SetCountLimit(1)
-	e2:SetCondition(c101010235.sccon)
-	e2:SetOperation(c101010235.scop)
+	e2:SetCondition(ref.sccon)
+	e2:SetOperation(ref.scop)
 	c:RegisterEffect(e2)
 	--If a "Sea Scout" monster you control attacks a Defense Position monster, inflict piercing battle damage to your opponent.
 	local e2=Effect.CreateEffect(c)
@@ -41,12 +42,12 @@ function c101010235.initial_effect(c)
 	e2:SetTargetRange(LOCATION_MZONE,0)
 	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x5cd))
 	c:RegisterEffect(e2)
-	Duel.AddCustomActivityCounter(101010235,ACTIVITY_SPSUMMON,c101010235.counterfilter)
+	Duel.AddCustomActivityCounter(101010235,ACTIVITY_SPSUMMON,ref.counterfilter)
 end
-function c101010235.counterfilter(c)
+function ref.counterfilter(c)
 	return c:IsSetCard(0x5cd) or bit.band(c:GetSummonType(),SUMMON_TYPE_PENDULUM)~=SUMMON_TYPE_PENDULUM
 end
-function c101010235.pfilter(c,e,tp,lscale,rscale)
+function ref.pfilter(c,e,tp,lscale,rscale)
 	local lv=0
 	if c.pendulum_level then
 		lv=c.pendulum_level
@@ -60,7 +61,7 @@ function c101010235.pfilter(c,e,tp,lscale,rscale)
 		and lv>lscale and lv<rscale and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_PENDULUM,tp,false,false)
 		and not c:IsForbidden()
 end
-function c101010235.pscon(e,c,og)
+function ref.pscon(e,c,og)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	if c:GetSequence()~=6 then return false end
@@ -74,12 +75,12 @@ function c101010235.pscon(e,c,og)
 	if c:IsForbidden() then return false end
 	if Duel.GetCustomActivityCount(101010235,tp,ACTIVITY_SPSUMMON)~=0 then return false end
 	if og then
-		return og:IsExists(c101010235.pfilter,1,nil,e,tp,lscale,rscale)
+		return og:IsExists(ref.pfilter,1,nil,e,tp,lscale,rscale)
 	else
-		return Duel.IsExistingMatchingCard(c101010235.pfilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,nil,e,tp,lscale,rscale)
+		return Duel.IsExistingMatchingCard(ref.pfilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,nil,e,tp,lscale,rscale)
 	end
 end
-function c101010235.psop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
+function ref.psop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	local rpz=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
 	local lscale=c:GetLeftScale()
 	local rscale=rpz:GetRightScale()
@@ -87,25 +88,25 @@ function c101010235.psop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if og then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local g=og:FilterSelect(tp,c101010235.pfilter,1,ft,nil,e,tp,lscale,rscale)
+		local g=og:FilterSelect(tp,ref.pfilter,1,ft,nil,e,tp,lscale,rscale)
 		sg:Merge(g)
 	else
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local g=Duel.SelectMatchingCard(tp,c101010235.pfilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,ft,nil,e,tp,lscale,rscale)
+		local g=Duel.SelectMatchingCard(tp,ref.pfilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,ft,nil,e,tp,lscale,rscale)
 		sg:Merge(g)
 	end
 	Duel.HintSelection(Group.FromCards(c))
 	Duel.HintSelection(Group.FromCards(rpz))
 end
-function c101010235.slcon(e)
+function ref.slcon(e)
 	local seq=e:GetHandler():GetSequence()
 	local tc=Duel.GetFieldCard(e:GetHandlerPlayer(),LOCATION_SZONE,13-seq)
 	return not tc or bit.band(tc:GetOriginalAttribute(),ATTRIBUTE_WATER)==0
 end
-function c101010235.sccon(e,tp,eg,ep,ev,re,r,rp)
+function ref.sccon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCustomActivityCount(101010235,tp,ACTIVITY_SPSUMMON)==0
 end
-function c101010235.scop(e,tp,eg,ep,ev,re,r,rp)
+function ref.scop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	local e1=Effect.CreateEffect(c)
@@ -122,10 +123,10 @@ function c101010235.scop(e,tp,eg,ep,ev,re,r,rp)
 	e3:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
 	e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e3:SetTargetRange(1,0)
-	e3:SetTarget(c101010235.splimit)
+	e3:SetTarget(ref.splimit)
 	e3:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e3,tp)
 end
-function c101010235.splimit(e,c,sump,sumtype,sumpos,targetp,se)
+function ref.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return not c:IsSetCard(0x5cd) and sumtype==SUMMON_TYPE_PENDULUM
 end

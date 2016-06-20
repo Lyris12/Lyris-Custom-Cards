@@ -1,6 +1,7 @@
 --サイバー・ソカープレイヤー
-function c101010024.initial_effect(c)
-	--atk
+local id,ref=GIR()
+function ref.start(c)
+--atk
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010024,0))
 	e1:SetCategory(CATEGORY_ATKCHANGE)
@@ -8,21 +9,21 @@ function c101010024.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
 	e1:SetHintTiming(TIMING_DAMAGE_STEP)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetTarget(c101010024.target)
-	e1:SetOperation(c101010024.op)
+	e1:SetTarget(ref.target)
+	e1:SetOperation(ref.op)
 	c:RegisterEffect(e1)
 end
-function c101010024.filter(c)
+function ref.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0x93)
 end
-function c101010024.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c101010024.filter(chkc) end
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and ref.filter(chkc) end
 	if chk==0 then return e:GetHandler():IsAttackAbove(400)
-		and Duel.IsExistingTarget(c101010024.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,e:GetHandler()) end
+		and Duel.IsExistingTarget(ref.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,e:GetHandler()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	Duel.SelectTarget(tp,c101010024.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,e:GetHandler())
+	Duel.SelectTarget(tp,ref.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,e:GetHandler())
 end
-function c101010024.op(e,tp,eg,ep,ev,re,r,rp)
+function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if c:IsFacedown() or not c:IsRelateToEffect(e) or c:GetAttack()<600

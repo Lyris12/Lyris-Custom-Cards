@@ -1,14 +1,15 @@
 --EEL・サキャゲーウィー
-function c101010499.initial_effect(c)
-	aux.EnablePendulumAttribute(c,false)
+local id,ref=GIR()
+function ref.start(c)
+aux.EnablePendulumAttribute(c,false)
 	c:EnableReviveLimit()
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_SPSUMMON_PROC)
 	e0:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e0:SetRange(LOCATION_EXTRA)
-	e0:SetCondition(c101010499.xcon)
-	e0:SetTarget(c101010499.xtg)
+	e0:SetCondition(ref.xcon)
+	e0:SetTarget(ref.xtg)
 	e0:SetOperation(aux.XyzOperation(aux.FilterBoolFunction(Card.IsSetCard,0xeeb),0,3,3))
 	e0:SetValue(SUMMON_TYPE_XYZ)
 	c:RegisterEffect(e0)
@@ -28,7 +29,7 @@ function c101010499.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e2:SetTargetRange(0,1)
 	e2:SetLabel(1)
-	e2:SetCondition(c101010499.con)
+	e2:SetCondition(ref.con)
 	e2:SetTarget(aux.TRUE)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -39,7 +40,7 @@ function c101010499.initial_effect(c)
 	c:RegisterEffect(e4)
 	local e5=e2:Clone()
 	e5:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
-	e5:SetTarget(c101010499.sumlimit)
+	e5:SetTarget(ref.sumlimit)
 	c:RegisterEffect(e5)
 	--All WATER, FIRE, and WIND monsters on the field must attack, if able.
 	local e4=Effect.CreateEffect(c)
@@ -55,7 +56,7 @@ function c101010499.initial_effect(c)
 	e6:SetRange(LOCATION_MZONE)
 	e6:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e6:SetTargetRange(0,1)
-	e6:SetCondition(c101010499.atcon)
+	e6:SetCondition(ref.atcon)
 	c:RegisterEffect(e6)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -71,33 +72,33 @@ function c101010499.initial_effect(c)
 	e5:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e5:SetRange(LOCATION_MZONE)
 	e5:SetCode(EFFECT_CANNOT_BE_BATTLE_TARGET)
-	e5:SetCondition(c101010499.ccon)
+	e5:SetCondition(ref.ccon)
 	e5:SetValue(aux.imval1)
 	c:RegisterEffect(e5)
 end
-c101010499.pendulum_level=5
-function c101010499.xfilter(c,tc)
+ref.pendulum_level=5
+function ref.xfilter(c,tc)
 	return c:IsSetCard(0xeeb) and c:IsCanBeXyzMaterial(tc)
 end
-function c101010499.xcon(e,c,og)
+function ref.xcon(e,c,og)
 	if c==nil then return true end
 	if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
 	local tp=c:GetControler()
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=-3 then return false end
-	local g=Duel.GetMatchingGroup(c101010499.xfilter,tp,LOCATION_MZONE,0,1,nil,c)
+	local g=Duel.GetMatchingGroup(ref.xfilter,tp,LOCATION_MZONE,0,1,nil,c)
 	return g:GetClassCount(Card.GetLevel)>2
 end
-function c101010499.lvfilter(c,lv)
+function ref.lvfilter(c,lv)
 	return c:GetLevel()==lv
 end
-function c101010499.xtg(e,tp,eg,ep,ev,re,r,rp,chk,c,og)
-	local sg=Duel.GetMatchingGroup(c101010499.xfilter,tp,LOCATION_MZONE,0,nil,c)
+function ref.xtg(e,tp,eg,ep,ev,re,r,rp,chk,c,og)
+	local sg=Duel.GetMatchingGroup(ref.xfilter,tp,LOCATION_MZONE,0,nil,c)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
 	local g=sg:Select(tp,1,1,nil)
-	sg:Remove(c101010499.lvfilter,nil,g:GetFirst():GetLevel())
+	sg:Remove(ref.lvfilter,nil,g:GetFirst():GetLevel())
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
 	local g2=sg:Select(tp,1,1,nil)
-	sg:Remove(c101010499.lvfilter,nil,g2:GetFirst():GetLevel())
+	sg:Remove(ref.lvfilter,nil,g2:GetFirst():GetLevel())
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
 	local g3=sg:Select(tp,1,1,nil)
 	g:Merge(g2)
@@ -108,24 +109,24 @@ function c101010499.xtg(e,tp,eg,ep,ev,re,r,rp,chk,c,og)
 		return true
 	else return false end
 end
-function c101010499.cfilter(c)
+function ref.cfilter(c)
 	return not c:IsSetCard(0xeeb) or c:IsType(TYPE_SPELL+TYPE_TRAP)
 end
-function c101010499.sumlimit(e,c,sump,sumtype,sumpos,targetp)
+function ref.sumlimit(e,c,sump,sumtype,sumpos,targetp)
 	return bit.band(sumpos,POS_FACEDOWN)>0
 end
-function c101010499.con(e,tp,eg,ep,ev,re,r,rp)
-	if e:GetLabel()==1 and not Duel.IsExistingMatchingCard(c101010499.efilter,tp,LOCATION_MZONE,0,1,e:GetHandler(),1) then return false end
-	if e:GetLabel()==2 and not Duel.IsExistingMatchingCard(c101010499.efilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil,0) then return false end
+function ref.con(e,tp,eg,ep,ev,re,r,rp)
+	if e:GetLabel()==1 and not Duel.IsExistingMatchingCard(ref.efilter,tp,LOCATION_MZONE,0,1,e:GetHandler(),1) then return false end
+	if e:GetLabel()==2 and not Duel.IsExistingMatchingCard(ref.efilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil,0) then return false end
 	local g=e:GetHandler():GetOverlayGroup()
-	return g:GetCount()>0 and not g:IsExists(c101010499.cfilter,1,nil)
+	return g:GetCount()>0 and not g:IsExists(ref.cfilter,1,nil)
 end
-function c101010499.filter(c)
+function ref.filter(c)
 	return c:IsAttribute(ATTRIBUTE_FIRE+ATTRIBUTE_WATER+ATTRIBUTE_WIND) and c:IsAttackable()
 end
-function c101010499.atcon(e)
-	return Duel.IsExistingMatchingCard(c101010499.filter,e:GetHandlerPlayer(),LOCATION_MZONE,LOCATION_MZONE,1,nil)
+function ref.atcon(e)
+	return Duel.IsExistingMatchingCard(ref.filter,e:GetHandlerPlayer(),LOCATION_MZONE,LOCATION_MZONE,1,nil)
 end
-function c101010499.ccon(e)
+function ref.ccon(e)
 	return Duel.GetFieldGroupCount(e:GetHandlerPlayer(),LOCATION_MZONE,0)>1
 end

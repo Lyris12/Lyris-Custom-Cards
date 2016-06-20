@@ -1,6 +1,7 @@
 --Cyberspace Turtle
-function c101010334.initial_effect(c)
-	--add LIGHT attribute
+local id,ref=GIR()
+function ref.start(c)
+--add LIGHT attribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -12,8 +13,8 @@ function c101010334.initial_effect(c)
 	e2:SetCategory(CATEGORY_POSITION)
 	e2:SetType(EFFECT_TYPE_TRIGGER_F+EFFECT_TYPE_SINGLE)
 	e2:SetCode(EVENT_BE_BATTLE_TARGET)
-	e2:SetCondition(c101010334.poscon)
-	e2:SetOperation(c101010334.posop)
+	e2:SetCondition(ref.poscon)
+	e2:SetOperation(ref.posop)
 	c:RegisterEffect(e2)
 	--cannot be battle target
 	local e3=Effect.CreateEffect(c)
@@ -21,35 +22,35 @@ function c101010334.initial_effect(c)
 	e3:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetTargetRange(0,LOCATION_MZONE)
-	e3:SetValue(c101010334.tg)
+	e3:SetValue(ref.tg)
 	c:RegisterEffect(e3)
 	--banished effect
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e4:SetCode(EVENT_REMOVE)
-	e4:SetTarget(c101010334.postg)
-	e4:SetOperation(c101010334.posop2)
+	e4:SetTarget(ref.postg)
+	e4:SetOperation(ref.posop2)
 	c:RegisterEffect(e4)
 end
-function c101010334.poscon(e,tp,eg,ep,ev,re,r,rp)
+function ref.poscon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsAttackPos()
 end
-function c101010334.posop(e,tp,eg,ep,ev,re,r,rp)
+function ref.posop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsFaceup() and c:IsRelateToEffect(e) then
 		Duel.ChangePosition(c,POS_FACEUP_DEFENCE)
 	end
 end
-function c101010334.tg(e,c)
+function ref.tg(e,c)
 	return c~=e:GetHandler() and c:IsFaceup() and c:IsRace(RACE_MACHINE)
 end
-function c101010334.postg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.postg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAttackPos,tp,0,LOCATION_MZONE,1,nil) end
 	local g=Duel.GetMatchingGroup(Card.IsAttackPos,tp,0,LOCATION_MZONE,nil)
 	Duel.SetOperationInfo(0,CATEGORY_POSITION,g,g:GetCount(),0,0)
 end
-function c101010334.posop2(e,tp,eg,ep,ev,re,r,rp)
+function ref.posop2(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(Card.IsAttackPos,tp,0,LOCATION_MZONE,nil)
 	if Duel.ChangePosition(g,POS_FACEUP_DEFENCE,POS_FACEDOWN_DEFENCE,0,0)==0 then return end
 	local tg=Duel.GetFieldGroup(tp,0,LOCATION_MZONE)

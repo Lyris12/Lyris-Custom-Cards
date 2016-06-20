@@ -1,12 +1,13 @@
 --Time Dragon Glpypha
-function c101010517.initial_effect(c)
-	--protect
+local id,ref=GIR()
+function ref.start(c)
+--protect
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
-	e3:SetCondition(c101010517.indcon)
+	e3:SetCondition(ref.indcon)
 	e3:SetValue(1)
 	c:RegisterEffect(e3)
 	local e5=e3:Clone()
@@ -20,8 +21,8 @@ function c101010517.initial_effect(c)
 	e2:SetCode(EVENT_BE_MATERIAL)
 	e2:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
 	e2:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return c:IsLocation(LOCATION_DECK) end)
-	e2:SetTarget(c101010517.mattg)
-	e2:SetOperation(c101010517.matop)
+	e2:SetTarget(ref.mattg)
+	e2:SetOperation(ref.matop)
 	c:RegisterEffect(e2)
 	local ed=Effect.CreateEffect(c)
 	ed:SetType(EFFECT_TYPE_SINGLE)
@@ -36,50 +37,50 @@ function c101010517.initial_effect(c)
 	e4:SetCode(EVENT_TO_GRAVE)
 	e4:SetCountLimit(1)
 	e4:SetRange(LOCATION_MZONE)
-	e4:SetCondition(c101010517.spcon)
-	e4:SetTarget(c101010517.sptg)
-	e4:SetOperation(c101010517.spop)
+	e4:SetCondition(ref.spcon)
+	e4:SetTarget(ref.sptg)
+	e4:SetOperation(ref.spop)
 	c:RegisterEffect(e4)
 	--material
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_BE_PRE_MATERIAL)
-	e0:SetOperation(c101010517.mat)
+	e0:SetOperation(ref.mat)
 	c:RegisterEffect(e0)
 end
-function c101010517.mat(e,tp,eg,ep,ev,re,r,rp)
+function ref.mat(e,tp,eg,ep,ev,re,r,rp)
 	if r==REASON_XYZ then
 		Duel.SendtoDeck(e:GetHandler(),nil,2,REASON_EFFECT)
 	end
 end
-function c101010517.filter(c)
+function ref.filter(c)
 	return c:GetOriginalCode()==101010518
 end
-function c101010517.indcon(e)
-	return Duel.IsExistingMatchingCard(c101010517.filter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
+function ref.indcon(e)
+	return Duel.IsExistingMatchingCard(ref.filter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
-function c101010517.mattg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function ref.mattg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsAbleToDeck() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToDeck,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 	local g=Duel.SelectTarget(tp,Card.IsAbleToDeck,tp,0,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
 end
-function c101010517.matop(e,tp,eg,ep,ev,re,r,rp)
+function ref.matop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)
 	end
 end
-function c101010517.spcon(e,tp,eg,ep,ev,re,r,rp)
+function ref.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(Card.IsSetCard,1,nil,0x4db)
 end
-function c101010517.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end
-function c101010517.spop(e,tp,eg,ep,ev,re,r,rp)
+function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local c=e:GetHandler()
 	if Duel.IsPlayerCanSpecialSummonMonster(tp,101010518,0x4db,0x4011,c:GetAttack(),c:GetDefence(),c:GetLevel(),RACE_MACHINE,ATTRIBUTE_LIGHT) then

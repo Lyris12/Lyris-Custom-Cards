@@ -1,6 +1,7 @@
 --旋風の宝玉－ダイヤモンド・シンクロ・ドラゴン
-function c101010611.initial_effect(c)
-	c:EnableReviveLimit()
+local id,ref=GIR()
+function ref.start(c)
+c:EnableReviveLimit()
 	--synchro summon
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
@@ -9,7 +10,7 @@ function c101010611.initial_effect(c)
 	e0:SetRange(LOCATION_EXTRA)
 	e0:SetCondition(aux.SynCondition(nil,aux.NonTuner(Card.IsType,TYPE_SYNCHRO),1,99))
 	e0:SetTarget(aux.SynTarget(nil,aux.NonTuner(Card.IsType,TYPE_SYNCHRO),1,99))
-	e0:SetOperation(c101010611.synop)
+	e0:SetOperation(ref.synop)
 	e0:SetValue(SUMMON_TYPE_SYNCHRO)
 	c:RegisterEffect(e0)
 	--summon-to deck
@@ -20,8 +21,8 @@ function c101010611.initial_effect(c)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e3:SetCountLimit(1,101010611)
 	e3:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return e:GetHandler():GetSummonType()==SUMMON_TYPE_SYNCHRO end)
-	e3:SetTarget(c101010611.tdtg)
-	e3:SetOperation(c101010611.tdop)
+	e3:SetTarget(ref.tdtg)
+	e3:SetOperation(ref.tdop)
 	c:RegisterEffect(e3)
 	--battle indestructable
 	local e2=Effect.CreateEffect(c)
@@ -36,20 +37,20 @@ function c101010611.initial_effect(c)
 	e2:SetCode(EVENT_CHAINING)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCondition(c101010611.detcon)
-	e2:SetCost(c101010611.detcost)
-	e2:SetTarget(c101010611.dettg)
-	e2:SetOperation(c101010611.detop)
+	e2:SetCondition(ref.detcon)
+	e2:SetCost(ref.detcost)
+	e2:SetTarget(ref.dettg)
+	e2:SetOperation(ref.detop)
 	c:RegisterEffect(e2)
 end
-function c101010611.detcon(e,tp,eg,ep,ev,re,r,rp)
+function ref.detcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsStatus(STATUS_BATTLE_DESTROYED) then return false end
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
 	local tg=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
 	return tg and tg:IsContains(c)
 end
-function c101010611.detcost(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.detcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return c:IsAbleToExtraAsCost() end
 	local mg=c:GetMaterial()
@@ -58,11 +59,11 @@ function c101010611.detcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabelObject(mg)
 	Duel.SendtoDeck(c,nil,0,REASON_EFFECT)
 end
-function c101010611.dettg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.dettg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,e:GetLabel(),tp,LOCATION_DECK)
 end
-function c101010611.detop(e,tp,eg,ep,ev,re,r,rp)
+function ref.detop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local mg=e:GetLabelObject()
 	local mct=mg:GetCount()
@@ -100,29 +101,29 @@ function c101010611.detop(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function c101010611.synop(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
+function ref.synop(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
 	local g=e:GetLabelObject()
 	c:SetMaterial(g)
 	Duel.SendtoDeck(g,nil,2,REASON_MATERIAL+REASON_SYNCHRO)
 	g:DeleteGroup()
 end
-function c101010611.cfilter(c,e,n)
+function ref.cfilter(c,e,n)
 	if c:IsImmuneToEffect(e) then return end
 	if n~=0 then return c:IsRankBelow(5)
 	else return c:IsLevelAbove(5) end
 end
-function c101010611.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c101010611.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,e:GetHandler(),e,0)
-	or Duel.IsExistingMatchingCard(c101010611.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil,e,1) end
+function ref.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,e:GetHandler(),e,0)
+	or Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil,e,1) end
 	local g=Group.CreateGroup()
-	if Duel.IsExistingMatchingCard(c101010611.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,e:GetHandler(),e,0) then
+	if Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,e:GetHandler(),e,0) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-		local tc1=Duel.SelectMatchingCard(tp,c101010611.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,e:GetHandler(),e,0)
+		local tc1=Duel.SelectMatchingCard(tp,ref.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,e:GetHandler(),e,0)
 		g:AddCard(tc1:GetFirst())
 	end
-	if Duel.IsExistingMatchingCard(c101010611.cfilter,rp,LOCATION_MZONE,LOCATION_MZONE,1,nil,e,1) then
+	if Duel.IsExistingMatchingCard(ref.cfilter,rp,LOCATION_MZONE,LOCATION_MZONE,1,nil,e,1) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-		local tc2=Duel.SelectMatchingCard(tp,c101010611.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil,e,1)
+		local tc2=Duel.SelectMatchingCard(tp,ref.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil,e,1)
 		g:AddCard(tc2:GetFirst())
 	end
 	local tc=g:GetFirst()
@@ -140,7 +141,7 @@ function c101010611.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,g:GetCount(),0,0)
 end
-function c101010611.tdop(e,tp,eg,ep,ev,re,r,rp)
+function ref.tdop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
 	if Duel.SendtoDeck(g,nil,2,REASON_EFFECT)~=0 then
