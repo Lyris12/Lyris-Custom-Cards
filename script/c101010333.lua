@@ -51,7 +51,8 @@ end
 function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if not tc:IsRelatetoEffect(e) or Duel.GetLocationCount(tp,LOCATION_MZONE)<0 or not c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEDOWN_ATTACK) then return end
+	if not c:IsRelateToEffect(e) or not tc:IsRelateToEffect(e)
+		or Duel.GetLocationCount(tp,LOCATION_MZONE)<0 or not c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEDOWN_ATTACK) then return end
 	if Duel.SendtoHand(tc,nil,REASON_EFFECT)~=0 and tc:IsLocation(LOCATION_HAND) then
 		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEDOWN_ATTACK)
 		Duel.ConfirmCards(1-tp,c)
