@@ -30,14 +30,14 @@ function ref.start(c)
 	e2:SetCondition(ref.con)
 	e2:SetTarget(ref.tg)
 	e2:SetOperation(ref.op)
-	c:RegisterEffect(e1)
+	c:RegisterEffect(e2)
 end
 function ref.splimit(e,c,tp,sumtp,sumpos)
 	return not c:IsType(TYPE_NORMAL) and bit.band(sumtp,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetAttackTarget()
-	return tc:IsRelateToBattle() and tc:IsControler(tp) and tc:IsFaceup() and tc:IsType(TYPE_NORMAL)
+	local tc=eg:GetFirst()
+	return r~=REASON_REPLACE and tc:IsControler(e:GetHandler():GetControler()) and tc:IsFaceup() and tc:IsType(TYPE_NORMAL)
 end
 function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

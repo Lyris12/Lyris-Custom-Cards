@@ -12,13 +12,12 @@ function ref.start(c)
 	e0:SetCondition(aux.nfbdncon)
 	e0:SetTarget(ref.splimit)
 	c:RegisterEffect(e0)
-	--If a Normal Monster you control attacks a face-down monster, you cannot activate Spell Cards during the Damage Step of that battle, also, your monster's ATK becomes double its original ATK during the Damage Step only.
+	--If a Normal Monster you control attacks a face-down monster, your monster gains 1000 ATK during the Damage Step only.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e1:SetRange(LOCATION_PZONE)
-	e1:SetCondition(ref.atkcon)
-	e1:SetOperation(ref.atkop)
+	e1:SetOperation(ref.atktg)
 	c:RegisterEffect(e1)
 	--During your opponent's turn: You can target 1 Effect Monster your opponent controls; change that target to face-down Attack Position. Monsters changed to face-down Attack Position by this effect cannot change their battle positions this turn. You can only use the effect of "White Wisteria Wyvern" once per turn.
 	local e2=Effect.CreateEffect(c)
@@ -36,38 +35,22 @@ end
 function ref.splimit(e,c,tp,sumtp,sumpos)
 	return not c:IsType(TYPE_NORMAL) and bit.band(sumtp,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
-function ref.atkcon(e,tp,eg,ep,ev,re,r,rp)
-	local a=Duel.GetAttacker()
-	local d=Duel.GetAttackTarget()
-	if not a then return false end
-	if a:IsControler(1-tp) then return false end
-	return d and a:IsRelateToBattle() and d:IsRelateToBattle()
-		and a:IsType(TYPE_NORMAL) and d:IsFacedown()
+function ref.atktg(e,tp,eg,ep,ev,re,r,rp)
+	local c=eg:GetFirst()
+	local bc=c:GetBattleTarget()
+	if c:IsType(TYPE_NORMAL) and c==Duel.GetAttacker() and bc and bc:IsFacedown() then
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1:SetCondition(ref.atkcon)
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_DAMAGE)
+		e1:SetValue(1000)
+		c:RegisterEffect(e1)
+	end
 end
-function ref.atkop(e,tp,eg,ep,ev,re,r,rp)
-	local e1=Effect.CreateEffect(e:GetHandler())
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e1:SetCode(EFFECT_CANNOT_ACTIVATE)
-	e1:SetTargetRange(1,0)
-	e1:SetCondition(ref.atkupcon)
-	e1:SetValue(ref.aclimit)
-	e1:SetReset(RESET_PHASE+PHASE_DAMAGE)
-	Duel.RegisterEffect(e1,tp)
-	local e2=Effect.CreateEffect(e:GetHandler())
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetCode(EFFECT_SET_ATTACK_FINAL)
-	e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_DAMAGE)
-	e2:SetCondition(ref.atkupcon)
-	e2:SetValue(eg:GetFirst():GetBaseAttack()*2)
-	eg:GetFirst():RegisterEffect(e2)
-end
-function ref.atkupcon(e)
+function ref.atkcon(e)
 	local phase=Duel.GetCurrentPhase()
 	return phase==PHASE_DAMAGE or phase==PHASE_DAMAGE_CAL
-end
-function ref.aclimit(e,re,tp)
-	return re:GetHandler():IsType(TYPE_SPELL) and re:IsHasType(EFFECT_TYPE_ACTIVATE)
 end
 function ref.filter(c)
 	return c:IsFaceup() and c:IsType(TYPE_EFFECT) and c:IsCanTurnSet()
