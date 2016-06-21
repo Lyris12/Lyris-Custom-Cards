@@ -15,7 +15,7 @@ function ref.start(c)
 	e2:SetCategory(CATEGORY_REMOVE)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1,101010244)
+	e2:SetCountLimit(1,id)
 	e2:SetLabel(0)
 	e2:SetCondition(ref.con)
 	e2:SetCost(ref.cost)
@@ -73,7 +73,7 @@ function ref.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function ref.drop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if Duel.SendtoGrave(c,REASON_EFFECT)~=0 and Duel.IsPlayerCanDraw(tp,1) and Duel.SelectYesNo(tp,aux.Stringid(101010244,0)) then
+	if Duel.SendtoGrave(c,REASON_EFFECT)~=0 and Duel.IsPlayerCanDraw(tp,1) and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		Duel.Draw(tp,1,REASON_EFFECT)
 	end
 end

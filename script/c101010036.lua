@@ -89,7 +89,7 @@ function ref.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
 	if chk==0 then return not c:IsReason(REASON_REPLACE) and c:IsOnField() and c:IsFaceup()
 		and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_GRAVE,0,1,c,e,tp,6) end
-	if Duel.SelectYesNo(tp,aux.Stringid(101010023,0)) then
+	if Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 	local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_GRAVE,0,1,1,c,e,tp,6)
 	e:SetLabelObject(g:GetFirst())

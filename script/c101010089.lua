@@ -9,7 +9,7 @@ function ref.start(c)
 	c:RegisterEffect(e1)
 	--activate
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(101010161,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_ACTIVATE+EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
@@ -18,7 +18,7 @@ function ref.start(c)
 	e2:SetOperation(ref.act)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
-	e3:SetDescription(aux.Stringid(101010161,1))
+	e3:SetDescription(aux.Stringid(id,1))
 	e3:SetCode(EVENT_CHAINING)
 	c:RegisterEffect(e3)
 	--reg
@@ -46,7 +46,7 @@ function ref.regop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.actcon(e,tp,eg,ep,ev,re,r,rp)
-	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(101010170)~=0
+	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(id)~=0
 end
 function ref.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -71,7 +71,7 @@ function ref.act(e,tp,eg,ep,ev,re,r,rp)
 end
 function ref.after(e,tp)
 	local g=Duel.GetMatchingGroup(ref.spfilter,tp,LOCATION_GRAVE,0,nil,e,tp)
-	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101010162,0)) then
+	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		Duel.BreakEffect()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local tc=g:Select(tp,1,1,nil)

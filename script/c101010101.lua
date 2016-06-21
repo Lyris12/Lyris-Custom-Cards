@@ -24,7 +24,7 @@ function ref.start(c)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_DESTROYED)
-		e1:SetLabel(101010085)
+		e1:SetLabel(id)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetOperation(aux.sumreg)
 		Duel.RegisterEffect(e1,0)
@@ -36,7 +36,7 @@ function ref.start(c)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetRange(0x32)
-	e1:SetCountLimit(1,101010085)
+	e1:SetCountLimit(1,id)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCondition(ref.con)
 	e1:SetTarget(ref.target)
@@ -54,10 +54,10 @@ function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetFlagEffect(101010085)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
+	return e:GetHandler():GetFlagEffect(id)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
 end
 function ref.filter(c,e,tp)
-	return c:IsSetCard(0x167) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=101010085
+	return c:IsSetCard(0x167) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=id
 end
 function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()

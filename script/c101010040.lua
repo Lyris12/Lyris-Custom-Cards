@@ -9,7 +9,7 @@ c:EnableReviveLimit()
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e0:SetRange(LOCATION_MZONE)
 	e0:SetCode(EVENT_BATTLE_DAMAGE)
-	e0:SetCountLimit(1,101010661)
+	e0:SetCountLimit(1,id)
 	e0:SetCondition(ref.rmcon)
 	e0:SetCost(ref.cost)
 	e0:SetTarget(ref.rmtg)
@@ -21,7 +21,7 @@ c:EnableReviveLimit()
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_DESTROYED)
-		e1:SetLabel(101010661)
+		e1:SetLabel(id)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetOperation(aux.sumreg)
 		Duel.RegisterEffect(e1,0)
@@ -84,7 +84,7 @@ function ref.rmop(e,tp,eg,ep,ev,re,r,rp)
 		local og=Duel.GetOperatedGroup()
 		local oc=og:GetFirst()
 		local fid=oc:GetFieldID()
-		oc:RegisterFlagEffect(101010661,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,2,fid)
+		oc:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,2,fid)
 		local c=e:GetHandler()
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -101,7 +101,7 @@ function ref.rmop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.retfilter(c,fid)
-	return c:GetFlagEffectLabel(101010661)==fid
+	return c:GetFlagEffectLabel(id)==fid
 end
 function ref.retcon(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetTurnPlayer()==tp then return false end
@@ -117,10 +117,10 @@ function ref.retop(e,tp,eg,ep,ev,re,r,rp)
 end
 function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	local ef=e:GetHandler():GetReasonEffect()
-	return ef and ef:GetHandler():IsSetCard(0x127) and e:GetHandler():GetFlagEffect(101010661)>0
+	return ef and ef:GetHandler():IsSetCard(0x127) and e:GetHandler():GetFlagEffect(id)>0
 end
 function ref.filter(c)
-	return c:IsSetCard(0x127) and c:IsAbleToHand() and not c:IsCode(101010661)
+	return c:IsSetCard(0x127) and c:IsAbleToHand() and not c:IsCode(id)
 end
 function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and ref.filter(chkc) end

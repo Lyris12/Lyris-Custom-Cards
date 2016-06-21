@@ -25,7 +25,7 @@ function ref.start(c)
 	c:RegisterEffect(e2)
 end
 function ref.filter(c,e,tp)
-	return c:GetLevel()==4 and c:IsSetCard(0x4db) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=101010519
+	return c:GetLevel()==4 and c:IsSetCard(0x4db) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=id
 end
 function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and ref.filter(chkc,e,tp) end
@@ -77,7 +77,7 @@ function ref.matop(e,tp,eg,ep,ev,re,r,rp)
 	c:RegisterEffect(e5)
 end
 function ref.tfilter(c,te)
-	return c:GetOriginalCode()==101010520
+	return c:GetOriginalCode()==id
 end
 function ref.indcon(e)
 	return Duel.IsExistingMatchingCard(ref.tfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
@@ -90,8 +90,8 @@ end
 function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local c=e:GetOwner()
-	if Duel.IsPlayerCanSpecialSummonMonster(tp,101010520,0x4db,0x4011,c:GetAttack(),c:GetDefence(),c:GetLevel(),RACE_MACHINE,ATTRIBUTE_LIGHT) then
-		local token=Duel.CreateToken(tp,101010520)
+	if Duel.IsPlayerCanSpecialSummonMonster(tp,id,0x4db,0x4011,c:GetAttack(),c:GetDefence(),c:GetLevel(),RACE_MACHINE,ATTRIBUTE_LIGHT) then
+		local token=Duel.CreateToken(tp,id)
 		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)

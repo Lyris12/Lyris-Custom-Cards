@@ -14,7 +14,7 @@ function ref.start(c)
 	c:RegisterEffect(e9)
 	--damage
 	local e8=Effect.CreateEffect(c)
-	e8:SetDescription(aux.Stringid(101010280,1))
+	e8:SetDescription(aux.Stringid(id,1))
 	e8:SetCategory(CATEGORY_DESTROY+CATEGORY_DISABLE+CATEGORY_DAMAGE)
 	e8:SetType(EFFECT_TYPE_IGNITION)
 	e8:SetCountLimit(1)
@@ -37,7 +37,7 @@ function ref.start(c)
 	end
 end
 ref.evolute=true
-ref.material1=function(mc) return mc:IsCode(101010279) and mc:IsFaceup() end
+ref.material1=function(mc) return mc:IsCode(id) and mc:IsFaceup() end
 ref.material2=function(mc) return mc:IsRace(RACE_DRAGON) and mc:IsFaceup() end
 function ref.chk(e,tp,eg,ep,ev,re,r,rp)
 	Duel.CreateToken(tp,388)

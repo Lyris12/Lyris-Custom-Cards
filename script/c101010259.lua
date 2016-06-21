@@ -18,7 +18,7 @@ function ref.start(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e1:SetRange(LOCATION_HAND)
 	e1:SetCode(EVENT_PREDRAW)
-	e1:SetCountLimit(1,101010181)
+	e1:SetCountLimit(1,id)
 	e1:SetCondition(ref.condition1)
 	e1:SetCost(ref.cost)
 	e1:SetTarget(ref.tg)
@@ -37,7 +37,7 @@ function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RegisterEffect(e1)
 end
 function ref.filter(c)
-	return c:IsSetCard(0x5e) and c:GetCode()~=101010181
+	return c:IsSetCard(0x5e) and c:GetCode()~=id
 end
 function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

@@ -3,7 +3,7 @@ local id,ref=GIR()
 function ref.start(c)
 --fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcCode2(c,101010031,101010036,false,false)
+	aux.AddFusionProcCode2(c,id,id,false,false)
 	--selfdes
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)

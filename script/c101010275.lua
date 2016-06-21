@@ -3,7 +3,7 @@ local id,ref=GIR()
 function ref.start(c)
 --fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcCodeRep(c,101010030,3,true,true)
+	aux.AddFusionProcCodeRep(c,id,3,true,true)
 	--Once per turn, during your Main Phase 1: you can activate this effect; and if you do, during the Battle Phase this turn, this card can attack all monsters your opponent controls.
 	local e5=Effect.CreateEffect(c)
 	e5:SetCategory(CATEGORY_ATKCHANGE)

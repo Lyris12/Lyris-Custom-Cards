@@ -58,7 +58,7 @@ function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 		local b1=Duel.IsExistingMatchingCard(Card.IsFaceup,tp,0,LOCATION_MZONE,1,nil)
 		local b2=c:GetAttackAnnouncedCount()==0
 		if b1 and b2 then
-			local opt=Duel.SelectOption(tp,1122,aux.Stringid(101010283,0))
+			local opt=Duel.SelectOption(tp,1122,aux.Stringid(id,0))
 		elseif b1 then
 			local opt=0
 		elseif b2 then

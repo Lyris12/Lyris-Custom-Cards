@@ -23,7 +23,7 @@ function ref.start(c)
 	c:RegisterEffect(eq)
 	--copy
 	local cp=Effect.CreateEffect(c)
-	cp:SetDescription(aux.Stringid(101010039,1))
+	cp:SetDescription(aux.Stringid(id,1))
 	cp:SetType(EFFECT_TYPE_QUICK_O)
 	cp:SetCode(EVENT_FREE_CHAIN)
 	cp:SetRange(LOCATION_MZONE)

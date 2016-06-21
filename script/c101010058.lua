@@ -24,7 +24,7 @@ function ref.syntg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return bit.band(r,REASON_SYNCHRO)~=0
 	and eg:IsExists(ref.filter,1,nil) end
 	local g=eg:Filter(ref.filter,nil,tp)
-	if Duel.SelectYesNo(tp,aux.Stringid(101010080,0)) then
+	if Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		Duel.SendtoDeck(g,nil,2,REASON_MATERIAL+REASON_SYNCHRO)
 		e:Reset()
 		return true

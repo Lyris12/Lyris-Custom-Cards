@@ -52,7 +52,7 @@ function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.cfilter(c)
-	return c:IsFaceup() and c:IsCode(101010277)
+	return c:IsFaceup() and c:IsCode(id)
 end
 function ref.sumlimit(e)
 	return not Duel.IsExistingMatchingCard(ref.cfilter,e:GetHandlerPlayer(),LOCATION_ONFIELD,0,1,nil)

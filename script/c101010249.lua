@@ -43,5 +43,5 @@ function ref.ntop(e,tp,eg,ep,ev,re,r,rp)
 	c:RegisterEffect(e3)
 end
 function ref.nfilter(c)
-	return c:IsRace(RACE_MACHINE) and not c:IsCode(101010030)
+	return c:IsRace(RACE_MACHINE) and not c:IsCode(id)
 end

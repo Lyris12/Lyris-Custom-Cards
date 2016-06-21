@@ -1,7 +1,7 @@
 --Victorial Wield Ophichius
 local id,ref=GIR()
 function ref.start(c)
-c:SetUniqueOnField(1,0,101010429)
+c:SetUniqueOnField(1,0,id)
 	--Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetDescription(1068)

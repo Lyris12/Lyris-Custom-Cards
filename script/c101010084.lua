@@ -24,7 +24,7 @@ function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function ref.filter(c,e,tp)
-	return c:IsSetCard(0x5cd) and c:GetCode()~=101010209 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x5cd) and c:GetCode()~=id and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and ref.filter(chkc,e,tp) end
@@ -38,7 +38,7 @@ function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		else
 		sg:Remove(Card.IsNotTuner,nil)
 	end
-	if sg:GetCount()>0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>1 and Duel.SelectYesNo(tp,aux.Stringid(101010209,0)) then
+	if sg:GetCount()>0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>1 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		local sc=sg:Select(tp,1,1,nil)
 		g:AddCard(sc:GetFirst())
 	end

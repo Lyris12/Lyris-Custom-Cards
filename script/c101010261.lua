@@ -36,7 +36,7 @@ function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RegisterEffect(e1)
 end
 function ref.mfilter(c)
-	return c:IsSetCard(0x5e) and not c:IsPublic() and not c:IsCode(101010282)
+	return c:IsSetCard(0x5e) and not c:IsPublic() and not c:IsCode(id)
 end
 function ref.sfilter(c,tc,m)
 	return c:IsSynchroSummonable(tc,m) and c:IsAttribute(ATTRIBUTE_LIGHT)
@@ -47,7 +47,7 @@ function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
 end
 function ref.filter(c)
-	return c:GetFlagEffect(101010282)~=0
+	return c:GetFlagEffect(id)~=0
 end
 function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -62,7 +62,7 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetProperty(EFFECT_FLAG_IMMEDIATELY_APPLY)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e1)
-		tc:RegisterFlagEffect(101010282,RESET_CHAIN,0,1)
+		tc:RegisterFlagEffect(id,RESET_CHAIN,0,1)
 		tc=g:GetNext()
 	end
 	local rg=g:Filter(Card.IsCanBeSpecialSummoned,nil,e,0,tp,false,false)
@@ -88,5 +88,5 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.mgfilter(c)
-	return c:IsPublic() or c:IsHasEffect(EFFECT_PUBLIC) and not c:IsCode(101010282)
+	return c:IsPublic() or c:IsHasEffect(EFFECT_PUBLIC) and not c:IsCode(id)
 end

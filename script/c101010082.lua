@@ -12,7 +12,7 @@ function ref.start(c)
 	c:RegisterEffect(e2)
 	--destroy
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(101010207,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_DESTROY)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e1:SetCode(EVENT_TO_GRAVE)
@@ -22,7 +22,7 @@ function ref.start(c)
 	e1:SetOperation(ref.op1)
 	c:RegisterEffect(e1)
 	local e0=Effect.CreateEffect(c)
-	e0:SetDescription(aux.Stringid(101010207,0))
+	e0:SetDescription(aux.Stringid(id,0))
 	e0:SetCategory(CATEGORY_DESTROY)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e0:SetCode(EVENT_BE_MATERIAL)
@@ -49,7 +49,7 @@ function ref.con2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_GRAVE) and r==REASON_SYNCHRO
 end
 function ref.cfilter2(c)
-	if c:GetFlagEffect(101010207)~=0 then return false end
+	if c:GetFlagEffect(id)~=0 then return false end
 	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_WATER) and (c:GetSummonLocation()==LOCATION_EXTRA and c:IsType(TYPE_SYNCHRO))
 end
 function ref.tg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -69,7 +69,7 @@ function ref.op2(e,tp,eg,ep,ev,re,r,rp)
 		local c=e:GetHandler()
 		local sc=c:GetReasonCard()
 		if sc:IsFacedown() then return end
-		sc:RegisterFlagEffect(101010207,RESET_EVENT+0x1fe0000,EFFECT_FLAG_CANNOT_DISABLE,1)
+		sc:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000,EFFECT_FLAG_CANNOT_DISABLE,1)
 		if tc:IsType(TYPE_MONSTER) then
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)
@@ -109,7 +109,7 @@ function ref.tg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 end
 function ref.cfilter1(c)
-	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_WATER) and c:GetSummonLocation()==LOCATION_DECK and c:GetFlagEffect(101010207)==0
+	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_WATER) and c:GetSummonLocation()==LOCATION_DECK and c:GetFlagEffect(id)==0
 end
 function ref.op1(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
@@ -122,7 +122,7 @@ function ref.op1(e,tp,eg,ep,ev,re,r,rp)
 		Duel.HintSelection(sg)
 		local sc=sg:GetFirst()
 		if not sc or sc:IsFacedown() then return end
-		sc:RegisterFlagEffect(101010207,RESET_EVENT+0x1fe0000,EFFECT_FLAG_CANNOT_DISABLE,1)
+		sc:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000,EFFECT_FLAG_CANNOT_DISABLE,1)
 		if tc:IsType(TYPE_MONSTER) then
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)

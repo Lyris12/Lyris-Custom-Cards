@@ -3,7 +3,7 @@ local id,ref=GIR()
 function ref.start(c)
 --summon & set with no tribute
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(101010070,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_SUMMON_PROC)
@@ -25,7 +25,7 @@ function ref.ntcon(e,c,minc)
 		and Duel.GetFieldGroupCount(c:GetControler(),0,LOCATION_MZONE)>0
 end
 function ref.filter(c)
-	return c:IsSetCard(0xd5d) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and c:GetCode()~=101010070
+	return c:IsSetCard(0xd5d) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and c:GetCode()~=id
 end
 function ref.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil) end

@@ -12,7 +12,7 @@ aux.EnablePendulumAttribute(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e2:SetCode(101010432)
+	e2:SetCode(id)
 	e2:SetLabelObject(e1)
 	e2:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_EVENT_PLAYER)
 	e2:SetTarget(ref.sumtg)
@@ -33,8 +33,8 @@ function ref.spcon(e,tp,eg,ep,ev,re,r,rp)
 		end
 		tc=eg:GetNext()
 	end
-	if tp1 then Duel.RaiseSingleEvent(c,101010432,e,r,rp,tp,0) end
-	if tp2 then Duel.RaiseSingleEvent(c,101010432,e,r,rp,1-tp,0) end
+	if tp1 then Duel.RaiseSingleEvent(c,id,e,r,rp,tp,0) end
+	if tp2 then Duel.RaiseSingleEvent(c,id,e,r,rp,1-tp,0) end
 end
 function ref.filter(c,e,tp)
 	return c:IsSetCard(0x1613) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)

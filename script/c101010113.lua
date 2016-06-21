@@ -2,8 +2,8 @@
 local id,ref=GIR()
 function ref.start(c)
 c:EnableReviveLimit()
-	aux.AddXyzProcedure(c,ref.xyzfilter,7,3,ref.ovfilter,aux.Stringid(101010343,2),3)
-	c:SetSPSummonOnce(101010343)
+	aux.AddXyzProcedure(c,ref.xyzfilter,7,3,ref.ovfilter,aux.Stringid(id,2),3)
+	c:SetSPSummonOnce(id)
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_SINGLE)
 	e6:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -33,7 +33,7 @@ c:EnableReviveLimit()
 	fs:SetOperation(ref.fop)
 	c:RegisterEffect(fs)
 	local fus=Effect.CreateEffect(c)
-	fus:SetDescription(aux.Stringid(101010343,1))
+	fus:SetDescription(aux.Stringid(id,1))
 	fus:SetType(EFFECT_TYPE_FIELD)
 	fus:SetCode(EFFECT_SPSUMMON_PROC)
 	fus:SetProperty(EFFECT_FLAG_UNCOPYABLE)
@@ -48,7 +48,7 @@ c:EnableReviveLimit()
 	e0:SetType(EFFECT_TYPE_TRIGGER_F+EFFECT_TYPE_FIELD)
 	e0:SetRange(0xbf)
 	e0:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e0:SetCountLimit(1,101010343)
+	e0:SetCountLimit(1,id)
 	e0:SetCondition(ref.con1)
 	e0:SetTarget(ref.target)
 	e0:SetOperation(ref.op1)
@@ -57,7 +57,7 @@ end
 ref.material_count=2
 ref.material={86686671,12670770}
 function ref.code(c)
-	return c:IsFusionCode(70095154) or c:IsFusionCode(101010331)
+	return c:IsFusionCode(70095154) or c:IsFusionCode(id)
 end
 function ref.spslimit(e,se,sp,st)
 	return bit.band(st,SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION or bit.band(st,SUMMON_TYPE_XYZ)==SUMMON_TYPE_XYZ
@@ -66,7 +66,7 @@ function ref.xyzfilter(c)
 	return c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_MACHINE)
 end
 function ref.ovfilter(c,tc)
-	return c:IsFaceup() and c:IsRankAbove(5) and ref.xyzfilter(c) and c:GetCode()~=101010343
+	return c:IsFaceup() and c:IsRankAbove(5) and ref.xyzfilter(c) and c:GetCode()~=id
 end
 function ref.ovop(e,tp,chk)
 	if chk==0 then return true end
@@ -110,13 +110,13 @@ function ref.fmcon(e,g,gc,chkf)
 		local b1=0 local b2=0 local b3=0
 		local tc=mg:GetFirst()
 		while tc do
-			if tc:IsFusionCode(70095154) or tc:IsFusionCode(101010331) then b1=1
+			if tc:IsFusionCode(70095154) or tc:IsFusionCode(id) then b1=1
 			elseif tc:GetCode()==86686671 then b2=1
 			elseif tc:GetCode()==12670770 then b3=1
 			end
 			tc=mg:GetNext()
 		end
-		if gc:IsFusionCode(70095154) or gc:IsFusionCode(101010331) then b1=1
+		if gc:IsFusionCode(70095154) or gc:IsFusionCode(id) then b1=1
 		elseif gc:GetCode()==86686671 then b2=1
 		elseif gc:GetCode()==12670770 then b3=1
 		else return false
@@ -127,7 +127,7 @@ function ref.fmcon(e,g,gc,chkf)
 	local fs=false
 	local tc=mg:GetFirst()
 	while tc do
-		if tc:IsFusionCode(70095154) or tc:IsFusionCode(101010331) then b1=1 if aux.FConditionCheckF(tc,chkf) then fs=true end
+		if tc:IsFusionCode(70095154) or tc:IsFusionCode(id) then b1=1 if aux.FConditionCheckF(tc,chkf) then fs=true end
 		elseif tc:GetCode()==86686671 then b2=1 if aux.FConditionCheckF(tc,chkf) then fs=true end
 		elseif tc:GetCode()==12670770 then b3=1 if aux.FConditionCheckF(tc,chkf) then fs=true end
 		end
@@ -137,7 +137,7 @@ function ref.fmcon(e,g,gc,chkf)
 end
 function ref.fsfilter(c)
 	local code=c:GetCode()
-	return (c:IsFusionCode(70095154) or c:IsFusionCode(101010331)) or code==86686671 or code==12670770
+	return (c:IsFusionCode(70095154) or c:IsFusionCode(id)) or code==86686671 or code==12670770
 end
 function ref.fmatl(e,tp,eg,ep,ev,re,r,rp,gc,chkf)
 	local loc1=LOCATION_SZONE
@@ -205,7 +205,7 @@ function ref.fdfilter(c)
 end
 function ref.sprfilter(c,tc)
 	local code=c:GetCode()
-	return ((code==70095154 or code==101010331) and c:IsCanBeXyzMaterial(tc)) or code==86686671 or code==12670770
+	return ((code==70095154 or code==id) and c:IsCanBeXyzMaterial(tc)) or code==86686671 or code==12670770
 end
 function ref.sprcon(e,c)
 	if c==nil then return true end
@@ -241,7 +241,7 @@ function ref.cfilter(c)
 end
 function ref.xfilter(c)
 	local code=c:GetCode()
-	return ((code==70095154 or code==101010331) and c:IsCanBeXyzMaterial(c,true)) or code==86686671 or code==12670770
+	return ((code==70095154 or code==id) and c:IsCanBeXyzMaterial(c,true)) or code==86686671 or code==12670770
 end
 function ref.con1(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -250,7 +250,7 @@ function ref.con1(e,tp,eg,ep,ev,re,r,rp)
 		and Duel.GetMatchingGroup(ref.xfilter,tp,LOCATION_HAND,0,nil):GetClassCount(Card.GetCode)>1
 end
 function ref.spfilter(c,e,tp)
-	return c:IsType(TYPE_XYZ) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_MACHINE) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false) and c:GetCode()~=101010343
+	return c:IsType(TYPE_XYZ) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_MACHINE) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false) and c:GetCode()~=id
 end
 function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -274,7 +274,7 @@ function ref.op1(e,tp,eg,ep,ev,re,r,rp)
 		xg:AddCard(xg1:GetFirst())
 		cc=cc-1
 		g:Remove(Card.IsCode,nil,xg1:GetFirst():GetCode())
-		if g:GetCount()>0 and cc==0 and Duel.SelectYesNo(tp,aux.Stringid(101010343,7)) then
+		if g:GetCount()>0 and cc==0 and Duel.SelectYesNo(tp,aux.Stringid(id,7)) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
 			xg2=g:Select(tp,1,1,nil)
 			xg:AddCard(xg2:GetFirst())

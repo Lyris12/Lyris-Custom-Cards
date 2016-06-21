@@ -14,7 +14,7 @@ function ref.start(c)
 	e1:SetValue(aux.fuslimit)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(101010559,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
@@ -26,7 +26,7 @@ function ref.start(c)
 	c:RegisterEffect(e2)
 end
 function ref.ffilter(c)
-	return c:IsType(TYPE_FUSION) and (c:IsAttribute(ATTRIBUTE_FIRE) or (c:IsHasEffect(101010560) and not c:IsLocation(LOCATION_DECK)))
+	return c:IsType(TYPE_FUSION) and (c:IsAttribute(ATTRIBUTE_FIRE) or (c:IsHasEffect(id) and not c:IsLocation(LOCATION_DECK)))
 end
 function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()
@@ -36,20 +36,20 @@ function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local lp=Duel.GetLP(1-tp)
 	local c=e:GetHandler()
 	if chk==0 then
-		if c:IsHasEffect(101010552) then return true end
+		if c:IsHasEffect(id) then return true end
 		return lp<lv
 	end
 	local t={}
 	local i=1
 	local p=1
 	local d=math.floor((lv-lp)/100)
-	if c:IsHasEffect(101010552) then d=20 end
+	if c:IsHasEffect(id) then d=20 end
 	for i=1,d do
 		t[p]=i p=p+1
 		if p>20 then break end
 	end
 	t[p]=nil
-	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010559,1))
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
 	e:SetLabel(Duel.AnnounceNumber(tp,table.unpack(t))*100)
 	Duel.PayLPCost(tp,e:GetLabel())
 end

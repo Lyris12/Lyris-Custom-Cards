@@ -10,7 +10,7 @@ c:EnableReviveLimit()
 	c:RegisterEffect(e1)
 	--activate
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(101010161,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_ACTIVATE+EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
@@ -20,7 +20,7 @@ c:EnableReviveLimit()
 	e2:SetOperation(ref.act)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
-	e3:SetDescription(aux.Stringid(101010161,1))
+	e3:SetDescription(aux.Stringid(id,1))
 	e3:SetCode(EVENT_CHAINING)
 	c:RegisterEffect(e3)
 	--change battle target
@@ -57,19 +57,19 @@ function ref.mat_filter(c)
 	return c:GetLevel()~=12
 end
 function ref.actcon(e,tp,eg,ep,ev,re,r,rp)
-	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(101010170)~=0
+	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(id)~=0
 end
 function ref.cfilter(c)
 	return c:IsReleasableByEffect() and (c:IsLevelBelow(11) or ref.star(c))
 end
 function ref.star(c)
-	return c:IsCode(101010176) and c:IsHasEffect(101010176)
+	return c:IsCode(id) and c:IsHasEffect(id)
 end
 function ref.actcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local cg=Duel.GetMatchingGroup(ref.cfilter,tp,LOCATION_MZONE+LOCATION_HAND,0,nil)
 	if chk==0 then return cg:IsExists(ref.star,1,nil) or cg:CheckWithSumEqual(Card.GetLevel,12,1,99) end
 	local g=nil
-	if not cg:CheckWithSumEqual(Card.GetLevel,12,1,99) or (cg:IsExists(ref.star,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(101010176,0))) then
+	if not cg:CheckWithSumEqual(Card.GetLevel,12,1,99) or (cg:IsExists(ref.star,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(id,0))) then
 		g=cg:FilterSelect(tp,ref.star,1,1,nil)
 	else
 		g=cg:SelectWithSumEqual(tp,Card.GetLevel,12,1,99)

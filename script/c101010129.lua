@@ -31,7 +31,7 @@ end
 function ref.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local pg=eg:Filter(ref.repfilter,nil,tp)
 	if chk==0 then return pg:GetCount()>0 and Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_DECK,0,1,nil) and not pg:IsContains(e:GetHandler()) end
-	if Duel.SelectYesNo(tp,aux.Stringid(101010673,0)) then
+	if Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		local ct=pg:GetCount()
 		local rg=Duel.SelectMatchingCard(tp,ref.cfilter,tp,LOCATION_DECK,0,1,ct,nil)
 		local pt=Duel.SendtoGrave(rg,REASON_EFFECT)
@@ -74,14 +74,14 @@ function ref.tgop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.regop(e,tp,eg,ep,ev,re,r,rp)
-	e:GetHandler():RegisterFlagEffect(101010673,RESET_EVENT+0x1fc0000+RESET_CHAIN,0,1)
+	e:GetHandler():RegisterFlagEffect(id,RESET_EVENT+0x1fc0000+RESET_CHAIN,0,1)
 end
 function ref.damcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local ex,loc=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_EFFECT,CHAININFO_TRIGGERING_LOCATION)
-	return aux.exccon(e) and c:GetFlagEffect(101010673)~=0 and loc==LOCATION_REMOVED and ex:GetHandler():IsSetCard(0x127) and ex:IsType(TYPE_MONSTER)
+	return aux.exccon(e) and c:GetFlagEffect(id)~=0 and loc==LOCATION_REMOVED and ex:GetHandler():IsSetCard(0x127) and ex:IsType(TYPE_MONSTER)
 end
 function ref.damop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_CARD,0,101010673)
+	Duel.Hint(HINT_CARD,0,id)
 	Duel.Damage(1-tp,500,REASON_EFFECT)
 end

@@ -3,7 +3,7 @@ local id,ref=GIR()
 function ref.start(c)
 --atk
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(101010024,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_ATKCHANGE)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)

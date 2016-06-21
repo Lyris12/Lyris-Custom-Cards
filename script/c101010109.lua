@@ -43,13 +43,13 @@ function ref.rdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,1200)
 end
 function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetFlagEffect(101010668)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
+	return e:GetHandler():GetFlagEffect(id)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
 end
 function ref.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
 end
 function ref.filter2(c)
-	return c:IsSetCard(0x127) and c:IsAbleToRemove() and c:GetCode()~=101010668
+	return c:IsSetCard(0x127) and c:IsAbleToRemove() and c:GetCode()~=id
 end
 function ref.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_GRAVE,0,1,nil) end
@@ -78,7 +78,7 @@ function ref.descon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetLabel()>=2
 end
 function ref.desop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_CARD,0,101010668)
+	Duel.Hint(HINT_CARD,0,id)
 	Duel.SendtoHand(e:GetHandler(),nil,REASON_EFFECT)
 	Duel.ConfirmCards(1-tp,e:GetHandler())
 	e:SetLabel(0)

@@ -9,7 +9,7 @@ function ref.start(c)
 	e1:SetTarget(ref.target)
 	e1:SetOperation(ref.op)
 	c:RegisterEffect(e1)
-	Duel.AddCustomActivityCounter(101010255,ACTIVITY_SPSUMMON,ref.ctfilter)
+	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,ref.ctfilter)
 end
 function ref.ctfilter(c)
 	return c:GetSummonLocation()~=LOCATION_EXTRA
@@ -41,7 +41,7 @@ function ref.sfilter(c,e,tp,m)
 	return c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ+0x7150,tp,false,false) and m:IsExists(ref.filter,1,nil,c:GetRank())
 end
 function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsPlayerCanDiscardDeckAsCost(tp,5) and Duel.GetCustomActivityCount(101010255,tp,ACTIVITY_SPSUMMON)==0 end
+	if chk==0 then return Duel.IsPlayerCanDiscardDeckAsCost(tp,5) and Duel.GetCustomActivityCount(id,tp,ACTIVITY_SPSUMMON)==0 end
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)

@@ -14,7 +14,7 @@ function ref.start(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e3:SetCode(EVENT_DESTROYED)
-	e3:SetCountLimit(1,101010083)
+	e3:SetCountLimit(1,id)
 	e3:SetOperation(ref.regop)
 	c:RegisterEffect(e3)
 end
@@ -49,7 +49,7 @@ function ref.damcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp~=tp and eg:IsExists(ref.filter,1,nil)
 end
 function ref.damop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_CARD,0,101010083)
+	Duel.Hint(HINT_CARD,0,id)
 	--local g=eg:Filter(ref.filter,nil)
 	local atk=0
 	local tatk=0

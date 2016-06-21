@@ -15,7 +15,7 @@ function ref.start(c)
 	c:RegisterEffect(e1)
 	--to defence
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(101010404,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_POSITION)
 	e1:SetType(EFFECT_TYPE_TRIGGER_F+EFFECT_TYPE_SINGLE)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)

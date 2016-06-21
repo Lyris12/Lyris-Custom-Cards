@@ -8,7 +8,7 @@ function ref.start(c)
 	e1:SetCode(EFFECT_REVERSE_DAMAGE)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(1,0)
-	e1:SetCondition(function(e) return e:GetHandler():IsHasEffect(101010552) end)
+	e1:SetCondition(function(e) return e:GetHandler():IsHasEffect(id) end)
 	e1:SetValue(ref.rev)
 	c:RegisterEffect(e1)
 	--recover
@@ -25,10 +25,10 @@ function ref.start(c)
 	aux.AddFusionProcFun2(c,ref.ffilter1,ref.ffilter2,true)
 end
 function ref.ffilter1(c)
-	return c:IsAttribute(ATTRIBUTE_FIRE) or (c:IsHasEffect(101010560) and not c:IsLocation(LOCATION_DECK))
+	return c:IsAttribute(ATTRIBUTE_FIRE) or (c:IsHasEffect(id) and not c:IsLocation(LOCATION_DECK))
 end
 function ref.ffilter2(c)
-	return c:IsRace(RACE_WINDBEAST+RACE_PYRO) or (c:IsHasEffect(101010576) and not c:IsLocation(LOCATION_DECK))
+	return c:IsRace(RACE_WINDBEAST+RACE_PYRO) or (c:IsHasEffect(id) and not c:IsLocation(LOCATION_DECK))
 end
 function ref.rectg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

@@ -13,7 +13,7 @@ c:EnableCounterPermit(0x3001)
 	--Evolute Counter
 	local ae0=Effect.CreateEffect(c)
 	ae0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-	ae0:SetCode(101010600)
+	ae0:SetCode(id)
 	ae0:SetOperation(ref.eop)
 	c:RegisterEffect(ae0)
 	--survival
@@ -56,7 +56,7 @@ c:EnableCounterPermit(0x3001)
 	c:RegisterEffect(e2)
 	--counter (Do Not Remove)
 	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(101010600,1))
+	e4:SetDescription(aux.Stringid(id,1))
 	e4:SetCategory(CATEGORY_COUNTER)
 	e4:SetType(EFFECT_TYPE_IGNITION)
 	e4:SetRange(LOCATION_MZONE)
@@ -147,7 +147,7 @@ function ref.acop(e,tp,eg,ep,ev,re,r,rp)
 	if eg:IsExists(Card.IsSetCard,1,c,0x785e) then
 		c:AddCounter(0x3001,1)
 		if c:GetCounter(0x3001)==3 then
-			Duel.RaiseSingleEvent(c,101010600,e,0,0,tp,0)
+			Duel.RaiseSingleEvent(c,id,e,0,0,tp,0)
 		end
 	end
 end
@@ -158,7 +158,7 @@ function ref.eop(e,tp,eg,ep,ev,re,r,rp)
 end
 function ref.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetCounter(0x88)>2 end
-	return Duel.SelectYesNo(tp,aux.Stringid(101010600,0))
+	return Duel.SelectYesNo(tp,aux.Stringid(id,0))
 end
 function ref.repop(e,tp,eg,ep,ev,re,r,rp)
 	e:GetHandler():RemoveCounter(tp,0x88,1,REASON_EFFECT)

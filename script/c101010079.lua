@@ -22,7 +22,7 @@ function ref.start(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e0:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e0:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e0:SetCountLimit(1,101010667)
+	e0:SetCountLimit(1,id)
 	e0:SetTarget(ref.sptg)
 	e0:SetOperation(ref.spop)
 	c:RegisterEffect(e0)
@@ -57,16 +57,16 @@ function ref.rdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,300)
 end
 function ref.afilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x127) and not c:IsCode(101010667)
+	return c:IsFaceup() and c:IsSetCard(0x127) and not c:IsCode(id)
 end
 function ref.atlimit(e,c)
 	return c:IsFaceup() and c:IsSetCard(0x127) and c~=e:GetHandler()
 end
 function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetFlagEffect(101010667)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
+	return e:GetHandler():GetFlagEffect(id)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
 end
 function ref.spfilter(c,e,tp)
-	return c:IsSetCard(0x127) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsCode(101010667)
+	return c:IsSetCard(0x127) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsCode(id)
 end
 function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and ref.spfilter(chkc,e,tp) end

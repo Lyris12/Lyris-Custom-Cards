@@ -15,7 +15,7 @@ function ref.start(c)
 	c:RegisterEffect(e0)
 	--synchro effect
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(101010210,1))
+	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
@@ -56,7 +56,7 @@ function ref.syntg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if not rc:IsAttribute(ATTRIBUTE_WATER) then
 		Duel.Remove(c,POS_FACEUP,REASON_REDIRECT+REASON_MATERIAL+REASON_SYNCHRO)
 	end
-	if Duel.SelectYesNo(tp,aux.Stringid(101010210,0)) then
+	if Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		local g=eg:Filter(ref.filter,c)
 		local tc=g:GetFirst()
 		while tc do
@@ -67,7 +67,7 @@ function ref.syntg(e,tp,eg,ep,ev,re,r,rp,chk)
 			e1:SetValue(LOCATION_HAND)
 			e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 			tc:RegisterEffect(e1)
-			tc:RegisterFlagEffect(101010210,RESET_EVENT+0x1de0000+RESET_PHASE+PHASE_END,0,1)
+			tc:RegisterFlagEffect(id,RESET_EVENT+0x1de0000+RESET_PHASE+PHASE_END,0,1)
 			tc=g:GetNext()
 		end
 		local e1=Effect.CreateEffect(c)
@@ -85,7 +85,7 @@ function ref.synval(e,c)
 	return false
 end
 function ref.thfilter(c)
-	return c:GetFlagEffect(101010210)~=0
+	return c:GetFlagEffect(id)~=0
 end
 function ref.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(ref.thfilter,1,nil)

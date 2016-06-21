@@ -14,7 +14,7 @@ function ref.start(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCountLimit(1,101010282+EFFECT_COUNT_CODE_OATH)
+	e1:SetCountLimit(1,id+EFFECT_COUNT_CODE_OATH)
 	e1:SetTarget(ref.target)
 	e1:SetOperation(ref.activate)
 	c:RegisterEffect(e1)
@@ -75,7 +75,7 @@ function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 					e2:SetOperation(ref.damop)
 					Duel.RegisterEffect(e2,tp)
 				end
-				if e:GetLabel()>3 or not Duel.SelectYesNo(tp,aux.Stringid(101010282,0)) then return end
+				if e:GetLabel()>3 or not Duel.SelectYesNo(tp,aux.Stringid(id,0)) then return end
 				local e0=Effect.CreateEffect(e:GetHandler())
 				e0:SetType(EFFECT_TYPE_FIELD)
 				e0:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)

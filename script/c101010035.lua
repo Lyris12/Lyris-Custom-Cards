@@ -2,7 +2,7 @@
 local id,ref=GIR()
 function ref.start(c)
 c:EnableReviveLimit()
-	aux.AddFusionProcCode3(c,101010042,101010043,101010044,true,true)
+	aux.AddFusionProcCode3(c,id,id,id,true,true)
 	--equip1
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_EQUIP)

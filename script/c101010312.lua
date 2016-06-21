@@ -10,7 +10,7 @@ local e1=Effect.CreateEffect(c)
 	e1:SetTarget(ref.target)
 	e1:SetOperation(ref.activate)
 	c:RegisterEffect(e1)
-	Duel.AddCustomActivityCounter(101010303,ACTIVITY_SPSUMMON,ref.ctfilter)
+	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,ref.ctfilter)
 end
 function ref.ctfilter(c)
 	return c:GetSummonLocation()~=LOCATION_EXTRA or c:IsSetCard(0x1be)
@@ -20,7 +20,7 @@ function ref.cfilter(c,e,tp)
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ+0x7150,tp,true,false)
 end
 function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp) and Duel.GetCustomActivityCount(101010303,tp,ACTIVITY_SPSUMMON)==0 end
+	if chk==0 then return Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp) and Duel.GetCustomActivityCount(id,tp,ACTIVITY_SPSUMMON)==0 end
 	local g=Duel.SelectMatchingCard(tp,ref.cfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
 	if g:GetFirst() then
 		Duel.ConfirmCards(1-tp,g)
@@ -35,7 +35,7 @@ function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and ref.filter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(ref.filter,tp,LOCATION_MZONE,0,1,nil) end
 	local g=Duel.SelectTarget(tp,ref.filter,tp,LOCATION_MZONE,0,1,1,nil)
-	if g:GetFirst():IsFacedown() then Duel.ConfirmCards(1-tp,g:GetFirst()) e:GetHandler()RegisterFlagEffect(101010303,RESET_CHAIN,0,1) end
+	if g:GetFirst():IsFacedown() then Duel.ConfirmCards(1-tp,g:GetFirst()) e:GetHandler()RegisterFlagEffect(id,RESET_CHAIN,0,1) end
 end
 function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 	local sc=e:GetLabelObject()
@@ -48,9 +48,9 @@ function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetReset(RESET_CHAIN)
 	e1:SetValue(tc:GetLevel()*100*sc:GetRank())
 	tc:RegisterEffect(e1)
-	if tc:IsAbleToRemoveAsCost() and Duel.GetCustomActivityCount(101010303,tp,ACTIVITY_SPSUMMON)==0 and sc:GetFlagEffect(sc:GetCode())==0 then
+	if tc:IsAbleToRemoveAsCost() and Duel.GetCustomActivityCount(id,tp,ACTIVITY_SPSUMMON)==0 and sc:GetFlagEffect(sc:GetCode())==0 then
 		sc:SetMaterial(Group.FromCards(tc))
-		if e:GetHandler():GetFlagEffect(101010303)==0 and tc:IsFacedown() then Duel.ConfirmCards(1-tp,tc) end
+		if e:GetHandler():GetFlagEffect(id)==0 and tc:IsFacedown() then Duel.ConfirmCards(1-tp,tc) end
 		Duel.Remove(tc,POS_FACEUP,REASON_MATERIAL+0x7150)
 		Duel.BreakEffect()
 		Duel.SpecialSummon(sc,SUMMON_TYPE_XYZ+0x7150,tp,tp,true,false,POS_FACEUP)

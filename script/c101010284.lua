@@ -30,7 +30,7 @@ c:EnableReviveLimit()
 	e4:SetType(EFFECT_TYPE_IGNITION)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-	e4:SetCountLimit(1,101010186)
+	e4:SetCountLimit(1,id)
 	e4:SetLabel(0)
 	e4:SetCost(ref.spcost)
 	e4:SetTarget(ref.sptg)
@@ -57,7 +57,7 @@ function ref.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 		e1:SetCode(EFFECT_PUBLIC)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e1)
-		tc:RegisterFlagEffect(101010186,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+		tc:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 		tc=g:GetNext()
 	end
 	Duel.AdjustInstantly()
@@ -70,7 +70,7 @@ function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end
 function ref.spfilter(c,e)
-	return c:IsPublic() and c:GetFlagEffect(101010186)~=0
+	return c:IsPublic() and c:GetFlagEffect(id)~=0
 end
 function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 	if not Duel.IsExistingMatchingCard(ref.radiant,tp,LOCATION_HAND,0,1,nil) and e:GetHandler():IsDisabled() then Duel.NegateEffect(0) return end
@@ -81,7 +81,7 @@ function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 	local cg=Group.CreateGroup()
 	for i=1,ht do
 		ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-		if ft<=0 or cg:GetCount()>0 and not Duel.SelectYesNo(tp,aux.Stringid(101010186,0)) then break end
+		if ft<=0 or cg:GetCount()>0 and not Duel.SelectYesNo(tp,aux.Stringid(id,0)) then break end
 		local token=Duel.CreateToken(tp,634000303)
 		if Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP) then
 			cg:AddCard(token)
@@ -97,12 +97,12 @@ function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 		if ft<=0 then return end
 	end
 	local ct=cg:GetCount()
-	if ct==0 or not Duel.IsPlayerCanSpecialSummonMonster(tp,101010187,0,0x4011,0,0,0,0,ATTRIBUTE_LIGHT) or not Duel.SelectYesNo(tp,aux.Stringid(101010186,1)) then Duel.SpecialSummonComplete() e:SetLabel(0) return end
+	if ct==0 or not Duel.IsPlayerCanSpecialSummonMonster(tp,id,0,0x4011,0,0,0,0,ATTRIBUTE_LIGHT) or not Duel.SelectYesNo(tp,aux.Stringid(id,1)) then Duel.SpecialSummonComplete() e:SetLabel(0) return end
 	ref.light(e,tp,ct,Duel.GetLocationCount(tp,LOCATION_MZONE))
 end
 function ref.light(e,tp,ct,ft)
 	Duel.BreakEffect()
-	local lgtkn=Duel.CreateToken(tp,101010187)
+	local lgtkn=Duel.CreateToken(tp,id)
 	ft=ft-1
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
 	local tc=Duel.SelectMatchingCard(tp,ref.spfilter,tp,LOCATION_HAND,0,1,1,nil,e):GetFirst()
@@ -118,8 +118,8 @@ function ref.light(e,tp,ct,ft)
 	local sg=Group.FromCards(lgtkn)
 	for i=1,ct do
 		lg:Merge(sg)
-		if ft<=0 or ct==1 or (lg:GetCount()>0 and not Duel.SelectYesNo(tp,aux.Stringid(101010186,0))) then break end
-		sg:AddCard(Duel.CreateToken(tp,101010187))
+		if ft<=0 or ct==1 or (lg:GetCount()>0 and not Duel.SelectYesNo(tp,aux.Stringid(id,0))) then break end
+		sg:AddCard(Duel.CreateToken(tp,id))
 		ft=ft-1
 	end
 	if sg:GetCount()>0 then Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP) end
@@ -140,7 +140,7 @@ function ref.chop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject()
 	local c=eg:GetFirst()
 	while c do
-		if c:IsCode(101010187) then
+		if c:IsCode(id) then
 			local e0=Effect.CreateEffect(c)
 			e0:SetType(EFFECT_TYPE_SINGLE)
 			e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)

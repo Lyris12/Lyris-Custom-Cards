@@ -16,10 +16,10 @@ function ref.start(c)
 	aux.AddFusionProcFun2(c,ref.ffilter1,ref.ffilter2,true)
 end
 function ref.ffilter1(c)
-	return c:IsAttribute(ATTRIBUTE_FIRE) or (c:IsHasEffect(101010560) and not c:IsLocation(LOCATION_DECK))
+	return c:IsAttribute(ATTRIBUTE_FIRE) or (c:IsHasEffect(id) and not c:IsLocation(LOCATION_DECK))
 end
 function ref.FConditionFilterF2c(c)
-	return c:IsRace(RACE_DRAGON) or (c:IsHasEffect(101010576) and not c:IsLocation(LOCATION_DECK))
+	return c:IsRace(RACE_DRAGON) or (c:IsHasEffect(id) and not c:IsLocation(LOCATION_DECK))
 end
 function ref.rtcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsRelateToBattle()
@@ -31,14 +31,14 @@ function ref.rttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter,tp,0,LOCATION_MZONE,1,nil) end
 end
 function ref.splimit(c)
-	return c:IsHasEffect(101010552)
+	return c:IsHasEffect(id)
 end
 function ref.rtop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local g=Duel.GetMatchingGroup(ref.filter,0,0,LOCATION_MZONE,nil)
 	local tc=g:GetFirst()
 	if g:GetCount()>0 then
-		if not c:IsHasEffect(101010552) then
+		if not c:IsHasEffect(id) then
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 			e1:SetCode(EVENT_PRE_BATTLE_DAMAGE)

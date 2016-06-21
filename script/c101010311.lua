@@ -49,7 +49,7 @@ end
 function ref.filter(c,e,tp)
 	local tc=e:GetHandler()
 	local ec=tc:GetEquipTarget()
-	return c:GetCode()==101010407 and tc:IsCanBeXyzMaterial(c) and ec:IsCanBeXyzMaterial(c)
+	return c:GetCode()==id and tc:IsCanBeXyzMaterial(c) and ec:IsCanBeXyzMaterial(c)
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
 function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk)

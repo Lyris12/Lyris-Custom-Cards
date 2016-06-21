@@ -4,7 +4,7 @@ function ref.start(c)
 aux.EnablePendulumAttribute(c)
 	--You can also Pendulum Summon Level 1 monsters, but if you do, you cannot Pendulum Summon monsters this turn, except "Sea Scout" monsters. This effect cannot be negated.
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(101010234,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC_G)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
@@ -41,12 +41,12 @@ aux.EnablePendulumAttribute(c)
 	e5:SetHintTiming(TIMING_DAMAGE_STEP)
 	e5:SetRange(LOCATION_HAND)
 	e5:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
-	e5:SetCountLimit(1,101010234)
+	e5:SetCountLimit(1,id)
 	e5:SetCondition(ref.condition)
 	e5:SetCost(ref.cost)
 	e5:SetOperation(ref.operation)
 	c:RegisterEffect(e5)
-	Duel.AddCustomActivityCounter(101010234,ACTIVITY_SPSUMMON,ref.counterfilter)
+	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,ref.counterfilter)
 end
 function ref.counterfilter(c)
 	return c:IsSetCard(0x5cd)
@@ -74,7 +74,7 @@ function ref.pscon(e,c,og)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if ft<=0 then return false end
 	if c:IsForbidden() then return false end
-	if Duel.GetCustomActivityCount(101010234,tp,ACTIVITY_SPSUMMON)~=0 then return false end
+	if Duel.GetCustomActivityCount(id,tp,ACTIVITY_SPSUMMON)~=0 then return false end
 	if og then
 		return og:IsExists(ref.pfilter,1,nil,e,tp,lscale,rscale)
 	else

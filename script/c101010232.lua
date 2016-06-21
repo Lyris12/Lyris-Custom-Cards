@@ -30,7 +30,7 @@ function ref.repfilter(c,tp)
 end
 function ref.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return eg:IsExists(ref.repfilter,1,nil,tp) end
-	if e:GetHandler():IsAbleToGrave() and Duel.SelectYesNo(tp,aux.Stringid(101010225,0)) then
+	if e:GetHandler():IsAbleToGrave() and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		Duel.SendtoGrave(e:GetHandler(),REASON_EFFECT)
 		return true
 	else return false end
@@ -44,7 +44,7 @@ function ref.con(e,tp,eg,ep,ev,re,r,rp)
 end
 function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroup(tp,Card.IsAttribute,1,nil,ATTRIBUTE_WATER) or Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) end
-	if Duel.SelectOption(tp,aux.Stringid(101010225,1),aux.Stringid(101010225,2))~=0 then
+	if Duel.SelectOption(tp,aux.Stringid(id,1),aux.Stringid(id,2))~=0 then
 		Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST,nil)
 	else
 		local rg=Duel.SelectReleaseGroup(tp,Card.IsAttribute,1,1,nil,ATTRIBUTE_WATER)

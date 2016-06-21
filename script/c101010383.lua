@@ -12,7 +12,7 @@ function ref.start(c)
 	--instant(chain)
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOHAND)
-	e2:SetDescription(aux.Stringid(101010651,1))
+	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetCode(EVENT_CHAINING)
@@ -45,7 +45,7 @@ function ref.target1(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tg=Duel.GetChainInfo(ct-1,CHAININFO_TARGET_CARDS)
 	if not tg or not tg:IsExists(ref.cfilter,1,nil) then return end
 	if not Duel.IsChainNegatable(ct-1) then return end
-	if Duel.SelectYesNo(tp,aux.Stringid(101010651,0)) then
+	if Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		e:SetLabel(1)
 		e:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOHAND)
 		Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_MZONE)

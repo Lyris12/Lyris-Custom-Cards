@@ -52,17 +52,17 @@ function ref.start(c)
 	aux.AddFusionProcFun2(c,ref.ffilter1,ref.ffilter2,true)
 end
 function ref.ffilter1(c)
-	return c:IsAttribute(ATTRIBUTE_EARTH) or (c:IsHasEffect(101010560) and not c:IsLocation(LOCATION_DECK))
+	return c:IsAttribute(ATTRIBUTE_EARTH) or (c:IsHasEffect(id) and not c:IsLocation(LOCATION_DECK))
 end
 function ref.ffilter2(c)
-	return c:IsRace(RACE_WARRIOR+RACE_WINDBEAST) or (c:IsHasEffect(101010576) and not c:IsLocation(LOCATION_DECK))
+	return c:IsRace(RACE_WARRIOR+RACE_WINDBEAST) or (c:IsHasEffect(id) and not c:IsLocation(LOCATION_DECK))
 end
 function ref.aclimit(e,re,tp)
 	return (re:IsHasType(EFFECT_TYPE_ACTIVATE) or re:GetHandler():IsLocation(LOCATION_HAND)) and not re:GetHandler():IsImmuneToEffect(e)
 end
 function ref.actcon(e)
 	local c=e:GetHandler()
-	return Duel.GetAttacker()==c and c:IsHasEffect(101010552)
+	return Duel.GetAttacker()==c and c:IsHasEffect(id)
 end
 function ref.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xa88)

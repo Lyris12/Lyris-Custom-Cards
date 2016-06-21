@@ -4,7 +4,7 @@ function ref.start(c)
 --to hand
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
-	e1:SetDescription(aux.Stringid(101010249,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_TOHAND)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTarget(ref.target1)
@@ -13,7 +13,7 @@ function ref.start(c)
 	--atkup
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
-	e2:SetDescription(aux.Stringid(101010249,1))
+	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetCategory(CATEGORY_ATKCHANGE)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetHintTiming(TIMING_DAMAGE_STEP)
@@ -59,12 +59,12 @@ function ref.operation2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if a:GetControler()==tp then
 		e1:SetValue(d:GetAttack())
 		a:RegisterEffect(e1)
-		a:RegisterFlagEffect(101010249,RESET_EVENT+0x1fe0000,0,1)
+		a:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000,0,1)
 		c=a
 	else
 		e1:SetValue(a:GetAttack())
 		d:RegisterEffect(e1)
-		d:RegisterFlagEffect(101010249,RESET_EVENT+0x1fe0000,0,1)
+		d:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000,0,1)
 		c=d
 	end
 	local e2=Effect.CreateEffect(e:GetHandler())
@@ -79,9 +79,9 @@ end
 function ref.damop(e)
 	local c=e:GetOwner()
 	local ce=e:GetLabelObject()
-	if ce:GetFlagEffect(101010249)~=0 then
+	if ce:GetFlagEffect(id)~=0 then
 		if c:GetSequence()==0 then Duel.DisableShuffleCheck() end
 		Duel.SendtoGrave(c,REASON_EFFECT)
 	end
-	ce:ResetFlagEffect(101010249)
+	ce:ResetFlagEffect(id)
 end

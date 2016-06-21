@@ -1,7 +1,7 @@
 --未来型融合－フューチャーリスチック・フュージョン
 local id,ref=GIR()
 function ref.start(c)
-c:SetUniqueOnField(1,0,101010005)
+c:SetUniqueOnField(1,0,id)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)

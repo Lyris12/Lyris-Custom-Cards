@@ -36,7 +36,7 @@ function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 		or mg:IsExists(ref.mgfilter,1,nil,e,tp,c) then
 		sumable=false
 	end
-	if sumable and Duel.SelectYesNo(tp,aux.Stringid(101010248,0)) then
+	if sumable and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		Duel.BreakEffect()
 		Duel.SpecialSummon(mg,0,tp,tp,false,false,POS_FACEUP)
 	end

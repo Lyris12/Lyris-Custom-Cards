@@ -23,14 +23,14 @@ function ref.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and 
-		Duel.IsPlayerCanSpecialSummonMonster(tp,101010111,0x167,0x21,2600,1400,6,RACE_DRAGON,0xff) end
+		Duel.IsPlayerCanSpecialSummonMonster(tp,id,0x167,0x21,2600,1400,6,RACE_DRAGON,0xff) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
 function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e)
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,101010111,0x167,0x21,2600,1400,6,RACE_DRAGON,0xff) then
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,id,0x167,0x21,2600,1400,6,RACE_DRAGON,0xff) then
 		c:AddTrapMonsterAttribute(TYPE_TUNER+TYPE_EFFECT,0xff,RACE_DRAGON,6,2600,1400)
 		c:SetStatus(STATUS_NO_LEVEL,false)
 		local e1=Effect.CreateEffect(c)
@@ -46,7 +46,7 @@ function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 		e3:SetCategory(CATEGORY_DESTROY)
 		e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 		e3:SetCode(EVENT_BE_BATTLE_TARGET)
-		e3:SetCountLimit(1,101010111)
+		e3:SetCountLimit(1,id)
 		e3:SetOperation(ref.deslop)
 		e3:SetReset(RESET_EVENT+0x1fe0000)
 		c:RegisterEffect(e3)
@@ -73,7 +73,7 @@ function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 		e5:SetCode(EVENT_FREE_CHAIN)
 		e5:SetRange(LOCATION_MZONE)
 		e5:SetProperty(EFFECT_FLAG_CARD_TARGET)
-		e5:SetCountLimit(1,101010111)
+		e5:SetCountLimit(1,id)
 		e5:SetCondition(ref.descon)
 		e5:SetTarget(ref.destg)
 		e5:SetOperation(ref.desop)

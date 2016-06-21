@@ -77,7 +77,7 @@ function ref.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Damage(p,d,REASON_EFFECT)
 end
 function ref.filter(c)
-	return c:IsCode(101010342) and c:IsAbleToHand()
+	return c:IsCode(id) and c:IsAbleToHand()
 end
 function ref.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil) end

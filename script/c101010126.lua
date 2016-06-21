@@ -154,14 +154,14 @@ function ref.nrop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetCurrentChain()==0 then
 		Duel.SetChainLimitTillChainEnd(ref.nrfilter)
 		else
-		e:GetHandler():RegisterFlagEffect(101010004,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+		e:GetHandler():RegisterFlagEffect(id,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 	end
 end
 function ref.nrop2(e,tp,eg,ep,ev,re,r,rp)
-	if e:GetHandler():GetFlagEffect(101010004)~=0 then
+	if e:GetHandler():GetFlagEffect(id)~=0 then
 		Duel.SetChainLimitTillChainEnd(ref.nrfilter)
 	end
-	e:GetHandler():ResetFlagEffect(101010004)
+	e:GetHandler():ResetFlagEffect(id)
 end
 function ref.nrfilter(e,tp,rp)
 	return rp~=tp
@@ -226,7 +226,7 @@ function ref.fusop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.filter(c)
-	return c:GetCode()~=101010004
+	return c:GetCode()~=id
 end
 function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
@@ -235,7 +235,7 @@ function ref.op(e,tp,eg,ep,ev,re,r,rp)
 		and tc==nil then
 		Duel.MoveToField(e:GetHandler(),tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 		if tc2==nil then
-			local token=Duel.CreateToken(tp,101010004,nil,nil,nil,nil,nil,nil)  
+			local token=Duel.CreateToken(tp,id,nil,nil,nil,nil,nil,nil)  
 			Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
 			local e1=Effect.CreateEffect(e:GetHandler())
 			e1:SetCode(EFFECT_CHANGE_TYPE)

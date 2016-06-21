@@ -21,7 +21,7 @@ c:EnableReviveLimit()
 	local e7=Effect.CreateEffect(c)
 	e7:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e7:SetCode(EVENT_LEAVE_FIELD)
-	e7:SetCountLimit(1,101010006)
+	e7:SetCountLimit(1,id)
 	e7:SetCondition(ref.con)
 	e7:SetOperation(ref.op)
 	c:RegisterEffect(e7)
@@ -32,7 +32,7 @@ end
 function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(101010006,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CHAIN_MATERIAL)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -128,7 +128,7 @@ end
 function ref.caop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler():GetEquipTarget()
 	if (Duel.GetFieldCard(1-tp,LOCATION_MZONE,ref.seq+1)~=nil or Duel.GetFieldCard(1-tp,LOCATION_MZONE,ref.seq-1)~=nil) 
-		and Duel.GetAttackTarget()~=nil and Duel.SelectYesNo(tp,aux.Stringid(101010006,1)) then
+		and Duel.GetAttackTarget()~=nil and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
 		local g=Group.CreateGroup()
 		if Duel.GetFieldCard(1-tp,LOCATION_MZONE,ref.seq+1)~=nil then
 			local tc=Duel.GetFieldCard(1-tp,LOCATION_MZONE,ref.seq+1)

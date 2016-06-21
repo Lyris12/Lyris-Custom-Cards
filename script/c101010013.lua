@@ -16,7 +16,7 @@ function ref.start(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetProperty(EFFECT_FLAG_DELAY)
-	e1:SetCountLimit(1,101010613)
+	e1:SetCountLimit(1,id)
 	e1:SetCode(EVENT_TO_DECK)
 	e1:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return e:GetHandler():IsReason(REASON_EFFECT+REASON_MATERIAL) end)
 	e1:SetTarget(ref.thtg)
@@ -54,7 +54,7 @@ function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.filter(c)
-	return c:IsSetCard(0x1d5d) and c:IsAbleToHand() and c:GetCode()~=101010613
+	return c:IsSetCard(0x1d5d) and c:IsAbleToHand() and c:GetCode()~=id
 end
 function ref.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil) end

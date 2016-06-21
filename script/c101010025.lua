@@ -22,7 +22,7 @@ function ref.start(c)
 	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e3:SetCountLimit(1,101010332)
+	e3:SetCountLimit(1,id)
 	e3:SetTarget(ref.target)
 	e3:SetOperation(ref.operation)
 	c:RegisterEffect(e3)
@@ -47,7 +47,7 @@ function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.filter(c)
-	return c:IsSetCard(0x4093) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and not c:IsCode(101010332)
+	return c:IsSetCard(0x4093) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and not c:IsCode(id)
 end
 function ref.filter2(c)
 	return c:IsSetCard(0x4093) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()

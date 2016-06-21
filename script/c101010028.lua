@@ -22,7 +22,7 @@ function ref.start(c)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_DESTROYED)
-		e1:SetLabel(101010081)
+		e1:SetLabel(id)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetOperation(aux.sumreg)
 		Duel.RegisterEffect(e1,0)
@@ -33,7 +33,7 @@ function ref.start(c)
 	e3:SetType(EFFECT_TYPE_QUICK_O)
 	e3:SetCode(EVENT_FREE_CHAIN)
 	e3:SetRange(0x32)
-	e3:SetCountLimit(1,101010081)
+	e3:SetCountLimit(1,id)
 	e3:SetCondition(ref.con)
 	e3:SetTarget(ref.tg)
 	e3:SetOperation(ref.op)
@@ -50,14 +50,14 @@ function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetFlagEffect(101010081)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
+	return e:GetHandler():GetFlagEffect(id)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
 end
 function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function ref.filter(c)
-	return c:IsSetCard(0x167) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and c:GetCode()~=101010081
+	return c:IsSetCard(0x167) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and c:GetCode()~=id
 end
 function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
@@ -70,7 +70,7 @@ end
 function ref.regop(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():IsReason(REASON_DESTROY) then
 		if Duel.GetTurnPlayer()~=tp then
-			Duel.Hint(HINT_CARD,0,101010081)
+			Duel.Hint(HINT_CARD,0,id)
 			if Duel.GetAttacker() then Duel.NegateAttack()
 			else
 				local e1=Effect.CreateEffect(e:GetHandler())
@@ -85,6 +85,6 @@ function ref.regop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.disop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_CARD,0,101010081)
+	Duel.Hint(HINT_CARD,0,id)
 	Duel.NegateAttack()
 end

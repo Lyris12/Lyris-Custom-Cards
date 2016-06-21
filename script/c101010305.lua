@@ -194,7 +194,7 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 		if dc==1 or dc==2 then
 			if not Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_SZONE+LOCATION_HAND,0,1,nil) then
 				--- check action Trap
-				if e:GetLabel()==101010458 or e:GetLabel()==101010460 then
+				if e:GetLabel()==id or e:GetLabel()==id then
 					local token=Duel.CreateToken(tp,e:GetLabel(),nil,nil,nil,nil,nil,nil)   
 					Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
 					local e1=Effect.CreateEffect(e:GetHandler())
@@ -206,7 +206,7 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 					token:RegisterEffect(e1)
 					Duel.MoveToField(token,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 					Duel.SpecialSummonComplete()
-					if (e:GetLabel()==101010458 and not Duel.IsExistingTarget(ref.atkfilter,tp,LOCATION_MZONE,0,1,nil)) or (e:GetLabel()==101010460 and not (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(ref.spfilter,tp,LOCATION_DECK,LOCATION_DECK,1,nil,e,tp))) then Duel.SendtoGrave(token,nil,REASON_RULE) end
+					if (e:GetLabel()==id and not Duel.IsExistingTarget(ref.atkfilter,tp,LOCATION_MZONE,0,1,nil)) or (e:GetLabel()==id and not (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(ref.spfilter,tp,LOCATION_DECK,LOCATION_DECK,1,nil,e,tp))) then Duel.SendtoGrave(token,nil,REASON_RULE) end
 					local tc=token
 					local te=tc:GetActivateEffect()
 					local tep=tc:GetControler()
@@ -260,7 +260,7 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 		if dc==5 or dc==6 then
 			if not Duel.IsExistingMatchingCard(ref.cfilter,1-tp,LOCATION_SZONE+LOCATION_HAND,0,1,nil) then
 				--- check action Trap
-				if e:GetLabel()==101010458 or e:GetLabel()==101010460 then
+				if e:GetLabel()==id or e:GetLabel()==id then
 					local token=Duel.CreateToken(1-tp,e:GetLabel(),nil,nil,nil,nil,nil,nil)   
 					Duel.SpecialSummonStep(token,0,1-tp,1-tp,false,false,POS_FACEUP)
 					local e1=Effect.CreateEffect(e:GetHandler())
@@ -272,7 +272,7 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 					token:RegisterEffect(e1)
 					Duel.MoveToField(token,1-tp,1-tp,LOCATION_SZONE,POS_FACEUP,true)
 					Duel.SpecialSummonComplete()
-					if (e:GetLabel()==101010458 and not Duel.IsExistingTarget(ref.atkfilter,1-tp,LOCATION_MZONE,0,1,nil)) or (e:GetLabel()==101010460 and not (Duel.GetLocationCount(1-tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(ref.spfilter,tp,LOCATION_DECK,LOCATION_DECK,1,nil,e,1-tp))) then Duel.SendtoGrave(token,nil,REASON_RULE) end
+					if (e:GetLabel()==id and not Duel.IsExistingTarget(ref.atkfilter,1-tp,LOCATION_MZONE,0,1,nil)) or (e:GetLabel()==id and not (Duel.GetLocationCount(1-tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(ref.spfilter,tp,LOCATION_DECK,LOCATION_DECK,1,nil,e,1-tp))) then Duel.SendtoGrave(token,nil,REASON_RULE) end
 					local tc=token
 					local te=tc:GetActivateEffect()
 					local tep=tc:GetControler()
@@ -326,7 +326,7 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	else 
 		if not Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_SZONE+LOCATION_HAND,0,1,nil) then
 			--- check action Trap
-			if e:GetLabel()==101010458 or e:GetLabel()==101010460 then
+			if e:GetLabel()==id or e:GetLabel()==id then
 				local token=Duel.CreateToken(tp,e:GetLabel(),nil,nil,nil,nil,nil,nil)   
 				Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
 				local e1=Effect.CreateEffect(e:GetHandler())
@@ -338,7 +338,7 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 				token:RegisterEffect(e1)
 				Duel.MoveToField(token,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 				Duel.SpecialSummonComplete()
-				if (e:GetLabel()==101010458 and not Duel.IsExistingTarget(ref.atkfilter,tp,LOCATION_MZONE,0,1,nil)) or (e:GetLabel()==101010460 and not (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(ref.spfilter,tp,LOCATION_DECK,LOCATION_DECK,1,nil,e,tp))) then Duel.SendtoGrave(token,nil,REASON_RULE) end
+				if (e:GetLabel()==id and not Duel.IsExistingTarget(ref.atkfilter,tp,LOCATION_MZONE,0,1,nil)) or (e:GetLabel()==id and not (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(ref.spfilter,tp,LOCATION_DECK,LOCATION_DECK,1,nil,e,tp))) then Duel.SendtoGrave(token,nil,REASON_RULE) end
 				local tc=token
 				local te=tc:GetActivateEffect()
 				local tep=tc:GetControler()
@@ -406,12 +406,12 @@ tableAction = {
 95000132,
 95000143,
 95000145,
-101010458,
-101010458,
-101010459,
-101010459,
-101010460,
-101010460
+id,
+id,
+id,
+id,
+id,
+id
 } 
 tableAction_size=12
 function ref.pendulum(e,c)

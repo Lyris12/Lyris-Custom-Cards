@@ -3,7 +3,7 @@ local id,ref=GIR()
 function ref.start(c)
 --fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcCodeFun(c,101010331,aux.FilterBoolFunction(Card.IsSetCard,0x4093),1,true,true)
+	aux.AddFusionProcCodeFun(c,id,aux.FilterBoolFunction(Card.IsSetCard,0x4093),1,true,true)
 	--add LIGHT attribute
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)

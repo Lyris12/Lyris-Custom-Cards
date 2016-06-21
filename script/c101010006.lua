@@ -7,7 +7,7 @@ function ref.start(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetCountLimit(1,101010662)
+	e1:SetCountLimit(1,id)
 	e1:SetTarget(ref.sptg)
 	e1:SetOperation(ref.spop)
 	c:RegisterEffect(e1)
@@ -33,7 +33,7 @@ function ref.rdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,400)
 end
 function ref.spfilter(c,e,tp)
-	return c:IsSetCard(0x127) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsCode(101010662)
+	return c:IsSetCard(0x127) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsCode(id)
 end
 function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and ref.spfilter(chkc,e,tp) end

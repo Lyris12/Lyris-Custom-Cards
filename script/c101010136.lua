@@ -23,7 +23,7 @@ function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 		l=l+1
 		if l>dam then break end
 	end
-	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010254,0))
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,0))
 	local announce=Duel.AnnounceNumber(tp,table.unpack(t))
 	local g=Duel.GetDecktopGroup(tp,announce)
 	Duel.DisableShuffleCheck()

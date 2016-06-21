@@ -47,14 +47,14 @@ end
 function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local g1=Duel.GetMatchingGroup(ref.filter1,tp,LOCATION_DECK,0,nil)
-	if g1:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101010041,0)) then
+	if g1:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local sg1=g1:Select(tp,1,1,nil)
 		Duel.SendtoHand(sg1,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,sg1)
 	end
 	local g2=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_GRAVE,0,nil)
-	if g2:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101010041,1)) then
+	if g2:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
 		Duel.BreakEffect()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 		local sg2=g2:Select(tp,1,1,nil)

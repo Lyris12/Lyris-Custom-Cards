@@ -43,7 +43,7 @@ c:EnableReviveLimit()
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_DESTROYED)
-		e1:SetLabel(101010100)
+		e1:SetLabel(id)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetOperation(aux.sumreg)
 		Duel.RegisterEffect(e1,0)
@@ -62,7 +62,7 @@ c:EnableReviveLimit()
 	c:RegisterEffect(e4)
 end
 function ref.spfilter(c,mg)
-	return (c:IsCode(101010094) or c:IsCode(101010095))--IsSetCard(0x167) and c:IsType(TYPE_PENDULUM)
+	return (c:IsCode(id) or c:IsCode(id))--IsSetCard(0x167) and c:IsType(TYPE_PENDULUM)
 		and mg:IsExists(ref.fffilter,1,c,0)
 end
 function ref.fffilter(c,code)
@@ -83,7 +83,7 @@ function ref.fsoperation(e,tp,eg,ep,ev,re,r,rp,gc)
 		g1:AddCard(g2:GetFirst())
 		code=g2:GetFirst():GetCode()
 		eg:Remove(Card.IsCode,nil,code)
-		if not eg:IsExists(ref.fffilter,1,g1:GetFirst(),code) or not Duel.SelectYesNo(tp,aux.Stringid(101010100,0)) then break end
+		if not eg:IsExists(ref.fffilter,1,g1:GetFirst(),code) or not Duel.SelectYesNo(tp,aux.Stringid(id,0)) then break end
 	end
 	Duel.SetFusionMaterial(g1)
 end
@@ -135,7 +135,7 @@ function ref.dsop(e,tp,eg,ep,ev,re,r,rp)
 				g:Remove(Card.IsCode,nil,tc:GetCode())
 			end
 			ct=ct-1
-			if ct==0 or not Duel.SelectYesNo(tp,aux.Stringid(101010100,0)) then break end
+			if ct==0 or not Duel.SelectYesNo(tp,aux.Stringid(id,0)) then break end
 		end
 		Duel.Destroy(dg,REASON_EFFECT)
 	end
@@ -151,13 +151,13 @@ function ref.tg(e,c)
 	return not (c:IsSetCard(0x167) and c:IsType(TYPE_FUSION))
 end
 function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetFlagEffect(101010100)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
+	return e:GetHandler():GetFlagEffect(id)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
 end
 function ref.filter1(c,e)
 	return c:IsCanBeFusionMaterial() and c:IsAbleToRemove() and not c:IsImmuneToEffect(e)
 end
 function ref.filter2(c,e,tp,m,chkf)
-	return c:IsType(TYPE_FUSION) and c:IsSetCard(0x167) and c:GetCode()~=101010100 and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false)
+	return c:IsType(TYPE_FUSION) and c:IsSetCard(0x167) and c:GetCode()~=id and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false)
 		and c:CheckFusionMaterial(m,nil,chkf)
 end
 function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)

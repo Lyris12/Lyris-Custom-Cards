@@ -35,7 +35,7 @@ function ref.start(c)
 	c:RegisterEffect(e4)
 end
 function ref.filter(c)
-	return c:IsCode(101010337) and c:IsAbleToHand()
+	return c:IsCode(id) and c:IsAbleToHand()
 end
 function ref.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil) end

@@ -37,7 +37,7 @@ function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	return bit.band(r,REASON_SYNCHRO+REASON_XYZ)~=0
 end
 function ref.tfilter(c)
-	return c:GetOriginalCode()==101010514
+	return c:GetOriginalCode()==id
 end
 function ref.mat(e,tp,eg,ep,ev,re,r,rp)
 	if r==REASON_XYZ then
@@ -49,7 +49,7 @@ function ref.mat(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.thfilter(c)
-	return c:IsSetCard(0x4db) and c:IsAbleToHand() and c:GetCode()~=101010513
+	return c:IsSetCard(0x4db) and c:IsAbleToHand() and c:GetCode()~=id
 end
 function ref.mattg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(ref.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -71,8 +71,8 @@ end
 function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local c=e:GetHandler()
-	if Duel.IsPlayerCanSpecialSummonMonster(tp,101010514,0x4db,0x4011,c:GetAttack(),c:GetDefence(),c:GetLevel(),RACE_MACHINE,ATTRIBUTE_LIGHT) then
-		local token=Duel.CreateToken(tp,101010514)
+	if Duel.IsPlayerCanSpecialSummonMonster(tp,id,0x4db,0x4011,c:GetAttack(),c:GetDefence(),c:GetLevel(),RACE_MACHINE,ATTRIBUTE_LIGHT) then
+		local token=Duel.CreateToken(tp,id)
 		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)

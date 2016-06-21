@@ -67,11 +67,11 @@ function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetAttacker()
 	local g=Group.FromCards(tc)
 	if Duel.Remove(g,0,REASON_EFFECT+REASON_TEMPORARY)~=0 then
-		c:RegisterFlagEffect(101010214,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+		c:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 		local og=Duel.GetOperatedGroup()
 		local oc=og:GetFirst()
 		while oc do
-			oc:RegisterFlagEffect(101010214,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+			oc:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 			oc=og:GetNext()
 		end
 		og:KeepAlive()
@@ -89,12 +89,12 @@ function ref.op(e,tp,eg,ep,ev,re,r,rp)
 end
 function ref.rettg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetOwner()
-	if chk==0 then return c:GetFlagEffect(101010214)~=0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+	if chk==0 then return c:GetFlagEffect(id)~=0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
 end
 function ref.retfilter(c)
-	return c:GetFlagEffect(101010214)~=0
+	return c:GetFlagEffect(id)~=0
 end
 function ref.retop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetOwner()

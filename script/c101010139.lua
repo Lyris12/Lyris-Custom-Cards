@@ -39,7 +39,7 @@ c:EnableReviveLimit()
 	--move to Pendulum Scale (monster)
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_IGNITION)
-	e5:SetDescription(aux.Stringid(101010013,0))
+	e5:SetDescription(aux.Stringid(id,0))
 	e5:SetCode(EVENT_FREE_CHAIN)
 	e5:SetCountLimit(1)
 	e5:SetRange(LOCATION_MZONE)
@@ -49,7 +49,7 @@ c:EnableReviveLimit()
 	c:RegisterEffect(e5)
 	--Special summon
 	local e6=Effect.CreateEffect(c)
-	e6:SetDescription(aux.Stringid(101010013,1))
+	e6:SetDescription(aux.Stringid(id,1))
 	e6:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_SINGLE)
 	e6:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e6:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
@@ -76,11 +76,11 @@ function ref.amaop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(ref.amafilter,c:GetControler(),0xff,0xff,nil)
 	local tc=g:GetFirst()
 	while tc do
-		if tc:GetFlagEffect(101010013)==0 then
+		if tc:GetFlagEffect(id)==0 then
 			--Activate
 			local e1=Effect.CreateEffect(tc)
 			e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
-			e1:SetDescription(aux.Stringid(101010013,2))
+			e1:SetDescription(aux.Stringid(id,2))
 			e1:SetType(EFFECT_TYPE_ACTIVATE)
 			e1:SetCode(EVENT_FREE_CHAIN)
 			e1:SetHintTiming(0,TIMING_DRAW_PHASE+TIMING_END_PHASE)
@@ -88,13 +88,13 @@ function ref.amaop(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetTarget(ref.tg)
 			e1:SetOperation(ref.op)
 			tc:RegisterEffect(e1)
-			tc:RegisterFlagEffect(101010013,0,0,1)  
+			tc:RegisterFlagEffect(id,0,0,1)  
 		end
 		tc=g:GetNext()
 	end
 end
 function ref.filter1(c,e,tp)
-	return c:IsCode(101010012) and c:IsType(TYPE_SYNCHRO) and Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_DECK,0,1,nil,e,tp)
+	return c:IsCode(id) and c:IsType(TYPE_SYNCHRO) and Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_DECK,0,1,nil,e,tp)
 end
 function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroup(tp,ref.filter1,1,nil,e,tp) end
@@ -102,7 +102,7 @@ function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(rg,REASON_COST)
 end
 function ref.filter2(c,e,tp)
-	return c:IsCode(101010013) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
+	return c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 end
@@ -153,7 +153,7 @@ function ref.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsReason(REASON_DESTROY)
 end
 function ref.spfilter(c,e,tp)
-	return c:IsCode(101010012) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and ref.spfilter(chkc,e,tp) end

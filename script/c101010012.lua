@@ -3,7 +3,7 @@ local id,ref=GIR()
 function ref.start(c)
 local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
-	e3:SetCode(101010560)
+	e3:SetCode(id)
 	e3:SetRange(0xfe)
 	c:RegisterEffect(e3)
 	--fusion react

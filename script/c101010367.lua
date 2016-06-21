@@ -15,7 +15,7 @@ function ref.start(c)
 	c:RegisterEffect(e8)
 	--special summon
 	local e9=Effect.CreateEffect(c)
-	e9:SetDescription(aux.Stringid(101010279,1))
+	e9:SetDescription(aux.Stringid(id,1))
 	e9:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e9:SetType(EFFECT_TYPE_IGNITION)
 	e9:SetCountLimit(1)
@@ -37,7 +37,7 @@ function ref.start(c)
 	end
 end
 ref.evolute=true
-ref.material1=function(mc) return mc:IsCode(101010278) and mc:IsFaceup() end
+ref.material1=function(mc) return mc:IsCode(id) and mc:IsFaceup() end
 ref.material2=function(mc) return mc:IsLevelBelow(7) and mc:IsRace(RACE_DRAGON) and mc:IsFaceup() end
 function ref.chk(e,tp,eg,ep,ev,re,r,rp)
 	Duel.CreateToken(tp,388)

@@ -28,7 +28,7 @@ function ref.start(c)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCode(EVENT_PHASE+PHASE_END)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetCountLimit(1,101010017)
+	e1:SetCountLimit(1,id)
 	e1:SetCondition(ref.olcon)
 	e1:SetTarget(ref.oltg)
 	e1:SetOperation(ref.olop)
@@ -57,7 +57,7 @@ function ref.artg(e)
 	return e:GetHandler()
 end
 function ref.condition(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,101010016)
+	return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,id)
 end
 function ref.olcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetOverlayCount()==0
@@ -65,7 +65,7 @@ end
 function ref.oltg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetLocation()==LOCATION_ONFIELD and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToChangeControler,tp,0,LOCATION_ONFIELD,1,nil)
-	and Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_GRAVE,0,1,nil,101010016) end
+	and Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_GRAVE,0,1,nil,id) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	Duel.SelectTarget(tp,Card.IsAbleToChangeControler,tp,0,LOCATION_ONFIELD,1,1,nil)
 end
@@ -85,7 +85,7 @@ function ref.olop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.cpfilter(c)
-	return (c:IsAttribute(ATTRIBUTE_LIGHT) or c:IsAttribute(ATTRIBUTE_DARK)) and c:GetCode()~=101010016 and not c:IsType(TYPE_TUNER)
+	return (c:IsAttribute(ATTRIBUTE_LIGHT) or c:IsAttribute(ATTRIBUTE_DARK)) and c:GetCode()~=id and not c:IsType(TYPE_TUNER)
 end
 function ref.copy(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

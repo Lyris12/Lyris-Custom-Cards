@@ -15,7 +15,7 @@ function ref.start(c)
 		local ge1=Effect.CreateEffect(c)
 		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge1:SetCode(EVENT_REMOVE)
-		ge1:SetLabel(101010666)
+		ge1:SetLabel(id)
 		ge1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		ge1:SetOperation(aux.sumreg)
 		Duel.RegisterEffect(ge1,0)
@@ -52,7 +52,7 @@ function ref.rdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,900)
 end
 function ref.filter2(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x127) and c:IsAbleToRemove() and c:GetCode()~=101010666
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x127) and c:IsAbleToRemove() and c:GetCode()~=id
 end
 function ref.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_DECK,0,1,nil) end
@@ -67,7 +67,7 @@ function ref.rmop(e,tp,eg,ep,ev,re,r,rp)
 end
 function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	local ef=e:GetHandler():GetReasonEffect()
-	return ef and ef:GetHandler():IsSetCard(0x127) and e:GetHandler():GetFlagEffect(101010666)>0
+	return ef and ef:GetHandler():IsSetCard(0x127) and e:GetHandler():GetFlagEffect(id)>0
 end
 function ref.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0x127)

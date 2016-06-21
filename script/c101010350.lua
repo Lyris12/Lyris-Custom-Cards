@@ -37,7 +37,7 @@ function ref.start(c)
 	c:RegisterEffect(e6)
 end
 function ref.filter(c,e,tp)
-	return c:IsSetCard(0xbb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=101010649
+	return c:IsSetCard(0xbb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=id
 end
 function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

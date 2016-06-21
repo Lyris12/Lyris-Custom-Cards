@@ -24,10 +24,10 @@ function ref.start(c)
 	aux.AddFusionProcFun2(c,ref.ffilter1,ref.ffilter2,true)
 end
 function ref.ffilter1(c)
-	return c:IsAttribute(ATTRIBUTE_DARK) or (c:IsHasEffect(101010560) and not c:IsLocation(LOCATION_DECK))
+	return c:IsAttribute(ATTRIBUTE_DARK) or (c:IsHasEffect(id) and not c:IsLocation(LOCATION_DECK))
 end
 function ref.ffilter2(c)
-	return c:IsRace(RACE_WINDBEAST) or (c:IsHasEffect(101010576) and not c:IsLocation(LOCATION_DECK))
+	return c:IsRace(RACE_WINDBEAST) or (c:IsHasEffect(id) and not c:IsLocation(LOCATION_DECK))
 end
 function ref.con(e,tp)
 	return Duel.GetTurnPlayer()~=tp
@@ -40,7 +40,7 @@ function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local tc=Duel.SelectTarget(tp,ref.filter,tp,0,LOCATION_GRAVE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,tc,1,0,0)
-	if e:GetHandler():IsHasEffect(101010552) then
+	if e:GetHandler():IsHasEffect(id) then
 		Duel.SetChainLimit(ref.limit(tc:GetFirst()))
 	end
 end

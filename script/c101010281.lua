@@ -6,7 +6,7 @@ function ref.start(c)
 	aux.AddSynchroProcedure2(c,nil,aux.FilterBoolFunction(Card.IsType,TYPE_TUNER))
 	--Synchro
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(101010226,1))
+	e3:SetDescription(aux.Stringid(id,1))
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_MZONE)
@@ -44,7 +44,7 @@ function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 		if i>2 and lv~=i then t[p]=i p=p+1 end
 	end
 	t[p]=nil
-	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010226,1))
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
 	e:SetLabel(Duel.AnnounceNumber(tp,table.unpack(t)))
 end
 function ref.lvop(e,tp,eg,ep,ev,re,r,rp)

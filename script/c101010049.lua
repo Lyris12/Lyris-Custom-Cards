@@ -125,7 +125,7 @@ function ref.op(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local tc=g:Select(tp,1,1,nil):GetFirst()
 		Duel.SpecialSummon(tc,0,tp,tp,true,true,POS_FACEUP)
-		if Duel.SelectYesNo(tp,aux.Stringid(101010021,0)) then
+		if Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 			tc:CompleteProcedure()
 			local e1=Effect.CreateEffect(e:GetHandler())
 			e1:SetType(EFFECT_TYPE_FIELD)

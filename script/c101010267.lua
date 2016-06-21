@@ -95,7 +95,7 @@ function ref.excon(e)
 	return Duel.IsExistingMatchingCard(ref.exfilter,0,LOCATION_MZONE,LOCATION_MZONE,1,nil)
 end
 function ref.spfilter(c)
-	return c:IsCode(101010085) and c:IsAbleToRemoveAsCost()
+	return c:IsCode(id) and c:IsAbleToRemoveAsCost()
 end
 function ref.spcon(e,c)
 	if c==nil then return true end

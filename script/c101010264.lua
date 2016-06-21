@@ -13,7 +13,7 @@ function ref.start(c)
 	c:RegisterEffect(e0)
 	--Once per turn, you can either: Target 1 LIGHT or DARK monster you control; equip this card to that target, 
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(101010251,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCategory(CATEGORY_EQUIP)
 	e1:SetType(EFFECT_TYPE_IGNITION)
@@ -23,7 +23,7 @@ function ref.start(c)
 	c:RegisterEffect(e1)
 	--OR: Unequip this card and Special Summon it in face-up Attack Position.
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(101010251,1))
+	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_SZONE)
@@ -85,11 +85,11 @@ function ref.condition(e,tp,eg,ep,ev,re,r,rp)
 	return re:IsHasCategory(CATEGORY_DISABLE_SUMMON)
 end
 function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():GetFlagEffect(101010251)==0
+	if chk==0 then return e:GetHandler():GetFlagEffect(id)==0
 	and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_MZONE,0,1,nil) end
-	if Duel.SelectYesNo(tp,aux.Stringid(101010251,2)) then
-		Duel.Hint(HINT_CARD,tp,101010251)
-		e:GetHandler():RegisterFlagEffect(101010251,RESET_EVENT+0x7e0000+RESET_PHASE+PHASE_END,0,1)
+	if Duel.SelectYesNo(tp,aux.Stringid(id,2)) then
+		Duel.Hint(HINT_CARD,tp,id)
+		e:GetHandler():RegisterFlagEffect(id,RESET_EVENT+0x7e0000+RESET_PHASE+PHASE_END,0,1)
 		else return false
 	end
 end
@@ -108,12 +108,12 @@ function ref.repop(e,tp,eg,ep,ev,re,r,rp)
 end
 function ref.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and ref.filter2(chkc) end
-	if chk==0 then return e:GetHandler():GetFlagEffect(101010251)==0 and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
+	if chk==0 then return e:GetHandler():GetFlagEffect(id)==0 and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
 	and Duel.IsExistingTarget(ref.filter2,tp,LOCATION_MZONE,0,1,e:GetHandler()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
 	local g=Duel.SelectTarget(tp,ref.filter2,tp,LOCATION_MZONE,0,1,1,e:GetHandler())
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,g,1,0,0)
-	e:GetHandler():RegisterFlagEffect(101010251,RESET_EVENT+0x7e0000+RESET_PHASE+PHASE_END,0,1)
+	e:GetHandler():RegisterFlagEffect(id,RESET_EVENT+0x7e0000+RESET_PHASE+PHASE_END,0,1)
 end
 function ref.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -127,10 +127,10 @@ function ref.eqop(e,tp,eg,ep,ev,re,r,rp)
 	c:SetStatus(STATUS_UNION,true)
 end
 function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():GetFlagEffect(101010251)==0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+	if chk==0 then return e:GetHandler():GetFlagEffect(id)==0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 	and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,true,false) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
-	e:GetHandler():RegisterFlagEffect(101010251,RESET_EVENT+0x7e0000+RESET_PHASE+PHASE_END,0,1)
+	e:GetHandler():RegisterFlagEffect(id,RESET_EVENT+0x7e0000+RESET_PHASE+PHASE_END,0,1)
 end
 function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

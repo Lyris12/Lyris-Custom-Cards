@@ -4,7 +4,7 @@ function ref.start(c)
 aux.EnablePendulumAttribute(c)
 	--You can also Pendulum Summon "Sea Scout" Synchro Monsters from your Extra Deck. (This is also treated as those monsters being Synchro Summoned.) This effect cannot be negated.
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(101010235,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC_G)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
@@ -42,7 +42,7 @@ aux.EnablePendulumAttribute(c)
 	e2:SetTargetRange(LOCATION_MZONE,0)
 	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x5cd))
 	c:RegisterEffect(e2)
-	Duel.AddCustomActivityCounter(101010235,ACTIVITY_SPSUMMON,ref.counterfilter)
+	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,ref.counterfilter)
 end
 function ref.counterfilter(c)
 	return c:IsSetCard(0x5cd) or bit.band(c:GetSummonType(),SUMMON_TYPE_PENDULUM)~=SUMMON_TYPE_PENDULUM
@@ -73,7 +73,7 @@ function ref.pscon(e,c,og)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if ft<=0 then return false end
 	if c:IsForbidden() then return false end
-	if Duel.GetCustomActivityCount(101010235,tp,ACTIVITY_SPSUMMON)~=0 then return false end
+	if Duel.GetCustomActivityCount(id,tp,ACTIVITY_SPSUMMON)~=0 then return false end
 	if og then
 		return og:IsExists(ref.pfilter,1,nil,e,tp,lscale,rscale)
 	else
@@ -104,7 +104,7 @@ function ref.slcon(e)
 	return not tc or bit.band(tc:GetOriginalAttribute(),ATTRIBUTE_WATER)==0
 end
 function ref.sccon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetCustomActivityCount(101010235,tp,ACTIVITY_SPSUMMON)==0
+	return Duel.GetCustomActivityCount(id,tp,ACTIVITY_SPSUMMON)==0
 end
 function ref.scop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

@@ -54,7 +54,7 @@ function ref.mat(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.filter(c)
-	return c:GetOriginalCode()==101010518
+	return c:GetOriginalCode()==id
 end
 function ref.indcon(e)
 	return Duel.IsExistingMatchingCard(ref.filter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
@@ -83,8 +83,8 @@ end
 function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local c=e:GetHandler()
-	if Duel.IsPlayerCanSpecialSummonMonster(tp,101010518,0x4db,0x4011,c:GetAttack(),c:GetDefence(),c:GetLevel(),RACE_MACHINE,ATTRIBUTE_LIGHT) then
-		local token=Duel.CreateToken(tp,101010518)
+	if Duel.IsPlayerCanSpecialSummonMonster(tp,id,0x4db,0x4011,c:GetAttack(),c:GetDefence(),c:GetLevel(),RACE_MACHINE,ATTRIBUTE_LIGHT) then
+		local token=Duel.CreateToken(tp,id)
 		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)

@@ -15,7 +15,7 @@ function ref.start(c)
 	c:RegisterEffect(e1)
 	--activate
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(101010161,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_ACTIVATE+EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
@@ -25,12 +25,12 @@ function ref.start(c)
 	e2:SetOperation(ref.act)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
-	e3:SetDescription(aux.Stringid(101010161,1))
+	e3:SetDescription(aux.Stringid(id,1))
 	e3:SetCode(EVENT_CHAINING)
 	c:RegisterEffect(e3)
 end
 function ref.regop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetFlagEffect(tp,101010164)~=0 then return end
+	if Duel.GetFlagEffect(tp,id)~=0 then return end
 	local c=e:GetHandler()
 	if c:IsReason(REASON_EFFECT) then
 		local e1=Effect.CreateEffect(c)
@@ -45,11 +45,11 @@ function ref.regop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetValue(ref.val)
 		e1:SetReset(RESET_PHASE+PHASE_END)
 		Duel.RegisterEffect(e1,tp)
-		Duel.RegisterFlagEffect(tp,101010164,RESET_PHASE+PHASE_END,0,1)
+		Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1)
 	end
 end
 function ref.actcon(e,tp,eg,ep,ev,re,r,rp)
-	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(101010170)~=0
+	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(id)~=0
 end
 function ref.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x9008)

@@ -12,20 +12,20 @@ function ref.start(c)
 end
 function ref.ffilter(c,e)
 	local code=c:GetCode()
-	return (code==101010042 or code==101010043 or code==101010044) and c:IsAbleToDeck()
+	return (code==id or code==id or code==id) and c:IsAbleToDeck()
 		and not c:IsImmuneToEffect(e) and not c:IsHasEffect(EFFECT_NECRO_VALLEY)
 end
 function ref.spfilter(c,e,tp)
-	return c:IsCode(101010046) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false)
+	return c:IsCode(id) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false)
 end
 function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		if not Duel.IsExistingMatchingCard(ref.spfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp) then return false end
 		local g=Duel.GetMatchingGroup(ref.ffilter,tp,LOCATION_REMOVED+LOCATION_HAND+LOCATION_MZONE,0,nil,e)
 		if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 and not g:IsExists(Card.IsLocation,1,nil,LOCATION_MZONE) then return false end
-		return g:IsExists(Card.IsCode,1,nil,101010042)
-			and g:IsExists(Card.IsCode,1,nil,101010043)
-			and g:IsExists(Card.IsCode,1,nil,101010044)
+		return g:IsExists(Card.IsCode,1,nil,id)
+			and g:IsExists(Card.IsCode,1,nil,id)
+			and g:IsExists(Card.IsCode,1,nil,id)
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
@@ -36,9 +36,9 @@ function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(ref.ffilter,tp,LOCATION_REMOVED+LOCATION_HAND+LOCATION_MZONE,0,nil,e)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if (ft<=0 and not g:IsExists(Card.IsLocation,1,nil,LOCATION_MZONE))
-		or not g:IsExists(Card.IsCode,1,nil,101010042)
-		or not g:IsExists(Card.IsCode,1,nil,101010043)
-		or not g:IsExists(Card.IsCode,1,nil,101010044) then return end
+		or not g:IsExists(Card.IsCode,1,nil,id)
+		or not g:IsExists(Card.IsCode,1,nil,id)
+		or not g:IsExists(Card.IsCode,1,nil,id) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 	if ft<=0 then g1=g:FilterSelect(tp,Card.IsLocation,1,1,nil,LOCATION_MZONE)
 	else g1=g:Select(tp,1,1,nil) end

@@ -13,13 +13,13 @@ function ref.start(c)
 	c:RegisterEffect(e1)
 	--spsummon
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(101010106,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_DESTROYED)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e2:SetRange(LOCATION_SZONE)
-	e2:SetCountLimit(1,101010106)
+	e2:SetCountLimit(1,id)
 	e2:SetCondition(ref.spcon2)
 	e2:SetCost(ref.spcost)
 	e2:SetTarget(ref.sptg2)
@@ -67,11 +67,11 @@ function ref.sptg1(e,tp,eg,ep,ev,re,r,rp,chk)
 		or (res and teg:IsExists(ref.cfilter,1,nil,tp)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil,e,tp)
-		and Duel.SelectYesNo(tp,aux.Stringid(101010106,1))) then
+		and Duel.SelectYesNo(tp,aux.Stringid(id,1))) then
 		e:SetCategory(CATEGORY_SPECIAL_SUMMON)
 		Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
-		Duel.RegisterFlagEffect(tp,101010106,RESET_PHASE+PHASE_END,0,1)
-		e:GetHandler():RegisterFlagEffect(0,RESET_CHAIN,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(101010106,2))
+		Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1)
+		e:GetHandler():RegisterFlagEffect(0,RESET_CHAIN,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(id,2))
 	else
 		e:SetCategory(0)
 	end
@@ -84,8 +84,8 @@ function ref.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(ref.cfilter,1,nil,tp)
 end
 function ref.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetFlagEffect(tp,101010106)==0 end
-	Duel.RegisterFlagEffect(tp,101010106,RESET_PHASE+PHASE_END,0,1)
+	if chk==0 then return Duel.GetFlagEffect(tp,id)==0 end
+	Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1)
 end
 function ref.filter(c,e,tp)
 	return c:IsSetCard(0x167) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
@@ -97,7 +97,7 @@ function ref.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
 function ref.spop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetFlagEffect(101010106)==0 then return end
+	if Duel.GetFlagEffect(id)==0 then return end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp)

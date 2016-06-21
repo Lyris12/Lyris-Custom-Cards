@@ -7,7 +7,7 @@ function ref.start(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e0:SetCode(EVENT_TO_DECK)
 	e0:SetProperty(EFFECT_FLAG_DELAY)
-	e0:SetCountLimit(1,101010627)
+	e0:SetCountLimit(1,id)
 	e0:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return e:GetHandler():IsReason(REASON_EFFECT+REASON_MATERIAL) end)
 	e0:SetTarget(ref.tg)
 	e0:SetOperation(ref.op)
@@ -22,7 +22,7 @@ function ref.start(c)
 	c:RegisterEffect(e1)
 end
 function ref.filter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xd5d) and c:IsAbleToHand() and c:GetCode()~=101010627
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xd5d) and c:IsAbleToHand() and c:GetCode()~=id
 end
 function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil) end

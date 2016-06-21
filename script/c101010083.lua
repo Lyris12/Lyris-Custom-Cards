@@ -3,7 +3,7 @@ local id,ref=GIR()
 function ref.start(c)
 --If this card is sent to the Graveyard for a Synchro Summon: target that Synchro Monster; Draw 1 card, plus another card if that target is WATER.
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(101010208,1))
+	e1:SetDescription(aux.Stringid(id,1))
 	e1:SetCategory(CATEGORY_DRAW)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_BE_MATERIAL)
@@ -20,7 +20,7 @@ function ref.start(c)
 	c:RegisterEffect(e0)
 	--draw/special summon
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(101010208,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetCategory(CATEGORY_DRAW)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -36,7 +36,7 @@ function ref.con2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsReason(REASON_SYNCHRO)
 end
 function ref.filter(c,e,tp)
-	return c:IsSetCard(0x5cd) and c:IsLevelBelow(4) and c:GetCode()~=101010208 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x5cd) and c:IsLevelBelow(4) and c:GetCode()~=id and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local rc=e:GetHandler():GetReasonCard()
@@ -44,7 +44,7 @@ function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 		and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_HAND,0,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
 	local g=Duel.SetTargetCard(rc)
-	rc:RegisterFlagEffect(101010207,RESET_EVENT+0x1fe0000,EFFECT_FLAG_CANNOT_DISABLE,1)
+	rc:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000,EFFECT_FLAG_CANNOT_DISABLE,1)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
 end
 function ref.op(e,tp,eg,ep,ev,re,r,rp)
@@ -97,7 +97,7 @@ function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 or Duel.Draw(tp,1,REASON_EFFECT)==0 then return end
 	local dc=Duel.GetOperatedGroup():GetFirst()
 	if dc:IsLevelBelow(4) and dc:IsNotTuner() and dc:IsAttribute(ATTRIBUTE_WATER) and dc:IsCanBeSpecialSummoned(e,0,tp,false,false)
-		and Duel.SelectYesNo(tp,aux.Stringid(101010208,2)) then
+		and Duel.SelectYesNo(tp,aux.Stringid(id,2)) then
 		Duel.BreakEffect()
 		Duel.SpecialSummon(dc,0,tp,tp,false,false,POS_FACEUP)
 	end

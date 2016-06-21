@@ -21,7 +21,7 @@ function ref.ntcon(e,c,minc)
 		and Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_REMOVED,0,1,nil)
 end
 function ref.nsop(e,tp,eg,ep,ev,re,r,rp,c)
-	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010599,0))
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,0))
 	local g=Duel.SelectMatchingCard(tp,ref.cfilter,tp,LOCATION_REMOVED,0,1,3,nil)
 	local ct=Duel.SendtoGrave(g,REASON_COST+REASON_RETURN)
 	local e0=Effect.CreateEffect(c)

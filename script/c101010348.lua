@@ -24,15 +24,15 @@ function ref.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
 function ref.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0xbb2) and not c:IsCode(101010646)
+	return c:IsFaceup() and c:IsSetCard(0xbb2) and not c:IsCode(id)
 end
 function ref.sumop(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():IsRelateToEffect(e) and Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEUP)~=0
-		and Duel.GetFlagEffect(tp,101010646)==0
+		and Duel.GetFlagEffect(tp,id)==0
 		and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_MZONE,0,1,nil)
-		and Duel.SelectYesNo(tp,aux.Stringid(101010646,0)) then
+		and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		Duel.BreakEffect()
 		Duel.SkipPhase(Duel.GetTurnPlayer(),PHASE_BATTLE,RESET_PHASE+PHASE_BATTLE,1)
-		Duel.RegisterFlagEffect(tp,101010646,0,0,0)
+		Duel.RegisterFlagEffect(tp,id,0,0,0)
 	end
 end

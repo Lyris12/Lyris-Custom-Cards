@@ -33,9 +33,9 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
 	if not a:IsRelateToBattle() then return end
 	if Duel.Remove(a,POS_FACEUP,REASON_EFFECT+REASON_TEMPORARY)~=0 then
-		c:RegisterFlagEffect(101010592,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+		c:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 		local g=Group.FromCards(a)
-		a:RegisterFlagEffect(101010592,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+		a:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 		g:KeepAlive()
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -48,7 +48,7 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.retfilter(c)
-	return c:GetFlagEffect(101010592)~=0
+	return c:GetFlagEffect(id)~=0
 end
 function ref.retop(e,tp,eg,ep,ev,re,r,rp)
 	local g=e:GetLabelObject()

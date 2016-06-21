@@ -51,7 +51,7 @@ function ref.start(c)
 	c:RegisterEffect(e1)
 	--detach
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(101010016,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetCategory(CATEGORY_REMOVE)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
@@ -75,7 +75,7 @@ function ref.sdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Destroy(e:GetHandler(),REASON_EFFECT)
 end
 function ref.atcon(e,tp,eg,ep,ev,re,r,rp)
-	if e:GetHandler():GetFlagEffect(101010016)~=0 then return false end
+	if e:GetHandler():GetFlagEffect(id)~=0 then return false end
 	return e:GetHandler():GetOverlayCount()==0
 end
 function ref.atop(e,tp,eg,ep,ev,re,r,rp)
@@ -90,10 +90,10 @@ function ref.indes(e,c)
 	return not c:IsSetCard(0x48) or not c:IsSetCard(0x1048)
 end
 function ref.limit(e,tp,eg,ep,ev,re,r,rp)
-	e:GetHandler():RegisterFlagEffect(101010016,RESET_EVENT+0xfc0000+RESET_PHASE+PHASE_END,0,1)
+	e:GetHandler():RegisterFlagEffect(id,RESET_EVENT+0xfc0000+RESET_PHASE+PHASE_END,0,1)
 end
 function ref.condition(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetFlagEffect(101010016)==0
+	return e:GetHandler():GetFlagEffect(id)==0
 end
 function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end

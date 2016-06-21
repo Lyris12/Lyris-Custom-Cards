@@ -20,7 +20,7 @@ aux.EnablePendulumAttribute(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_EVENT_PLAYER)
-	e3:SetCode(101010435)
+	e3:SetCode(id)
 	e3:SetRange(LOCATION_PZONE)
 	e3:SetCondition(ref.sumcon)
 	e3:SetTarget(ref.sumtg)
@@ -38,7 +38,7 @@ function ref.chop2(e,tp,eg,ep,ev,re,r,rp)
 	e:GetLabelObject():SetLabel(1)
 	local p=tp
 	if re:GetHandler():GetControler()~=p then p=1-tp end
-	Duel.RaiseSingleEvent(e:GetHandler(),101010435,e,r,rp,p,0)
+	Duel.RaiseSingleEvent(e:GetHandler(),id,e,r,rp,p,0)
 end
 function ref.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetLabel()~=0

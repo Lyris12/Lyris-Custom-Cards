@@ -35,7 +35,7 @@ c:EnableReviveLimit()
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_DESTROYED)
-		e1:SetLabel(101010098)
+		e1:SetLabel(id)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetOperation(aux.sumreg)
 		Duel.RegisterEffect(e1,0)
@@ -46,7 +46,7 @@ c:EnableReviveLimit()
 	e4:SetType(EFFECT_TYPE_QUICK_O)
 	e4:SetCode(EVENT_FREE_CHAIN)
 	e4:SetRange(0x32)
-	e4:SetCountLimit(1,101010098)
+	e4:SetCountLimit(1,id)
 	e4:SetCondition(ref.con)
 	e4:SetTarget(ref.sptg)
 	e4:SetOperation(ref.spop)
@@ -74,7 +74,7 @@ function ref.fsoperation(e,tp,eg,ep,ev,re,r,rp,gc)
 		g1:AddCard(g2:GetFirst())
 		code=g2:GetFirst():GetCode()
 		eg:Remove(Card.IsCode,nil,code)
-		if not eg:IsExists(ref.ffilter,1,g1:GetFirst()) or not Duel.SelectYesNo(tp,aux.Stringid(101010098,0)) then break end
+		if not eg:IsExists(ref.ffilter,1,g1:GetFirst()) or not Duel.SelectYesNo(tp,aux.Stringid(id,0)) then break end
 	end
 	Duel.SetFusionMaterial(g1)
 end
@@ -112,10 +112,10 @@ function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.spfilter(c,e,tp)
-	return c:IsSetCard(0x167) and c:GetCode()~=101010098 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x167) and c:GetCode()~=id and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetFlagEffect(101010098)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
+	return e:GetHandler():GetFlagEffect(id)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
 end
 function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

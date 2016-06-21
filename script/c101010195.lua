@@ -22,7 +22,7 @@ function ref.start(c)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_DESTROYED)
-		e1:SetLabel(101010090)
+		e1:SetLabel(id)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetOperation(aux.sumreg)
 		Duel.RegisterEffect(e1,0)
@@ -35,7 +35,7 @@ function ref.start(c)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(0x32)
 	e2:SetHintTiming(TIMING_MAIN_END,TIMING_MAIN_END)
-	e2:SetCountLimit(1,101010090)
+	e2:SetCountLimit(1,id)
 	e2:SetCondition(ref.con)
 	e2:SetTarget(ref.rettg)
 	e2:SetOperation(ref.retop)
@@ -62,8 +62,8 @@ function ref.regop(e,tp,eg,ep,ev,re,r,rp)
 end
 function ref.chain(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return c:GetFlagEffect(101010090)==0 end
-	c:RegisterFlagEffect(101010090,RESET_CHAIN,0,1)
+	if chk==0 then return c:GetFlagEffect(id)==0 end
+	c:RegisterFlagEffect(id,RESET_CHAIN,0,1)
 end
 function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -103,7 +103,7 @@ function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetFlagEffect(101010090)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
+	return e:GetHandler():GetFlagEffect(id)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
 end
 function ref.filter(c)
 	return c:IsSetCard(0x167) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeck()

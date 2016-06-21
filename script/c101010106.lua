@@ -25,17 +25,17 @@ function ref.start(c)
 	aux.AddFusionProcFun2(c,ref.ffilter1,ref.ffilter2,true)
 end
 function ref.ffilter1(c)
-	return c:IsAttribute(ATTRIBUTE_WATER) or (c:IsHasEffect(101010560) and not c:IsLocation(LOCATION_DECK))
+	return c:IsAttribute(ATTRIBUTE_WATER) or (c:IsHasEffect(id) and not c:IsLocation(LOCATION_DECK))
 end
 function ref.ffilter2(c)
-	return c:IsRace(RACE_AQUA+RACE_WINDBEAST) or (c:IsHasEffect(101010576) and not c:IsLocation(LOCATION_DECK))
+	return c:IsRace(RACE_AQUA+RACE_WINDBEAST) or (c:IsHasEffect(id) and not c:IsLocation(LOCATION_DECK))
 end
 function ref.filter(c,tp)
 	return c:IsFaceup() and c:IsControler(tp) and (c:IsType(TYPE_FUSION))
 end
 function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsHasEffect(101010552) then
+	if not c:IsHasEffect(id) then
 		if bit.band(c:GetPosition(),POS_FACEUP_DEFENCE)==0 then return false end
 	end
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return end

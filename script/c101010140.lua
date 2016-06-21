@@ -9,7 +9,7 @@ function ref.start(c)
 	c:RegisterEffect(e1)
 	--activate
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(101010161,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetCategory(CATEGORY_DESTROY+CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_ACTIVATE+EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
@@ -18,7 +18,7 @@ function ref.start(c)
 	e2:SetOperation(ref.act)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
-	e3:SetDescription(aux.Stringid(101010161,1))
+	e3:SetDescription(aux.Stringid(id,1))
 	e3:SetCode(EVENT_CHAINING)
 	c:RegisterEffect(e3)
 	--During your Main Phase, if this card is in face-up Defense Position: You can target 1 face-up monster your opponent controls; banish that target, and if you do, banish all monsters you control.
@@ -27,7 +27,7 @@ function ref.start(c)
 	e0:SetType(EFFECT_TYPE_IGNITION)
 	e0:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e0:SetRange(LOCATION_MZONE)
-	e0:SetCountLimit(1,101010163)
+	e0:SetCountLimit(1,id)
 	e0:SetCondition(ref.condition)
 	e0:SetCost(ref.cost)
 	e0:SetTarget(ref.target)
@@ -69,7 +69,7 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 		end
 		local oc=g:GetFirst()
 		while oc do
-			oc:RegisterFlagEffect(101010163,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+			oc:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 			oc=g:GetNext()
 		end
 		g:KeepAlive()
@@ -84,7 +84,7 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.actcon(e,tp,eg,ep,ev,re,r,rp)
-	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(101010170)~=0
+	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(id)~=0
 end
 function ref.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -115,7 +115,7 @@ function ref.after(e,tp)
 	end
 end
 function ref.retfilter(c,e,tp)
-	return c:GetFlagEffect(101010163)~=0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:GetFlagEffect(id)~=0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function ref.retop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetOwner()

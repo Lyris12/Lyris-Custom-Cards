@@ -14,7 +14,7 @@ function ref.start(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e3:SetCode(EVENT_DESTROYED)
-	e3:SetCountLimit(1,101010084)
+	e3:SetCountLimit(1,id)
 	e3:SetOperation(ref.regop)
 	c:RegisterEffect(e3)
 end

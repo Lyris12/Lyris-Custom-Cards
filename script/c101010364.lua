@@ -18,7 +18,7 @@ c:EnableReviveLimit()
 	c:RegisterEffect(e1)
 	--If your opponent activates a card or effect during your Battle Phase: You can detach 1 Xyz Material from this card; negate the activation, and if you do, destroy it, then you can perform damage calculation with this card and 1 monster your opponent controls.
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(101010648,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_CHAINING)
@@ -62,7 +62,7 @@ function ref.disop(e,tp,eg,ep,ev,re,r,rp)
 			local c=e:GetHandler()
 			if not c:IsRelateToEffect(e) then return end
 			local ag=Duel.GetMatchingGroup(ref.filter,tp,0,LOCATION_MZONE,nil,e)
-			if ag:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101010648,0)) then
+			if ag:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 				local a=ag:Select(tp,1,1,nil):GetFirst()
 				--if Duel.GetAttacker() then Duel.NegateAttack() end
 				Duel.CalculateDamage(c,a)

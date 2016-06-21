@@ -36,12 +36,12 @@ end
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_GRAVE)
-	e2:SetCountLimit(1,101010672)
+	e2:SetCountLimit(1,id)
 	e2:SetCost(ref.cost)
 	e2:SetTarget(ref.sumtg)
 	e2:SetOperation(ref.sumop)
 	c:RegisterEffect(e2)
-	Duel.AddCustomActivityCounter(101010672,ACTIVITY_ATTACK,ref.cfilter)
+	Duel.AddCustomActivityCounter(id,ACTIVITY_ATTACK,ref.cfilter)
 end
 function ref.cfilter(c)
 	return c:IsAttribute(ATTRIBUTE_WATER)
@@ -50,7 +50,7 @@ function ref.tcfilter(c)
 	return c:IsSetCard(0x127) and c:IsAbleToRemoveAsCost()
 end
 function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() and Duel.GetCustomActivityCount(101010672,tp,ACTIVITY_ATTACK)==0 and Duel.IsExistingMatchingCard(ref.tcfilter,tp,LOCATION_HAND,0,1,nil) end
+	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() and Duel.GetCustomActivityCount(id,tp,ACTIVITY_ATTACK)==0 and Duel.IsExistingMatchingCard(ref.tcfilter,tp,LOCATION_HAND,0,1,nil) end
 	local g=Duel.SelectMatchingCard(tp,ref.tcfilter,tp,LOCATION_HAND,0,1,1,nil)
 	g:AddCard(e:GetHandler())
 	Duel.Remove(g,POS_FACEUP,REASON_COST)

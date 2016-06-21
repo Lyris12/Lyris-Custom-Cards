@@ -62,10 +62,10 @@ function ref.sdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_EFFECT)
 end
 function ref.condition(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,101010016)
+	return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,id)
 end
 function ref.cpfilter(c)
-	return c:IsRace(RACE_MACHINE+RACE_DRAGON) and c:IsAttribute(ATTRIBUTE_LIGHT+ATTRIBUTE_DARK) and not c:IsType(TYPE_TUNER) and c:GetCode()~=101010016
+	return c:IsRace(RACE_MACHINE+RACE_DRAGON) and c:IsAttribute(ATTRIBUTE_LIGHT+ATTRIBUTE_DARK) and not c:IsType(TYPE_TUNER) and c:GetCode()~=id
 end
 function ref.copy(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

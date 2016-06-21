@@ -54,7 +54,7 @@ function ref.op(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Draw(tp,1,REASON_RULE)
 	end
 	--Fusion Monsters cannot attack during the turn they are summoned.
-	if not Duel.SelectYesNo(tp,aux.Stringid(101010008,0)) and not Duel.SelectYesNo(1-tp,aux.Stringid(101010008,0)) then
+	if not Duel.SelectYesNo(tp,aux.Stringid(id,0)) and not Duel.SelectYesNo(1-tp,aux.Stringid(id,0)) then
 		local e1=Effect.CreateEffect(c)
 		e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -66,7 +66,7 @@ end
 function ref.fdop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	while tc do
-		if Duel.SelectYesNo(tc:GetControler(),aux.Stringid(101010008,1)) then
+		if Duel.SelectYesNo(tc:GetControler(),aux.Stringid(id,1)) then
 			Duel.ChangePosition(tc,POS_FACEUP_DEFENCE)
 		end
 		tc=eg:GetNext()

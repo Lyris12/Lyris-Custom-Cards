@@ -28,7 +28,7 @@ function ref.start(c)
 	e0:SetCategory(CATEGORY_DRAW+CATEGORY_SPECIAL_SUMMON+CATEGORY_DESTROY)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e0:SetCode(EVENT_DAMAGE_STEP_END)
-	e0:SetCountLimit(1,101010215)
+	e0:SetCountLimit(1,id)
 	e0:SetCondition(ref.con)
 	e0:SetTarget(ref.tg)
 	e0:SetOperation(ref.op)
@@ -49,7 +49,7 @@ function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.Draw(p,d,REASON_EFFECT)==0 then return end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local g=Duel.GetOperatedGroup():Filter(Card.IsCanBeSpecialSummoned,nil,e,0,tp,false,false)
-	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101010215,1)) then
+	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
 		Duel.BreakEffect()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local sg=g:GetFirst()

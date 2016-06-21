@@ -38,7 +38,7 @@ function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	tc:RegisterEffect(e1)
 end
 function ref.filter(c)
-	return c:IsSetCard(0x5e) and c:GetCode()~=101010542 and c:IsAbleToHand()
+	return c:IsSetCard(0x5e) and c:GetCode()~=id and c:IsAbleToHand()
 end
 function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and ref.filter(chkc) end

@@ -101,7 +101,7 @@ function ref.effop(e,tp,eg,ep,ev,re,r,rp)
 			local e1=Effect.CreateEffect(c)
 			--Rainbow Overdrive: During either player's turn: you can send all "Crystal Beast" cards you control to the Graveyard; this card gains 700 ATK for each card sent.
 			e1:SetCategory(CATEGORY_ATKCHANGE)
-			e1:SetDescription(aux.Stringid(101010301,0))
+			e1:SetDescription(aux.Stringid(id,0))
 			e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 			e1:SetHintTiming(TIMING_DAMAGE_STEP)
 			e1:SetType(EFFECT_TYPE_QUICK_O)
@@ -152,7 +152,7 @@ function ref.effop(e,tp,eg,ep,ev,re,r,rp)
 			local e5=Effect.CreateEffect(c)
 			--Prism Power: Return all (min. 5) banished "Crystal Beast" monsters to the deck; shuffle all other cards on the field into the decks.
 			e5:SetCategory(CATEGORY_TODECK)
-			e5:SetDescription(aux.Stringid(101010301,2))
+			e5:SetDescription(aux.Stringid(id,2))
 			e5:SetType(EFFECT_TYPE_IGNITION)
 			e5:SetRange(LOCATION_MZONE)
 			e5:SetCost(ref.tdcost)
@@ -234,7 +234,7 @@ function ref.cfilter2(c)
 end
 function ref.desreptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(ref.cfilter2,tp,LOCATION_GRAVE,0,1,nil) end
-	return Duel.SelectYesNo(tp,aux.Stringid(101010301,1))
+	return Duel.SelectYesNo(tp,aux.Stringid(id,1))
 end
 function ref.desrepop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,ref.cfilter2,tp,LOCATION_GRAVE,0,1,1,nil)
@@ -245,7 +245,7 @@ function ref.tgvalue(e,re,rp)
 end
 function ref.oaop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetFieldGroup(tp,LOCATION_MZONE,0)
-	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101010301,3)) then
+	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,3)) then
 		local tc=g:Select(tp,1,1,e:GetHandler())
 		Duel.HintSelection(tc)
 		Duel.ChangeAttackTarget(tc:GetFirst())

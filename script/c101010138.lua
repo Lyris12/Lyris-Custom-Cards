@@ -20,7 +20,7 @@ aux.EnablePendulumAttribute(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_EVENT_PLAYER)
-	e3:SetCode(101010433)
+	e3:SetCode(id)
 	e3:SetRange(LOCATION_PZONE)
 	e3:SetCondition(ref.sumcon)
 	e3:SetTarget(ref.sumtg)
@@ -39,7 +39,7 @@ function ref.chop2(e,tp,eg,ep,ev,re,r,rp)
 	e:GetLabelObject():SetLabel(1)
 	local p=tp
 	if re:GetHandler():GetControler()~=p then p=1-tp end
-	Duel.RaiseSingleEvent(e:GetHandler(),101010433,re,r,rp,p,0)
+	Duel.RaiseSingleEvent(e:GetHandler(),id,re,r,rp,p,0)
 end
 function ref.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetLabel()~=0
@@ -66,7 +66,7 @@ function ref.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST)
 end
 function ref.thfilter(c)
-	return c:IsSetCard(0x613) and not c:IsCode(101010433) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
+	return c:IsSetCard(0x613) and not c:IsCode(id) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
 end
 function ref.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(ref.thfilter,tp,LOCATION_DECK,0,1,nil) end

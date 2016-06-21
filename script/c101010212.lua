@@ -3,7 +3,7 @@ local id,ref=GIR()
 function ref.start(c)
 c:EnableReviveLimit()
 	--xyz summon
-	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_MACHINE),-1,3,ref.ovfilter,aux.Stringid(101010022,0))
+	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_MACHINE),-1,3,ref.ovfilter,aux.Stringid(id,0))
 	--pendulum summon (regular)
 	aux.AddPendulumProcedure(c)
 	--invincibility (spell)
@@ -51,17 +51,17 @@ c:EnableReviveLimit()
 	c:RegisterEffect(e5)
 	--pendulum summon (special)
 	local e6=Effect.CreateEffect(c)
-	e6:SetDescription(aux.Stringid(101010022,2))
+	e6:SetDescription(aux.Stringid(id,2))
 	e6:SetType(EFFECT_TYPE_FIELD)
 	e6:SetCode(EFFECT_SPSUMMON_PROC_G)
 	e6:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e6:SetRange(LOCATION_PZONE)
-	e6:SetCountLimit(1,101010022)
+	e6:SetCountLimit(1,id)
 	e6:SetCondition(ref.pscon)
 	e6:SetOperation(ref.psop)
 	e6:SetValue(SUMMON_TYPE_PENDULUM)
 	c:RegisterEffect(e6)
-	Duel.AddCustomActivityCounter(101010022,ACTIVITY_SPSUMMON,ref.counterfilter)
+	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,ref.counterfilter)
 end
 function ref.counterfilter(c)
 	return c:IsRace(RACE_MACHINE)
@@ -102,7 +102,7 @@ function ref.pscon(e,c,og)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if ft<=0 then return false end
 	if c:IsForbidden() then return false end
-	if Duel.GetCustomActivityCount(101010022,tp,ACTIVITY_SPSUMMON)~=0 then return false end
+	if Duel.GetCustomActivityCount(id,tp,ACTIVITY_SPSUMMON)~=0 then return false end
 	if og then
 		return og:IsExists(ref.psfilter,1,nil,e,tp,lscale,rscale)
 		else
@@ -169,7 +169,7 @@ function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local sg=Duel.GetFirstTarget()
 	if sg and sg:IsRelateToEffect(e) then
 		Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP)
-		if Duel.SelectYesNo(tp,aux.Stringid(101010022,1)) then
+		if Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
 			Duel.BreakEffect()
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 			local g1=Duel.SelectMatchingCard(tp,ref.mfilter,tp,LOCATION_DECK,0,1,1,nil)
@@ -181,7 +181,7 @@ function ref.op(e,tp,eg,ep,ev,re,r,rp)
 			Duel.SendtoHand(g1,nil,REASON_EFFECT)
 			if tc1 then
 				Duel.ConfirmCards(1-tp,tc1)
-				tc1:RegisterFlagEffect(101010022,nil,0,1)
+				tc1:RegisterFlagEffect(id,nil,0,1)
 				local e1=Effect.CreateEffect(c)
 				e1:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 				e1:SetCode(EVENT_CHAIN_ACTIVATING)
@@ -223,7 +223,7 @@ function ref.rtnop(e,tp,eg,ep,ev,re,r,rp)
 		local tc=g:GetFirst()
 		while tc do
 			Duel.GetControl(tc,tp,0,0)
-			Duel.RegisterFlagEffect(tp,101010022,RESET_EVENT+0x1fe0000,0,1)
+			Duel.RegisterFlagEffect(tp,id,RESET_EVENT+0x1fe0000,0,1)
 			local e0=Effect.CreateEffect(c)
 			e0:SetType(EFFECT_TYPE_SINGLE)
 			e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_OATH)
@@ -258,11 +258,11 @@ function ref.rtnop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function ref.catkcon(e)
-	return Duel.GetFlagEffect(tp,101010022)~=0
+	return Duel.GetFlagEffect(tp,id)~=0
 end
 function ref.actop(e,tp,eg,ep,ev,re,r,rp)
 	if ep~=tp or re:GetHandler()~=e:GetLabelObject() then return end
-	if e:GetLabelObject():GetFlagEffect(101010022)~=0 then
+	if e:GetLabelObject():GetFlagEffect(id)~=0 then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_FIELD)
 		e1:SetCode(EFFECT_SKIP_BP)
@@ -274,7 +274,7 @@ function ref.actop(e,tp,eg,ep,ev,re,r,rp)
 		end
 		e1:SetReset(RESET_PHASE+PHASE_BATTLE)
 		Duel.RegisterEffect(e1,tp)
-		e:GetLabelObject():ResetFlagEffect(101010022)
+		e:GetLabelObject():ResetFlagEffect(id)
 	end
 end
 function ref.skipcon(e)

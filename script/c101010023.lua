@@ -79,7 +79,7 @@ function ref.lvcon(e)
 return Duel.IsExistingMatchingCard(ref.lvfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
 function ref.filter(c)
-	return c:IsFaceup() and c:IsRace(RACE_MACHINE) and c:GetCode()~=101010010
+	return c:IsFaceup() and c:IsRace(RACE_MACHINE) and c:GetCode()~=id
 end
 function ref.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end
@@ -115,7 +115,7 @@ function ref.matop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local ec=c:GetPreviousEquipTarget():GetReasonCard()
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(101010010,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_DIRECT_ATTACK)

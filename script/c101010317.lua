@@ -31,7 +31,7 @@ function ref.start(c)
 	e2:SetTarget(ref.ghtg)
 	e2:SetOperation(ref.ghact)
 	c:RegisterEffect(e2)
-	Duel.AddCustomActivityCounter(101010032,ACTIVITY_CHAIN,ref.chainfilter)
+	Duel.AddCustomActivityCounter(id,ACTIVITY_CHAIN,ref.chainfilter)
 end
 function ref.chainfilter(re,tp,cid)
 	return not re:IsHasCategory(CATEGORY_DRAW)

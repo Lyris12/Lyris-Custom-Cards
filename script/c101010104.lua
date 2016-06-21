@@ -22,7 +22,7 @@ c:EnableReviveLimit()
 	c:RegisterEffect(e1)
 	--activate
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(101010161,0))
+	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_ACTIVATE+EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
@@ -32,7 +32,7 @@ c:EnableReviveLimit()
 	e2:SetOperation(ref.act)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
-	e3:SetDescription(aux.Stringid(101010161,1))
+	e3:SetDescription(aux.Stringid(id,1))
 	e3:SetCode(EVENT_CHAINING)
 	c:RegisterEffect(e3)
 end
@@ -54,7 +54,7 @@ function ref.lpop(e,tp,eg,ep,ev,re,r,rp)
 end
 function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,101010166,0,0x4011,0,0,1,RACE_WARRIOR,ATTRIBUTE_LIGHT) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,id,0,0x4011,0,0,1,RACE_WARRIOR,ATTRIBUTE_LIGHT) end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end
@@ -63,30 +63,30 @@ function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 	local ct=Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)
 	if ft>ct then ft=ct end
 	if ft<=0 then return end
-	if not Duel.IsPlayerCanSpecialSummonMonster(tp,101010166,0,0x4011,0,0,1,RACE_WARRIOR,ATTRIBUTE_LIGHT) then return end
+	if not Duel.IsPlayerCanSpecialSummonMonster(tp,id,0,0x4011,0,0,1,RACE_WARRIOR,ATTRIBUTE_LIGHT) then return end
 	local ctn=true
 	while ft>0 and ctn do
-		local token=Duel.CreateToken(tp,101010166)
+		local token=Duel.CreateToken(tp,id)
 		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
 		ft=ft-1
-		if ft<=0 or not Duel.SelectYesNo(tp,aux.Stringid(101010165,2)) then ctn=false end
+		if ft<=0 or not Duel.SelectYesNo(tp,aux.Stringid(id,2)) then ctn=false end
 	end
 	Duel.SpecialSummonComplete()
 end
 function ref.actcon(e,tp,eg,ep,ev,re,r,rp)
-	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(101010170)~=0
+	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(id)~=0
 end
 function ref.cfilter(c)
 	return c:IsReleasableByEffect() and (c:IsLevelBelow(6) or ref.star(c))
 end
 function ref.star(c)
-	return c:IsCode(101010176) and c:IsHasEffect(101010176)
+	return c:IsCode(id) and c:IsHasEffect(id)
 end
 function ref.actcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local cg=Duel.GetMatchingGroup(ref.cfilter,tp,LOCATION_MZONE+LOCATION_HAND,0,nil)
 	if chk==0 then return cg:IsExists(ref.star,1,nil) or cg:CheckWithSumEqual(Card.GetLevel,12,1,99) end
 	local g=nil
-	if not cg:CheckWithSumEqual(Card.GetLevel,12,1,99) or (cg:IsExists(ref.star,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(101010176,0))) then
+	if not cg:CheckWithSumEqual(Card.GetLevel,12,1,99) or (cg:IsExists(ref.star,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(id,0))) then
 		g=cg:FilterSelect(tp,ref.star,1,1,nil)
 	else
 		g=cg:SelectWithSumEqual(tp,Card.GetLevel,12,1,99)

@@ -3,7 +3,7 @@ local id,ref=GIR()
 function ref.start(c)
 --fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcCodeRep(c,101010030,2,false,true)
+	aux.AddFusionProcCodeRep(c,id,2,false,true)
 	--pierce
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)

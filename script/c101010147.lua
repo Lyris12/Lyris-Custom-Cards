@@ -58,7 +58,7 @@ function ref.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function ref.atkfilter(c)
-	return c:IsFaceup() and c:IsCode(101010344)
+	return c:IsFaceup() and c:IsCode(id)
 end
 function ref.atkup(e,c)
 	return Duel.GetMatchingGroupCount(ref.atkfilter,0,LOCATION_MZONE,0,nil)*500

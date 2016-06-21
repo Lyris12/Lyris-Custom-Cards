@@ -7,7 +7,7 @@ function ref.start(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e0:SetCode(EVENT_TO_DECK)
 	e0:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
-	e0:SetCountLimit(1,101010628)
+	e0:SetCountLimit(1,id)
 	e0:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return e:GetHandler():IsReason(REASON_EFFECT+REASON_MATERIAL) end)
 	e0:SetTarget(ref.distg)
 	e0:SetOperation(ref.disop)
@@ -26,7 +26,7 @@ function ref.start(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
-	e2:SetCountLimit(1,101010628)
+	e2:SetCountLimit(1,id)
 	e2:SetTarget(ref.tg)
 	e2:SetOperation(ref.op)
 	c:RegisterEffect(e2)
@@ -65,7 +65,7 @@ function ref.spcon(e,c)
 		and Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
 end
 function ref.filter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xd5d) and c:IsAbleToHand() and c:GetCode()~=101010628
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xd5d) and c:IsAbleToHand() and c:GetCode()~=id
 end
 function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil) end
