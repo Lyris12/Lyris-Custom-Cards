@@ -18,8 +18,7 @@ function ref.start(c)
 	c:RegisterEffect(e2)
 	--If this card attacks directly, any battle damage your opponent takes becomes 400 if the amount is more than than 600.
 	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
-	e3:SetRange(LOCATION_MZONE)
+	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EVENT_PRE_BATTLE_DAMAGE)
 	e3:SetCondition(ref.rdcon)
 	e3:SetOperation(ref.rdop)
@@ -38,7 +37,8 @@ function ref.start(c)
 end
 function ref.rdcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return ep~=tp and c==Duel.GetAttacker() and Duel.GetAttackTarget()==nil and ev>600
+	return ep~=tp and Duel.GetAttackTarget()==nil
+		and c:GetEffectCount(EFFECT_DIRECT_ATTACK)<2 and Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 and ev>600
 end
 function ref.rdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,400)

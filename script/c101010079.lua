@@ -16,16 +16,6 @@ function ref.start(c)
 	e5:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e5:SetValue(aux.tgval)
 	c:RegisterEffect(e5)
-	--When this card is Special Summoned: You can target 1 of your banished "PSYStream" monsters, except "PSYStream Tortise"; Special Summon it in face-up Defense Position.
-	local e0=Effect.CreateEffect(c)
-	e0:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e0:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e0:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e0:SetCountLimit(1,id)
-	e0:SetTarget(ref.sptg)
-	e0:SetOperation(ref.spop)
-	c:RegisterEffect(e0)
 	--If this card is banished: You can target 1 "PSYStream" monster you control; it cannot be destroyed by card effects this turn.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -42,8 +32,7 @@ function ref.start(c)
 	c:RegisterEffect(e2)
 	--If this card attacks directly, any battle damage your opponent takes becomes 300 if the amount is more than than 600.
 	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
-	e3:SetRange(LOCATION_MZONE)
+	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EVENT_PRE_BATTLE_DAMAGE)
 	e3:SetCondition(ref.rdcon)
 	e3:SetOperation(ref.rdop)
@@ -51,7 +40,8 @@ function ref.start(c)
 end
 function ref.rdcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return ep~=tp and c==Duel.GetAttacker() and Duel.GetAttackTarget()==nil and ev>600
+	return ep~=tp and Duel.GetAttackTarget()==nil
+		and c:GetEffectCount(EFFECT_DIRECT_ATTACK)<2 and Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 and ev>600
 end
 function ref.rdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,300)

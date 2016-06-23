@@ -53,7 +53,8 @@ c:EnableReviveLimit()
 end
 function ref.rdcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return ep~=tp and c==Duel.GetAttacker() and Duel.GetAttackTarget()==nil and ev>1300
+	return ep~=tp and Duel.GetAttackTarget()==nil
+		and c:GetEffectCount(EFFECT_DIRECT_ATTACK)<2 and Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 and ev>1300
 end
 function ref.rdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,900)

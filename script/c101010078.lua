@@ -1,7 +1,7 @@
 --PSYStream Miniwhale
 local id,ref=GIR()
 function ref.start(c)
---If this card inflicts battle damage to your opponent: You can banish 1 "PSYStream" monster from your Deck, except "PSYStream Miniwhale".
+--When this card is Special Summoned: You can banish 1 "PSYStream" monster from your Deck, except "PSYStream Miniwhale".
 	local e5=Effect.CreateEffect(c)
 	e5:SetCategory(CATEGORY_REMOVE)
 	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -37,8 +37,7 @@ function ref.start(c)
 	c:RegisterEffect(e2)
 	--If this card attacks directly, any battle damage your opponent takes becomes 900 if the amount is more than than 900.
 	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
-	e3:SetRange(LOCATION_MZONE)
+	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EVENT_PRE_BATTLE_DAMAGE)
 	e3:SetCondition(ref.rdcon)
 	e3:SetOperation(ref.rdop)
@@ -46,7 +45,8 @@ function ref.start(c)
 end
 function ref.rdcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return ep~=tp and c==Duel.GetAttacker() and Duel.GetAttackTarget()==nil and ev>900
+	return ep~=tp and Duel.GetAttackTarget()==nil
+		and c:GetEffectCount(EFFECT_DIRECT_ATTACK)<2 and Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 and ev>900
 end
 function ref.rdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,900)
@@ -67,7 +67,7 @@ function ref.rmop(e,tp,eg,ep,ev,re,r,rp)
 end
 function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	local ef=e:GetHandler():GetReasonEffect()
-	return ef and ef:GetHandler():IsSetCard(0x127) and e:GetHandler():GetFlagEffect(id)>0
+	return ef and ef:GetHandler():IsSetCard(0x127) and e:GetHandler():GetFlagEffect(id)>0 and Duel.GetTurnPlayer()==tp
 end
 function ref.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0x127)

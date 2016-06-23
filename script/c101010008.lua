@@ -11,7 +11,7 @@ function ref.start(c)
 	e0:SetTarget(ref.thtg)
 	e0:SetOperation(ref.thop)
 	c:RegisterEffect(e0)
-	--During either player's Main Phase, if this card was banished this turn: You can target 1 Spell/Trap Card your opponent controls; destroy it.
+	--During either player's Main Phase, if this card was banished this turn: You can target 1 Spell/Trap Card your opponent controls; reveal the bottom card of your Deck, and if it was a "PSYStream" card, add that card to your hand, then destroy that target.
 	if not ref.global_check then
 		ref.global_check=true
 		local ge1=Effect.CreateEffect(c)
@@ -40,8 +40,7 @@ function ref.start(c)
 	c:RegisterEffect(e2)
 	--If this card attacks directly, any battle damage your opponent takes becomes 800 if the amount is more than than 700.
 	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
-	e3:SetRange(LOCATION_MZONE)
+	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EVENT_PRE_BATTLE_DAMAGE)
 	e3:SetCondition(ref.rdcon)
 	e3:SetOperation(ref.rdop)
@@ -49,7 +48,8 @@ function ref.start(c)
 end
 function ref.rdcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return ep~=tp and c==Duel.GetAttacker() and Duel.GetAttackTarget()==nil and ev>800
+	return ep~=tp and Duel.GetAttackTarget()==nil
+		and c:GetEffectCount(EFFECT_DIRECT_ATTACK)<2 and Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 and ev>800
 end
 function ref.rdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,700)
@@ -74,18 +74,24 @@ function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	return ef and ef:GetHandler():IsSetCard(0x127) and e:GetHandler():GetFlagEffect(id)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
 end
 function ref.filter(c)
-	return c:IsDestructable() and c:IsType(TYPE_SPELL+TYPE_TRAP)
+	return c:IsAbleToRemove() and c:IsType(TYPE_SPELL+TYPE_TRAP)
 end
 function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and ref.filter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(ref.filter,tp,0,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,ref.filter,tp,0,LOCATION_ONFIELD,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+	Duel.SelectTarget(tp,ref.filter,tp,0,LOCATION_ONFIELD,1,1,nil)
 end
 function ref.activate(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Duel.Destroy(tc,REASON_EFFECT)
+	local dr=Duel.GetFieldCard(tp,LOCATION_DECK,0)
+	Duel.ConfirmCards(1-tp,dr)
+	Duel.ConfirmCards(tp,dr)
+	if dr:IsSetCard(0x127) and Duel.SendtoHand(dr,nil,REASON_EFFECT)~=0 then
+		Duel.ConfirmCards(1-tp,dr)
+		Duel.ShuffleHand(tp)
+		local tc=Duel.GetFirstTarget()
+		if tc:IsRelateToEffect(e) then
+			Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
+		end
 	end
 end

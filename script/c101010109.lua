@@ -37,7 +37,8 @@ c:EnableReviveLimit()
 end
 function ref.rdcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return ep~=tp and c==Duel.GetAttacker() and Duel.GetAttackTarget()==nil and ev>1400
+	return ep~=tp and Duel.GetAttackTarget()==nil
+		and c:GetEffectCount(EFFECT_DIRECT_ATTACK)<2 and Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 and ev>1400
 end
 function ref.rdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,1200)
@@ -59,7 +60,6 @@ function ref.rmop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectMatchingCard(tp,ref.filter2,tp,LOCATION_GRAVE,0,1,1,nil)
 	if g:GetCount()>0 and Duel.Remove(g,POS_FACEUP,REASON_EFFECT)~=0 then
-		local tc=g:GetFirst()
 		--During the next End Phase, add that card to your hand.
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -67,21 +67,18 @@ function ref.rmop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetRange(LOCATION_REMOVED)
 		e1:SetCountLimit(1)
 		e1:SetLabel(0)
-		e1:SetCondition(ref.descon)
 		e1:SetOperation(ref.desop)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,2)
-		tc:RegisterEffect(e1)
+		Duel.RegisterEffect(e1,tp)
 	end
 end
-function ref.descon(e,tp,eg,ep,ev,re,r,rp)
-	e:SetLabel(e:GetLabel()+1)
-	return e:GetLabel()>=2
-end
 function ref.desop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_CARD,0,id)
-	Duel.SendtoHand(e:GetHandler(),nil,REASON_EFFECT)
-	Duel.ConfirmCards(1-tp,e:GetHandler())
-	e:SetLabel(0)
+	e:SetLabel(e:GetLabel()+1)
+	if e:GetLabel()>=2 then
+		Duel.Hint(HINT_CARD,0,id)
+		Duel.SendtoHand(e:GetHandler(),nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,e:GetHandler())
+	end
 end
 function ref.filter(c)
 	return c:IsSetCard(0x127) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeck()
