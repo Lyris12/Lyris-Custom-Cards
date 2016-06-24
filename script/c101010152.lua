@@ -1,7 +1,7 @@
 --襲雷竜－太陽
 local id,ref=GIR()
 function ref.start(c)
-aux.EnablePendulumAttribute(c)
+	aux.EnablePendulumAttribute(c)
 	--
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)

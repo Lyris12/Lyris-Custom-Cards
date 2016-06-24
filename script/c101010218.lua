@@ -40,7 +40,7 @@ function ref.initial_effect(c)
 end
 ref.spatial=true
 --Spatial Formula filter(s)
-ref.material1=nil
+-- ref.material1=nil
 -- ref.material2=function(mc) return true end -- Invert this block of code on Division Spatial Monsters (begin)
 ref.divs_spatial=true --Division Procedure /
 ref.stat=function(mc) return mc:GetAttack()-mc:GetDefence() end

@@ -3,7 +3,7 @@ local id,ref=GIR()
 function ref.start(c)
 --self-destruct
 	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_TOGRAVE)
+	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -18,27 +18,14 @@ function ref.start(c)
 	e2:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e2:SetValue(ATTRIBUTE_DARK)
 	c:RegisterEffect(e2)
-	--desreg
-	if not ref.global_check then
-		ref.global_check=true
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e1:SetCode(EVENT_DESTROYED)
-		e1:SetLabel(id)
-		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e1:SetOperation(aux.sumreg)
-		Duel.RegisterEffect(e1,0)
-	end
 	--destroy
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(1118)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TODECK)
-	e1:SetType(EFFECT_TYPE_QUICK_O)
-	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetRange(0x32)
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e1:SetCode(EVENT_DESTROYED)
 	e1:SetCountLimit(1,id)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetCondition(ref.con)
+	e1:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
 	e1:SetTarget(ref.target)
 	e1:SetOperation(ref.operation)
 	c:RegisterEffect(e1)
@@ -50,7 +37,7 @@ end
 function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		Duel.SendtoGrave(c,REASON_EFFECT)
+		Duel.Destroy(c,REASON_EFFECT)
 	end
 end
 function ref.con(e,tp,eg,ep,ev,re,r,rp)

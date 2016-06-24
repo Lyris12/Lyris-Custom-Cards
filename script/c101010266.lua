@@ -66,7 +66,7 @@ end
 function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		Duel.SendtoGrave(c,REASON_EFFECT)
+		Duel.Destroy(c,REASON_EFFECT)
 	end
 end
 function ref.op(e,tp,eg,ep,ev,re,r,rp)

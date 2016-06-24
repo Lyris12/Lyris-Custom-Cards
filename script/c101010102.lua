@@ -18,26 +18,13 @@ function ref.start(c)
 	e2:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e2:SetValue(ATTRIBUTE_LIGHT)
 	c:RegisterEffect(e2)
-	if not ref.global_check then
-		ref.global_check=true
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e1:SetCode(EVENT_DESTROYED)
-		e1:SetLabel(id)
-		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e1:SetOperation(aux.sumreg)
-		Duel.RegisterEffect(e1,0)
-	end
 	--to deck
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TODECK)
-	e1:SetType(EFFECT_TYPE_QUICK_O)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e1:SetCode(EVENT_DESTROYED)
 	e1:SetCountLimit(1,id)
-	e1:SetRange(0x32)
-	e1:SetHintTiming(TIMING_MAIN_END,TIMING_MAIN_END)
-	e1:SetCondition(ref.con)
+	e1:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
 	e1:SetTarget(ref.target)
 	e1:SetOperation(ref.operation)
 	c:RegisterEffect(e1)
@@ -51,9 +38,6 @@ function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	if c:IsRelateToEffect(e) then
 		Duel.Destroy(c,REASON_EFFECT)
 	end
-end
-function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetFlagEffect(id)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
 end
 function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToDeck,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end

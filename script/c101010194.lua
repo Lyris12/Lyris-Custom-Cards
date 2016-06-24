@@ -3,7 +3,7 @@ local id,ref=GIR()
 function ref.start(c)
 --self-destruct
 	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_TOGRAVE)
+	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -35,16 +35,13 @@ end
 function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		Duel.SendtoGrave(c,REASON_EFFECT)
+		Duel.Destroy(c,REASON_EFFECT)
 	end
 end
 function ref.dtg(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local p=c:GetControler()
 	return Duel.GetTurnPlayer()~=p and Duel.GetBattleDamage(p)>0 and c:IsDestructable()
-end
-function ref.dfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x167) and c:IsDestructable()
 end
 function ref.dop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -55,14 +52,20 @@ function ref.dop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetReset(RESET_PHASE+PHASE_DAMAGE)
 	Duel.RegisterEffect(e1,tp)
 end
+function ref.dfilter(c)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x167) and c:IsDestructable()
+end
+function ref.filter(c)
+	return c:IsAttackPos() and c:IsDestructable()
+end
 function ref.damop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local bc=Duel.GetAttacker()
 	if Duel.Destroy(c,REASON_EFFECT)~=0 then
 		local p=c:GetPreviousControler()
 		Duel.ChangeBattleDamage(p,0)
 		local g=Duel.SelectMatchingCard(tp,ref.dfilter,tp,LOCATION_HAND,0,1,1,nil)
-		if g:GetCount()>0 then
+		local bc=Duel.GetMatchingGroup(ref.filter,tp,0,LOCATION_MZONE,nil)
+		if bc:GetCount()>0 and g:GetCount()>0 then
 			Duel.Destroy(g,REASON_EFFECT)
 			Duel.Destroy(bc,REASON_EFFECT)
 		end

@@ -18,27 +18,27 @@ function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,1000) end
 	Duel.PayLPCost(tp,1000)
 end
+function ref.filter(c,e,tp,g)
+	if not c:IsSetCard(0x167) or not c:IsCanBeSpecialSummoned(e,0,tp,false,false) then return end
+	local check=true
+	local tc=g:GetFirst()
+	while tc do
+		if c:GetCode()==tc:GetCode() then check=false end
+		tc=g:GetNext()
+	end
+	return check
+end
 function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and
+		Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_GRAVE,0,1,nil,e,tp,eg) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE)
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE_SUMMON,eg,eg:GetCount(),0,0)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,eg,eg:GetCount(),0,0)
 end
 function ref.activate(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroup(Card.IsSetCard,tp,LOCATION_GRAVE,0,nil,0x167)
-	local tc=eg:GetFirst()
-	while tc do
-		local code=tc:GetCode()
-		g:Remove(Card.IsCode,nil,code)
-		tc=eg:GetNext()
+	local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp,eg)
+	if g:GetCount()>0 and Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)~=0 then
+		Duel.NegateSummon(eg)
+		Duel.SendtoDeck(eg,nil,2,REASON_EFFECT)
 	end
-	g=g:Filter(Card.IsCanBeSpecialSummoned,nil,e,0,tp,false,false)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and g:GetCount()>0 then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local sg=g:Select(tp,1,1,nil)
-		Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP)
-		else return
-	end
-	Duel.NegateSummon(eg)
-	Duel.SendtoDeck(eg,nil,2,REASON_EFFECT)
 end

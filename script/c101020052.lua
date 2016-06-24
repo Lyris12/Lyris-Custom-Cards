@@ -10,27 +10,13 @@ function ref.start(c)
 	e2:SetCondition(ref.descon)
 	e2:SetOperation(ref.desop)
 	c:RegisterEffect(e2)
-	--desreg
-	if not ref.global_check then
-		ref.global_check=true
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e1:SetCode(EVENT_DESTROYED)
-		e1:SetLabel(id)
-		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e1:SetOperation(aux.sumreg)
-		Duel.RegisterEffect(e1,0)
-	end
 	--You can target 1 "Blitzkrieg" monster in your Graveyard, except "Blitzkrieg Dragon - Gold"; Special Summon that target, but its effect(s) are negated.
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e3:SetType(EFFECT_TYPE_QUICK_O)
-	e3:SetCode(EVENT_FREE_CHAIN)
-	e3:SetRange(0x32)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e3:SetCode(EVENT_DESTROYED)
 	e3:SetCountLimit(1,id)
-	e3:SetHintTiming(TIMING_MAIN_END,TIMING_MAIN_END)
-	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e3:SetCondition(ref.con)
+	e3:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
 	e3:SetTarget(ref.target)
 	e3:SetOperation(ref.operation)
 	c:RegisterEffect(e3)
@@ -44,9 +30,6 @@ function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	if c:IsRelateToEffect(e) then
 		Duel.Destroy(c,REASON_EFFECT)
 	end
-end
-function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetFlagEffect(id)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
 end
 function ref.filter(c,e,tp)
 	return c:IsSetCard(0x167) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=id

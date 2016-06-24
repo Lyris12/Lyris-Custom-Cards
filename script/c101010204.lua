@@ -12,7 +12,7 @@ c:EnableReviveLimit()
 	c:RegisterEffect(e0)
 	--self-destruct
 	local e3=Effect.CreateEffect(c)
-	e3:SetCategory(CATEGORY_TOGRAVE)
+	e3:SetCategory(CATEGORY_DESTROY)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -38,25 +38,12 @@ c:EnableReviveLimit()
 	e2:SetTarget(ref.dstg)
 	e2:SetOperation(ref.dsop)
 	c:RegisterEffect(e2)
-	if not ref.global_check then
-		ref.global_check=true
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e1:SetCode(EVENT_DESTROYED)
-		e1:SetLabel(id)
-		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e1:SetOperation(aux.sumreg)
-		Duel.RegisterEffect(e1,0)
-	end
 	--special summon
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e4:SetType(EFFECT_TYPE_QUICK_O)
-	e4:SetCode(EVENT_FREE_CHAIN)
+	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e4:SetCode(EVENT_DESTROYED)
 	e4:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
-	e4:SetRange(0x32)
-	e4:SetHintTiming(TIMING_MAIN_END,TIMING_MAIN_END)
-	e4:SetCondition(ref.con)
 	e4:SetTarget(ref.target)
 	e4:SetOperation(ref.activate)
 	c:RegisterEffect(e4)
@@ -94,7 +81,7 @@ end
 function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		Duel.SendtoGrave(c,REASON_EFFECT)
+		Duel.Destroy(c,REASON_EFFECT)
 	end
 end
 function ref.atcon(e,c)
@@ -149,9 +136,6 @@ function ref.dsop(e,tp,eg,ep,ev,re,r,rp)
 end
 function ref.tg(e,c)
 	return not (c:IsSetCard(0x167) and c:IsType(TYPE_FUSION))
-end
-function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetFlagEffect(id)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
 end
 function ref.filter1(c,e)
 	return c:IsCanBeFusionMaterial() and c:IsAbleToRemove() and not c:IsImmuneToEffect(e)

@@ -1,6 +1,6 @@
 --White Wisteria World
 local id,ref=GIR()
-function c101010388.initial_effect(c)
+function ref.start(c)
 	local e1=c:AddActivateProc()
 	e1:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e1:SetOperation(ref.op)

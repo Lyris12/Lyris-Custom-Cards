@@ -3,7 +3,7 @@ local id,ref=GIR()
 function ref.start(c)
 --self-destruct
 	local e0=Effect.CreateEffect(c)
-	e0:SetCategory(CATEGORY_TOGRAVE)
+	e0:SetCategory(CATEGORY_DESTROY)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e0:SetRange(LOCATION_MZONE)
 	e0:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -18,31 +18,16 @@ function ref.start(c)
 	e2:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e2:SetValue(ATTRIBUTE_DARK)
 	c:RegisterEffect(e2)
-	if not ref.global_check then
-		ref.global_check=true
-		local ge1=Effect.CreateEffect(c)
-		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		ge1:SetCode(EVENT_DESTROYED)
-		ge1:SetLabel(id)
-		ge1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		ge1:SetOperation(aux.sumreg)
-		Duel.RegisterEffect(ge1,0)
-	end
 	--special summon
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e3:SetType(EFFECT_TYPE_QUICK_O)
-	e3:SetCode(EVENT_FREE_CHAIN)
-	e3:SetRange(0x32)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e3:SetCode(EVENT_DESTROYED)
 	e3:SetCountLimit(1,id)
-	e3:SetHintTiming(TIMING_MAIN_END,TIMING_MAIN_END)
-	e3:SetCondition(ref.con)
+	e3:SetProperty(EFFECT_FLAG_DELAY)
 	e3:SetTarget(ref.sptg)
 	e3:SetOperation(ref.spop)
 	c:RegisterEffect(e3)
-end
-function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetFlagEffect(id)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
 end
 function ref.filter(c,e,tp)
 	return c:IsSetCard(0x167) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
@@ -66,6 +51,6 @@ end
 function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		Duel.SendtoGrave(c,REASON_EFFECT)
+		Duel.Destroy(c,REASON_EFFECT)
 	end
 end

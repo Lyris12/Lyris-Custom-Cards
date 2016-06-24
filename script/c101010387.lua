@@ -1,6 +1,6 @@
 --White Wisteria Widow
 local id,ref=GIR()
-function c101010387.initial_effect(c)
+function ref.start(c)
 	aux.EnablePendulumAttribute(c,false)
 	--You cannot Pendulum Summon monsters, except Normal Monsters. This effect cannot be negated.
 	local e0=Effect.CreateEffect(c)

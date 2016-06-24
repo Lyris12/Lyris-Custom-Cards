@@ -3,7 +3,7 @@ local id,ref=GIR()
 function ref.start(c)
 --self-destruct
 	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_TOGRAVE)
+	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -16,25 +16,13 @@ function ref.start(c)
 	e0:SetCode(EVENT_TO_GRAVE)
 	e0:SetOperation(ref.regop)
 	c:RegisterEffect(e0)
-	--desreg
-	if not ref.global_check then
-		ref.global_check=true
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e1:SetCode(EVENT_DESTROYED)
-		e1:SetLabel(id)
-		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e1:SetOperation(aux.sumreg)
-		Duel.RegisterEffect(e1,0)
-	end
 	--fetch
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
-	e3:SetType(EFFECT_TYPE_QUICK_O)
-	e3:SetCode(EVENT_FREE_CHAIN)
-	e3:SetRange(0x32)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e3:SetCode(EVENT_DESTROYED)
+	e3:SetProperty(EFFECT_FLAG_DELAY)
 	e3:SetCountLimit(1,id)
-	e3:SetCondition(ref.con)
 	e3:SetTarget(ref.tg)
 	e3:SetOperation(ref.op)
 	c:RegisterEffect(e3)
@@ -46,18 +34,15 @@ end
 function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		Duel.SendtoGrave(c,REASON_EFFECT)
+		Duel.Destroy(c,REASON_EFFECT)
 	end
-end
-function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetFlagEffect(id)>0 and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
-end
-function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function ref.filter(c)
 	return c:IsSetCard(0x167) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and c:GetCode()~=id
+end
+function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
