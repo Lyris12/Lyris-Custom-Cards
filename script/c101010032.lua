@@ -3,7 +3,7 @@ local id,ref=GIR()
 function ref.start(c)
 --self-destruct
 	local e0=Effect.CreateEffect(c)
-	e0:SetCategory(CATEGORY_DESTROY)
+	e0:SetCategory(CATEGORY_TOGRAVE)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e0:SetRange(LOCATION_MZONE)
 	e0:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -66,6 +66,6 @@ end
 function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		Duel.Destroy(c,REASON_EFFECT)
+		Duel.SendtoGrave(c,REASON_EFFECT)
 	end
 end

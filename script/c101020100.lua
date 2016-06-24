@@ -1,5 +1,6 @@
 --Gemination Shrine
-function c101010302.initial_effect(c)
+local id,ref=GIR()
+function ref.start(c)
 	--activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -11,7 +12,7 @@ function c101010302.initial_effect(c)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e2:SetTarget(c101010302.filter)
+	e2:SetTarget(ref.filter)
 	e2:SetValue(500)
 	c:RegisterEffect(e2)
 	--Def up
@@ -20,7 +21,7 @@ function c101010302.initial_effect(c)
 	e3:SetRange(LOCATION_SZONE)
 	e3:SetCode(EFFECT_UPDATE_DEFENCE)
 	e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e3:SetTarget(c101010302.filter)
+	e3:SetTarget(ref.filter)
 	e3:SetValue(500)
 	c:RegisterEffect(e3)
 	--cannot be target
@@ -30,7 +31,7 @@ function c101010302.initial_effect(c)
 	e4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e4:SetRange(LOCATION_SZONE)
 	e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e4:SetTarget(c101010302.filter2)
+	e4:SetTarget(ref.filter2)
 	e4:SetValue(aux.tgoval)
 	c:RegisterEffect(e4)
 	--extra summon
@@ -40,8 +41,8 @@ function c101010302.initial_effect(c)
 	e5:SetTargetRange(LOCATION_HAND+LOCATION_MZONE,0)
 	e5:SetCode(EVENT_FREE_CHAIN)
 	e5:SetCountLimit(1)
-	e5:SetTarget(c101010302.target)
-	e5:SetOperation(c101010302.operation)
+	e5:SetTarget(ref.target)
+	e5:SetOperation(ref.operation)
 	c:RegisterEffect(e5)
 	--cannot normal summon
 	local e6=Effect.CreateEffect(c)
@@ -50,63 +51,63 @@ function c101010302.initial_effect(c)
 	e6:SetRange(LOCATION_SZONE)
 	e6:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e6:SetTargetRange(1,1)
-	e6:SetTarget(c101010302.filter5)
-	e6:SetCondition(c101010302.condition)
+	e6:SetTarget(ref.filter5)
+	e6:SetCondition(ref.condition)
 	c:RegisterEffect(e6)
 	--destroy special summoned monsters
 	local e7=Effect.CreateEffect(c)
 	e7:SetCategory(CATEGORY_DESTROY)
 	e7:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e7:SetCode(EVENT_LEAVE_FIELD)
-	e7:SetCondition(c101010302.condition2)
-	e7:SetTarget(c101010302.target2)
-	e7:SetOperation(c101010302.operation2)
+	e7:SetCondition(ref.condition2)
+	e7:SetTarget(ref.target2)
+	e7:SetOperation(ref.operation2)
 	c:RegisterEffect(e7)
 end
-function c101010302.filter(e,c)
+function ref.filter(e,c)
 	return c:IsType(TYPE_NORMAL) and c:IsSetCard(0x242)
 end
-function c101010302.filter2(e,c)
+function ref.filter2(e,c)
 	return c:IsType(TYPE_EFFECT) and c:IsSetCard(0x242)
 end
-function c101010302.filter3(e,c)
+function ref.filter3(e,c)
 	return c:IsSetCard(0x242)
 end
-function c101010302.filter4(c)
+function ref.filter4(c)
 	return c:IsType(TYPE_DUAL) and c:IsSummonable(true,nil)
 end
-function c101010302.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c101010302.filter4,tp,LOCATION_HAND+LOCATION_MZONE,0,1,nil) end
+function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter4,tp,LOCATION_HAND+LOCATION_MZONE,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_SUMMON,nil,1,0,0)
 end
-function c101010302.operation(e,tp,eg,ep,ev,re,r,rp)
+function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SUMMON)
-	local g=Duel.SelectMatchingCard(tp,c101010302.filter4,tp,LOCATION_HAND+LOCATION_MZONE,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,ref.filter4,tp,LOCATION_HAND+LOCATION_MZONE,0,1,1,nil)
 	if g:GetCount()>0 then
 		Duel.Summon(tp,g:GetFirst(),true,nil)
 	end
 end
-function c101010302.filter5(e,c)
+function ref.filter5(e,c)
 	return not c:IsType(TYPE_DUAL)
 end
-function c101010302.filter6(c)
+function ref.filter6(c)
 	return c:IsFaceup() and c:IsSetCard(0x242)
 end
-function c101010302.condition(e)
-	return Duel.IsExistingMatchingCard(c101010302.filter6,e:GetHandlerPlayer(),LOCATION_MZONE,0,2,nil)
+function ref.condition(e)
+	return Duel.IsExistingMatchingCard(ref.filter6,e:GetHandlerPlayer(),LOCATION_MZONE,0,2,nil)
 end
-function c101010302.condition2(e,tp,eg,ep,ev,re,r,rp)
+function ref.condition2(e,tp,eg,ep,ev,re,r,rp)
 	return bit.band(e:GetHandler():GetPreviousLocation(),LOCATION_ONFIELD)>0
 end
-function c101010302.filter7(c)
+function ref.filter7(c)
 	return bit.band(c:GetSummonType(),SUMMON_TYPE_SPECIAL)~=0 and not c:IsType(TYPE_DUAL)
 end
-function c101010302.target2(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.target2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	local g=Duel.GetMatchingGroup(c101010302.filter7,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
+	local g=Duel.GetMatchingGroup(ref.filter7,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
 end
-function c101010302.operation2(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroup(c101010302.filter7,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
+function ref.operation2(e,tp,eg,ep,ev,re,r,rp)
+	local g=Duel.GetMatchingGroup(ref.filter7,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
 	Duel.Destroy(g,REASON_EFFECT)
 end

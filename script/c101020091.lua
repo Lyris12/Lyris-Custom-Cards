@@ -1,5 +1,6 @@
 --Flame Flight - Roost
-function c101010574.initial_effect(c)
+local id,ref=GIR()
+function ref.start(c)
 	--Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
@@ -11,8 +12,8 @@ function c101010574.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetRange(LOCATION_SZONE)
 	e1:SetCode(EVENT_TO_HAND)
-	e1:SetCondition(c101010574.ccon)
-	e1:SetOperation(c101010574.cop)
+	e1:SetCondition(ref.ccon)
+	e1:SetOperation(ref.cop)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
 	e2:SetCode(EVENT_TO_DECK)
@@ -22,36 +23,36 @@ function c101010574.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_SZONE)
 	e3:SetCountLimit(1)
-	e3:SetCost(c101010574.cost)
-	e3:SetOperation(c101010574.op)
+	e3:SetCost(ref.cost)
+	e3:SetOperation(ref.op)
 	c:RegisterEffect(e3)
 	--on-destroy
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetCode(EVENT_TO_GRAVE)
-	e4:SetCondition(c101010574.con)
-	e4:SetTarget(c101010574.tg)
-	e4:SetOperation(c101010574.mop)
+	e4:SetCondition(ref.con)
+	e4:SetTarget(ref.tg)
+	e4:SetOperation(ref.mop)
 	c:RegisterEffect(e4)
 end
-function c101010574.filter(c)
+function ref.filter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xa88)
 end
-function c101010574.ccon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c101010574.filter,1,nil)
+function ref.ccon(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(ref.filter,1,nil)
 end
-function c101010574.cop(e,tp,eg,ep,ev,re,r,rp)
+function ref.cop(e,tp,eg,ep,ev,re,r,rp)
 	e:GetHandler():AddCounter(0x106,1)
 end
-function c101010574.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard and e:GetHandler():IsCanRemoveCounter(tp,0x106,1,REASON_COST) end
 	e:GetHandler():RemoveCounter(tp,0x106,1,REASON_COST)
-	e:SetLabelObject(Duel.SelectMatchingCard(tp,c101010574.filter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil):GetFirst())
+	e:SetLabelObject(Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil):GetFirst())
 end
-function c101010574.op(e,tp,eg,ep,ev,re,r,rp)
+function ref.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=e:GetLabelObject()
-	local opt=Duel.SelectOption(tp,aux.Stringid(101010574,0),aux.Stringid(101010574,1))
+	local opt=Duel.SelectOption(tp,aux.Stringid(id,0),aux.Stringid(id,1))
 	if opt==1 then
 		local at=Duel.AnnounceAttribute(tp,1,0xff)
 		local e5=Effect.CreateEffect(c)
@@ -72,19 +73,19 @@ function c101010574.op(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e5)
 	end
 end
-function c101010574.con(e,tp,eg,ep,ev,re,r,rp)
+function ref.con(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local ct=c:GetCounter(0x106)
 	e:SetLabel(ct)
 	return c:IsReason(REASON_DESTROY) and ct>0
 end
-function c101010574.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local ct=e:GetLabel()
 	if chkc then return not chkc:IsOnField() end
 	if chk==0 then return Duel.IsExistingTarget(nil,tp,LOCATION_ONFIELD+LOCATION_HAND+LOCATION_GRAVE+LOCATION_REMOVED,LOCATION_ONFIELD+LOCATION_HAND+LOCATION_GRAVE+LOCATION_REMOVED,1,nil) end
 	Duel.SelectTarget(tp,nil,tp,LOCATION_ONFIELD+LOCATION_HAND+LOCATION_GRAVE+LOCATION_REMOVED,LOCATION_ONFIELD+LOCATION_HAND+LOCATION_GRAVE+LOCATION_REMOVED,1,ct,nil)
 end
-function c101010574.mop(e,tp,eg,ep,ev,re,r,rp)
+function ref.mop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
 	Duel.SendtoDeck(g,nil,2,REASON_EFFECT)
 end

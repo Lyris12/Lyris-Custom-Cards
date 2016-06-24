@@ -1,7 +1,7 @@
 --襲雷竜－銀河
 local id,ref=GIR()
 function ref.start(c)
-aux.AddPendulumProcedure(c)
+	aux.EnablePendulumAttribute(c,false)
 	--Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_COUNTER)
@@ -47,13 +47,16 @@ aux.AddPendulumProcedure(c)
 	e1:SetOperation(ref.ttop)
 	e1:SetValue(SUMMON_TYPE_ADVANCE)
 	c:RegisterEffect(e1)
-	--
+	--When a "Blitzkrieg" monster(s) leaves the field, except by being destroyed: You can Special Summon this card from your hand, and if you do, any "Blitzkrieg" monster that would leave the field for the rest of this turn is destroyed and sent to the Graveyard, instead.
 	local e5=Effect.CreateEffect(c)
-	e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e5:SetCode(EFFECT_SEND_REPLACE)
-	e5:SetRange(LOCATION_MZONE)
-	e5:SetTarget(ref.reptg)
-	e5:SetValue(ref.repval)
+	e5:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e5:SetCode(EVENT_LEAVE_FIELD)
+	e5:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e5:SetRange(LOCATION_HAND)
+	e5:SetCondition(ref.spcon)
+	e5:SetTarget(ref.sptg)
+	e5:SetOperation(ref.spop)
 	c:RegisterEffect(e5)
 end
 function ref.descon(e,tp,eg,ep,ev,re,r,rp)
@@ -63,7 +66,7 @@ end
 function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		Duel.Destroy(c,REASON_EFFECT)
+		Duel.SendtoGrave(c,REASON_EFFECT)
 	end
 end
 function ref.op(e,tp,eg,ep,ev,re,r,rp)
@@ -107,6 +110,29 @@ function ref.disop(e,tp,eg,ep,ev,re,r,rp)
 		else
 			Duel.Destroy(c,REASON_EFFECT)
 		end
+	end
+end
+function ref.spcfil(c,tp)
+	return c:IsSetCard(0x167) and c:IsPreviousLocation(LOCATION_MZONE) and c:IsPreviousPosition(POS_FACEUP) and not c:IsReason(REASON_DESTROY)
+end
+function ref.spcon(e,tp,eg,ep,ev,re,r,rp)
+	return eg and eg:IsExists(ref.spcfil,1,nil,tp)
+end
+function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
+end
+function ref.spop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,true,true,POS_FACEUP)>0 then
+		local e5=Effect.CreateEffect(c)
+		e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		e5:SetCode(EFFECT_SEND_REPLACE)
+		e5:SetTarget(ref.reptg)
+		e5:SetValue(ref.repval)
+		e5:SetReset(RESET_PHASE+PHASE_END)
+		Duel.RegisterEffect(e5,tp)
 	end
 end
 function ref.repfilter(c)

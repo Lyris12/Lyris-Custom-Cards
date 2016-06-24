@@ -38,6 +38,7 @@ function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_POSCHANGE)
 		local g=Duel.SelectMatchingCard(tp,ref.filter,tp,0,LOCATION_MZONE,1,1,nil)
 		if g:GetCount()>0 then
+			Duel.HintSelection(g)
 			Duel.ChangePosition(g,POS_FACEDOWN_DEFENCE)
 		end
 	end

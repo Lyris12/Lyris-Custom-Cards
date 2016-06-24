@@ -41,7 +41,7 @@ aux.EnablePendulumAttribute(c)
 	c:RegisterEffect(e6)
 	--self-destruct
 	local e5=Effect.CreateEffect(c)
-	e5:SetCategory(CATEGORY_DESTROY)
+	e5:SetCategory(CATEGORY_TOGRAVE)
 	e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e5:SetRange(LOCATION_MZONE)
 	e5:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -114,6 +114,6 @@ end
 function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		Duel.Destroy(c,REASON_EFFECT)
+		Duel.SendtoGrave(c,REASON_EFFECT)
 	end
 end

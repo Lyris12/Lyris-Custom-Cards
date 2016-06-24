@@ -1,47 +1,48 @@
 --Red Soldier
-function c101010363.initial_effect(c)
-	c:SetSPSummonOnce(101010363)
+local id,ref=GIR()
+function ref.start(c)
+	c:SetSPSummonOnce(id)
 	--If you control exactly 1 Warrior-Type monster, you can Special Summon this card (from your hand).
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e1:SetRange(LOCATION_HAND)
-	e1:SetCondition(c101010363.spcon)
+	e1:SetCondition(ref.spcon)
 	c:RegisterEffect(e1)
 	--effect gain
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_BE_MATERIAL)
-	e2:SetCondition(c101010363.efcon)
-	e2:SetOperation(c101010363.efop)
+	e2:SetCondition(ref.efcon)
+	e2:SetOperation(ref.efop)
 	c:RegisterEffect(e2)
 end
-function c101010363.filter(c)
+function ref.filter(c)
 	return c:IsFaceup() and c:IsRace(RACE_WARRIOR)
 end
-function c101010363.spcon(e,c)
+function ref.spcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
-	return Duel.GetMatchingGroupCount(c101010363.filter,tp,LOCATION_MZONE,0,nil)==1
+	return Duel.GetMatchingGroupCount(ref.filter,tp,LOCATION_MZONE,0,nil)==1
 		and Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
 end
-function c101010363.efcon(e,tp,eg,ep,ev,re,r,rp)
+function ref.efcon(e,tp,eg,ep,ev,re,r,rp)
 	return r==REASON_XYZ
 end
-function c101010363.efop(e,tp,eg,ep,ev,re,r,rp)
+function ref.efop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local rc=c:GetReasonCard()
 	if not rc:IsRace(RACE_WARRIOR) then return end
 	--● If it is Xyz Summoned: Excavate the top card if your Deck, then if it is a Warrior-Type monster, add it to your hand.
 	local e1=Effect.CreateEffect(rc)
-	e1:SetDescription(aux.Stringid(101010363,0))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e1:SetCondition(c101010363.drcon)
-	e1:SetTarget(c101010363.drtg)
-	e1:SetOperation(c101010363.drop)
+	e1:SetCondition(ref.drcon)
+	e1:SetTarget(ref.drtg)
+	e1:SetOperation(ref.drop)
 	e1:SetReset(RESET_EVENT+0x1fe0000)
 	rc:RegisterEffect(e1,true)
 	if not rc:IsType(TYPE_EFFECT) then
@@ -53,22 +54,22 @@ function c101010363.efop(e,tp,eg,ep,ev,re,r,rp)
 		rc:RegisterEffect(e2,true)
 	end
 end
-function c101010363.drcon(e,tp,eg,ep,ev,re,r,rp)
+function ref.drcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_XYZ
 end
-function c101010363.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
+function ref.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetTargetPlayer(tp)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,0,tp,LOCATION_DECK)
 end
-function c101010363.drfilter(c)
+function ref.drfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsRace(RACE_WARRIOR) and c:IsAbleToHand()
 end
-function c101010363.drop(e,tp,eg,ep,ev,re,r,rp)
+function ref.drop(e,tp,eg,ep,ev,re,r,rp)
 	local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)
 	Duel.ConfirmDecktop(p,1)
 	local g=Duel.GetDecktopGroup(p,1)
-	if c101010363.drfilter(g:GetFirst()) then
+	if ref.drfilter(g:GetFirst()) then
 		Duel.DisableShuffleCheck()
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-p,g)

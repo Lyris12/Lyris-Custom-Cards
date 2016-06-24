@@ -338,13 +338,13 @@ function c450.dspcon(e,c)
 	if c==nil then return true end
 	if not c.divs_spatial then return false end
 	local tp=c:GetControler()
-	return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 and Duel.IsExistingMatchingCard(c450.divfilter,tp,LOCATION_MZONE,0,1,nil,c:GetOriginalRank(),c.material1,c.stat,c.indicator) and c:GetFlagEffect(743000003)==0
+	return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 and Duel.IsExistingMatchingCard(c450.divspfilter,tp,LOCATION_MZONE,0,1,nil,c:GetOriginalRank(),c.material1,c.stat,c.indicator) and c:GetFlagEffect(743000003)==0
 end
 function c450.dspop(e,tp,eg,ep,ev,re,r,rp,c)
 	local ec=Duel.GetMatchingGroup(c450.regfilter,tp,LOCATION_MZONE,0,nil)
 	if ec:GetCount()>0 then Duel.Remove(ec,POS_FACEUP,REASON_EFFECT) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,c450.divfilter,tp,LOCATION_MZONE,0,1,1,nil,c:GetOriginalRank(),c.material1,c.stat,c.indicator)
+	local g=Duel.SelectMatchingCard(tp,c450.divspfilter,tp,LOCATION_MZONE,0,1,1,nil,c:GetOriginalRank(),c.material1,c.stat,c.indicator)
 	c:SetMaterial(g)
 	local fg=g:Filter(Card.IsFacedown,nil)
 	if fg:GetCount()>0 then Duel.ConfirmCards(1-tp,fg) end
