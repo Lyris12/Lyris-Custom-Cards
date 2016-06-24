@@ -1,5 +1,6 @@
 --Starnight Cyber Dragon
-function c101010218.initial_effect(c)
+local id,ref=GIR()
+function ref.initial_effect(c)
 	local ae4=Effect.CreateEffect(c)
 	ae4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	ae4:SetCode(EVENT_BECOME_TARGET)
@@ -39,7 +40,7 @@ function c101010218.initial_effect(c)
 end
 ref.spatial=true
 --Spatial Formula filter(s)
-ref.material1=function(mc) return true end
+ref.material1=nil
 -- ref.material2=function(mc) return true end -- Invert this block of code on Division Spatial Monsters (begin)
 ref.divs_spatial=true --Division Procedure /
 ref.stat=function(mc) return mc:GetAttack()-mc:GetDefence() end
