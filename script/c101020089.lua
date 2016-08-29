@@ -1,32 +1,31 @@
 --ファイナル・フレイーム・フュージョン
-local id,ref=GIR()
-function ref.start(c)
+function c101020089.initial_effect(c)
 	--code
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_ADD_CODE)
-	e0:SetValue(id)
+	e0:SetValue(101010055)
 	c:RegisterEffect(e0)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetOperation(ref.operation)
+	e1:SetOperation(c101020089.operation)
 	c:RegisterEffect(e1)
 end
-function ref.operation(e,tp,eg,ep,ev,re,r,rp)
+function c101020089.operation(e,tp,eg,ep,ev,re,r,rp)
 	--[[spsummon
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_TO_GRAVE)
-	e1:SetCondition(ref.check)
+	e1:SetCondition(c101020089.check)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)]]
 	local e2=Effect.CreateEffect(e:GetHandler())
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_CHAIN_SOLVED)
-	e2:SetCondition(ref.spcon)
-	e2:SetOperation(ref.spop)
+	e2:SetCondition(c101020089.spcon)
+	e2:SetOperation(c101020089.spop)
 	e2:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e2,tp)
 	local e3=e2:Clone()
@@ -35,39 +34,39 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e3,tp)
 	e2:SetLabelObject(e3)
 end
-function ref.filter1(c,e)
+function c101020089.filter1(c,e)
 	return c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e) and c:IsAbleToDeck()
 end
-function ref.filter2(c,e,tp,m,chkf)
+function c101020089.filter2(c,e,tp,m,chkf)
 	return c:IsType(TYPE_FUSION) and c:IsAttribute(ATTRIBUTE_FIRE) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
-function ref.spcon(e,tp,eg,ep,ev,re,r,rp)
+function c101020089.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-	local mg1=Duel.GetMatchingGroup(ref.filter1,tp,0x32,0,nil,e)
-	local res=Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,chkf)
+	local mg1=Duel.GetMatchingGroup(c101020089.filter1,tp,0x32,0,nil,e)
+	local res=Duel.IsExistingMatchingCard(c101020089.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,chkf)
 	if not res then
 		local ce=Duel.GetChainMaterial(tp)
 		if ce~=nil then
 			local fgroup=ce:GetTarget()
 			local mg2=fgroup(ce,e,tp)
-			res=Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg2,chkf)
+			res=Duel.IsExistingMatchingCard(c101020089.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg2,chkf)
 		end
 	end
 	return res and Duel.GetCurrentChain()==0
 end
-function ref.spop(e,tp,eg,ep,ev,re,r,rp)
-	if not Duel.SelectYesNo(tp,aux.Stringid(id,0)) then return end
+function c101020089.spop(e,tp,eg,ep,ev,re,r,rp)
+	if not Duel.SelectYesNo(tp,aux.Stringid(101020089,0)) then return end
 	local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-	local mg1=Duel.GetMatchingGroup(ref.filter1,tp,0x32,0,nil,e)
-	local sg1=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,chkf)
+	local mg1=Duel.GetMatchingGroup(c101020089.filter1,tp,0x32,0,nil,e)
+	local sg1=Duel.GetMatchingGroup(c101020089.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,chkf)
 	local mg2=nil
 	local sg2=nil
 	local ce=Duel.GetChainMaterial(tp)
 	if ce~=nil then
 		local fgroup=ce:GetTarget()
 		mg2=fgroup(ce,e,tp)
-		sg2=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,chkf)
+		sg2=Duel.GetMatchingGroup(c101020089.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,chkf)
 	end
 	if sg1:GetCount()>0 or (sg2~=nil and sg2:GetCount()>0) then
 		local sg=sg1:Clone()
@@ -87,13 +86,13 @@ function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 			fop(ce,e,tp,tc,mat2)
 		end
 		tc:CompleteProcedure()
-		local e1=Effect.CreateEffect(c)
+		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(id)
+		e1:SetCode(101010055)
 		e1:SetReset(RESET_EVENT+0x1fe0000)
 		tc:RegisterEffect(e1)
 	end
-	Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1)
-	local ct=Duel.GetFlagEffect(tp,id)
+	Duel.RegisterFlagEffect(tp,101020089+,RESET_PHASE+PHASE_END,0,1)
+	local ct=Duel.GetFlagEffect(tp,101020089)
 	if ct>1 then e:Reset() e:GetLabelObject():Reset() end
 end

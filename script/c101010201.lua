@@ -1,6 +1,5 @@
 --FFD－プロミネンス
-local id,ref=GIR()
-function ref.start(c)
+function c101010201.initial_effect(c)
 --damage conversion
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -8,8 +7,8 @@ function ref.start(c)
 	e1:SetCode(EFFECT_REVERSE_DAMAGE)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(1,0)
-	e1:SetCondition(function(e) return e:GetHandler():IsHasEffect(id) end)
-	e1:SetValue(ref.rev)
+	e1:SetCondition(function(e) return e:GetHandler():IsHasEffect(101010055) end)
+	e1:SetValue(c101010201.rev)
 	c:RegisterEffect(e1)
 	--recover
 	local e2=Effect.CreateEffect(c)
@@ -17,20 +16,20 @@ function ref.start(c)
 	e2:SetCategory(CATEGORY_TODECK)
 	e2:SetCode(EVENT_BATTLE_DAMAGE)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetTarget(ref.rectg)
-	e2:SetOperation(ref.recop)
+	e2:SetTarget(c101010201.rectg)
+	e2:SetOperation(c101010201.recop)
 	c:RegisterEffect(e2)
 	--fusion summon
 	c:EnableReviveLimit()
-	aux.AddFusionProcFun2(c,ref.ffilter1,ref.ffilter2,true)
+	aux.AddFusionProcFun2(c,c101010201.ffilter1,c101010201.ffilter2,true)
 end
-function ref.ffilter1(c)
-	return c:IsAttribute(ATTRIBUTE_FIRE) or (c:IsHasEffect(id) and not c:IsLocation(LOCATION_DECK))
+function c101010201.ffilter1(c)
+	return c:IsAttribute(ATTRIBUTE_FIRE) or (c:IsHasEffect(101010012) and not c:IsLocation(LOCATION_DECK))
 end
-function ref.ffilter2(c)
-	return c:IsRace(RACE_WINDBEAST+RACE_PYRO) or (c:IsHasEffect(id) and not c:IsLocation(LOCATION_DECK))
+function c101010201.ffilter2(c)
+	return c:IsRace(RACE_WINDBEAST+RACE_PYRO) or (c:IsHasEffect(101010085) and not c:IsLocation(LOCATION_DECK))
 end
-function ref.rectg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010201.rectg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetTargetPlayer(tp)
 	Duel.SetTargetParam(ev)
@@ -39,12 +38,12 @@ function ref.rectg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if bc==e:GetHandler() then bc=Duel.GetAttackTarget() end
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,bc,1,0,0)
 end
-function ref.recop(e,tp,eg,ep,ev,re,r,rp)
+function c101010201.recop(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	local bc=Duel.GetAttacker()
 	if bc==e:GetHandler() then bc=Duel.GetAttackTarget() end
 	if Duel.Recover(p,d,REASON_EFFECT)~=0 and bc~=nil then Duel.SendtoDeck(bc,nil,2,REASON_EFFECT) end
 end
-function ref.rev(e,re,r,rp,rc)
+function c101010201.rev(e,re,r,rp,rc)
 	return bit.band(r,REASON_EFFECT)>0
 end

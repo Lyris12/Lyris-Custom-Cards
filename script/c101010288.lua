@@ -1,13 +1,12 @@
 --SNo.24 サイバー・ドラゴン・丸藤NEO
-local id,ref=GIR()
-function ref.start(c)
+function c101010288.initial_effect(c)
 --xyz summon
 	c:EnableReviveLimit()
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_DRAGON),8,3)
 	--add race
 	local ar=Effect.CreateEffect(c)
 	ar:SetType(EFFECT_TYPE_FIELD)
-	ar:SetTarget(ref.artg)
+	ar:SetTarget(c101010288.artg)
 	ar:SetRange(LOCATION_MZONE)
 	ar:SetTargetRange(LOCATION_MZONE,0)
 	ar:SetCode(EFFECT_ADD_RACE)
@@ -18,8 +17,8 @@ function ref.start(c)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_ADJUST)
 	e0:SetRange(LOCATION_MZONE)
-	e0:SetCondition(ref.condition)
-	e0:SetOperation(ref.copy)
+	e0:SetCondition(c101010288.condition)
+	e0:SetOperation(c101010288.copy)
 	c:RegisterEffect(e0)
 	--attach
 	local e1=Effect.CreateEffect(c)
@@ -28,10 +27,10 @@ function ref.start(c)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCode(EVENT_PHASE+PHASE_END)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetCountLimit(1,id)
-	e1:SetCondition(ref.olcon)
-	e1:SetTarget(ref.oltg)
-	e1:SetOperation(ref.olop)
+	e1:SetCountLimit(1,101010288)
+	e1:SetCondition(c101010288.olcon)
+	e1:SetTarget(c101010288.oltg)
+	e1:SetOperation(c101010288.olop)
 	c:RegisterEffect(e1)
 	--last
 	local e2=Effect.CreateEffect(c)
@@ -39,8 +38,8 @@ function ref.start(c)
 	e2:SetCode(EFFECT_IMMUNE_EFFECT)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCondition(ref.condition)
-	e2:SetValue(ref.efilter)
+	e2:SetCondition(c101010288.condition)
+	e2:SetValue(c101010288.efilter)
 	c:RegisterEffect(e2)
 	--detach
 	local e3=Effect.CreateEffect(c)
@@ -48,28 +47,28 @@ function ref.start(c)
 	e3:SetCode(EVENT_PHASE+PHASE_STANDBY)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCountLimit(1)
-	e3:SetCondition(ref.rmcon)
-	e3:SetOperation(ref.rmop)
+	e3:SetCondition(c101010288.rmcon)
+	e3:SetOperation(c101010288.rmop)
 	c:RegisterEffect(e3)
 end
-ref.xyz_number=24
-function ref.artg(e)
+c101010288.xyz_number=24
+function c101010288.artg(e)
 	return e:GetHandler()
 end
-function ref.condition(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,id)
+function c101010288.condition(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,101010288)
 end
-function ref.olcon(e,tp,eg,ep,ev,re,r,rp)
+function c101010288.olcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetOverlayCount()==0
 end
-function ref.oltg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101010288.oltg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetLocation()==LOCATION_ONFIELD and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToChangeControler,tp,0,LOCATION_ONFIELD,1,nil)
-	and Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_GRAVE,0,1,nil,id) end
+	and Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_GRAVE,0,1,nil,101010288) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	Duel.SelectTarget(tp,Card.IsAbleToChangeControler,tp,0,LOCATION_ONFIELD,1,1,nil)
 end
-function ref.olop(e,tp,eg,ep,ev,re,r,rp)
+function c101010288.olop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) and not tc:IsImmuneToEffect(e) then
@@ -84,12 +83,12 @@ function ref.olop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Overlay(c,Group.FromCards(tc))
 	end
 end
-function ref.cpfilter(c)
-	return (c:IsAttribute(ATTRIBUTE_LIGHT) or c:IsAttribute(ATTRIBUTE_DARK)) and c:GetCode()~=id and not c:IsType(TYPE_TUNER)
+function c101010288.cpfilter(c)
+	return (c:IsAttribute(ATTRIBUTE_LIGHT) or c:IsAttribute(ATTRIBUTE_DARK)) and c:GetCode()~=101010288 and not c:IsType(TYPE_TUNER)
 end
-function ref.copy(e,tp,eg,ep,ev,re,r,rp)
+function c101010288.copy(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local wg=Duel.GetMatchingGroup(ref.cpfilter,c:GetControler(),LOCATION_GRAVE,0,nil)
+	local wg=Duel.GetMatchingGroup(c101010288.cpfilter,c:GetControler(),LOCATION_GRAVE,0,nil)
 	local wbc=wg:GetFirst()
 	while wbc do
 		local code=wbc:GetOriginalCode()
@@ -100,15 +99,15 @@ function ref.copy(e,tp,eg,ep,ev,re,r,rp)
 		wbc=wg:GetNext()
 	end
 end
-function ref.efilter(e,re,rp)
+function c101010288.efilter(e,re,rp)
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return true end
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	return not g:IsContains(e:GetHandler())
 end
-function ref.rmcon(e,tp,eg,ep,ev,re,r,rp)
+function c101010288.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
 end
-function ref.rmop(e,tp,eg,ep,ev,re,r,rp)
+function c101010288.rmop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:GetOverlayCount()>0 then
 		c:RemoveOverlayCard(tp,1,1,REASON_EFFECT)

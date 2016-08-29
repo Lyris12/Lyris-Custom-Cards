@@ -1,6 +1,5 @@
 --旋風のファイター
-local id,ref=GIR()
-function ref.start(c)
+function c101010042.initial_effect(c)
 c:EnableReviveLimit()
 	--synchro summon
 	local e0=Effect.CreateEffect(c)
@@ -10,7 +9,7 @@ c:EnableReviveLimit()
 	e0:SetRange(LOCATION_EXTRA)
 	e0:SetCondition(aux.SynCondition(nil,aux.NonTuner(nil),1,99))
 	e0:SetTarget(aux.SynTarget(nil,aux.NonTuner(nil),1,99))
-	e0:SetOperation(ref.synop)
+	e0:SetOperation(c101010042.synop)
 	e0:SetValue(SUMMON_TYPE_SYNCHRO)
 	c:RegisterEffect(e0)
 	--to deck
@@ -27,7 +26,7 @@ c:EnableReviveLimit()
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetValue(ref.atkval)
+	e2:SetValue(c101010042.atkval)
 	c:RegisterEffect(e2)
 	--to deck
 	local e2=Effect.CreateEffect(c)
@@ -36,20 +35,20 @@ c:EnableReviveLimit()
 	e2:SetCode(EVENT_CHAINING)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCondition(ref.detcon)
-	e2:SetCost(ref.detcost)
-	e2:SetTarget(ref.dettg)
-	e2:SetOperation(ref.detop)
+	e2:SetCondition(c101010042.detcon)
+	e2:SetCost(c101010042.detcost)
+	e2:SetTarget(c101010042.dettg)
+	e2:SetOperation(c101010042.detop)
 	c:RegisterEffect(e2)
 end
-function ref.detcon(e,tp,eg,ep,ev,re,r,rp)
+function c101010042.detcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsStatus(STATUS_BATTLE_DESTROYED) then return false end
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
 	local tg=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
 	return tg and tg:IsContains(c)
 end
-function ref.detcost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010042.detcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return c:IsAbleToExtraAsCost() end
 	local mg=c:GetMaterial()
@@ -58,11 +57,11 @@ function ref.detcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabelObject(mg)
 	Duel.SendtoDeck(c,nil,0,REASON_EFFECT)
 end
-function ref.dettg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010042.dettg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,e:GetLabel(),tp,LOCATION_DECK)
 end
-function ref.detop(e,tp,eg,ep,ev,re,r,rp)
+function c101010042.detop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local mg=e:GetLabelObject()
 	local mct=mg:GetCount()
@@ -100,12 +99,12 @@ function ref.detop(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function ref.synop(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
+function c101010042.synop(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
 	local g=e:GetLabelObject()
 	c:SetMaterial(g)
 	Duel.SendtoDeck(g,nil,2,REASON_MATERIAL+REASON_SYNCHRO)
 	g:DeleteGroup()
 end
-function ref.atkval(e,c)
+function c101010042.atkval(e,c)
 	return Duel.GetMatchingGroupCount(Card.IsAttribute,c:GetControler(),LOCATION_MZONE,LOCATION_MZONE,e:GetHandler(),ATTRIBUTE_WIND)*400
 end

@@ -1,13 +1,12 @@
 --襲雷竜－月
-local id,ref=GIR()
-function ref.start(c)
+function c101010153.initial_effect(c)
 aux.EnablePendulumAttribute(c)
 	--
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetRange(LOCATION_MZONE)
 	e0:SetTargetRange(LOCATION_MZONE,0)
-	e0:SetTarget(ref.atcon)
+	e0:SetTarget(c101010153.atcon)
 	e0:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e0:SetValue(ATTRIBUTE_WATER)
 	c:RegisterEffect(e0)
@@ -23,7 +22,7 @@ aux.EnablePendulumAttribute(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
-	e2:SetOperation(ref.retreg)
+	e2:SetOperation(c101010153.retreg)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
 	e3:SetCode(EVENT_FLIP)
@@ -35,9 +34,9 @@ aux.EnablePendulumAttribute(c)
 	e6:SetRange(LOCATION_MZONE)
 	e6:SetProperty(EFFECT_FLAG_DELAY)
 	e6:SetCode(EVENT_TO_HAND)
-	e6:SetCondition(ref.spcon)
-	e6:SetTarget(ref.sptg)
-	e6:SetOperation(ref.spop)
+	e6:SetCondition(c101010153.spcon)
+	e6:SetTarget(c101010153.sptg)
+	e6:SetOperation(c101010153.spop)
 	c:RegisterEffect(e6)
 	--self-destruct
 	local e5=Effect.CreateEffect(c)
@@ -45,14 +44,14 @@ aux.EnablePendulumAttribute(c)
 	e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e5:SetRange(LOCATION_MZONE)
 	e5:SetCode(EVENT_ATTACK_ANNOUNCE)
-	e5:SetCondition(ref.descon)
-	e5:SetOperation(ref.desop)
+	e5:SetCondition(c101010153.descon)
+	e5:SetOperation(c101010153.desop)
 	c:RegisterEffect(e5)
 end
-function ref.atcon(e,c)
+function c101010153.atcon(e,c)
 	return c==e:GetHandler()
 end
-function ref.retreg(e,tp,eg,ep,ev,re,r,rp)
+function c101010153.retreg(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	--to hand
 	local e1=Effect.CreateEffect(c)
@@ -62,56 +61,56 @@ function ref.retreg(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetCountLimit(1)
 	e1:SetReset(RESET_EVENT+0x1ee0000+RESET_PHASE+PHASE_END)
-	e1:SetCondition(ref.retcon)
-	e1:SetTarget(ref.rettg)
-	e1:SetOperation(ref.retop)
+	e1:SetCondition(c101010153.retcon)
+	e1:SetTarget(c101010153.rettg)
+	e1:SetOperation(c101010153.retop)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	c:RegisterEffect(e2)
 end
-function ref.retcon(e,tp,eg,ep,ev,re,r,rp)
+function c101010153.retcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsHasEffect(EFFECT_SPIRIT_DONOT_RETURN) then return false end
 	if e:IsHasType(EFFECT_TYPE_TRIGGER_F) then
 		return not c:IsHasEffect(EFFECT_SPIRIT_MAYNOT_RETURN)
 	else return c:IsHasEffect(EFFECT_SPIRIT_MAYNOT_RETURN) end
 end
-function ref.rettg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010153.rettg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,e:GetHandler(),1,0,0)
 end
-function ref.retop(e,tp,eg,ep,ev,re,r,rp)
+function c101010153.retop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and c:IsFaceup() then
 		Duel.SendtoHand(c,nil,REASON_EFFECT)
 	end
 end
-function ref.spcon(e)
+function c101010153.spcon(e)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
-function ref.filter(c,e,tp)
-	return c:IsSetCard(0x167) and c:GetCode()~=id
+function c101010153.filter(c,e,tp)
+	return c:IsSetCard(0x167) and c:GetCode()~=101010153
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsHasEffect(EFFECT_NECRO_VALLEY)
 end
-function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101010153.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_GRAVE+LOCATION_HAND,0,1,nil,e,tp) end
+		and Duel.IsExistingMatchingCard(c101010153.filter,tp,LOCATION_GRAVE+LOCATION_HAND,0,1,nil,e,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE+LOCATION_HAND)
 end
-function ref.spop(e,tp,eg,ep,ev,re,r,rp)
+function c101010153.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_GRAVE+LOCATION_HAND,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,c101010153.filter,tp,LOCATION_GRAVE+LOCATION_HAND,0,1,1,nil,e,tp)
 	if g:GetCount()>0 then
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-function ref.descon(e,tp,eg,ep,ev,re,r,rp)
+function c101010153.descon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return Duel.GetTurnPlayer()~=tp and c:IsFaceup() and Duel.GetAttackTarget()==c
 end
-function ref.desop(e,tp,eg,ep,ev,re,r,rp)
+function c101010153.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
 		Duel.Destroy(c,REASON_EFFECT)

@@ -9,17 +9,17 @@ function c481.initial_effect(c)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetOperation(c481.op)
 		Duel.RegisterEffect(e1,0)
-		--[[local ge1=Effect.GlobalEffect()
+		--[[local ge1=Effect.CreateEffect(c)
 		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge1:SetCode(EVENT_ATTACK_ANNOUNCE)
 		ge1:SetOperation(c481.recount)
 		Duel.RegisterEffect(ge1,0)
-		local ge2=Effect.GlobalEffect()
+		local ge2=Effect.CreateEffect(c)
 		ge2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge2:SetCode(EVENT_ATTACK_DISABLED)
 		ge2:SetOperation(c481.recheck)
 		Duel.RegisterEffect(ge2,0)
-		local ge3=Effect.GlobalEffect()
+		local ge3=Effect.CreateEffect(c)
 		ge3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge3:SetCode(EVENT_BATTLED)
 		ge3:SetOperation(c481.recount2)
@@ -50,7 +50,6 @@ function c481.op(e,tp,eg,ep,ev,re,r,rp)
 			ge0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 			ge0:SetRange(LOCATION_ONFIELD)
 			ge0:SetTarget(c481.reen)
-			--ge0:SetOperation(c481.reenop)
 			tc:RegisterEffect(ge0)
 			--redirect
 			local ge0=Effect.CreateEffect(tc)
@@ -60,8 +59,8 @@ function c481.op(e,tp,eg,ep,ev,re,r,rp)
 			ge0:SetCondition(function(e) local c=e:GetHandler() return c:GetDestination()==LOCATION_GRAVE end)
 			tc:RegisterEffect(ge0)
 			--counter
-			if not relay_check then
-				relay_check=true
+			if not point_track then
+				point_track=true
 				local ge1=Effect.CreateEffect(tc)
 				ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 				ge1:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -72,11 +71,6 @@ function c481.op(e,tp,eg,ep,ev,re,r,rp)
 				ge2:SetCode(EVENT_ATTACK_DISABLED)
 				ge2:SetOperation(c481.recheck)
 				Duel.RegisterEffect(ge2,0)
-				local ge3=Effect.CreateEffect(tc)
-				ge3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-				ge3:SetCode(EVENT_BATTLED)
-				ge3:SetOperation(c481.recount2)
-				Duel.RegisterEffect(ge3,0)
 			end
 			--relay summon
 			local ge4=Effect.CreateEffect(tc)
@@ -108,16 +102,16 @@ function c481.op(e,tp,eg,ep,ev,re,r,rp)
 end
 function c481.point(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c:GetFlagEffect(10001100)>0 then
-		c:SetHint(CHINT_NUMBER,c:GetFlagEffectLabel(10001100))
-	end
+	local pt=c:GetFlagEffectLabel(10001100)
+	if not pt then pt=0 end
+	c:SetHint(CHINT_NUMBER,pt)
 end
-function c481.reen(e,tp,eg,ep,ev,re,r,rp,chk)
+function c481.reen(e,tp,eg,ep,ev,re,r,r,chk)
 	local c=e:GetHandler()
 	local loc=LOCATION_DECK
-	if c:IsType(TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) then loc=loc+LOCATION_HAND end
-	if chk==0 then return bit.band(c:GetDestination(),loc)~=0 end
-	Duel.PSendtoExtra(c,c:GetOwner(),r)
+	if c:IsType(TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) or c.spatial then loc=loc+LOCATION_HAND end
+	if chk==0 then return c:IsOnField() and bit.band(c:GetDestination(),loc)~=0 end
+	Duel.SendtoExtraP(c,c:GetOwner(),r)
 	return true
 end
 function c481.recount(e,tp,eg,ep,ev,re,r,rp)
@@ -135,9 +129,6 @@ function c481.recheck(e,tp,eg,ep,ev,re,r,rp)
 	if ct then
 		tc:SetFlagEffectLabel(10001000,0)
 	end
-end
-function c481.recount2(e,tp,eg,ep,ev,re,r,rp)
-	Duel.RegisterFlagEffect(tp,10001000,RESET_PHASE+PHASE_END,0,1)
 end
 function c481.resfilter(c)
 	if c:IsLocation(LOCATION_REMOVED) and c:IsFacedown() then return false end
@@ -189,7 +180,7 @@ function c481.resop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	local sc=sg:GetFirst()
 	while sc do
 		sc:SetMaterial(g)
-		local pt1=Duel.GetFlagEffect(tp,10001000)
+		local pt1=Duel.GetBattledCount(tp)
 		local e1=Effect.CreateEffect(sc)
 		e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_SPSUMMON_SUCCESS)

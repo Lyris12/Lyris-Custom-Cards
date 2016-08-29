@@ -1,6 +1,5 @@
 --White Wisteria Wing
-local id,ref=GIR()
-function ref.start(c)
+function c101010333.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
 	--You cannot Pendulum Summon monsters, except Normal Monsters. This effect cannot be negated.
 	local e0=Effect.CreateEffect(c)
@@ -10,7 +9,7 @@ function ref.start(c)
 	e0:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CANNOT_DISABLE)
 	e0:SetTargetRange(1,0)
 	e0:SetCondition(aux.nfbdncon)
-	e0:SetTarget(ref.splimit)
+	e0:SetTarget(c101010333.splimit)
 	c:RegisterEffect(e0)
 	--Face-down Attack Position monsters you control cannot be destroyed by card effects.
 	local e1=Effect.CreateEffect(c)
@@ -27,19 +26,19 @@ function ref.start(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_BE_BATTLE_TARGET)
 	e2:SetRange(LOCATION_PZONE)
-	e2:SetCondition(ref.con)
-	e2:SetTarget(ref.tg)
-	e2:SetOperation(ref.op)
+	e2:SetCondition(c101010333.con)
+	e2:SetTarget(c101010333.tg)
+	e2:SetOperation(c101010333.op)
 	c:RegisterEffect(e2)
 end
-function ref.splimit(e,c,tp,sumtp,sumpos)
+function c101010333.splimit(e,c,tp,sumtp,sumpos)
 	return not c:IsType(TYPE_NORMAL) and bit.band(sumtp,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
-function ref.con(e,tp,eg,ep,ev,re,r,rp)
+function c101010333.con(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	return r~=REASON_REPLACE and tc:IsControler(e:GetHandler():GetControler()) and tc:IsFaceup() and tc:IsType(TYPE_NORMAL)
 end
-function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010333.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	local tc=Duel.GetAttackTarget()
 	if chk==0 then return tc:IsAbleToHand() and Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
@@ -48,7 +47,7 @@ function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,tc,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
 end
-function ref.op(e,tp,eg,ep,ev,re,r,rp)
+function c101010333.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if not c:IsRelateToEffect(e) or not tc:IsRelateToEffect(e)

@@ -1,186 +1,69 @@
---闇の時間竜－ディアルガЯ
-local id,ref=GIR()
-function ref.initial_effect(c)
-	--fusion summon
-	c:EnableReviveLimit()
+--準星誕生
+function c101010415.initial_effect(c)
+	--Activate After "Dark Hole" resolves and destroys a "Stardust Dragon"(s), "Shooting Star Dragon"(s), and/or 3 or more "Photon" monsters: Special Summon 1 "Shooting Quasar Dragon" from your Extra Deck. (This is treated as a Synchro Summon. All LIGHT monsters and WIND Dragon-Type monsters that were destroyed by that "Dark Hole" become the Summoned Monster's Synchro Materials.)
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-	e1:SetCode(EFFECT_FUSION_MATERIAL)
-	e1:SetCondition(ref.fscon)
-	e1:SetOperation(ref.fsop)
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_DESTROYED)
+	e1:SetRange(0xff)
+	e1:SetOperation(c101010415.chop)
 	c:RegisterEffect(e1)
-	--LIGHT Machine
-	local e0=Effect.CreateEffect(c)
-	e0:SetType(EFFECT_TYPE_FIELD)
-	e0:SetRange(0xf3)
-	e0:SetTargetRange(0xf3,0)
-	e0:SetTarget(ref.atcon)
-	e0:SetCode(EFFECT_ADD_RACE)
-	e0:SetValue(RACE_MACHINE)
-	c:RegisterEffect(e0)
 	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_FIELD)
-	e2:SetRange(0xf3)
-	e2:SetTargetRange(0xf3,0)
-	e2:SetTarget(ref.atcon)
-	e2:SetCode(EFFECT_ADD_ATTRIBUTE)
-	e2:SetValue(ATTRIBUTE_LIGHT)
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e2:SetCode(EVENT_CHAIN_SOLVED)
+	e2:SetRange(0xff)
+	e2:SetOperation(c101010415.chop2)
 	c:RegisterEffect(e2)
-	--link
 	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_FIELD)
-	e3:SetCode(EFFECT_IMMUNE_EFFECT)
-	e3:SetRange(LOCATION_MZONE)
-	e3:SetTargetRange(LOCATION_REMOVED,LOCATION_REMOVED)
-	e3:SetTarget(ref.f3filter1)
-	e3:SetValue(ref.efilter)
+	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e3:SetType(EFFECT_TYPE_ACTIVATE)
+	e3:SetHintTiming(TIMING_CHAIN_END,TIMING_CHAIN_END)
+	--e3:SetProperty(EFFECT_FLAG_DELAY)
+	e3:SetCode(EVENT_FREE_CHAIN)
+	e3:SetLabelObject(e1)
+	e3:SetCondition(c101010415.hspcon)
+	--e3:SetTarget(c101010415.hsptg)
+	e3:SetOperation(c101010415.hspop)
 	c:RegisterEffect(e3)
-	--Absolute Rewind
-	local e4=Effect.CreateEffect(c)
-	e4:SetCategory(CATEGORY_DESTROY+CATEGORY_REMOVE)
-	e4:SetType(EFFECT_TYPE_IGNITION)
-	e4:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e4:SetRange(LOCATION_MZONE)
-	e4:SetCountLimit(1)
-	e4:SetCost(ref.descost)
-	e4:SetTarget(ref.destg)
-	e4:SetOperation(ref.desop)
-	c:RegisterEffect(e4)
 end
-function ref.f3filter1(e,c)
-	return c:IsSetCard(0x5d) and c:IsType(TYPE_SPELL)
+function c101010415.filter(c,g)
+	--[[local re=c:GetReasonEffect()
+	return re:GetHandler():IsCode(53129443) and (]]
+	return c:IsCode(44508094) or c:IsCode(24696097) or (c:IsSetCard(0x55) and g:GetCount()>=3)--)
 end
-function ref.atcon(e)
-	return e:GetHandler()
-end
-function ref.efilter(e,te)
-	return te:GetOwnerPlayer()~=e:GetHandlerPlayer()
-end
-function ref.ffilter(c)
-	return c:IsRace(RACE_MACHINE) or c:IsRace(RACE_DRAGON) or (c:IsSetCard(0x5d) and c:IsType(TYPE_SPELL))
-end
-function ref.f1filter(c)
-	return c:IsRace(RACE_DRAGON)
-end
-function ref.f2filter(c)
-	return c:IsRace(RACE_MACHINE)
-end
-function ref.f3filter(c)
-	return c:IsSetCard(0x5d) and c:IsType(TYPE_SPELL)
-end
-function ref.fscon(e,g,gc,chkf)
-	if g==nil then return true end
-	if not gc then
-		local loc1=LOCATION_SZONE
-		local loc2=LOCATION_SZONE
-		if not g:Filter(Card.IsControler,nil,e:GetHandlerPlayer()):IsExists(Card.IsOnField,1,nil) then loc1=0 end
-		if not g:Filter(Card.IsControler,nil,1-e:GetHandlerPlayer()):IsExists(Card.IsOnField,1,nil) then loc2=0 end
-		local mc=g:GetFirst()
-		while mc do
-			local lct=mc:GetLocation()
-			local p=mc:GetControler()
-			if p==e:GetHandlerPlayer() then loc1=bit.bor(loc1,lct) else loc2=bit.bor(loc2,lct) end
-			mc=g:GetNext()
-		end
-		local sg=Duel.GetMatchingGroup(ref.f3filter,e:GetHandlerPlayer(),loc1,loc2,nil)
+function c101010415.chop(e,tp,eg,ep,ev,re,r,rp)
+	if eg and eg:IsExists(c101010415.filter,1,nil,eg) then
+		e:SetLabelObject(eg)
 	end
-	local mg=g:Filter(Card.IsCanBeFusionMaterial,nil,e:GetHandler())
-	if sg then mg:Merge(sg) end
-	if gc then
-		local b1=0 local b2=0 local b3=0
-		local tc=g:GetFirst()
-		while tc do
-			if ref.f1filter(tc) then b1=1
-				elseif ref.f2filter(tc) then b2=1
-				elseif ref.f3filter(tc) then b3=1
-			end
-			tc=g:GetNext()
-		end
-		if ref.f1filter(gc) then b1=1
-			elseif ref.f2filter(gc) then b2=1
-			elseif ref.f3filter(gc) then b3=1
-			else return false
-		end
-		return b1+b2+b3>2
-	end
-	local b1=0 local b2=0 local b3=0
-	local fs=false
-	local tc=g:GetFirst()
-	while tc do
-		if ref.f1filter(tc) then b1=1 if aux.FConditionCheckF(tc,chkf) then fs=true end end
-		if ref.f2filter(tc) then b2=1 if aux.FConditionCheckF(tc,chkf) then fs=true end end
-		if ref.f3filter(tc) then b3=1 if aux.FConditionCheckF(tc,chkf) then fs=true end end
-		tc=g:GetNext()
-	end
-	return b1+b2+b3>=3 and (fs or chkf==PLAYER_NONE)
 end
-function ref.fsop(e,tp,eg,ep,ev,re,r,rp,gc,chkf)
-	local loc1=LOCATION_SZONE
-	local loc2=LOCATION_SZONE
-	if not eg:Filter(Card.IsControler,nil,tp):IsExists(Card.IsOnField,1,nil) then loc1=0 end
-	if not eg:Filter(Card.IsControler,nil,1-tp):IsExists(Card.IsOnField,1,nil) then loc2=0 end
-	local mc=eg:GetFirst()
-	while mc do
-		local lct=mc:GetLocation()
-		local tlc=bit.band(loc1,lct)
-		if tlc==0 then
-			local p=mc:GetControler()
-			if p==e:GetHandlerPlayer() then loc1=bit.bor(loc1,lct) else loc2=bit.bor(loc2,lct) end
-		end
-		mc=eg:GetNext()
-	end
-	local mg=Duel.GetMatchingGroup(ref.f3filter,e:GetHandlerPlayer(),loc1,loc2,nil)
-	local g=eg:Filter(Card.IsCanBeFusionMaterial,nil,e:GetHandler())
-	g:Merge(mg)
-	if gc then
-		local sg=eg:Filter(ref.ffilter,gc)
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
-		local g1=sg:Select(tp,1,1,nil)
-		sg:Remove(Card.IsRace,nil,g1:GetFirst():GetRace())
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
-		local g2=sg:Select(tp,1,1,nil)
-		g1:Merge(g2)
-		Duel.SetFusionMaterial(g1)
-		return
-	end
-	local sg=eg:Filter(ref.ffilter,nil)
-	local g1=nil
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
-	if chkf~=PLAYER_NONE then g1=sg:FilterSelect(tp,aux.FConditionCheckF,1,1,nil,chkf)
-	else g1=sg:Select(tp,1,1,nil) end
-	if bit.band(g1:GetFirst():GetOriginalType(),TYPE_MONSTER)==TYPE_MONSTER then sg:Remove(Card.IsRace,nil,g1:GetFirst():GetRace())
-	else sg:Remove(ref.f3filter,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
-	local g2=sg:Select(tp,1,1,nil)
-	if bit.band(g2:GetFirst():GetOriginalType(),TYPE_MONSTER)==TYPE_MONSTER then sg:Remove(Card.IsRace,nil,g2:GetFirst():GetRace())
-	else sg:Remove(ref.f3filter,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
-	local g3=sg:Select(tp,1,1,nil)
-	g1:Merge(g2)
-	g1:Merge(g3)
-	Duel.SetFusionMaterial(g1)
-end
-function ref.descost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010415.chop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if chk==0 then return c:GetAttackAnnouncedCount()==0 end
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_OATH)
-	e1:SetCode(EFFECT_CANNOT_ATTACK)
-	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-	c:RegisterEffect(e1,true)
+	if re:GetHandler():IsCode(53129443) and e:GetLabelObject():GetLabelObject() and c:GetFlagEffect(101010415)==0 then
+		Debug.ShowHint("h")
+		c:RegisterFlagEffect(101010415,RESET_EVENT+0x1fe0000,0,0)
+	end
 end
-function ref.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() and chkc:IsDestructable() end
-	if chk==0 then return Duel.IsExistingTarget(Card.IsDestructable,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetHandler()) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,Card.IsDestructable,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,e:GetHandler())
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+function c101010415.hspcon(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	if c:GetFlagEffect(101010415)~=0 then
+		c:ResetFlagEffect(101010415)
+		return true
+	else return false end
 end
-function ref.desop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Duel.Destroy(tc,REASON_EFFECT,LOCATION_REMOVED)
+function c101010415.hsptg(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=Duel.GetFirstMatchingCard(Card.IsCode,tp,LOCATION_EXTRA,0,nil,35952884)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and c and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_SYNCHRO,tp,false,false) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
+end
+function c101010415.mfilter(c)
+	return c:IsAttribute(ATTRIBUTE_LIGHT) or (c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_DRAGON))
+end
+function c101010415.hspop(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+	local c=Duel.GetFirstMatchingCard(Card.IsCode,tp,LOCATION_EXTRA,0,nil,35952884)
+	if c then
+		local mg=e:GetLabelObject():GetLabelObject()
+		if mg then c:SetMaterial(mg:Filter(c101010415.mfilter,nil)) end
+		Duel.SpecialSummon(c,SUMMON_TYPE_SYNCHRO,tp,tp,false,false,POS_FACEUP)
 	end
 end

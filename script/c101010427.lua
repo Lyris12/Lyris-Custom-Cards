@@ -1,8 +1,7 @@
 --Cyberspace Eclipse Dragon
-local id,ref=GIR()
-function ref.initial_effect(c)
+function c101010427.initial_effect(c)
 	--xyz summon
-	aux.AddXyzProcedure(c,ref.xyzfilter,10,3,ref.ovfilter,aux.Stringid(101010341,0),3,nil)
+	aux.AddXyzProcedure(c,c101010427.xyzfilter,10,3,c101010427.ovfilter,aux.Stringid(101010341,0),3,nil)
 	c:EnableReviveLimit()
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_SINGLE)
@@ -16,7 +15,7 @@ function ref.initial_effect(c)
 	e5:SetType(EFFECT_TYPE_IGNITION)
 	e5:SetRange(LOCATION_MZONE)
 	e5:SetCountLimit(1)
-	e5:SetOperation(ref.atop)
+	e5:SetOperation(c101010427.atop)
 	c:RegisterEffect(e5)
 	--negate(effect)
 	local e3=Effect.CreateEffect(c)
@@ -25,10 +24,10 @@ function ref.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_QUICK_O)
 	e3:SetCode(EVENT_CHAINING)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetCondition(ref.negcon)
-	e3:SetCost(ref.negcost)
-	e3:SetTarget(ref.negtg)
-	e3:SetOperation(ref.negop)
+	e3:SetCondition(c101010427.negcon)
+	e3:SetCost(c101010427.negcost)
+	e3:SetTarget(c101010427.negtg)
+	e3:SetOperation(c101010427.negop)
 	c:RegisterEffect(e3)
 	--Activate(summon)
 	local e1=Effect.CreateEffect(c)
@@ -36,10 +35,10 @@ function ref.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_SUMMON)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetCondition(ref.condition1)
-	e1:SetCost(ref.negcost)
-	e1:SetTarget(ref.target1)
-	e1:SetOperation(ref.activate1)
+	e1:SetCondition(c101010427.condition1)
+	e1:SetCost(c101010427.negcost)
+	e1:SetTarget(c101010427.target1)
+	e1:SetOperation(c101010427.activate1)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
 	e2:SetCode(EVENT_FLIP_SUMMON)
@@ -48,16 +47,16 @@ function ref.initial_effect(c)
 	e4:SetCode(EVENT_SPSUMMON)
 	c:RegisterEffect(e4)
 end
-function ref.xyzfilter(c)
+function c101010427.xyzfilter(c)
 	return c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_MACHINE)
 end
-function ref.ovfilter(c)
+function c101010427.ovfilter(c)
 	return c:IsFaceup() and c:IsCode(101010336)
 end
-function ref.filter1(c,tp)
+function c101010427.filter1(c,tp)
 	return c:IsRace(RACE_MACHINE) and not c:IsType(TYPE_TOKEN)
 end
-function ref.atop(e,tp,eg,ep,ev,re,r,rp)
+function c101010427.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
@@ -67,19 +66,19 @@ function ref.atop(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function ref.negcon(e,tp,eg,ep,ev,re,r,rp)
+function c101010427.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE)) and Duel.IsChainNegatable(ev)
 end
-function ref.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010427.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) and e:GetHandler():GetFlagEffect(101010341)==0 end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 	e:GetHandler():RegisterFlagEffect(101010341,RESET_PHASE+PHASE_END+RESET_EVENT+0x1fe0000,0,1)
 end
-function ref.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010427.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end 
 	Duel.SetOperationInfo(0,CATEGORY_NEGATE,ev,1,0,0)
 end
-function ref.negop(e,tp,eg,ep,ev,re,r,rp)
+function c101010427.negop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.NegateActivation(ev)
 	local tc=re:GetHandler()
 	if tc:IsRelateToEffect(re) then
@@ -88,7 +87,7 @@ function ref.negop(e,tp,eg,ep,ev,re,r,rp)
 		if tc:IsLocation(LOCATION_SZONE) then
 			tc:CancelToGrave()
 			tc:SetStatus(STATUS_SET_TURN,true)
-		else pos=POS_FACEDOWN_DEFENCE event=EVENT_MSET end
+		else pos=POS_FACEDOWN_DEFENSE event=EVENT_MSET end
 		Duel.ChangePosition(tc,pos,pos,pos,pos)
 		Duel.RaiseEvent(tc,event,e,REASON_EFFECT,tp,tp,0)
 		local e1=Effect.CreateEffect(c)
@@ -100,15 +99,15 @@ function ref.negop(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 	end
 end
-function ref.condition1(e,tp,eg,ep,ev,re,r,rp)
+function c101010427.condition1(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentChain()==0
 end
-function ref.target1(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010427.target1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE_SUMMON,eg,eg:GetCount(),0,0)
 end
-function ref.activate1(e,tp,eg,ep,ev,re,r,rp)
+function c101010427.activate1(e,tp,eg,ep,ev,re,r,rp)
 	Duel.NegateSummon(eg)
-	Duel.ChangePosition(eg,POS_FACEDOWN_DEFENCE,POS_FACEDOWN_DEFENCE,POS_FACEDOWN_DEFENCE,POS_FACEDOWN_DEFENCE)
+	Duel.ChangePosition(eg,POS_FACEDOWN_DEFENSE,POS_FACEDOWN_DEFENSE,POS_FACEDOWN_DEFENSE,POS_FACEDOWN_DEFENSE)
 	Duel.RaiseEvent(rc,EVENT_MSET,e,REASON_EFFECT,tp,tp,0)
 end

@@ -1,6 +1,5 @@
 --剣主 四
-local id,ref=GIR()
-function ref.start(c)
+function c101010214.initial_effect(c)
 c:EnableReviveLimit()
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xbb2),4,2)
 	--pierce
@@ -23,16 +22,16 @@ c:EnableReviveLimit()
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCountLimit(1)
-	e2:SetCost(ref.setcost)
-	e2:SetTarget(ref.settg)
-	e2:SetOperation(ref.setop)
+	e2:SetCost(c101010214.setcost)
+	e2:SetTarget(c101010214.settg)
+	e2:SetOperation(c101010214.setop)
 	c:RegisterEffect(e2)
 end
-function ref.setcost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010214.setcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
-function ref.settg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101010214.settg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsPosition(POS_ATTACK) end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsPosition,tp,0,LOCATION_MZONE,1,nil,POS_ATTACK) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_POSCHANGE)
@@ -40,17 +39,17 @@ function ref.settg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_POSITION,g,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 end
-function ref.spfilter(c,e,tp)
+function c101010214.spfilter(c,e,tp)
 	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xbb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function ref.setop(e,tp,eg,ep,ev,re,r,rp)
+function c101010214.setop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsFaceup() and tc:IsRelateToEffect(e) and Duel.ChangePosition(tc,POS_FACEUP_DEFENCE)~=0 then
+	if tc:IsFaceup() and tc:IsRelateToEffect(e) and Duel.ChangePosition(tc,POS_FACEUP_DEFENSE)~=0 then
 		Duel.BreakEffect()
 		if Duel.Draw(tp,1,REASON_EFFECT)==0 then return end
 		local dr=Duel.GetOperatedGroup():Filter(Card.IsLocation,nil,LOCATION_HAND):GetFirst()
 		Duel.ConfirmCards(1-tp,dr)
-		if ref.spfilter(dr,e,tp) and Duel.SelectYesNo(tp,2) then
+		if c101010214.spfilter(dr,e,tp) and Duel.SelectYesNo(tp,2) then
 			if Duel.SpecialSummon(dr,0,tp,tp,false,false,POS_FACEUP_ATTACK)==0 then
 				Duel.ShuffleHand(tp)
 			end

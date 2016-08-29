@@ -1,34 +1,49 @@
 --襲雷のアートィレリー
-local id,ref=GIR()
-function ref.start(c)
---Activate
-	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_DESTROY)
-	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_DESTROYED)
-	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
-	e1:SetCondition(ref.con)
-	e1:SetTarget(ref.tg)
-	e1:SetOperation(ref.doperation)
-	c:RegisterEffect(e1)
+function c101010075.initial_effect(c)
 	--
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DAMAGE)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_DESTROYED)
-	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
-	e2:SetCondition(ref.descon)
-	e2:SetTarget(ref.destg)
-	e2:SetOperation(ref.desop)
+	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
+	e2:SetCondition(c101010075.descon)
+	e2:SetTarget(c101010075.destg)
+	e2:SetOperation(c101010075.desop)
 	c:RegisterEffect(e2)
+	local e1=Effect.CreateEffect(c)
+	e1:SetCategory(CATEGORY_DRAW)
+	e1:SetType(EFFECT_TYPE_ACTIVATE)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetTarget(c101010075.target)
+	e1:SetOperation(c101010075.activate)
+	c:RegisterEffect(e1)
 end
-function ref.ctfilter(c,tp)
-	return c:IsControler(tp) and c:IsFaceup() and c:IsSetCard(0x167)
+function c101010075.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsPlayerCanDraw(tp,2) end
+	Duel.SetTargetPlayer(tp)
+	Duel.SetTargetParam(2)
+	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,2)
 end
-function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(ref.ctfilter,1,nil,tp)
+function c101010075.activate(e,tp,eg,ep,ev,re,r,rp)
+	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
+	Duel.Draw(p,d,REASON_EFFECT)
+	Duel.BreakEffect()
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+	local g=Duel.SelectMatchingCard(p,c101010075.filter,p,LOCATION_HAND,0,1,1,nil)
+	local tg=g:GetFirst()
+	if not tg then
+		tg=Duel.GetFieldGroup(tp,LOCATION_HAND,0)
+	end
+	Duel.Destroy(tg,REASON_EFFECT)
 end
-function ref.dtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101010075.filter(c)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x167) and c:IsDestructable()
+end
+function c101010075.descon(e,tp,eg,ep,ev,re,r,rp)
+	return rp~=tp and e:GetHandler():GetPreviousControler()==tp
+end
+function c101010075.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and chkc:IsDestructable() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsDestructable,tp,0,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
@@ -36,20 +51,10 @@ function ref.dtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,500)
 end
-function ref.doperation(e,tp,eg,ep,ev,re,r,rp)
+function c101010075.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT)~=0 then
 		Duel.BreakEffect()
 		Duel.Damage(1-tp,500,REASON_EFFECT)
 	end
-end
-function ref.descon(e,tp,eg,ep,ev,re,r,rp)
-	return rp~=tp and e:GetHandler():GetPreviousControler()==tp
-end
-function ref.destg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,500)
-end
-function ref.desop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Damage(1-tp,500,REASON_EFFECT)
 end

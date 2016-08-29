@@ -1,13 +1,12 @@
 --ＨＥＲＯの儀式
-local id,ref=GIR()
-function ref.start(c)
+function c101010121.initial_effect(c)
 --Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
-	e0:SetTarget(ref.target)
-	e0:SetOperation(ref.activate)
+	e0:SetTarget(c101010121.target)
+	e0:SetOperation(c101010121.activate)
 	c:RegisterEffect(e0)
 	--search
 	local e1=Effect.CreateEffect(c)
@@ -15,13 +14,13 @@ function ref.start(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_GRAVE)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetCondition(ref.thcon)
-	e1:SetCost(ref.thcost)
-	e1:SetTarget(ref.thtg)
-	e1:SetOperation(ref.thop)
+	e1:SetCondition(c101010121.thcon)
+	e1:SetCost(c101010121.thcost)
+	e1:SetTarget(c101010121.thtg)
+	e1:SetOperation(c101010121.thop)
 	c:RegisterEffect(e1)
 end
-function ref.ritual_filter(c,e,tp,m)
+function c101010121.ritual_filter(c,e,tp,m)
 	if not (c:IsSetCard(0x8) or c:IsSetCard(0x785a)) or bit.band(c:GetOriginalType(),0x81)~=0x81 or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
 	if c:IsLocation(LOCATION_SZONE) and c:IsControler(1-tp) and c:IsFacedown() then return false end
 	local mg=nil
@@ -35,24 +34,24 @@ function ref.ritual_filter(c,e,tp,m)
 	if c:IsLocation(LOCATION_SZONE) then lv=c:GetOriginalLevel() end
 	return mg:CheckWithSumEqual(Card.GetRitualLevel,lv,1,99,c)
 end
-function ref.mfilter(c)
+function c101010121.mfilter(c)
 	return c:GetOriginalLevel()>0 and c:IsAbleToGrave()
 end
-function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010121.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local mg=Duel.GetRitualMaterial(tp)
-		local lg=Duel.GetMatchingGroup(ref.mfilter,tp,LOCATION_SZONE,0,nil)
+		local lg=Duel.GetMatchingGroup(c101010121.mfilter,tp,LOCATION_SZONE,0,nil)
 		mg:Merge(lg)
-		return Duel.IsExistingMatchingCard(ref.ritual_filter,tp,LOCATION_HAND+LOCATION_SZONE,0,1,nil,e,tp,mg)
+		return Duel.IsExistingMatchingCard(c101010121.ritual_filter,tp,LOCATION_HAND+LOCATION_SZONE,0,1,nil,e,tp,mg)
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_SZONE)
 end
-function ref.activate(e,tp,eg,ep,ev,re,r,rp)
+function c101010121.activate(e,tp,eg,ep,ev,re,r,rp)
 	local mg=Duel.GetRitualMaterial(tp)
-	local lg=Duel.GetMatchingGroup(ref.mfilter,tp,LOCATION_SZONE,0,nil)
+	local lg=Duel.GetMatchingGroup(c101010121.mfilter,tp,LOCATION_SZONE,0,nil)
 	mg:Merge(lg)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local tg=Duel.SelectMatchingCard(tp,ref.ritual_filter,tp,LOCATION_HAND+LOCATION_SZONE,0,1,1,nil,e,tp,mg)
+	local tg=Duel.SelectMatchingCard(tp,c101010121.ritual_filter,tp,LOCATION_HAND+LOCATION_SZONE,0,1,1,nil,e,tp,mg)
 	if tg:GetCount()>0 then
 		local tc=tg:GetFirst()
 		if tc:IsFacedown() and tc:IsOnField() then Duel.ConfirmCards(1-tp,tc) end
@@ -69,24 +68,24 @@ function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 		tc:CompleteProcedure()
 	end
 end
-function ref.thcon(e,tp,eg,ep,ev,re,r,rp)
+function c101010121.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnCount()~=e:GetHandler():GetTurnID()
 end
-function ref.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010121.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
-function ref.filter(c)
+function c101010121.filter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x8) and c:IsAbleToHand()
 end
-function ref.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and ref.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(ref.filter,tp,LOCATION_GRAVE,0,1,nil) end
+function c101010121.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c101010121.filter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c101010121.filter,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectTarget(tp,ref.filter,tp,LOCATION_GRAVE,0,1,1,nil)
+	local g=Duel.SelectTarget(tp,c101010121.filter,tp,LOCATION_GRAVE,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
-function ref.thop(e,tp,eg,ep,ev,re,r,rp)
+function c101010121.thop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsRelateToEffect(e) then
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
@@ -96,7 +95,7 @@ function ref.thop(e,tp,eg,ep,ev,re,r,rp)
 		e4:SetCode(EFFECT_CANNOT_SUMMON)
 		e4:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 		e4:SetTargetRange(1,0)
-		e4:SetTarget(ref.sumlimit)
+		e4:SetTarget(c101010121.sumlimit)
 		e4:SetLabel(tc:GetCode())
 		e4:SetReset(RESET_PHASE+PHASE_END)
 		Duel.RegisterEffect(e4,tp)
@@ -111,6 +110,6 @@ function ref.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.RegisterEffect(e5,tp)
 	end
 end
-function ref.sumlimit(e,c)
+function c101010121.sumlimit(e,c)
 	return c:IsCode(e:GetLabel())
 end

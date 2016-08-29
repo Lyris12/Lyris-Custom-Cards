@@ -1,6 +1,5 @@
 --Osa, Princess of Stellar Vine
-local id,ref=GIR()
-function ref.start(c)
+function c101010424.initial_effect(c)
 	--to grave
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetCategory(CATEGORY_TOGRAVE)
@@ -8,9 +7,9 @@ function ref.start(c)
 	ae1:SetRange(LOCATION_MZONE)
 	ae1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	ae1:SetCountLimit(1)
-	ae1:SetCost(ref.cost)
-	ae1:SetTarget(ref.target)
-	ae1:SetOperation(ref.op)
+	ae1:SetCost(c101010424.cost)
+	ae1:SetTarget(c101010424.target)
+	ae1:SetOperation(c101010424.op)
 	c:RegisterEffect(ae1)
 	--special summon (Do Not Remove)
 	c:EnableReviveLimit()
@@ -19,8 +18,8 @@ function ref.start(c)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e1:SetRange(LOCATION_EXTRA)
-	e1:SetCondition(ref.spcon)
-	e1:SetOperation(ref.spop)
+	e1:SetCondition(c101010424.spcon)
+	e1:SetOperation(c101010424.spop)
 	e1:SetValue(SUMMON_TYPE_XYZ+7150)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
@@ -40,16 +39,17 @@ function ref.start(c)
 	ge1:SetValue(LOCATION_REMOVED)
 	Duel.RegisterEffect(ge1,0)
 end
-function ref.spfilter(c)
+function c101010424.spfilter(c)
 	return c:IsAbleToRemoveAsCost() and c:IsAttribute(ATTRIBUTE_WATER)
 end
-function ref.spcon(e,c)
+function c101010424.spcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
-	return Duel.GetLocationCount(tp,LOCATION_MZONE)>-2 and Duel.IsExistingMatchingCard(ref.spfilter,tp,LOCATION_MZONE,0,2,nil)
+	return Duel.GetLocationCount(tp,LOCATION_MZONE)>-2 and Duel.IsExistingMatchingCard(c101010424.spfilter,tp,LOCATION_MZONE,0,2,nil)
 end
-function ref.spop(e,tp,eg,ep,ev,re,r,rp,c)
-	local tc=Duel.SelectMatchingCard(tp,ref.spfilter,tp,LOCATION_MZONE,0,2,2,nil)
+function c101010424.spop(e,tp,eg,ep,ev,re,r,rp,c)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+	local tc=Duel.SelectMatchingCard(tp,c101010424.spfilter,tp,LOCATION_MZONE,0,2,2,nil)
 	c:SetMaterial(tc)
 	local fg=tc:Filter(Card.IsFacedown,nil)
 	if fg:GetCount()>0 then Duel.ConfirmCards(1-tp,fg) end
@@ -68,25 +68,25 @@ function ref.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	e1:SetValue(atk)
 	c:RegisterEffect(e1)
 end
-function ref.cfilter(c)
+function c101010424.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x785a) and c:IsAbleToDeckOrExtraAsCost()
 end
-function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_REMOVED,0,1,nil) end
-	local g=Duel.SelectMatchingCard(tp,ref.cfilter,tp,LOCATION_REMOVED,0,1,1,nil)
+function c101010424.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c101010424.cfilter,tp,LOCATION_REMOVED,0,1,nil) end
+	local g=Duel.SelectMatchingCard(tp,c101010424.cfilter,tp,LOCATION_REMOVED,0,1,1,nil)
 	Duel.SendtoDeck(g,nil,2,REASON_COST)
 end
-function ref.filter(c)
+function c101010424.filter(c)
 	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsSetCard(0x785e) and c:IsAbleToGraveAsCost()
 end
-function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and ref.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(ref.filter,tp,LOCATION_REMOVED,0,4,nil) end
+function c101010424.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c101010424.filter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c101010424.filter,tp,LOCATION_REMOVED,0,4,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010594,0))
-	local g=Duel.SelectTarget(tp,ref.filter,tp,LOCATION_REMOVED,0,3,3,nil)
+	local g=Duel.SelectTarget(tp,c101010424.filter,tp,LOCATION_REMOVED,0,3,3,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,g,g:GetCount(),0,0)
 end
-function ref.op(e,tp,eg,ep,ev,re,r,rp)
+function c101010424.op(e,tp,eg,ep,ev,re,r,rp)
 	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	if not tg or tg:FilterCount(Card.IsRelateToEffect,nil,e)~=3 then return end
 	Duel.SendtoGrave(tg,REASON_EFFECT)

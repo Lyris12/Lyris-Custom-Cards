@@ -1,6 +1,5 @@
 --Victory Dragon Libraker
-local id,ref=GIR()
-function ref.start(c)
+function c101010292.initial_effect(c)
 --Xyz Summon
 	c:EnableReviveLimit()
 	aux.AddXyzProcedure(c,nil,4,2)
@@ -10,8 +9,8 @@ function ref.start(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e1:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return bit.band(e:GetHandler():GetSummonType(),0x8773)==0x8773 end)
-	e1:SetTarget(ref.tg)
-	e1:SetOperation(ref.op)
+	e1:SetTarget(c101010292.tg)
+	e1:SetOperation(c101010292.op)
 	c:RegisterEffect(e1)
 	--detach
 	local e2=Effect.CreateEffect(c)
@@ -20,28 +19,28 @@ function ref.start(c)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetCountLimit(1)
 	e2:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return Duel.GetCurrentPhase()==PHASE_MAIN1 end)
-	e2:SetCost(ref.cost)
-	e2:SetTarget(ref.mptg)
-	e2:SetOperation(ref.mpop)
+	e2:SetCost(c101010292.cost)
+	e2:SetTarget(c101010292.mptg)
+	e2:SetOperation(c101010292.mpop)
 	c:RegisterEffect(e2)
-	if not ref.global_check then
-		ref.global_check=true
+	if not relay_check then
+		relay_check=true
 		local ge2=Effect.CreateEffect(c)
 		ge2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge2:SetCode(EVENT_ADJUST)
 		ge2:SetCountLimit(1)
 		ge2:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
-		ge2:SetOperation(ref.chk)
+		ge2:SetOperation(c101010292.chk)
 		Duel.RegisterEffect(ge2,0)
 	end
 end
-ref.relay=true
-ref.point=3
-function ref.chk(e,tp,eg,ep,ev,re,r,rp)
+c101010292.relay=true
+c101010292.point=3
+function c101010292.chk(e,tp,eg,ep,ev,re,r,rp)
 	Duel.CreateToken(tp,481)
 	Duel.CreateToken(1-tp,481)
 end
-function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010292.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return c:GetFlagEffect(10001100)>0 and Duel.IsPlayerCanDiscardDeck(1-tp,1) end
 	local t={}
@@ -53,7 +52,7 @@ function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 		t[p]=i p=p+1
 	end
 	t[p]=nil
-	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,0))
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010292,0))
 	local ct=Duel.AnnounceNumber(tp,table.unpack(t))
 	if lv==ct then
 		c:ResetFlagEffect(10001100)
@@ -64,20 +63,20 @@ function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabel(ct)
 	Duel.SetOperationInfo(0,CATEGORY_DECKDES,nil,0,1-tp,ct)
 end
-function ref.op(e,tp,eg,ep,ev,re,r,rp)
+function c101010292.op(e,tp,eg,ep,ev,re,r,rp)
 	Duel.DiscardDeck(1-tp,e:GetLabel(),REASON_EFFECT)
 end
-function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010292.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
-function ref.mptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101010292.mptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 	Duel.SelectTarget(tp,aux.TRUE,tp,LOCATION_MZONE,0,1,1,nil)
 end
-function ref.mpop(e,tp,eg,ep,ev,re,r,rp)
+function c101010292.mpop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		--disable
@@ -85,12 +84,12 @@ function ref.mpop(e,tp,eg,ep,ev,re,r,rp)
 		e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 		e4:SetCode(EVENT_ATTACK_ANNOUNCE)
 		e4:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return Duel.GetAttackTarget()~=nil end)
-		e4:SetOperation(ref.disop)
+		e4:SetOperation(c101010292.disop)
 		e4:SetReset(RESET_PHASE+PHASE_END+RESET_EVENT+0x1fe0000)
 		tc:RegisterEffect(e4)
 	end
 end
-function ref.disop(e,tp,eg,ep,ev,re,r,rp)
+function c101010292.disop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=c:GetBattleTarget()
 	local e1=Effect.CreateEffect(c)

@@ -1,11 +1,10 @@
 --F・HEROプロヒビットガイ
-local id,ref=GIR()
-function ref.start(c)
+function c101010141.initial_effect(c)
 --damage half
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_DESTROY)
-	e0:SetOperation(ref.regop)
+	e0:SetOperation(c101010141.regop)
 	c:RegisterEffect(e0)
 	--set
 	local e1=Effect.CreateEffect(c)
@@ -15,22 +14,22 @@ function ref.start(c)
 	c:RegisterEffect(e1)
 	--activate
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,0))
+	e2:SetDescription(aux.Stringid(101010141,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_ACTIVATE+EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
-	e2:SetCondition(ref.actcon)
-	e2:SetCost(ref.actcost)
-	e2:SetTarget(ref.acttg)
-	e2:SetOperation(ref.act)
+	e2:SetCondition(c101010141.actcon)
+	e2:SetCost(c101010141.actcost)
+	e2:SetTarget(c101010141.acttg)
+	e2:SetOperation(c101010141.act)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
-	e3:SetDescription(aux.Stringid(id,1))
+	e3:SetDescription(aux.Stringid(101010141,1))
 	e3:SetCode(EVENT_CHAINING)
 	c:RegisterEffect(e3)
 end
-function ref.regop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetFlagEffect(tp,id)~=0 then return end
+function c101010141.regop(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetFlagEffect(tp,101010141)~=0 then return end
 	local c=e:GetHandler()
 	if c:IsReason(REASON_EFFECT) then
 		local e1=Effect.CreateEffect(c)
@@ -42,33 +41,33 @@ function ref.regop(e,tp,eg,ep,ev,re,r,rp)
 		else
 			e1:SetTargetRange(0,1)
 		end
-		e1:SetValue(ref.val)
+		e1:SetValue(c101010141.val)
 		e1:SetReset(RESET_PHASE+PHASE_END)
 		Duel.RegisterEffect(e1,tp)
-		Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1)
+		Duel.RegisterFlagEffect(tp,101010141,RESET_PHASE+PHASE_END,0,1)
 	end
 end
-function ref.actcon(e,tp,eg,ep,ev,re,r,rp)
-	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(id)~=0
+function c101010141.actcon(e,tp,eg,ep,ev,re,r,rp)
+	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(101010091)~=0
 end
-function ref.cfilter(c)
+function c101010141.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x9008)
 end
-function ref.actcost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010141.actcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	if Duel.CheckReleaseGroup(tp,ref.cfilter,1,nil) and Duel.SelectYesNo(tp,500) then
-		local g=Duel.SelectReleaseGroup(tp,ref.cfilter,1,1,nil)
+	if Duel.CheckReleaseGroup(tp,c101010141.cfilter,1,nil) and Duel.SelectYesNo(tp,500) then
+		local g=Duel.SelectReleaseGroup(tp,c101010141.cfilter,1,1,nil)
 		e:SetLabelObject(g:GetFirst())
 		Duel.Release(g,REASON_COST)
 		else return true
 	end
 end
-function ref.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010141.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
 		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
-function ref.act(e,tp,eg,ep,ev,re,r,rp)
+function c101010141.act(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
@@ -84,6 +83,6 @@ function ref.act(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function ref.val(e,re,dam)
+function c101010141.val(e,re,dam)
 	return dam/2
 end

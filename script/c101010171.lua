@@ -1,12 +1,11 @@
 --
-local id,ref=GIR()
-function ref.start(c)
+function c101010171.initial_effect(c)
 --Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetOperation(ref.activate)
+	e1:SetOperation(c101010171.activate)
 	c:RegisterEffect(e1)
 	--disable
 	local e2=Effect.CreateEffect(c)
@@ -24,10 +23,10 @@ function ref.start(c)
 	e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e5:SetCode(EVENT_PHASE+PHASE_END)
 	e5:SetRange(LOCATION_SZONE)
-	e5:SetCountLimit(1,id)
+	e5:SetCountLimit(1,101010171)
 	e5:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return Duel.GetTurnPlayer()~=tp end)
-	e5:SetTarget(ref.tg1)
-	e5:SetOperation(ref.op1)
+	e5:SetTarget(c101010171.tg1)
+	e5:SetOperation(c101010171.op1)
 	c:RegisterEffect(e5)
 	--choice 2: gain LP
 	local e6=Effect.CreateEffect(c)
@@ -36,36 +35,36 @@ function ref.start(c)
 	e6:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e6:SetCode(EVENT_PHASE+PHASE_END)
 	e6:SetRange(LOCATION_SZONE)
-	e6:SetCountLimit(1,id)
+	e6:SetCountLimit(1,101010171)
 	e6:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return Duel.GetTurnPlayer()~=tp end)
-	e6:SetTarget(ref.tg)
-	e6:SetOperation(ref.op)
+	e6:SetTarget(c101010171.tg)
+	e6:SetOperation(c101010171.op)
 	c:RegisterEffect(e6)
 end
-function ref.filter(c)
+function c101010171.filter(c)
 	return c:IsSetCard(0x167) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
-function ref.activate(e,tp,eg,ep,ev,re,r,rp)
+function c101010171.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
-	local g=Duel.GetMatchingGroup(ref.filter,tp,LOCATION_DECK,0,nil)
-	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
+	local g=Duel.GetMatchingGroup(c101010171.filter,tp,LOCATION_DECK,0,nil)
+	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101010171,0)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local sg=g:Select(tp,1,1,nil)
 		Duel.SendtoHand(sg,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,sg)
 	end
 end
-function ref.dfilter(c,tid)
+function c101010171.dfilter(c,tid)
 	return bit.band(c:GetReason(),0x41)==0x41 and c:GetTurnID()==tid
 end
-function ref.tg1(e,tp,eg,ep,ev,re,r,rp,chk)
-	local ct=Duel.GetMatchingGroupCount(ref.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
+function c101010171.tg1(e,tp,eg,ep,ev,re,r,rp,chk)
+	local ct=Duel.GetMatchingGroupCount(c101010171.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,ct) end
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,ct)
 end
-function ref.op1(e,tp,eg,ep,ev,re,r,rp)
+function c101010171.op1(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
-	local ct=Duel.GetMatchingGroupCount(ref.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
+	local ct=Duel.GetMatchingGroupCount(c101010171.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
 	Duel.Draw(tp,ct,REASON_EFFECT)
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -75,13 +74,13 @@ function ref.op1(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetReset(RESET_PHASE+PHASE_END,2)
 	Duel.RegisterEffect(e1,tp)
 end
-function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
-	local ct=Duel.GetMatchingGroupCount(ref.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
+function c101010171.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+	local ct=Duel.GetMatchingGroupCount(c101010171.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_RECOVER,nil,0,tp,ct*300)
 end
-function ref.op(e,tp,eg,ep,ev,re,r,rp)
+function c101010171.op(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
-	local ct=Duel.GetMatchingGroupCount(ref.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
+	local ct=Duel.GetMatchingGroupCount(c101010171.dfilter,tp,0xff,0xff,nil,Duel.GetTurnCount())
 	Duel.Recover(tp,ct*300,REASON_EFFECT)
 end

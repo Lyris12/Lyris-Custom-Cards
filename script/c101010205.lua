@@ -1,6 +1,5 @@
 --ＳＳＤ－フロント・ブロー
-local id,ref=GIR()
-function ref.start(c)
+function c101010205.initial_effect(c)
 aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),2)
 	c:EnableReviveLimit()
 	--atkup
@@ -10,7 +9,7 @@ aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),2)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(LOCATION_MZONE,0)
-	e1:SetCondition(ref.atkcon)
+	e1:SetCondition(c101010205.atkcon)
 	e1:SetValue(300)
 	c:RegisterEffect(e1)
 	--When this card is Synchro Summoned: You can Special Summon 1 monster from your hand, and if you do, that monster gains this effect until the end of the turn. (below)
@@ -18,20 +17,20 @@ aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),2)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e2:SetCondition(ref.con)
-	e2:SetTarget(ref.tg)
-	e2:SetOperation(ref.op)
+	e2:SetCondition(c101010205.con)
+	e2:SetTarget(c101010205.tg)
+	e2:SetOperation(c101010205.op)
 	c:RegisterEffect(e2)
 end
-function ref.con(e,tp,eg,ep,ev,re,r,rp)
+function c101010205.con(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SYNCHRO
 end
-function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010205.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsExistingMatchingCard(Card.IsCanBeSpecialSummoned,tp,LOCATION_HAND,0,1,nil,e,0,tp,false,false) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
 end
-function ref.op(e,tp,eg,ep,ev,re,r,rp)
+function c101010205.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local g=Duel.GetMatchingGroup(Card.IsCanBeSpecialSummoned,tp,LOCATION_HAND,0,nil,e,0,tp,false,false)
@@ -45,4 +44,8 @@ function ref.op(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_EVENT+0x1fe0000)
 		c:RegisterEffect(e1)
 	end
+end
+function c101010205.atkcon(e,tp,eg,ep,ev,re,r,rp)
+	local c=Duel.GetAttacker()
+	return c~=nil and c~=e:GetHandler() and Duel.GetAttackTarget()~=nil
 end

@@ -1,9 +1,8 @@
 --Cyber Light Twin Dragon
-local id,ref=GIR()
-function ref.start(c)
+function c101010276.initial_effect(c)
 --fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcCodeRep(c,id,2,false,true)
+	aux.AddFusionProcCodeRep(c,101010249,2,false,true)
 	--pierce
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)

@@ -1,6 +1,5 @@
 --リベリオファング
-local id,ref=GIR()
-function ref.start(c)
+function c101020044.initial_effect(c)
 	aux.EnablePendulumAttribute(c,false)
 	--search1
 	local e6=Effect.CreateEffect(c)
@@ -8,7 +7,7 @@ function ref.start(c)
 	e6:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e6:SetType(EFFECT_TYPE_ACTIVATE)
 	e6:SetCode(EVENT_FREE_CHAIN)
-	e6:SetOperation(ref.op)
+	e6:SetOperation(c101020044.op)
 	c:RegisterEffect(e6)
 	--search2
 	local e5=Effect.CreateEffect(c)
@@ -17,25 +16,25 @@ function ref.start(c)
 	e5:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e5:SetProperty(EFFECT_FLAG_DELAY)
 	e5:SetRange(LOCATION_PZONE)
-	e5:SetCondition(ref.thcon)
-	e5:SetTarget(ref.thtg)
-	e5:SetOperation(ref.thop)
+	e5:SetCondition(c101020044.thcon)
+	e5:SetTarget(c101020044.thtg)
+	e5:SetOperation(c101020044.thop)
 	c:RegisterEffect(e5)
 	--lvchange
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_CARD_TARGET)
-	e4:SetCountLimit(1,id)
-	e4:SetTarget(ref.lvtg)
-	e4:SetOperation(ref.lvop)
+	e4:SetCountLimit(1,101020044)
+	e4:SetTarget(c101020044.lvtg)
+	e4:SetOperation(c101020044.lvop)
 	c:RegisterEffect(e4)
 	--effect gain
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e3:SetCode(EVENT_BE_MATERIAL)
 	e3:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return r==REASON_XYZ end)
-	e3:SetOperation(ref.efop)
+	e3:SetOperation(c101020044.efop)
 	c:RegisterEffect(e3)
 	--change scale
 	local e2=Effect.CreateEffect(c)
@@ -43,8 +42,8 @@ function ref.start(c)
 	e2:SetRange(LOCATION_PZONE)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetCountLimit(1)
-	e2:SetTarget(ref.sctg)
-	e2:SetOperation(ref.scop)
+	e2:SetTarget(c101020044.sctg)
+	e2:SetOperation(c101020044.scop)
 	c:RegisterEffect(e2)
 	--spsummon proc
 	local e1=Effect.CreateEffect(c)
@@ -52,20 +51,20 @@ function ref.start(c)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e1:SetRange(LOCATION_HAND)
-	e1:SetCondition(ref.spcon)
-	e1:SetOperation(ref.spop)
+	e1:SetCondition(c101020044.spcon)
+	e1:SetOperation(c101020044.spop)
 	c:RegisterEffect(e1)
 end
-function ref.scale(c)
+function c101020044.scale(c)
 	return c:IsCode(45627618) and c:GetLeftScale()<12 and (c:GetSequence()==6 or c:GetSequence()==7)
 end
-function ref.sctg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsControler(tp) and ref.scale(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(ref.scale,tp,LOCATION_SZONE,0,1,nil) end
+function c101020044.sctg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsControler(tp) and c101020044.scale(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c101020044.scale,tp,LOCATION_SZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
-	Duel.SelectTarget(tp,ref.scale,tp,LOCATION_SZONE,0,1,1,nil)
+	Duel.SelectTarget(tp,c101020044.scale,tp,LOCATION_SZONE,0,1,1,nil)
 end
-function ref.scop(e,tp,eg,ep,ev,re,r,rp)
+function c101020044.scop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		local e1=Effect.CreateEffect(e:GetHandler())
@@ -79,20 +78,20 @@ function ref.scop(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e2)
 	end
 end
-function ref.spcon(e,c)
+function c101020044.spcon(e,c)
 	if c==nil then return true end
 	return Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(ref.spfilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,e:GetHandler())
+		and Duel.IsExistingMatchingCard(c101020044.spfilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,e:GetHandler())
 end
-function ref.spfilter(c)
+function c101020044.spfilter(c)
 	return (c:IsFaceup() or c:IsLocation(LOCATION_HAND)) and c:IsSetCard(0xbad) and c:IsType(TYPE_PENDULUM) and c:IsAbleToGraveAsCost()
 end
-function ref.spop(e,tp,eg,ep,ev,re,r,rp,c)
+function c101020044.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g=Duel.SelectMatchingCard(tp,ref.spfilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,c101020044.spfilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,1,1,nil)
 	Duel.SendtoGrave(g,REASON_COST)
 end
-function ref.efop(e,tp,eg,ep,ev,re,r,rp)
+function c101020044.efop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local rc=c:GetReasonCard()
 	local e2=Effect.CreateEffect(rc)
@@ -111,18 +110,18 @@ function ref.efop(e,tp,eg,ep,ev,re,r,rp)
 		rc:RegisterEffect(e1,true)
 	end
 end
-function ref.lvfilter(c)
+function c101020044.lvfilter(c)
 	local lv=c:GetLevel()
 	return lv>0 and lv~=7 and c:IsFaceup() and c:IsSetCard(0xbad)
 end
-function ref.lvtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101020044.lvtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and ref.lvfilter(chkc) end
-	if chk==0 then return c:GetLevel()~=7 and Duel.IsExistingTarget(ref.lvfilter,tp,LOCATION_MZONE,0,1,c) end
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c101020044.lvfilter(chkc) end
+	if chk==0 then return c:GetLevel()~=7 and Duel.IsExistingTarget(c101020044.lvfilter,tp,LOCATION_MZONE,0,1,c) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	Duel.SelectTarget(tp,ref.lvfilter,tp,LOCATION_MZONE,0,1,1,c)
+	Duel.SelectTarget(tp,c101020044.lvfilter,tp,LOCATION_MZONE,0,1,1,c)
 end
-function ref.lvop(e,tp,eg,ep,ev,re,r,rp)
+function c101020044.lvop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
@@ -143,32 +142,32 @@ function ref.lvop(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 	end
 end
-function ref.cfilter(c,tp)
-	return c:IsType(TYPE_XYZ) and (c:GetAttack()==2500 or c:GetDefence()==2500) and c:IsControler(tp) and c:GetSummonType()==SUMMON_TYPE_XYZ
+function c101020044.cfilter(c,tp)
+	return c:IsType(TYPE_XYZ) and (c:GetAttack()==2500 or c:GetDefense()==2500) and c:IsControler(tp) and c:GetSummonType()==SUMMON_TYPE_XYZ
 end
-function ref.thcon(e,tp,eg,ep,ev,re,r,rp)
+function c101020044.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
-	return eg:GetCount()==1 and ref.cfilter(tc,tp)
+	return eg:GetCount()==1 and c101020044.cfilter(tc,tp)
 end
-function ref.afilter(c)
-	return c:IsCode(id) and c:IsAbleToHand()
+function c101020044.afilter(c)
+	return c:IsCode(101020044) and c:IsAbleToHand()
 end
-function ref.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(ref.afilter,tp,LOCATION_DECK,0,1,nil) end
+function c101020044.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c101020044.afilter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
-function ref.thop(e,tp,eg,ep,ev,re,r,rp)
+function c101020044.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,ref.afilter,tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,c101020044.afilter,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-function ref.op(e,tp,eg,ep,ev,re,r,rp)
+function c101020044.op(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
-	local g=Duel.GetMatchingGroup(ref.afilter,tp,LOCATION_DECK,0,nil)
-	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
+	local g=Duel.GetMatchingGroup(c101020044.afilter,tp,LOCATION_DECK,0,nil)
+	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101020044,0)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local sg=g:Select(tp,1,1,nil)
 		Duel.SendtoHand(sg,nil,REASON_EFFECT)

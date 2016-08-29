@@ -1,6 +1,5 @@
 --Cyberspace Leo
-local id,ref=GIR()
-function ref.start(c)
+function c101010026.initial_effect(c)
 --add LIGHT attribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -22,7 +21,7 @@ function ref.start(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
 	e3:SetValue(LOCATION_REMOVED)
-	e3:SetCondition(ref.con)
+	e3:SetCondition(c101010026.con)
 	c:RegisterEffect(e3)
 	--add Big Bang Fusion
 	local e4=Effect.CreateEffect(c)
@@ -30,26 +29,26 @@ function ref.start(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e4:SetCode(EVENT_REMOVE)
-	e4:SetTarget(ref.thtg)
-	e4:SetOperation(ref.thop)
+	e4:SetTarget(c101010026.thtg)
+	e4:SetOperation(c101010026.thop)
 	c:RegisterEffect(e4)
 end
-function ref.filter(c)
-	return c:IsCode(id) and c:IsAbleToHand()
+function c101010026.filter(c)
+	return c:IsCode(101010026) and c:IsAbleToHand()
 end
-function ref.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil) end
+function c101010026.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c101010026.filter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
-function ref.thop(e,tp,eg,ep,ev,re,r,rp)
+function c101010026.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,c101010026.filter,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-function ref.con(e,tp,eg,ep,ev,re,r,rp)
+function c101010026.con(e,tp,eg,ep,ev,re,r,rp)
 	local rc=e:GetHandler():GetReasonCard()
 	return e:GetHandler():IsFaceup() and e:GetHandler():IsLocation(LOCATION_MZONE) and rc and bit.band(e:GetHandler():GetReason(),REASON_SUMMON)==REASON_SUMMON and rc:IsSetCard(0x4093)
 end

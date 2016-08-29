@@ -1,20 +1,19 @@
 --機皇帝サイバー・エクセディエル∞
-local id,ref=GIR()
-function ref.start(c)
+function c101020075.initial_effect(c)
 	--Synchro Summon
-	aux.AddSynchroProcedure2(c,aux.FilterBoolFunction(ref.tfilter),aux.NonTuner(ref.tfilter))
+	aux.AddSynchroProcedure2(c,aux.FilterBoolFunction(c101020075.tfilter),aux.NonTuner(c101020075.tfilter))
 	c:EnableReviveLimit()
-	c:SetUniqueOnField(1,0,id)
+	c:SetUniqueOnField(1,0,101020075)
 	--equip
 	local e0=Effect.CreateEffect(c)
-	e0:SetDescription(aux.Stringid(id,1))
+	e0:SetDescription(aux.Stringid(101020075,1))
 	e0:SetCategory(CATEGORY_EQUIP)
 	e0:SetType(EFFECT_TYPE_IGNITION)
 	e0:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e0:SetRange(LOCATION_MZONE)
 	e0:SetCountLimit(1)
-	e0:SetTarget(ref.eqtg)
-	e0:SetOperation(ref.eqop)
+	e0:SetTarget(c101020075.eqtg)
+	e0:SetOperation(c101020075.eqop)
 	c:RegisterEffect(e0)
 	--cannot be targeted
 	local e3=Effect.CreateEffect(c)
@@ -26,42 +25,42 @@ function ref.start(c)
 	c:RegisterEffect(e3)
 	--spsummon
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,0))
+	e2:SetDescription(aux.Stringid(101020075,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetCountLimit(1)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetTarget(ref.sptg)
-	e2:SetOperation(ref.spop)
+	e2:SetTarget(c101020075.sptg)
+	e2:SetOperation(c101020075.spop)
 	c:RegisterEffect(e2)
 	--synchro custom
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_SYNCHRO_MATERIAL_CUSTOM)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-	e1:SetTarget(ref.syntg)
+	e1:SetTarget(c101020075.syntg)
 	e1:SetValue(1)
-	e1:SetOperation(ref.synop)
+	e1:SetOperation(c101020075.synop)
 	c:RegisterEffect(e1)
 end
-function ref.tfilter(c)
+function c101020075.tfilter(c)
 	return c:IsSetCard(0x93) or c:IsSetCard(0x13)
 end
-function ref.eqfilter(c)
+function c101020075.eqfilter(c)
 	return c:IsFaceup() and c:IsType(0x1802040) and c:IsAbleToChangeControler()
 end
-function ref.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and ref.eqfilter(chkc) end
+function c101020075.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and c101020075.eqfilter(chkc) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
-	and Duel.IsExistingTarget(ref.eqfilter,tp,0,LOCATION_MZONE,1,nil) end
+	and Duel.IsExistingTarget(c101020075.eqfilter,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	local g=Duel.SelectTarget(tp,ref.eqfilter,tp,0,LOCATION_MZONE,1,1,nil)
+	local g=Duel.SelectTarget(tp,c101020075.eqfilter,tp,0,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,g,1,0,0)
 end
-function ref.eqlimit(e,c)
+function c101020075.eqlimit(e,c)
 	return e:GetOwner()==c
 end
-function ref.eqop(e,tp,eg,ep,ev,re,r,rp)
+function c101020075.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsFaceup() and tc:IsRelateToEffect(e) then
@@ -75,7 +74,7 @@ function ref.eqop(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetProperty(EFFECT_FLAG_COPY_INHERIT+EFFECT_FLAG_OWNER_RELATE)
 			e1:SetCode(EFFECT_EQUIP_LIMIT)
 			e1:SetReset(RESET_EVENT+0x1fe0000)
-			e1:SetValue(ref.eqlimit)
+			e1:SetValue(c101020075.eqlimit)
 			tc:RegisterEffect(e1)
 			if atk>0 then
 				local e2=Effect.CreateEffect(c)
@@ -89,19 +88,19 @@ function ref.eqop(e,tp,eg,ep,ev,re,r,rp)
 		else Duel.SendtoGrave(tc,REASON_EFFECT) end
 	end
 end
-function ref.filter(c,e,tp)
+function c101020075.filter(c,e,tp)
 	return c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 	and (c:IsSetCard(0x93) or c:IsSetCard(0x13))
 end
-function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101020075.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
+	and Duel.IsExistingMatchingCard(c101020075.filter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE)
 end
-function ref.spop(e,tp,eg,ep,ev,re,r,rp)
+function c101020075.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,c101020075.filter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
 	if g:GetCount()>0 and Duel.SpecialSummonStep(g:GetFirst(),0,tp,tp,false,false,POS_FACEUP) then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
@@ -112,35 +111,35 @@ function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummonComplete()
 	end
 end
-function ref.synfilter1(c,syncard,tuner,f)
+function c101020075.synfilter1(c,syncard,tuner,f)
 	return c:IsFaceup() and c:IsNotTuner() and c:IsCanBeSynchroMaterial(syncard,tuner) and (f==nil or f(c))
 end
-function ref.synfilter2(c,syncard,tuner,f)
+function c101020075.synfilter2(c,syncard,tuner,f)
 	return c:IsNotTuner() and c:IsCanBeSynchroMaterial(syncard,tuner) and (f==nil or f(c))
 end
-function ref.synfilter3(c,syncard,tuner,f)
+function c101020075.synfilter3(c,syncard,tuner,f)
 	return c:IsNotTuner() and c:IsCanBeSynchroMaterial(syncard,tuner) and (f==nil or f(c)) and c:GetLevel()==lv
 end
-function ref.syntg(e,syncard,f,minc,maxc)
+function c101020075.syntg(e,syncard,f,minc,maxc)
 	local c=e:GetHandler()
 	local lv=syncard:GetLevel()-c:GetLevel()
 	if lv<=0 then return false end
-	local g=Duel.GetMatchingGroup(ref.synfilter1,syncard:GetControler(),LOCATION_MZONE,LOCATION_MZONE,c,syncard,c,f)
-	local exg=Duel.GetMatchingGroup(ref.synfilter2,syncard:GetControler(),LOCATION_HAND,0,c,syncard,c,f)
+	local g=Duel.GetMatchingGroup(c101020075.synfilter1,syncard:GetControler(),LOCATION_MZONE,LOCATION_MZONE,c,syncard,c,f)
+	local exg=Duel.GetMatchingGroup(c101020075.synfilter2,syncard:GetControler(),LOCATION_HAND,0,c,syncard,c,f)
 	g:Merge(exg)
 	return g:CheckWithSumEqual(Card.GetSynchroLevel,lv,minc,maxc,syncard)
 end
 -- local c=e:GetHandler()
 -- local lv=syncard:GetLevel()-c:GetLevel()
 -- if lv<=0 then return false end
--- local g=Duel.GetMatchingGroup(ref.synfilter1,syncard:GetControler(),LOCATION_MZONE,LOCATION_MZONE,c,syncard,c,f)
--- if Duel.IsExistingMatchingCard(ref.synfilter3,syncard:GetControler(),LOCATION_HAND,0,1,nil,syncard,c,f,lv) then
--- local exg=Duel.GetMatchingGroup(ref.synfilter2,syncard:GetControler(),LOCATION_HAND,0,c,syncard,c,f)
+-- local g=Duel.GetMatchingGroup(c101020075.synfilter1,syncard:GetControler(),LOCATION_MZONE,LOCATION_MZONE,c,syncard,c,f)
+-- if Duel.IsExistingMatchingCard(c101020075.synfilter3,syncard:GetControler(),LOCATION_HAND,0,1,nil,syncard,c,f,lv) then
+-- local exg=Duel.GetMatchingGroup(c101020075.synfilter2,syncard:GetControler(),LOCATION_HAND,0,c,syncard,c,f)
 -- g:Merge(exg)
 -- end
 -- return g:CheckWithSumEqual(Card.GetSynchroLevel,lv,minc,maxc,syncard)
 -- end
---[[ local exg=Duel.GetMatchingGroup(ref.synfilter2,syncard:GetControler(),LOCATION_HAND,0,c,syncard,c,f)
+--[[ local exg=Duel.GetMatchingGroup(c101020075.synfilter2,syncard:GetControler(),LOCATION_HAND,0,c,syncard,c,f)
 	local exc=0
 	local tc=exg:GetFirst()
 	while tc do
@@ -150,11 +149,11 @@ end
 	return
 	exc>0
 else end]]
-function ref.synop(e,tp,eg,ep,ev,re,r,rp,syncard,f,minc,maxc)
+function c101020075.synop(e,tp,eg,ep,ev,re,r,rp,syncard,f,minc,maxc)
 	local c=e:GetHandler()
 	local lv=syncard:GetLevel()-c:GetLevel()
-	local g=Duel.GetMatchingGroup(ref.synfilter1,syncard:GetControler(),LOCATION_MZONE,LOCATION_MZONE,c,syncard,c,f)
-	local exg=Duel.GetMatchingGroup(ref.synfilter2,syncard:GetControler(),LOCATION_HAND,0,c,syncard,c,f)
+	local g=Duel.GetMatchingGroup(c101020075.synfilter1,syncard:GetControler(),LOCATION_MZONE,LOCATION_MZONE,c,syncard,c,f)
+	local exg=Duel.GetMatchingGroup(c101020075.synfilter2,syncard:GetControler(),LOCATION_HAND,0,c,syncard,c,f)
 	local tn=nil
 	if exg:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SMATERIAL)

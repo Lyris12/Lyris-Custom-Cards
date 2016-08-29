@@ -1,6 +1,5 @@
 --Necromaster of Stellar Vine
-local id,ref=GIR()
-function ref.start(c)
+function c101020019.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(46659709,0))
@@ -8,9 +7,9 @@ function ref.start(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetRange(LOCATION_HAND)
-	e1:SetCountLimit(1,id)
-	e1:SetTarget(ref.sptg)
-	e1:SetOperation(ref.spop)
+	e1:SetCountLimit(1,101020019)
+	e1:SetTarget(c101020019.sptg)
+	e1:SetOperation(c101020019.spop)
 	c:RegisterEffect(e1)
 	--call
 	local e2=Effect.CreateEffect(c)
@@ -19,42 +18,42 @@ function ref.start(c)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetRange(LOCATION_REMOVED)
 	e2:SetCountLimit(1,201010604)
-	e2:SetTarget(ref.target)
-	e2:SetOperation(ref.operation)
+	e2:SetTarget(c101020019.target)
+	e2:SetOperation(c101020019.operation)
 	c:RegisterEffect(e2)
 end
-function ref.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x785e) and not c:IsCode(id)
+function c101020019.cfilter(c)
+	return c:IsFaceup() and c:IsSetCard(0x785e) and not c:IsCode(101020019)
 end
-function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingTarget(ref.cfilter,tp,LOCATION_REMOVED,0,1,nil) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+function c101020019.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingTarget(c101020019.cfilter,tp,LOCATION_REMOVED,0,1,nil) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g=Duel.SelectTarget(tp,ref.cfilter,tp,LOCATION_REMOVED,0,1,1,nil)
+	local g=Duel.SelectTarget(tp,c101020019.cfilter,tp,LOCATION_REMOVED,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
-function ref.spop(e,tp,eg,ep,ev,re,r,rp)
+function c101020019.spop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if Duel.SendtoGrave(tc,REASON_EFFECT) and e:GetHandler():IsRelateToEffect(e) then
 		Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-function ref.filter(c,e,tp)
-	return c:IsSetCard(0x785e) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=id
+function c101020019.filter(c,e,tp)
+	return c:IsSetCard(0x785e) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=101020019
 end
-function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101020019.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc==c end
 	if chk==0 then return c:IsAbleToGrave() and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil,e,tp) end
+		and Duel.IsExistingMatchingCard(c101020019.filter,tp,LOCATION_DECK,0,1,nil,e,tp) end
 	Duel.SetTargetCard(c)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,c,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
-function ref.operation(e,tp,eg,ep,ev,re,r,rp)
+function c101020019.operation(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) or Duel.SendtoGrave(e:GetHandler(),REASON_EFFECT)==0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,c101020019.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
 	local tc=g:GetFirst()
 	if tc and Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)~=0 then
 		local e0=Effect.CreateEffect(e:GetHandler())

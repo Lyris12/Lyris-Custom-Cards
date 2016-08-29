@@ -1,19 +1,18 @@
 --次元盾
-local id,ref=GIR()
-function ref.start(c)
+function c101010136.initial_effect(c)
 --Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_PRE_BATTLE_DAMAGE)
-	e1:SetCondition(ref.condition)
-	e1:SetCost(ref.cost)
-	e1:SetOperation(ref.activate)
+	e1:SetCondition(c101010136.condition)
+	e1:SetCost(c101010136.cost)
+	e1:SetOperation(c101010136.activate)
 	c:RegisterEffect(e1)
 end
-function ref.condition(e,tp,eg,ep,ev,re,r,rp)
+function c101010136.condition(e,tp,eg,ep,ev,re,r,rp)
 	return tp~=Duel.GetTurnPlayer() and Duel.IsPlayerCanDiscardDeck(tp,1) 
 end
-function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010136.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) end
 	local t={}
 	local l=1
@@ -23,7 +22,7 @@ function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 		l=l+1
 		if l>dam then break end
 	end
-	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,0))
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010136,0))
 	local announce=Duel.AnnounceNumber(tp,table.unpack(t))
 	local g=Duel.GetDecktopGroup(tp,announce)
 	Duel.DisableShuffleCheck()
@@ -33,7 +32,7 @@ function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabel(announce)
 	e:GetHandler():SetHint(CHINT_NUMBER,e:GetLabel())
 end
-function ref.activate(e,tp,eg,ep,ev,re,r,rp)
+function c101010136.activate(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetBattleDamage(tp)>=e:GetLabel()*100 then
 		Duel.ChangeBattleDamage(tp,Duel.GetBattleDamage(tp)-e:GetLabel()*100)
 		else
@@ -45,11 +44,11 @@ function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e1:SetTargetRange(1,0)
 	e1:SetLabel(e:GetLabel()*100)
-	e1:SetValue(ref.op)
+	e1:SetValue(c101010136.op)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
 end
-function ref.op(e,re,dam,r,rp,rc)
+function c101010136.op(e,re,dam,r,rp,rc)
 	if dam>=e:GetLabel() then
 		return dam-e:GetLabel()
 	else return 0 end

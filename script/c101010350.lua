@@ -1,6 +1,5 @@
 --Bladewing Dawning
-local id,ref=GIR()
-function ref.start(c)
+function c101010350.initial_effect(c)
 --pierce
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
@@ -12,8 +11,8 @@ function ref.start(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
-	e2:SetTarget(ref.target)
-	e2:SetOperation(ref.operation)
+	e2:SetTarget(c101010350.target)
+	e2:SetOperation(c101010350.operation)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -25,38 +24,38 @@ function ref.start(c)
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e5:SetCode(EVENT_BE_MATERIAL)
-	e5:SetCondition(ref.effcon)
-	e5:SetOperation(ref.effop1)
+	e5:SetCondition(c101010350.effcon)
+	e5:SetOperation(c101010350.effop1)
 	c:RegisterEffect(e5)
 	--effect gain
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e6:SetCode(EVENT_BE_PRE_MATERIAL)
-	e6:SetCondition(ref.effcon)
-	e6:SetOperation(ref.effop2)
+	e6:SetCondition(c101010350.effcon)
+	e6:SetOperation(c101010350.effop2)
 	c:RegisterEffect(e6)
 end
-function ref.filter(c,e,tp)
-	return c:IsSetCard(0xbb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=id
+function c101010350.filter(c,e,tp)
+	return c:IsSetCard(0xbb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=101010350
 end
-function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010350.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_HAND,0,1,nil,e,tp) end
+		and Duel.IsExistingMatchingCard(c101010350.filter,tp,LOCATION_HAND,0,1,nil,e,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
 end
-function ref.operation(e,tp,eg,ep,ev,re,r,rp)
+function c101010350.operation(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_HAND,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,c101010350.filter,tp,LOCATION_HAND,0,1,1,nil,e,tp)
 	if g:GetCount()>0 then
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-function ref.effcon(e,tp,eg,ep,ev,re,r,rp)
+function c101010350.effcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler():GetReasonCard()
 	return r==REASON_XYZ and (c:IsSetCard(0xbb2) or c:IsSetCard(0xbb3))
 end
-function ref.effop1(e,tp,eg,ep,ev,re,r,rp)
+function c101010350.effop1(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local rc=c:GetReasonCard()
 	local e1=Effect.CreateEffect(c)
@@ -64,16 +63,16 @@ function ref.effop1(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1:SetReset(RESET_EVENT+0x1fe0000)
-	e1:SetOperation(ref.sumop)
+	e1:SetOperation(c101010350.sumop)
 	rc:RegisterEffect(e1)
 end
-function ref.sumop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.SetChainLimitTillChainEnd(ref.chainlm)
+function c101010350.sumop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.SetChainLimitTillChainEnd(c101010350.chainlm)
 end
-function ref.chainlm(e,rp,tp)
+function c101010350.chainlm(e,rp,tp)
 	return tp==rp
 end
-function ref.effop2(e,tp,eg,ep,ev,re,r,rp)
+function c101010350.effop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local rc=c:GetReasonCard()
 	local e1=Effect.CreateEffect(c)

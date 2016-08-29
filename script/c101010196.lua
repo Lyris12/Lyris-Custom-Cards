@@ -1,6 +1,5 @@
 --Victorial Dragon Piscesgalio
-local id,ref=GIR()
-function ref.start(c)
+function c101010196.initial_effect(c)
 --attack
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)

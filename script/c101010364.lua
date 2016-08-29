@@ -1,6 +1,5 @@
 --Bladewing Brynhildr
-local id,ref=GIR()
-function ref.start(c)
+function c101010364.initial_effect(c)
 c:EnableReviveLimit()
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xbb2),4,2)
 	--pierce
@@ -14,60 +13,57 @@ c:EnableReviveLimit()
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
-	e1:SetValue(ref.val)
+	e1:SetValue(c101010364.val)
 	c:RegisterEffect(e1)
-	--If your opponent activates a card or effect during your Battle Phase: You can detach 1 Xyz Material from this card; negate the activation, and if you do, destroy it, then you can perform damage calculation with this card and 1 monster your opponent controls.
+	--During your Battle Phase, if your opponent activates a card or effect: You can detach 1 Xyz Material from this card; this card can make a second attack during each Battle Phase this turn, also, negate the activation, and if you do, destroy it.
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,0))
+	e2:SetDescription(aux.Stringid(101010364,0))
 	e2:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_CHAINING)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCondition(ref.discon)
-	e2:SetCost(ref.cost)
-	e2:SetTarget(ref.distg)
-	e2:SetOperation(ref.disop)
+	e2:SetCondition(c101010364.discon)
+	e2:SetCost(c101010364.cost)
+	e2:SetTarget(c101010364.distg)
+	e2:SetOperation(c101010364.disop)
 	c:RegisterEffect(e2)
 end
-function ref.afilter(c)
+function c101010364.afilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xbb2)
 end
-function ref.val(e)
-	return (e:GetHandler():GetOverlayCount()*200)+(Duel.GetMatchingGroupCount(ref.afilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,e:GetHandler())*300)
+function c101010364.val(e)
+	return (e:GetHandler():GetOverlayCount()*200)+(Duel.GetMatchingGroupCount(c101010364.afilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,e:GetHandler())*300)
 end
-function ref.discon(e,tp,eg,ep,ev,re,r,rp)
+function c101010364.discon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and rp~=tp and Duel.GetTurnPlayer()==tp
 		and bit.band(Duel.GetCurrentPhase(),0x38)~=0 and Duel.IsChainNegatable(ev)
 end
-function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010364.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
-function ref.distg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010364.distg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
 	if re:GetHandler():IsDestructable() and re:GetHandler():IsRelateToEffect(re) then
 		Duel.SetOperationInfo(0,CATEGORY_DESTROY,eg,1,0,0)
 	end
 end
-function ref.filter(c,e)
+function c101010364.filter(c,e)
 	return not c:IsImmuneToEffect(e)
 end
-function ref.disop(e,tp,eg,ep,ev,re,r,rp)
+function c101010364.disop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_SINGLE)
+	e2:SetCode(EFFECT_EXTRA_ATTACK)
+	e2:SetValue(1)
+	e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+	c:RegisterEffect(e2)
 	local tc=re:GetHandler()
-	if not tc:IsDisabled() then
-		Duel.NegateActivation(ev)
-		if tc:IsRelateToEffect(re) and Duel.Destroy(eg,REASON_EFFECT)~=0 then
-			local c=e:GetHandler()
-			if not c:IsRelateToEffect(e) then return end
-			local ag=Duel.GetMatchingGroup(ref.filter,tp,0,LOCATION_MZONE,nil,e)
-			if ag:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
-				local a=ag:Select(tp,1,1,nil):GetFirst()
-				--if Duel.GetAttacker() then Duel.NegateAttack() end
-				Duel.CalculateDamage(c,a)
-				--local dam=math.abs(c:GetAttack()-a:GetAttack())
-			end
-		end
+	Duel.NegateActivation(ev)
+	if tc:IsRelateToEffect(re) then
+		Duel.Destroy(eg,REASON_EFFECT)
 	end
 end

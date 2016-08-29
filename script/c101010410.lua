@@ -1,6 +1,5 @@
 --FFD－サンデー
-local id,ref=GIR()
-function ref.initial_effect(c)
+function c101010410.initial_effect(c)
 	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -16,38 +15,38 @@ function ref.initial_effect(c)
 	e4:SetCode(EVENT_BATTLED)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetCondition(aux.bdcon)
-	e4:SetTarget(ref.drtg)
-	e4:SetOperation(ref.drop)
+	e4:SetTarget(c101010410.drtg)
+	e4:SetOperation(c101010410.drop)
 	c:RegisterEffect(e4)
 	--fusion summon
 	c:EnableReviveLimit()
-	aux.AddFusionProcFun2(c,ref.ffilter1,ref.ffilter2,true)
+	aux.AddFusionProcFun2(c,c101010410.ffilter1,c101010410.ffilter2,true)
 end
-function ref.ffilter1(c)
-	return c:IsAttribute(ATTRIBUTE_LIGHT) or (c:IsHasEffect(101010560) and not c:IsLocation(LOCATION_DECK))
+function c101010410.ffilter1(c)
+	return c:IsAttribute(ATTRIBUTE_LIGHT) or (c:IsHasEffect(101010012) and not c:IsLocation(LOCATION_DECK))
 end
-function ref.ffilter2(c)
-	return c:IsRace(RACE_MACHINE+RACE_WINDBEAST) or (c:IsHasEffect(101010576) and not c:IsLocation(LOCATION_DECK))
+function c101010410.ffilter2(c)
+	return c:IsRace(RACE_MACHINE+RACE_WINDBEAST) or (c:IsHasEffect(101010085) and not c:IsLocation(LOCATION_DECK))
 end
-function ref.filter(c,e,tp)
+function c101010410.filter(c,e,tp)
 	return (c:IsRace(RACE_MACHINE) or c:IsAttribute(ATTRIBUTE_FIRE)) and c:IsLevelBelow(5) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function ref.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsDestructable() and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil,e,tp) end
+function c101010410.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetHandler():IsDestructable() and Duel.IsExistingMatchingCard(c101010410.filter,tp,LOCATION_DECK,0,1,nil,e,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,e:GetHandler(),1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
-function ref.drop(e,tp,eg,ep,ev,re,r,rp)
+function c101010410.drop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
 		Duel.Destroy(c,REASON_EFFECT,LOCATION_REMOVED)
 		Duel.BreakEffect()
-		local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
+		local g=Duel.SelectMatchingCard(tp,c101010410.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
 		if g:GetCount()>0 then
 			Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 		end
 	end
-	if not c:IsHasEffect(101010552) then
+	if not c:IsHasEffect(101010055) then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_FIELD)
 		e1:SetCode(EFFECT_CANNOT_ATTACK_ANNOUNCE)

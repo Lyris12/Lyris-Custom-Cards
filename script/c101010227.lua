@@ -1,35 +1,34 @@
 --未来型融合－フューチャーリスチック・フュージョン
-local id,ref=GIR()
-function ref.start(c)
-c:SetUniqueOnField(1,0,id)
+function c101010227.initial_effect(c)
+c:SetUniqueOnField(1,0,101010227)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetTarget(ref.target)
-	e1:SetOperation(ref.activate)
+	e1:SetTarget(c101010227.target)
+	e1:SetOperation(c101010227.activate)
 	c:RegisterEffect(e1)
 end
-function ref.filter1(c,e)
+function c101010227.filter1(c,e)
 	return c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e)
 end
-function ref.filter2(c,e,tp,m)
+function c101010227.filter2(c,e,tp,m)
 	return c:IsType(TYPE_FUSION) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,PLAYER_NONE,false,false)
 		and c:CheckFusionMaterial(m)
 end
-function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010227.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
-		local mg=Duel.GetMatchingGroup(ref.filter1,tp,LOCATION_EXTRA+LOCATION_DECK,0,nil,e)
-		return Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg)
+		local mg=Duel.GetMatchingGroup(c101010227.filter1,tp,LOCATION_EXTRA+LOCATION_DECK,0,nil,e)
+		return Duel.IsExistingMatchingCard(c101010227.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg)
 	end
 	e:GetHandler():SetTurnCounter(0)
 end
-function ref.activate(e,tp,eg,ep,ev,re,r,rp)
+function c101010227.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
-	local mg=Duel.GetMatchingGroup(ref.filter1,tp,LOCATION_EXTRA+LOCATION_DECK,0,nil,e)
-	local sg=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg)
+	local mg=Duel.GetMatchingGroup(c101010227.filter1,tp,LOCATION_EXTRA+LOCATION_DECK,0,nil,e)
+	local sg=Duel.GetMatchingGroup(c101010227.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg)
 	if sg:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local tg=sg:Select(tp,1,1,nil)
@@ -51,23 +50,23 @@ function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetCountLimit(1)
 		e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+PHASE_STANDBY,5)
 		e1:SetRange(LOCATION_SZONE)
-		e1:SetOperation(ref.proc)
+		e1:SetOperation(c101010227.proc)
 		e1:SetLabel(code)
 		e1:SetLabelObject(e)
 		c:RegisterEffect(e1)
 	end
 end
-function ref.procfilter(c,code,e,tp)
+function c101010227.procfilter(c,code,e,tp)
 	return c:IsCode(code) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false)
 end
-function ref.proc(e,tp,eg,ep,ev,re,r,rp)
+function c101010227.proc(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local ct=c:GetTurnCounter()
 	ct=ct+1
 	c:SetTurnCounter(ct)
 	if ct==5 then
 		local code=e:GetLabel()
-		local tc=Duel.GetFirstMatchingCard(ref.procfilter,tp,LOCATION_EXTRA,0,nil,code,e,tp)
+		local tc=Duel.GetFirstMatchingCard(c101010227.procfilter,tp,LOCATION_EXTRA,0,nil,code,e,tp)
 		if not tc then return end
 		if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then
 			Duel.SendtoGrave(tc,REASON_EFFECT)
@@ -82,7 +81,7 @@ function ref.proc(e,tp,eg,ep,ev,re,r,rp)
 				e4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 				e4:SetCode(EVENT_CHAIN_SOLVED)
 				e4:SetRange(0xff)
-				e4:SetOperation(ref.desop)
+				e4:SetOperation(c101010227.desop)
 				tc:RegisterEffect(e4)
 				local e5=e4:Clone()
 				e5:SetCode(EVENT_ADJUST)
@@ -94,7 +93,7 @@ function ref.proc(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function ref.desop(e,tp,eg,ep,ev,re,r,rp)
+function c101010227.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=e:GetOwner()
 	if tc and not c:IsOnField() then

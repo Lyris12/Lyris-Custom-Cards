@@ -1,6 +1,5 @@
 --Aggecko Izzard
-local id,ref=GIR()
-function ref.start(c)
+function c101020088.initial_effect(c)
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x6d6),4,2)
 	--negate
 	local e1=Effect.CreateEffect(c)
@@ -11,10 +10,10 @@ function ref.start(c)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetCountLimit(1)
 	e1:SetCode(EVENT_CHAINING)
-	e1:SetCondition(ref.discon)
-	e1:SetCost(ref.discost)
-	e1:SetTarget(ref.distg)
-	e1:SetOperation(ref.disop)
+	e1:SetCondition(c101020088.discon)
+	e1:SetCost(c101020088.discost)
+	e1:SetTarget(c101020088.distg)
+	e1:SetOperation(c101020088.disop)
 	c:RegisterEffect(e1)
 	--return to deck
 	local e2=Effect.CreateEffect(c)
@@ -22,27 +21,27 @@ function ref.start(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_BATTLE_DESTROYING)
 	e2:SetCountLimit(1)
-	e2:SetCondition(ref.tdcon)
-	e2:SetTarget(ref.tdtg)
-	e2:SetOperation(ref.tdop)
+	e2:SetCondition(c101020088.tdcon)
+	e2:SetTarget(c101020088.tdtg)
+	e2:SetOperation(c101020088.tdop)
 	c:RegisterEffect(e2)
 end
-function ref.discon(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101020088.discon(e,tp,eg,ep,ev,re,r,rp,chk)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) 
 	and ep~=tp and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev)
 end
-function ref.discost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101020088.discost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
-function ref.distg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101020088.distg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsFaceup() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 	Duel.SelectTarget(tp,Card.IsFaceup,tp,0,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
 end
-function ref.disop(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101020088.disop(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.NegateActivation(ev)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
@@ -65,22 +64,22 @@ function ref.disop(e,tp,eg,ep,ev,re,r,rp,chk)
 		end
 	end
 end
-function ref.tdcon(e,tp,eg,ep,ev,re,r,rp)
+function c101020088.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local bc=c:GetBattleTarget()
 	return bc and bc:IsStatus(STATUS_BATTLE_DESTROYED)
 end
-function ref.tdfilter(c)
+function c101020088.tdfilter(c)
 	return c:IsSetCard(0x6d6) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeck()
 end
-function ref.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101020088.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c17241370.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(ref.tdfilter,tp,LOCATION_GRAVE,0,1,nil) end
+	if chk==0 then return Duel.IsExistingTarget(c101020088.tdfilter,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local g=Duel.SelectTarget(tp,ref.tdfilter,tp,LOCATION_GRAVE,0,1,1,nil)
+	local g=Duel.SelectTarget(tp,c101020088.tdfilter,tp,LOCATION_GRAVE,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
 end
-function ref.tdop(e,tp,eg,ep,ev,re,r,rp)
+function c101020088.tdop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)

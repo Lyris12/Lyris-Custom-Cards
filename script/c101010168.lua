@@ -1,14 +1,13 @@
 --アトリビュート・クロスボー
-local id,ref=GIR()
-function ref.start(c)
+function c101010168.initial_effect(c)
 --Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_EQUIP)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetTarget(ref.tg)
-	e1:SetOperation(ref.op)
+	e1:SetTarget(c101010168.tg)
+	e1:SetOperation(c101010168.op)
 	c:RegisterEffect(e1)
 	--
 	local e2=Effect.CreateEffect(c)
@@ -17,9 +16,9 @@ function ref.start(c)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetTargetRange(0,LOCATION_MZONE)
 	e2:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
-	e2:SetCondition(ref.ocon)
-	e2:SetTarget(ref.targ)
-	e2:SetValue(ref.val)
+	e2:SetCondition(c101010168.ocon)
+	e2:SetTarget(c101010168.targ)
+	e2:SetValue(c101010168.val)
 	c:RegisterEffect(e2)
 	e1:SetLabelObject(e2)
 	--Double Attack
@@ -36,7 +35,7 @@ function ref.start(c)
 	e4:SetValue(1)
 	c:RegisterEffect(e4)
 end
-function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101010168.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
@@ -47,21 +46,21 @@ function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	e:GetHandler():SetHint(CHINT_ATTRIBUTE,rc)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,e:GetHandler(),1,0,0)
 end
-function ref.op(e,tp,eg,ep,ev,re,r,rp)
+function c101010168.op(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if e:GetHandler():IsRelateToEffect(e) and tc:IsRelateToEffect(e) and tc:IsFaceup() then
 		Duel.Equip(tp,e:GetHandler(),tc)
 	end
 end
-function ref.ocon(e)
+function c101010168.ocon(e)
 	local c=e:GetHandler()
 	return Duel.GetAttacker()==c:GetEquipTarget()
 end
-function ref.targ(e,c)
+function c101010168.targ(e,c)
 	local at=e:GetLabel()
 	return not c:IsAttribute(at)
 end
-function ref.val(e,c)
+function c101010168.val(e,c)
 	if c:IsFaceup() then
 		return 1
 	else

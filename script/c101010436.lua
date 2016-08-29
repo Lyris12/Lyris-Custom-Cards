@@ -1,6 +1,5 @@
 --Frozen Flower Garden
-local id,ref=GIR()
-function ref.initial_effect(c)
+function c101010436.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -13,43 +12,43 @@ function ref.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetProperty(EFFECT_FLAG_BOTH_SIDE)
-	e2:SetTarget(ref.target)
-	e2:SetOperation(ref.operation)
+	e2:SetTarget(c101010436.target)
+	e2:SetOperation(c101010436.operation)
 	c:RegisterEffect(e2)
 end
-function ref.filter0(c)
+function c101010436.filter0(c)
 	return c:IsCanBeFusionMaterial() and c:IsAbleToRemove()
 end
-function ref.filter1(c,e)
+function c101010436.filter1(c,e)
 	return c:IsCanBeFusionMaterial() and c:IsAbleToRemove() and not c:IsImmuneToEffect(e)
 end
-function ref.filter2(c,e,tp,m,f,chkf)
+function c101010436.filter2(c,e,tp,m,f,chkf)
 	return c:IsType(TYPE_FUSION) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
-function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010436.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-		local mg1=Duel.GetMatchingGroup(ref.filter0,tp,LOCATION_HAND+LOCATION_MZONE,0,nil)
-		local res=Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
+		local mg1=Duel.GetMatchingGroup(c101010436.filter0,tp,LOCATION_HAND+LOCATION_MZONE,0,nil)
+		local res=Duel.IsExistingMatchingCard(c101010436.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
 		if not res then
 			local ce=Duel.GetChainMaterial(tp)
 			if ce~=nil then
 				local fgroup=ce:GetTarget()
 				local mg2=fgroup(ce,e,tp)
 				local mf=ce:GetValue()
-				res=Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg2,mf,chkf)
+				res=Duel.IsExistingMatchingCard(c101010436.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg2,mf,chkf)
 			end
 		end
 		return res
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function ref.operation(e,tp,eg,ep,ev,re,r,rp)
+function c101010436.operation(e,tp,eg,ep,ev,re,r,rp)
 	local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
 	if not e:GetHandler():IsRelateToEffect(e) then return end
-	local mg1=Duel.GetMatchingGroup(ref.filter1,tp,LOCATION_HAND+LOCATION_MZONE,0,nil,e)
-	local sg1=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
+	local mg1=Duel.GetMatchingGroup(c101010436.filter1,tp,LOCATION_HAND+LOCATION_MZONE,0,nil,e)
+	local sg1=Duel.GetMatchingGroup(c101010436.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
 	local mg2=nil
 	local sg2=nil
 	local ce=Duel.GetChainMaterial(tp)
@@ -57,7 +56,7 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 		local fgroup=ce:GetTarget()
 		mg2=fgroup(ce,e,tp)
 		local mf=ce:GetValue()
-		sg2=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,mf,chkf)
+		sg2=Duel.GetMatchingGroup(c101010436.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,mf,chkf)
 	end
 	if sg1:GetCount()>0 or (sg2~=nil and sg2:GetCount()>0) then
 		local sg=sg1:Clone()

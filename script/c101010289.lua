@@ -1,6 +1,5 @@
 --Number 24!: Cyber Dragon Truesdale "Kaiser"
-local id,ref=GIR()
-function ref.start(c)
+function c101010289.initial_effect(c)
 --xyz summon
 	c:EnableReviveLimit()
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_DRAGON),6,4)
@@ -24,14 +23,14 @@ function ref.start(c)
 	local sd=Effect.CreateEffect(c)
 	sd:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	sd:SetCode(EVENT_SPSUMMON_SUCCESS)
-	sd:SetCondition(ref.sdcon)
-	sd:SetOperation(ref.sdop)
+	sd:SetCondition(c101010289.sdcon)
+	sd:SetOperation(c101010289.sdop)
 	c:RegisterEffect(sd)
 	local cp=Effect.CreateEffect(c)
 	cp:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	cp:SetCode(EVENT_ADJUST)
 	cp:SetRange(LOCATION_MZONE)
-	cp:SetOperation(ref.copy)
+	cp:SetOperation(c101010289.copy)
 	c:RegisterEffect(cp)
 	--detach
 	local e2=Effect.CreateEffect(c)
@@ -40,9 +39,9 @@ function ref.start(c)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetCountLimit(1)
-	e2:SetCost(ref.cost)
-	e2:SetTarget(ref.target)
-	e2:SetOperation(ref.op)
+	e2:SetCost(c101010289.cost)
+	e2:SetTarget(c101010289.target)
+	e2:SetOperation(c101010289.op)
 	c:RegisterEffect(e2)
 	--attach
 	local e1=Effect.CreateEffect(c)
@@ -50,26 +49,26 @@ function ref.start(c)
 	e1:SetCode(EVENT_PHASE+PHASE_END)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetCountLimit(1)
-	e1:SetCondition(ref.condition)
-	e1:SetOperation(ref.operation)
+	e1:SetCondition(c101010289.condition)
+	e1:SetOperation(c101010289.operation)
 	c:RegisterEffect(e1)
 end
-ref.xyz_number=24
-function ref.sdcon(e,tp,eg,ep,ev,re,r,rp)
+c101010289.xyz_number=24
+function c101010289.sdcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetPreviousLocation()~=LOCATION_EXTRA
 end
-function ref.sdop(e,tp,eg,ep,ev,re,r,rp)
+function c101010289.sdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_EFFECT)
 end
-function ref.condition(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,id)
+function c101010289.condition(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,101010289)
 end
-function ref.cpfilter(c)
-	return c:IsRace(RACE_MACHINE+RACE_DRAGON) and c:IsAttribute(ATTRIBUTE_LIGHT+ATTRIBUTE_DARK) and not c:IsType(TYPE_TUNER) and c:GetCode()~=id
+function c101010289.cpfilter(c)
+	return c:IsRace(RACE_MACHINE+RACE_DRAGON) and c:IsAttribute(ATTRIBUTE_LIGHT+ATTRIBUTE_DARK) and not c:IsType(TYPE_TUNER) and c:GetCode()~=101010289
 end
-function ref.copy(e,tp,eg,ep,ev,re,r,rp)
+function c101010289.copy(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local wg=Duel.GetMatchingGroup(ref.cpfilter,c:GetControler(),LOCATION_GRAVE,0,nil)
+	local wg=Duel.GetMatchingGroup(c101010289.cpfilter,c:GetControler(),LOCATION_GRAVE,0,nil)
 	local wbc=wg:GetFirst()
 	while wbc do
 		local code=wbc:GetOriginalCode()
@@ -80,12 +79,12 @@ function ref.copy(e,tp,eg,ep,ev,re,r,rp)
 		wbc=wg:GetNext()
 	end
 end
-function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010289.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetOverlayGroup():IsExists(Card.IsAbleToRemoveAsCost,1,nil) end
 	local g=e:GetHandler():GetOverlayGroup():FilterSelect(tp,Card.IsAbleToRemoveAsCost,1,1,nil)
 	Duel.Remove(g,0,REASON_COST)
 end
-function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101010289.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
@@ -95,7 +94,7 @@ function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if atk<0 then atk=0 end
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,atk)
 end
-function ref.op(e,tp,eg,ep,ev,re,r,rp)
+function c101010289.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if tc:IsFacedown() then Duel.ConfirmCards(1-tp,tc) end
@@ -113,7 +112,7 @@ function ref.op(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function ref.operation(e,tp,eg,ep,ev,re,r,rp)
+function c101010289.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:CheckRemoveOverlayCard(tp,1,REASON_EFFECT) then
 		c:RemoveOverlayCard(tp,1,1,REASON_EFFECT)

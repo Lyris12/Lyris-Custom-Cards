@@ -1,6 +1,5 @@
 --ファントム・ペンデュレーディ サイバー・ドラゴン・アイン
-local id,ref=GIR()
-function ref.start(c)
+function c101010428.initial_effect(c)
 	--xyz summon
 	c:EnableReviveLimit()
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_MACHINE+RACE_THUNDER),4,2)
@@ -10,7 +9,7 @@ function ref.start(c)
 	e10:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_CANNOT_DISABLE)
 	e10:SetRange(LOCATION_MZONE)
 	e10:SetCode(EFFECT_IMMUNE_EFFECT)
-	e10:SetValue(ref.efilter)
+	e10:SetValue(c101010428.efilter)
 	c:RegisterEffect(e10)
 	--When this card is Xyz Summoned, you can Set 2 "Pendulady" monsters from your hand or Graveyard as Quick-Play Spell Cards.
 	
@@ -21,13 +20,13 @@ function ref.start(c)
 	--detach Once per turn, during either player's turn, you can detach 1 Xyz Material from this card; Special Summon 1 "Phantom Pendulady" Fusion Monster from your Extra Deck, but return it to the Extra Deck at the end of the turn.
 	
 end
-function ref.tcon(e)
+function c101010428.tcon(e)
 	return e:GetHandler():GetOverlayGroup():IsExists(Card.IsRace,1,nil,RACE_THUNDER)
 end
-function ref.dcon(e)
+function c101010428.dcon(e)
 	return e:GetHandler():GetOverlayGroup():IsExists(Card.IsRace,1,nil,RACE_MACHINE)
 end
-function ref.efilter(e,te)
+function c101010428.efilter(e,te)
 	local c=te:GetHandler()
 	return c:IsCode(503) or c:IsCode(539)
 end

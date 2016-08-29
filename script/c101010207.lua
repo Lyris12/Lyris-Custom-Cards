@@ -1,6 +1,5 @@
 --ＳＳ－リーム・イクスパンス・ドラゴン
-local id,ref=GIR()
-function ref.start(c)
+function c101010207.initial_effect(c)
 --synchro summon
 	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsType,TYPE_SYNCHRO),aux.NonTuner(Card.IsType,TYPE_SYNCHRO),2)
 	c:EnableReviveLimit()
@@ -17,8 +16,8 @@ function ref.start(c)
 	e3:SetCode(EFFECT_CANNOT_ACTIVATE)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetTargetRange(1,1)
-	e3:SetValue(ref.aclimit)
-	e3:SetCondition(ref.actcon)
+	e3:SetValue(c101010207.aclimit)
+	e3:SetCondition(c101010207.actcon)
 	c:RegisterEffect(e3)
 	local e2=e3:Clone()
 	e2:SetCode(EFFECT_CANNOT_TRIGGER)
@@ -28,28 +27,28 @@ function ref.start(c)
 	e0:SetCategory(CATEGORY_DRAW+CATEGORY_SPECIAL_SUMMON+CATEGORY_DESTROY)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e0:SetCode(EVENT_DAMAGE_STEP_END)
-	e0:SetCountLimit(1,id)
-	e0:SetCondition(ref.con)
-	e0:SetTarget(ref.tg)
-	e0:SetOperation(ref.op)
+	e0:SetCountLimit(1,101010207)
+	e0:SetCondition(c101010207.con)
+	e0:SetTarget(c101010207.tg)
+	e0:SetOperation(c101010207.op)
 	c:RegisterEffect(e0)
 end
-function ref.con(e,tp,eg,ep,ev,re,r,rp)
+function c101010207.con(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsRelateToBattle()
 end
-function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010207.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetTargetPlayer(tp)
 	Duel.SetTargetParam(1)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 end
-function ref.op(e,tp,eg,ep,ev,re,r,rp)
+function c101010207.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	if Duel.Draw(p,d,REASON_EFFECT)==0 then return end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local g=Duel.GetOperatedGroup():Filter(Card.IsCanBeSpecialSummoned,nil,e,0,tp,false,false)
-	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
+	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101010207,1)) then
 		Duel.BreakEffect()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local sg=g:GetFirst()
@@ -61,9 +60,9 @@ function ref.op(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function ref.aclimit(e,re,tp)
+function c101010207.aclimit(e,re,tp)
 	return re:GetHandler()~=e:GetHandler() and not re:GetHandler():IsImmuneToEffect(e)
 end
-function ref.actcon(e)
+function c101010207.actcon(e)
 	return Duel.GetAttacker()==e:GetHandler()
 end

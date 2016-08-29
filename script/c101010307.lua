@@ -1,48 +1,47 @@
 --黒輪の黒いダイヤモンド
-local id,ref=GIR()
-function ref.start(c)
+function c101010307.initial_effect(c)
 --Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetTarget(ref.target)
-	e1:SetOperation(ref.activate)
+	e1:SetTarget(c101010307.target)
+	e1:SetOperation(c101010307.activate)
 	c:RegisterEffect(e1)
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e0:SetCode(EFFECT_ADD_TYPE)
-	e0:SetValue(ref.monval)
+	e0:SetValue(c101010307.monval)
 	c:RegisterEffect(e0)
 end
-function ref.monval(e,c)
+function c101010307.monval(e,c)
 	if (c:IsOnField() and c:IsFacedown()) or c:IsLocation(LOCATION_GRAVE) then
 		return TYPE_EFFECT+TYPE_MONSTER
 	else
 		return 0
 	end
 end
-function ref.filter1(c,e)
+function c101010307.filter1(c,e)
 	return c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e)
 end
-function ref.filter2(c,e,tp,m,gc,chkf)
+function c101010307.filter2(c,e,tp,m,gc,chkf)
 	return c:IsType(TYPE_FUSION) and c:IsRace(RACE_DRAGON) and (c:IsAttribute(ATTRIBUTE_DARK) or c:IsSetCard(0x5d))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,gc,chkf)
 end
-function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010307.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
 		local mg=Duel.GetMatchingGroup(Card.IsCanBeFusionMaterial,tp,LOCATION_MZONE,0,nil)
-		return Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg,e:GetHandler(),chkf)
+		return Duel.IsExistingMatchingCard(c101010307.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg,e:GetHandler(),chkf)
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function ref.activate(e,tp,eg,ep,ev,re,r,rp)
+function c101010307.activate(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():IsImmuneToEffect(e) then return end
 	local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-	local mg=Duel.GetMatchingGroup(ref.filter1,tp,LOCATION_MZONE,0,nil,e)
-	local sg=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg,e:GetHandler(),chkf)
+	local mg=Duel.GetMatchingGroup(c101010307.filter1,tp,LOCATION_MZONE,0,nil,e)
+	local sg=Duel.GetMatchingGroup(c101010307.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg,e:GetHandler(),chkf)
 	if sg:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local tg=sg:Select(tp,1,1,nil)
@@ -56,13 +55,13 @@ function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
-		e1:SetCondition(ref.atkcon)
+		e1:SetCondition(c101010307.atkcon)
 		e1:SetValue(1)
 		e1:SetReset(RESET_EVENT+0x1fe0000)
 		tc:RegisterEffect(e1)
 	end
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_EFFECT)
 end
-function ref.atkcon(e)
-	return Duel.IsExistingMatchingCard(Card.IsCode,e:GetHandler():GetControler(),LOCATION_REMOVED,0,1,nil,id)
+function c101010307.atkcon(e)
+	return Duel.IsExistingMatchingCard(Card.IsCode,e:GetHandler():GetControler(),LOCATION_REMOVED,0,1,nil,101010307)
 end

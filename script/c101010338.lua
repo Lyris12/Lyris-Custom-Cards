@@ -1,22 +1,21 @@
 --
-local id,ref=GIR()
-function ref.start(c)
+function c101010338.initial_effect(c)
 --lv
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(id,0))
+	e1:SetDescription(aux.Stringid(101010338,0))
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)
-	e1:SetCost(ref.lvcost)
-	e1:SetTarget(ref.lvtg)
-	e1:SetOperation(ref.lvop)
+	e1:SetCost(c101010338.lvcost)
+	e1:SetTarget(c101010338.lvtg)
+	e1:SetOperation(c101010338.lvop)
 	c:RegisterEffect(e1)
 	--indes
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,1))
+	e2:SetDescription(aux.Stringid(101010338,1))
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_REMOVE)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
-	e2:SetOperation(ref.operation)
+	e2:SetOperation(c101010338.operation)
 	c:RegisterEffect(e2)
 	--code
 	local e3=Effect.CreateEffect(c)
@@ -31,35 +30,35 @@ function ref.start(c)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e0:SetCode(EFFECT_ADD_CODE)
 	e3:SetRange(LOCATION_MZONE+LOCATION_GRAVE)
-	e0:SetValue(id)
+	e0:SetValue(101010338)
 	c:RegisterEffect(e0)
-	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,ref.counterfilter)
+	Duel.AddCustomActivityCounter(101010338,ACTIVITY_SPSUMMON,c101010338.counterfilter)
 end
-function ref.counterfilter(c)
+function c101010338.counterfilter(c)
 	return c:IsAttribute(ATTRIBUTE_LIGHT)
 end
-function ref.lvcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetCustomActivityCount(id,tp,ACTIVITY_SPSUMMON)==0 end
+function c101010338.lvcost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetCustomActivityCount(101010338,tp,ACTIVITY_SPSUMMON)==0 end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)
 	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	e1:SetTargetRange(1,0)
-	e1:SetTarget(ref.splimit)
+	e1:SetTarget(c101010338.splimit)
 	Duel.RegisterEffect(e1,tp)
 end
-function ref.splimit(e,c,sump,sumtype,sumpos,targetp,se)
+function c101010338.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return c:GetAttribute()~=ATTRIBUTE_LIGHT
 end
-function ref.filter(c)
+function c101010338.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0x1093)
 end
-function ref.lvtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_MZONE,0,1,nil) end
+function c101010338.lvtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c101010338.filter,tp,LOCATION_MZONE,0,1,nil) end
 end
-function ref.lvop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroup(ref.filter,tp,LOCATION_MZONE,0,nil)
+function c101010338.lvop(e,tp,eg,ep,ev,re,r,rp)
+	local g=Duel.GetMatchingGroup(c101010338.filter,tp,LOCATION_MZONE,0,nil)
 	local tc=g:GetFirst()
 	while tc do
 		local e1=Effect.CreateEffect(e:GetHandler())
@@ -72,10 +71,10 @@ function ref.lvop(e,tp,eg,ep,ev,re,r,rp)
 		tc=g:GetNext()
 	end
 end
-function ref.operation(e,tp,eg,ep,ev,re,r,rp)
-	if not Duel.IsExistingTarget(ref.filter,tp,LOCATION_MZONE,0,1,nil) then return end
+function c101010338.operation(e,tp,eg,ep,ev,re,r,rp)
+	if not Duel.IsExistingTarget(c101010338.filter,tp,LOCATION_MZONE,0,1,nil) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	local tc=Duel.SelectTarget(tp,ref.filter,tp,LOCATION_MZONE,0,1,1,nil)
+	local tc=Duel.SelectTarget(tp,c101010338.filter,tp,LOCATION_MZONE,0,1,1,nil)
 	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)

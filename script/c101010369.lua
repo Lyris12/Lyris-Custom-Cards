@@ -1,14 +1,13 @@
 --Victorial Dragon Snakesisfy
-local id,ref=GIR()
-function ref.start(c)
+function c101010369.initial_effect(c)
 --enhance summon
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_SPSUMMON_PROC)
 	e0:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_IGNORE_IMMUNE)
 	e0:SetRange(LOCATION_EXTRA)
-	e0:SetCondition(ref.sprcon)
-	e0:SetOperation(ref.sprop)
+	e0:SetCondition(c101010369.sprcon)
+	e0:SetOperation(c101010369.sprop)
 	e0:SetValue(0x7327)
 	c:RegisterEffect(e0)
 	--If this card is Relay Summoned: You can target 1 other monster you control; shuffle it into the Deck, and if you do, draw 2 cards, then if you do not have a face-up Relay Monster in your Extra Deck, it becomes the End Phase of this turn.
@@ -18,8 +17,8 @@ function ref.start(c)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e1:SetCondition(function(e,se,ep,st) return bit.band(st,0x7327)==0x7327 end)
-	e1:SetTarget(ref.target)
-	e1:SetOperation(ref.operation)
+	e1:SetTarget(c101010369.target)
+	e1:SetOperation(c101010369.operation)
 	c:RegisterEffect(e1)
 	--When a monster you control is destroyed by battle: You can dispose 1 of this card's Points; Special Summon 1 monster from your Deck with the same Level as the destroyed monster in face-up Attack Position.
 	local e2=Effect.CreateEffect(c)
@@ -28,65 +27,63 @@ function ref.start(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_BATTLE_DESTROYED)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCondition(ref.con)
-	e2:SetCost(ref.cost)
-	e2:SetTarget(ref.tg)
-	e2:SetOperation(ref.op)
+	e2:SetCondition(c101010369.con)
+	e2:SetCost(c101010369.cost)
+	e2:SetTarget(c101010369.tg)
+	e2:SetOperation(c101010369.op)
 	c:RegisterEffect(e2)
-	if not ref.global_check then
-		ref.global_check=true
+	if not relay_check then
+		relay_check=true
 		local ge2=Effect.CreateEffect(c)
 		ge2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge2:SetCode(EVENT_ADJUST)
 		ge2:SetCountLimit(1)
 		ge2:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
-		ge2:SetOperation(ref.chk)
+		ge2:SetOperation(c101010369.chk)
 		Duel.RegisterEffect(ge2,0)
 	end
 end
-ref.relay=true
-ref.point=1
-function ref.chk(e,tp,eg,ep,ev,re,r,rp)
+c101010369.relay=true
+c101010369.point=1
+function c101010369.chk(e,tp,eg,ep,ev,re,r,rp)
 	Duel.CreateToken(tp,481)
 	Duel.CreateToken(1-tp,481)
 end
-function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	local ct=e:GetLabel()
+function c101010369.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	local point=c:GetFlagEffectLabel(10001100)
 	local m=c:GetMaterial():IsExists(Card.IsCode,1,nil,101010378)
-	if chk==0 then return c:GetFlagEffect(10001100)>=ct or m end
+	if chk==0 then return c:GetFlagEffect(10001100)>=1 or m end
 	if m then return end
-	if point==ct then
+	if point==1 then
 		c:ResetFlagEffect(10001100)
 	else
-		c:SetFlagEffectLabel(10001100,point-ct)
+		c:SetFlagEffectLabel(10001100,point-1)
 	end
-	Debug.ShowHint(tostring(ct) .. " Point(s) removed")
 end
-function ref.cfilter(c,tp)
+function c101010369.cfilter(c,tp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:GetPreviousControler()==tp
 end
-function ref.con(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(ref.cfilter,1,nil,tp)
+function c101010369.con(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(c101010369.cfilter,1,nil,tp)
 end
-function ref.filter(c,e,tp,lv)
+function c101010369.filter(c,e,tp,lv)
 	return c:IsType(TYPE_MONSTER) and c:GetLevel()==lv and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function ref.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010369.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tc=eg:GetFirst()
 	if chk==0 then return Duel.GetLocationCount()>0
-		and Duel.IsExistingMatchingCard(ref.filter,tp,LOCATION_DECK,0,1,nil,e,tp,tc:GetLevel()) end
+		and Duel.IsExistingMatchingCard(c101010369.filter,tp,LOCATION_DECK,0,1,nil,e,tp,tc:GetLevel()) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
-function ref.op(e,tp,eg,ep,ev,re,r,rp)
+function c101010369.op(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,ref.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp,eg:GetFirst():GetLevel())
+	local g=Duel.SelectMatchingCard(tp,c101010369.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp,eg:GetFirst():GetLevel())
 	if g:GetCount()>0 then
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP_ATTACK)
 	end
 end
-function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101010369.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and chkc:IsAbleToDeck() end
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,2)
 		and Duel.IsExistingTarget(Card.IsAbleToDeck,tp,LOCATION_MZONE,0,1,nil) end
@@ -95,15 +92,15 @@ function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,2)
 end
-function ref.rechk(c)
+function c101010369.rechk(c)
 	return c:IsFaceup() and c.relay
 end
-function ref.operation(e,tp,eg,ep,ev,re,r,rp)
+function c101010369.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tg=Duel.GetFirstTarget()
 	if tg:IsRelateToEffect(e) and Duel.SendtoDeck(tg,nil,0,REASON_EFFECT)~=0 and tg:IsLocation(LOCATION_DECK+LOCATION_EXTRA) then
 		Duel.ShuffleDeck(tp)
 		Duel.Draw(tp,2,REASON_EFFECT)
-		if not Duel.IsExistingMatchingCard(ref.rechk,tp,LOCATION_EXTRA,0,1,nil) then
+		if not Duel.IsExistingMatchingCard(c101010369.rechk,tp,LOCATION_EXTRA,0,1,nil) then
 			Duel.BreakEffect()
 			Duel.SkipPhase(tp,PHASE_MAIN1,RESET_PHASE+PHASE_END,1)
 			local e1=Effect.CreateEffect(e:GetHandler())
@@ -116,20 +113,20 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function ref.sprfilter(c)
+function c101010369.sprfilter(c)
 	return c:GetEquipGroup():IsExists(Card.IsAbleToGrave,1,nil) and c:IsAbleToGrave()
 end
-function ref.sprcon(e,c)
+function c101010369.sprcon(e,c)
 	if c==nil then return true end
 	if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
 	local tp=c:GetControler()
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<0 then return false end
-	return Duel.IsExistingMatchingCard(ref.sprfilter,tp,LOCATION_MZONE,0,1,nil)
+	return Duel.IsExistingMatchingCard(c101010369.sprfilter,tp,LOCATION_MZONE,0,1,nil)
 end
-function ref.sprop(e,tp,eg,ep,ev,re,r,rp,c)
+function c101010369.sprop(e,tp,eg,ep,ev,re,r,rp,c)
 	local mg=Group.CreateGroup()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g=Duel.SelectMatchingCard(tp,ref.sprfilter,tp,LOCATION_MZONE,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,c101010369.sprfilter,tp,LOCATION_MZONE,0,1,1,nil)
 	local tc=g:GetFirst()
 	mg:AddCard(tc)
 	local qg=tc:GetEquipGroup()

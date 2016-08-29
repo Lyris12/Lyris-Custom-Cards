@@ -1,6 +1,5 @@
 --Ｓ・Ｖｉｎｅの少女－ジャッキー
-local id,ref=GIR()
-function ref.start(c)
+function c101010158.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_AVOID_BATTLE_DAMAGE)
@@ -16,26 +15,26 @@ local e1=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_REMOVE)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e3:SetCode(EVENT_BATTLED)
-	e3:SetCondition(ref.condition)
-	e3:SetTarget(ref.target)
-	e3:SetOperation(ref.operation)
+	e3:SetCondition(c101010158.condition)
+	e3:SetTarget(c101010158.target)
+	e3:SetOperation(c101010158.operation)
 	c:RegisterEffect(e3)
 end
-function ref.condition(e,tp,eg,ep,ev,re,r,rp)
+function c101010158.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetAttackTarget()==e:GetHandler()
 end
-function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010158.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,Duel.GetAttacker(),1,0,0)
 end
-function ref.operation(e,tp,eg,ep,ev,re,r,rp)
+function c101010158.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local a=Duel.GetAttacker()
 	if not a:IsRelateToBattle() then return end
 	if Duel.Remove(a,POS_FACEUP,REASON_EFFECT+REASON_TEMPORARY)~=0 then
-		c:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+		c:RegisterFlagEffect(101010158,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 		local g=Group.FromCards(a)
-		a:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+		a:RegisterFlagEffect(101010158,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 		g:KeepAlive()
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -43,16 +42,16 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_PHASE+PHASE_END)
 		e1:SetCountLimit(1)
 		e1:SetLabelObject(g)
-		e1:SetOperation(ref.retop)
+		e1:SetOperation(c101010158.retop)
 		Duel.RegisterEffect(e1,tp)
 	end
 end
-function ref.retfilter(c)
-	return c:GetFlagEffect(id)~=0
+function c101010158.retfilter(c)
+	return c:GetFlagEffect(101010158)~=0
 end
-function ref.retop(e,tp,eg,ep,ev,re,r,rp)
+function c101010158.retop(e,tp,eg,ep,ev,re,r,rp)
 	local g=e:GetLabelObject()
-	local sg=g:Filter(ref.retfilter,nil)
+	local sg=g:Filter(c101010158.retfilter,nil)
 	g:DeleteGroup()
 	local tc=sg:GetFirst()
 	while tc do

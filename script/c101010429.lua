@@ -1,6 +1,5 @@
 --Starry-Eyes Spatial Dragon
-local id,ref=GIR()
-function ref.start(c)
+function c101010429.initial_effect(c)
 	--attack banish
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetCategory(CATEGORY_TOGRAVE)
@@ -8,9 +7,9 @@ function ref.start(c)
 	ae1:SetRange(LOCATION_MZONE)
 	ae1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	ae1:SetCountLimit(1)
-	ae1:SetCost(ref.bancon)
-	ae1:SetTarget(ref.bantg)
-	ae1:SetOperation(ref.banop)
+	ae1:SetCost(c101010429.bancon)
+	ae1:SetTarget(c101010429.bantg)
+	ae1:SetOperation(c101010429.banop)
 	c:RegisterEffect(ae1)
 	--special summon (Do Not Remove)
 	c:EnableReviveLimit()
@@ -19,8 +18,8 @@ function ref.start(c)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e1:SetRange(LOCATION_EXTRA)
-	e1:SetCondition(ref.spcon)
-	e1:SetOperation(ref.spop)
+	e1:SetCondition(c101010429.spcon)
+	e1:SetOperation(c101010429.spop)
 	e1:SetValue(SUMMON_TYPE_XYZ+0x7150)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
@@ -40,23 +39,23 @@ function ref.start(c)
 	ge1:SetValue(LOCATION_REMOVED)
 	Duel.RegisterEffect(ge1,0)
 end
-function ref.spfilter(c,v,y,z)
+function c101010429.spfilter(c,v,y,z)
 	local atk=c:GetAttack()
 	return c:GetLevel()==v and atk>=y and atk<=z and c:IsAbleToRemoveAsCost()
 end
-function ref.spcon(e,c)
+function c101010429.spcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
-	return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 and Duel.IsExistingMatchingCard(ref.spfilter,tp,LOCATION_MZONE,0,1,nil,4,1050,1750)
+	return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 and Duel.IsExistingMatchingCard(c101010429.spfilter,tp,LOCATION_MZONE,0,1,nil,4,1050,1750)
 end
-function ref.spop(e,tp,eg,ep,ev,re,r,rp,c)
-	local g=Duel.SelectMatchingCard(tp,ref.spfilter,tp,LOCATION_MZONE,0,1,1,nil,4,1050,1750)
+function c101010429.spop(e,tp,eg,ep,ev,re,r,rp,c)
+	local g=Duel.SelectMatchingCard(tp,c101010429.spfilter,tp,LOCATION_MZONE,0,1,1,nil,4,1050,1750)
 	local fg=g:Filter(Card.IsFacedown,nil)
 	if fg:GetCount()>0 then Duel.ConfirmCards(1-tp,fg) end
 	c:SetMaterial(g)
 	Duel.Remove(g,POS_FACEUP,REASON_MATERIAL+0x7150)
 end
-function ref.bancon(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010429.bancon(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetCurrentPhase()==PHASE_MAIN1 end
 	local c=e:GetHandler()
 	local e1=Effect.CreateEffect(c)
@@ -66,25 +65,27 @@ function ref.bancon(e,tp,eg,ep,ev,re,r,rp,chk)
 	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 	c:RegisterEffect(e1,true)
 end
-function ref.atkfilter(c,atk)
+function c101010429.atkfilter(c,atk)
 	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
 end
-function ref.bantg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101010429.bantg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
-	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(1-tp) and ref.atkfilter(chkc,c:GetAttack()) end
-	if chk==0 then return Duel.IsExistingTarget(ref.atkfilter,tp,0,LOCATION_REMOVED,1,nil,c:GetAttack()) end
+	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(1-tp) and c101010429.atkfilter(chkc,c:GetAttack()) end
+	if chk==0 then return Duel.IsExistingTarget(c101010429.atkfilter,tp,0,LOCATION_REMOVED,1,nil,c:GetAttack()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	local g=Duel.SelectTarget(tp,ref.atkfilter,tp,0,LOCATION_REMOVED,1,1,nil,c:GetAttack())
+	local g=Duel.SelectTarget(tp,c101010429.atkfilter,tp,0,LOCATION_REMOVED,1,1,nil,c:GetAttack())
 	local atk=g:GetFirst():GetBaseAttack()
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,atk)
-	if not g:GetFirst():IsAbleToGrave() then
+	local m=_G["c"..g:GetFirst():GetCode()]
+	if not m or not m.spatial then
 		Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,g,1,0,0)
 	end
 end
-function ref.banop(e,tp,eg,ep,ev,re,r,rp)
+function c101010429.banop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and Duel.Damage(1-tp,tc:GetBaseAttack(),REASON_EFFECT)~=0 then
+	local m=_G["c"..tc:GetCode()]
+	if tc:IsRelateToEffect(e) and Duel.Damage(1-tp,tc:GetBaseAttack(),REASON_EFFECT)~=0 and (not m or not m.spatial) then
 		Duel.BreakEffect()
 		Duel.SendtoGrave(tc,REASON_EFFECT)
 	end

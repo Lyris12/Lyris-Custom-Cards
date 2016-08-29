@@ -1,6 +1,5 @@
 --バトル・シティ
-local id,ref=GIR()
-function ref.start(c)
+function c101010295.initial_effect(c)
 --Activate
 	local e2=Effect.CreateEffect(c)
 	e2:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
@@ -9,7 +8,7 @@ function ref.start(c)
 	e2:SetCode(EVENT_STARTUP)
 	e2:SetCountLimit(1)
 	e2:SetRange(LOCATION_DECK+LOCATION_HAND)
-	e2:SetOperation(ref.op)
+	e2:SetOperation(c101010295.op)
 	c:RegisterEffect(e2)
 	local e1=e2:Clone()
 	e1:SetCode(EVENT_PHASE_START+PHASE_DRAW)
@@ -19,7 +18,7 @@ function ref.start(c)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_SUMMON_SUCCESS)
 	e0:SetRange(LOCATION_REMOVED)
-	e0:SetOperation(ref.fdop)
+	e0:SetOperation(c101010295.fdop)
 	c:RegisterEffect(e0)
 	--cannot be affected
 	local e5=Effect.CreateEffect(c)
@@ -47,32 +46,32 @@ function ref.start(c)
 	ee:SetCode(EFFECT_CANNOT_REMOVE)
 	c:RegisterEffect(ee)
 end
-function ref.op(e,tp,eg,ep,ev,re,r,rp)
+function c101010295.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	Duel.Remove(c,POS_FACEUP,REASON_RULE)
 	if e:GetHandler():GetPreviousLocation()==LOCATION_HAND then
 		Duel.Draw(tp,1,REASON_RULE)
 	end
 	--Fusion Monsters cannot attack during the turn they are summoned.
-	if not Duel.SelectYesNo(tp,aux.Stringid(id,0)) and not Duel.SelectYesNo(1-tp,aux.Stringid(id,0)) then
+	if not Duel.SelectYesNo(tp,aux.Stringid(101010295,0)) and not Duel.SelectYesNo(1-tp,aux.Stringid(101010295,0)) then
 		local e1=Effect.CreateEffect(c)
 		e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-		e1:SetOperation(ref.fusop)
+		e1:SetOperation(c101010295.fusop)
 		Duel.RegisterEffect(e1,tp)
 	end
 end
-function ref.fdop(e,tp,eg,ep,ev,re,r,rp)
+function c101010295.fdop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	while tc do
-		if Duel.SelectYesNo(tc:GetControler(),aux.Stringid(id,1)) then
-			Duel.ChangePosition(tc,POS_FACEUP_DEFENCE)
+		if Duel.SelectYesNo(tc:GetControler(),aux.Stringid(101010295,1)) then
+			Duel.ChangePosition(tc,POS_FACEUP_DEFENSE)
 		end
 		tc=eg:GetNext()
 	end
 end
-function ref.fusop(e,tp,eg,ep,ev,re,r,rp)
+function c101010295.fusop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	while tc do
 		if tc:IsType(TYPE_FUSION) then

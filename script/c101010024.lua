@@ -1,6 +1,5 @@
 --Cyberspace Dragon
-local id,ref=GIR()
-function ref.start(c)
+function c101010024.initial_effect(c)
 --add LIGHT attribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -14,15 +13,15 @@ function ref.start(c)
 	e2:SetCode(EFFECT_SPSUMMON_PROC)
 	e2:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e2:SetRange(LOCATION_HAND)
-	e2:SetCondition(ref.spcon)
+	e2:SetCondition(c101010024.spcon)
 	c:RegisterEffect(e2)
 end
-function ref.filter(c)
+function c101010024.filter(c)
 	return c:IsFaceup() and c:IsType(TYPE_MONSTER)
 end
-function ref.spcon(e,c)
+function c101010024.spcon(e,c)
 	if c==nil then return true end
-	return not Duel.IsExistingMatchingCard(ref.filter,c:GetControler(),0,LOCATION_REMOVED,1,nil)
-		and Duel.IsExistingMatchingCard(ref.filter,c:GetControler(),LOCATION_REMOVED,0,1,nil)
+	return not Duel.IsExistingMatchingCard(c101010024.filter,c:GetControler(),0,LOCATION_REMOVED,1,nil)
+		and Duel.IsExistingMatchingCard(c101010024.filter,c:GetControler(),LOCATION_REMOVED,0,1,nil)
 		and Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
 end

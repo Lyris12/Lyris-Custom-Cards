@@ -1,38 +1,37 @@
 --The Tsuiho Movement
-local id,ref=GIR()
-function ref.start(c)
+function c101020097.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCategory(CATEGORY_DICE)
 	e1:SetCountLimit(1,81600005+EFFECT_COUNT_CODE_OATH)
-	e1:SetCondition(ref.condition)
-	e1:SetTarget(ref.target)
-	e1:SetOperation(ref.activate)
+	e1:SetCondition(c101020097.condition)
+	e1:SetTarget(c101020097.target)
+	e1:SetOperation(c101020097.activate)
 	c:RegisterEffect(e1)
 	--add to hand
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,1))
+	e2:SetDescription(aux.Stringid(101020097,1))
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_REMOVE)
-	e2:SetTarget(ref.thtg)
-	e2:SetOperation(ref.thop)
+	e2:SetTarget(c101020097.thtg)
+	e2:SetOperation(c101020097.thop)
 	c:RegisterEffect(e2)
 end
-function ref.cfilter(c)
+function c101020097.cfilter(c)
 	return c:IsSetCard(0x330) and c:IsType(TYPE_MONSTER)
 end
-function ref.condition(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(ref.cfilter,tp,LOCATION_REMOVED,LOCATION_REMOVED,1,nil)
+function c101020097.condition(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.IsExistingMatchingCard(c101020097.cfilter,tp,LOCATION_REMOVED,LOCATION_REMOVED,1,nil)
 end
-function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101020097.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not Duel.IsPlayerAffectedByEffect(tp,30459350) 
 		and Duel.IsPlayerCanDraw(tp) end
 	Duel.SetOperationInfo(0,CATEGORY_DICE,nil,0,tp,1)
 end
-function ref.activate(e,tp,eg,ep,ev,re,r,rp)
+function c101020097.activate(e,tp,eg,ep,ev,re,r,rp)
 	local dice=Duel.TossDice(tp,1)
 	if Duel.IsPlayerAffectedByEffect(tp,30459350) then return end
 	if dice==1 then
@@ -81,16 +80,16 @@ function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function ref.afilter(c)
-	return c:IsSetCard(0x330) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand() and c:GetCode()~=id
+function c101020097.afilter(c)
+	return c:IsSetCard(0x330) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand() and c:GetCode()~=101020097
 end
-function ref.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(ref.afilter,tp,LOCATION_DECK,0,1,nil) end
+function c101020097.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c101020097.afilter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
-function ref.thop(e,tp,eg,ep,ev,re,r,rp)
+function c101020097.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,ref.afilter,tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,c101020097.afilter,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)

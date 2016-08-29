@@ -1,14 +1,13 @@
 --PSYStream Behemoth
-local id,ref=GIR()
-function ref.start(c)
+function c101010009.initial_effect(c)
 --When this card is Special Summoned: You can target 1 face-up monster your opponent controls; reveal the bottom card of your Deck, and if it was a "PSYStream" card, add that card to your hand, then banish the opponent's monster. 
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e0:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e0:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e0:SetCountLimit(1,id)
-	e0:SetTarget(ref.negtg)
-	e0:SetOperation(ref.negop)
+	e0:SetCountLimit(1,101010009)
+	e0:SetTarget(c101010009.negtg)
+	e0:SetOperation(c101010009.negop)
 	c:RegisterEffect(e0)
 	--If this card is banished: You can target 1 "PSYStream" monster you control; it cannot be targeted by your opponent's card effects this turn.
 	local e1=Effect.CreateEffect(c)
@@ -17,8 +16,8 @@ function ref.start(c)
 	e1:SetRange(LOCATION_REMOVED)
 	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e1:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) local ef=e:GetHandler():GetReasonEffect() return ef and ef:GetHandler():IsSetCard(0x127) end)
-	e1:SetTarget(ref.target)
-	e1:SetOperation(ref.operation)
+	e1:SetTarget(c101010009.target)
+	e1:SetOperation(c101010009.operation)
 	c:RegisterEffect(e1)
 	--This card can attack your opponent directly.
 	local e2=Effect.CreateEffect(c)
@@ -29,28 +28,28 @@ function ref.start(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EVENT_PRE_BATTLE_DAMAGE)
-	e3:SetCondition(ref.rdcon)
-	e3:SetOperation(ref.rdop)
+	e3:SetCondition(c101010009.rdcon)
+	e3:SetOperation(c101010009.rdop)
 	c:RegisterEffect(e3)
 end
-function ref.rdcon(e,tp,eg,ep,ev,re,r,rp)
+function c101010009.rdcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return ep~=tp and Duel.GetAttackTarget()==nil
 		and c:GetEffectCount(EFFECT_DIRECT_ATTACK)<2 and Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 and ev>900
 end
-function ref.rdop(e,tp,eg,ep,ev,re,r,rp)
+function c101010009.rdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,500)
 end
-function ref.filter(c)
+function c101010009.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0x127)
 end
-function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and ref.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(ref.filter,tp,LOCATION_MZONE,0,1,nil) end
+function c101010009.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and c101010009.filter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c101010009.filter,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	Duel.SelectTarget(tp,ref.filter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.SelectTarget(tp,c101010009.filter,tp,LOCATION_MZONE,0,1,1,nil)
 end
-function ref.operation(e,tp,eg,ep,ev,re,r,rp)
+function c101010009.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		local e1=Effect.CreateEffect(e:GetHandler())
@@ -62,16 +61,16 @@ function ref.operation(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 	end
 end
-function ref.negfilter(c)
+function c101010009.negfilter(c)
 	return c:IsFaceup() and c:IsAbleToRemove()
 end
-function ref.negtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and ref.negfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(ref.negfilter,tp,0,LOCATION_MZONE,1,nil) end
+function c101010009.negtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and c101010009.negfilter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c101010009.negfilter,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	Duel.SelectTarget(tp,ref.negfilter,tp,0,LOCATION_MZONE,1,1,nil)
+	Duel.SelectTarget(tp,c101010009.negfilter,tp,0,LOCATION_MZONE,1,1,nil)
 end
-function ref.negop(e,tp,eg,ep,ev,re,r,rp)
+function c101010009.negop(e,tp,eg,ep,ev,re,r,rp)
 	local dr=Duel.GetFieldCard(tp,LOCATION_DECK,0)
 	Duel.ConfirmCards(1-tp,dr)
 	Duel.ConfirmCards(tp,dr)

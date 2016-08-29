@@ -1,6 +1,5 @@
 --Victorial Wield Sagittarius
-local id,ref=GIR()
-function ref.start(c)
+function c101010377.initial_effect(c)
 --Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetDescription(1068)
@@ -8,8 +7,8 @@ function ref.start(c)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	e0:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e0:SetTarget(ref.target)
-	e0:SetOperation(ref.operation)
+	e0:SetTarget(c101010377.target)
+	e0:SetOperation(c101010377.operation)
 	c:RegisterEffect(e0)
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE)
@@ -26,8 +25,8 @@ function ref.start(c)
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_PRE_BATTLE_DAMAGE)
-	e4:SetCondition(ref.damcon)
-	e4:SetOperation(ref.damop)
+	e4:SetCondition(c101010377.damcon)
+	e4:SetOperation(c101010377.damop)
 	c:RegisterEffect(e4)
 	--spsummon
 	local e3=Effect.CreateEffect(c)
@@ -38,43 +37,43 @@ function ref.start(c)
 	e3:SetRange(LOCATION_SZONE)
 	e3:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return Duel.GetAttacker()==e:GetHandler():GetEquipTarget() end)
 	e3:SetCost(function(e,tp,eg,ep,ev,re,r,rp,chk) if chk==0 then return e:GetHandler():IsAbleToGraveAsCost() end Duel.SendtoGrave(e:GetHandler(),REASON_COST) end)
-	e3:SetTarget(ref.sptg)
-	e3:SetOperation(ref.spop)
+	e3:SetTarget(c101010377.sptg)
+	e3:SetOperation(c101010377.spop)
 	c:RegisterEffect(e3)
 end
-function ref.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101010377.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
 	Duel.SelectTarget(tp,Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,e:GetHandler(),1,0,0)
 end
-function ref.operation(e,tp,eg,ep,ev,re,r,rp)
+function c101010377.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if e:GetHandler():IsRelateToEffect(e) and tc:IsRelateToEffect(e) and tc:IsFaceup() then
 		Duel.Equip(tp,e:GetHandler(),tc)
 	end
 end
-function ref.damcon(e,tp,eg,ep,ev,re,r,rp)
+function c101010377.damcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp and Duel.GetAttacker()==e:GetHandler():GetEquipTarget()
 end
-function ref.damop(e,tp,eg,ep,ev,re,r,rp)
+function c101010377.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,ev*2)
 end
-function ref.filter0(c)
+function c101010377.filter0(c)
 	return c:IsCanBeFusionMaterial() and c:IsAbleToDeck()
 end
-function ref.filter1(c,e)
+function c101010377.filter1(c,e)
 	return c:IsCanBeFusionMaterial() and c:IsAbleToDeck() and not c:IsImmuneToEffect(e)
 end
-function ref.filter2(c,e,tp,m)
-	return c:GetCode()==id and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false)
+function c101010377.filter2(c,e,tp,m)
+	return c:GetCode()==101010377 and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false)
 		and c:CheckFusionMaterial(m,nil,chkf)
 end
-function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010377.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-		local mg1=Duel.GetMatchingGroup(ref.filter0,tp,LOCATION_GRAVE+LOCATION_MZONE,0,nil)
+		local mg1=Duel.GetMatchingGroup(c101010377.filter0,tp,LOCATION_GRAVE+LOCATION_MZONE,0,nil)
 		local res=Duel.IsExistingMatchingCard(c4id.filter3,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
 		if not res then
 			local ce=Duel.GetChainMaterial(tp)
@@ -89,10 +88,10 @@ function ref.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function ref.spop(e,tp,eg,ep,ev,re,r,rp)
+function c101010377.spop(e,tp,eg,ep,ev,re,r,rp)
 	local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-	local mg1=Duel.GetMatchingGroup(ref.filter1,tp,LOCATION_GRAVE+LOCATION_MZONE,0,nil,e)
-	local sg=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
+	local mg1=Duel.GetMatchingGroup(c101010377.filter1,tp,LOCATION_GRAVE+LOCATION_MZONE,0,nil,e)
+	local sg=Duel.GetMatchingGroup(c101010377.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
 	local mg2=nil
 	local sg2=nil
 	local ce=Duel.GetChainMaterial(tp)
@@ -100,7 +99,7 @@ function ref.spop(e,tp,eg,ep,ev,re,r,rp)
 		local fgroup=ce:GetTarget()
 		mg2=fgroup(ce,e,tp)
 		local mf=ce:GetValue()
-		sg2=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,mf,chkf)
+		sg2=Duel.GetMatchingGroup(c101010377.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,mf,chkf)
 	end
 	if sg1:GetCount()>0 or (sg2~=nil and sg2:GetCount()>0) then
 		local sg=sg1:Clone()

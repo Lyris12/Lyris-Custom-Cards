@@ -1,17 +1,16 @@
 --ソウル・インバージョン・チャネル－緑
-local id,ref=GIR()
-function ref.start(c)
+function c101010440.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetOperation(ref.op)
+	e1:SetOperation(c101010440.op)
 	c:RegisterEffect(e1)
 end
-ref.global_check=false
-function ref.op(e,tp,eg,ep,ev,re,r,rp)
+c101010440.global_check=false
+function c101010440.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if ref.global_check then return end
-	ref.global_check=true
+	if c101010440.global_check then return end
+	c101010440.global_check=true
 	local g=Duel.GetFieldGroup(tp,0xff,0xff)
 	local tc=g:GetFirst()
 	while tc do
@@ -29,7 +28,7 @@ function ref.op(e,tp,eg,ep,ev,re,r,rp)
 				e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 				e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 				e2:SetCode(EVENT_SUMMON_SUCCESS)
-				e2:SetOperation(ref.atklimit)
+				e2:SetOperation(c101010440.atklimit)
 				tc:RegisterEffect(e2)
 				local e3=e2:Clone()
 				e3:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
@@ -42,7 +41,7 @@ function ref.op(e,tp,eg,ep,ev,re,r,rp)
 		tc=g:GetNext()
 	end
 end
-function ref.atklimit(e,tp,eg,ep,ev,re,r,rp)
+function c101010440.atklimit(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if bit.band(c:GetSummonType(),SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION then return end
 	local e1=Effect.CreateEffect(c)

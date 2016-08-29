@@ -1,19 +1,18 @@
 --Starnight Cyber Dragon
-local id,ref=GIR()
-function ref.initial_effect(c)
+function c101010218.initial_effect(c)
 	local ae4=Effect.CreateEffect(c)
 	ae4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	ae4:SetCode(EVENT_BECOME_TARGET)
 	ae4:SetRange(LOCATION_MZONE)
-	ae4:SetCondition(ref.rmcon)
-	ae4:SetOperation(ref.rmop)
+	ae4:SetCondition(c101010218.rmcon)
+	ae4:SetOperation(c101010218.rmop)
 	c:RegisterEffect(ae4)
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetType(EFFECT_TYPE_SINGLE)
 	ae1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	ae1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	ae1:SetRange(LOCATION_MZONE)
-	ae1:SetCondition(ref.tgcon)
+	ae1:SetCondition(c101010218.tgcon)
 	ae1:SetValue(aux.tgval)
 	c:RegisterEffect(ae1)
 	local ae3=ae1:Clone()
@@ -24,54 +23,48 @@ function ref.initial_effect(c)
 	ae2:SetCategory(CATEGORY_ATKCHANGE)
 	ae2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	ae2:SetCode(EVENT_SPSUMMON_SUCCESS)
-	ae2:SetCondition(ref.atkucon)
-	ae2:SetOperation(ref.atkuop)
+	ae2:SetCondition(c101010218.atkucon)
+	ae2:SetOperation(c101010218.atkuop)
 	c:RegisterEffect(ae2)
-	if not ref.global_check then
-		ref.global_check=true
+	if not spatial_check then
+		spatial_check=true
 		local ge2=Effect.CreateEffect(c)
 		ge2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge2:SetCode(EVENT_ADJUST)
 		ge2:SetCountLimit(1)
 		ge2:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
-		ge2:SetOperation(ref.chk)
+		ge2:SetOperation(c101010218.chk)
 		Duel.RegisterEffect(ge2,0)
 	end
 end
-ref.spatial=true
---Spatial Formula filter(s)
--- ref.material1=nil
--- ref.material2=function(mc) return true end -- Invert this block of code on Division Spatial Monsters (begin)
-ref.divs_spatial=true --Division Procedure /
-ref.stat=function(mc) return mc:GetAttack()-mc:GetDefence() end
-ref.indicator=function(mc) return mc:GetRank() end -- Invert this block of code on Division Spatial Monsters (end)
-function ref.chk(e,tp,eg,ep,ev,re,r,rp)
-	Duel.CreateToken(tp,450)
-	Duel.CreateToken(1-tp,450)
+c101010218.spatial=true
+function c101010218.chk(e,tp,eg,ep,ev,re,r,rp)
+	Duel.CreateToken(tp,500)
+	Duel.CreateToken(1-tp,500)
 end
-function ref.rmcon(e,tp,eg,ep,ev,re,r,rp)
+function c101010218.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local st=c:GetSummonType()
 	if bit.band(st,SUMMON_TYPE_XYZ)==SUMMON_TYPE_XYZ or bit.band(st,SUMMON_TYPE_SPECIAL)==0 then return false end
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	return g:IsContains(c)
 end
-function ref.rmop(e,tp,eg,ep,ev,re,r,rp)
+function c101010218.rmop(e,tp,eg,ep,ev,re,r,rp)
 	local p=Duel.GetChainInfo(0,CHAININFO_TRIGGERING_CONTROLER)
 	if p==tp then return end
 	Duel.Remove(re:GetHandler(),POS_FACEUP,REASON_EFFECT)
 end
-function ref.tgcon(e)
+function c101010218.tgcon(e)
 	return bit.band(e:GetHandler():GetSummonType(),0x7150)==0x7150
 end
-function ref.atkucon(e)
-	return bit.band(e:GetHandler():GetSummonType(),0x7150)==0
+function c101010218.atkucon(e)
+	return not c101010218.tgcon(e)
 end
-function ref.atfilter(c)
+function c101010218.atfilter(c)
 	return c:IsRace(RACE_MACHINE) and not c:IsReason(REASON_MATERIAL)
 end
-function ref.atkuop(e,tp,eg,ep,ev,re,r,rp)
-	local ct=Duel.GetMatchingGroupCount(ref.atfilter,tp,LOCATION_REMOVED,LOCATION_REMOVED,nil)
+function c101010218.atkuop(e,tp,eg,ep,ev,re,r,rp)
+	local ct=Duel.GetMatchingGroupCount(c101010218.atfilter,tp,LOCATION_REMOVED,LOCATION_REMOVED,nil)
 	local c=e:GetHandler()
 	if c:IsFaceup() and c:IsRelateToEffect(e) then
 		local e1=Effect.CreateEffect(c)

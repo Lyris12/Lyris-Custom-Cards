@@ -1,6 +1,5 @@
 --ガーディアン・ライリス
-local id,ref=GIR()
-function ref.start(c)
+function c101010240.initial_effect(c)
 --synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
 	c:EnableReviveLimit()
@@ -9,7 +8,7 @@ function ref.start(c)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
-	e1:SetCondition(ref.sumlimit)
+	e1:SetCondition(c101010240.sumlimit)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
 	e2:SetCode(EFFECT_CANNOT_FLIP_SUMMON)
@@ -21,19 +20,19 @@ function ref.start(c)
 	e9:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e9:SetCountLimit(1)
 	e9:SetRange(LOCATION_MZONE)
-	e9:SetTarget(ref.destg)
-	e9:SetOperation(ref.desop)
+	e9:SetTarget(c101010240.destg)
+	e9:SetOperation(c101010240.desop)
 	c:RegisterEffect(e9)
 end
 --You can target 1 monster you control;
-function ref.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101010240.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and chkc:IsDestructable() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsDestructable,tp,LOCATION_MZONE,0,1,e:GetHandler()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectTarget(tp,Card.IsDestructable,tp,LOCATION_MZONE,0,1,1,e:GetHandler())
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 end
-function ref.desop(e,tp,eg,ep,ev,re,r,rp)
+function c101010240.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	--destroy that target,
@@ -51,9 +50,9 @@ function ref.desop(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function ref.cfilter(c)
-	return c:IsFaceup() and c:IsCode(id)
+function c101010240.cfilter(c)
+	return c:IsFaceup() and c:IsCode(101010240)
 end
-function ref.sumlimit(e)
-	return not Duel.IsExistingMatchingCard(ref.cfilter,e:GetHandlerPlayer(),LOCATION_ONFIELD,0,1,nil)
+function c101010240.sumlimit(e)
+	return not Duel.IsExistingMatchingCard(c101010240.cfilter,e:GetHandlerPlayer(),LOCATION_ONFIELD,0,1,nil)
 end

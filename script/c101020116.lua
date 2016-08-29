@@ -1,13 +1,12 @@
 --Rusted Bond
-local id,ref=GIR()
-function ref.start(c)
+function c101020116.initial_effect(c)
 	--Fusion Summon 1 Zombie-Type Fusion Monster from your Extra Deck, using monsters from your hand or your side of the field as Fusion Materials, and it gains ATK equal to its original ATK. During the End Phase of the turn this card is activated, you take damage equal to the amount of ATK gained from this effect at the time of the Summon.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetTarget(ref.target)
-	e1:SetOperation(ref.activate)
+	e1:SetTarget(c101020116.target)
+	e1:SetOperation(c101020116.activate)
 	c:RegisterEffect(e1)
 	--During your turn, except during the turn this card was sent to the Graveyard: You can banish this card from your Graveyard, then target 1 Zombie-Type monster you control; this turn, if it attacks, your opponent cannot activate cards or effects, until the end of the Damage Step.
 	local e2=Effect.CreateEffect(c)
@@ -15,41 +14,41 @@ function ref.start(c)
 	e2:SetRange(LOCATION_GRAVE)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetCode(EVENT_FREE_CHAIN)
-	e2:SetCondition(ref.condition)
-	e2:SetCost(ref.cost)
-	e2:SetTarget(ref.regtg)
-	e2:SetOperation(ref.regop)
+	e2:SetCondition(c101020116.condition)
+	e2:SetCost(c101020116.cost)
+	e2:SetTarget(c101020116.regtg)
+	e2:SetOperation(c101020116.regop)
 	c:RegisterEffect(e2)
 end
-function ref.filter1(c,e)
+function c101020116.filter1(c,e)
 	return c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e)
 end
-function ref.filter2(c,e,tp,m,f,chkf)
-	return c:IsType(TYPE_FUSION) and c:IsRace(RACE_MACHINE) and (not f or f(c))
+function c101020116.filter2(c,e,tp,m,f,chkf)
+	return c:IsType(TYPE_FUSION) and c:IsRace(RACE_ZOMBIE) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
-function ref.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101020116.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
 		local mg1=Duel.GetMatchingGroup(Card.IsCanBeFusionMaterial,tp,LOCATION_HAND+LOCATION_MZONE,0,nil)
-		local res=Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
+		local res=Duel.IsExistingMatchingCard(c101020116.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
 		if not res then
 			local ce=Duel.GetChainMaterial(tp)
 			if ce~=nil then
 				local fgroup=ce:GetTarget()
 				local mg2=fgroup(ce,e,tp)
 				local mf=ce:GetValue()
-				res=Duel.IsExistingMatchingCard(ref.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg2,mf,chkf)
+				res=Duel.IsExistingMatchingCard(c101020116.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg2,mf,chkf)
 			end
 		end
 		return res
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function ref.activate(e,tp,eg,ep,ev,re,r,rp)
+function c101020116.activate(e,tp,eg,ep,ev,re,r,rp)
 	local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-	local mg1=Duel.GetMatchingGroup(ref.filter1,tp,LOCATION_HAND+LOCATION_MZONE,0,nil,e)
-	local sg1=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
+	local mg1=Duel.GetMatchingGroup(c101020116.filter1,tp,LOCATION_HAND+LOCATION_MZONE,0,nil,e)
+	local sg1=Duel.GetMatchingGroup(c101020116.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
 	local mg2=nil
 	local sg2=nil
 	local ce=Duel.GetChainMaterial(tp)
@@ -57,7 +56,7 @@ function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 		local fgroup=ce:GetTarget()
 		mg2=fgroup(ce,e,tp)
 		local mf=ce:GetValue()
-		sg2=Duel.GetMatchingGroup(ref.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,mf,chkf)
+		sg2=Duel.GetMatchingGroup(c101020116.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,mf,chkf)
 	end
 	if sg1:GetCount()>0 or (sg2~=nil and sg2:GetCount()>0) then
 		local sg=sg1:Clone()
@@ -90,7 +89,7 @@ function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 			e2:SetCountLimit(1)
 			e2:SetLabel(tc:GetBaseAttack())
 			e2:SetReset(RESET_PHASE+PHASE_END)
-			e2:SetOperation(ref.damop)
+			e2:SetOperation(c101020116.damop)
 			Duel.RegisterEffect(e2,tp)
 		end
 	else
@@ -104,47 +103,47 @@ function ref.activate(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function ref.damop(e,tp,eg,ep,ev,re,r,rp)
+function c101020116.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Damage(tp,e:GetLabel(),REASON_EFFECT)
 end
-function ref.condition(e,tp,eg,ep,ev,re,r,rp)
+function c101020116.condition(e,tp,eg,ep,ev,re,r,rp)
 	return aux.exccon(e) and Duel.GetTurnPlayer()==tp
 end
-function ref.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101020116.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 --target 1 Zombie-Type monster you control
-function ref.filter(c)
+function c101020116.filter(c)
 	return c:IsFaceup() and c:IsRace(RACE_ZOMBIE)
 end
-function ref.regtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and ref.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(ref.filter,tp,LOCATION_MZONE,0,1,nil) end
+function c101020116.regtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c101020116.filter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c101020116.filter,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	Duel.SelectTarget(tp,ref.filter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.SelectTarget(tp,c101020116.filter,tp,LOCATION_MZONE,0,1,1,nil)
 end
-function ref.regop(e,tp,eg,ep,ev,re,r,rp)
+function c101020116.regop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_ATTACK_ANNOUNCE)
-		e1:SetOperation(ref.atkop)
+		e1:SetOperation(c101020116.atkop)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e1)
 	end
 end
-function ref.atkop(e,tp,eg,ep,ev,re,r,rp)
+function c101020116.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e1:SetCode(EFFECT_CANNOT_ACTIVATE)
 	e1:SetTargetRange(0,1)
-	e1:SetValue(ref.aclimit)
+	e1:SetValue(c101020116.aclimit)
 	e1:SetReset(RESET_PHASE+PHASE_DAMAGE)
 	Duel.RegisterEffect(e1,tp)
 end
-function ref.actlimit(e,re,tp)
+function c101020116.actlimit(e,re,tp)
 	return not re:GetHandler():IsImmuneToEffect(e)
 end
