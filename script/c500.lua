@@ -25,6 +25,7 @@ function c500.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local g=Duel.GetMatchingGroup(c500.regfilter,0,LOCATION_DECK+LOCATION_EXTRA,LOCATION_DECK+LOCATION_EXTRA,nil)
 	local tc=g:GetFirst()
+	local n=1
 	while tc do
 		if tc:IsLocation(LOCATION_DECK) then Duel.DisableShuffleCheck() Duel.SendtoHand(tc,nil,REASON_RULE) end
 		if tc:GetFlagEffect(500)==0 then
@@ -57,7 +58,7 @@ function c500.op(e,tp,eg,ep,ev,re,r,rp)
 			e4:SetCode(EFFECT_CANNOT_BE_XYZ_MATERIAL)
 			e4:SetValue(1)
 			tc:RegisterEffect(e4)
-			local n=1
+			n=1
 			if tc:GetRank()>4 then n=n+1 end
 			if tc:GetRank()>6 then n=n+1 end
 			if tc:GetRank()>9 and tc:IsAttribute(ATTRIBUTE_DEVINE) and tc:IsRace(RACE_DEVINE) then n=n+1 end

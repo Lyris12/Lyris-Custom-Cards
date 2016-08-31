@@ -62,7 +62,7 @@ function c300.initial_effect(c)
 	end
 end
 function c300.con(e,tp,eg,ep,ev,re,r,rp)
-    return Duel.GetTurnCount()==1
+	return Duel.GetTurnCount()==1
 end
 function c300.accon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(300)>0

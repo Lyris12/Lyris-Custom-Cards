@@ -4,7 +4,7 @@ function c101010022.initial_effect(c)
 	aux.EnablePendulumAttribute(c,false)
 	--Activate
 	local e5=Effect.CreateEffect(c)
-    e5:SetDescription(1160)
+	e5:SetDescription(1160)
 	e5:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e5:SetType(EFFECT_TYPE_ACTIVATE)
 	e5:SetCode(EVENT_FREE_CHAIN)
