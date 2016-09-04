@@ -63,7 +63,7 @@ function c101020098.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummon(sc,SUMMON_TYPE_XYZ,tp,tp,false,false,POS_FACEUP)
 		sc:CompleteProcedure()
 		e:SetLabelObject(sc)
-		Duel.RaiseSingleEvent(e:GetHandler(),101020098+,e,r,rp,tp,0)
+		Duel.RaiseSingleEvent(e:GetHandler(),EVENT_CUSTOM+101020098+,e,r,rp,tp,0)
 	end
 end
 function c101020098.disfilter(c)

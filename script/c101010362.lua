@@ -38,8 +38,8 @@ function c101010362.spcon(e,tp,eg,ep,ev,re,r,rp)
 		end
 		tc=eg:GetNext()
 	end
-	if tp1 and not tp2 then Duel.RaiseSingleEvent(c,101010362,e,r,rp,tp,0) end
-	if tp2 and not tp1 then Duel.RaiseSingleEvent(c,101010362,e,r,rp,1-tp,0) end
+	if tp1 and not tp2 then Duel.RaiseSingleEvent(c,EVENT_CUSTOM+101010362,e,r,rp,tp,0) end
+	if tp2 and not tp1 then Duel.RaiseSingleEvent(c,EVENT_CUSTOM+101010362,e,r,rp,1-tp,0) end
 end
 function c101010362.filter(c,e,tp)
 	return c:IsSetCard(0x1613) and c:IsAbleToHand()

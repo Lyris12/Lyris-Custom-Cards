@@ -23,7 +23,7 @@ function c101010224.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_EVENT_PLAYER)
 	e4:SetCode(EVENT_CUSTOM+101010224)
-	e4:SetCountLimit(1,101010224)
+	e4:SetCountLimit(1,EVENT_CUSTOM+101010224)
 	e4:SetLabel(0)
 	e4:SetTarget(c101010224.tg)
 	e4:SetOperation(c101010224.op)
@@ -37,7 +37,7 @@ function c101010224.check(e,tp,eg,ep,ev,re,r,rp)
 		if tc:IsFaceup() and tc:IsSetCard(0x306) then trg=true end
 		tc=eg:GetNext()
 	end
-	if trg then Duel.RaiseSingleEvent(c,101010224,e,r,rp,tp,0) end
+	if trg then Duel.RaiseSingleEvent(c,EVENT_CUSTOM+101010224,e,r,rp,tp,0) end
 end
 function c101010224.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsRelateToEffect(e) and Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end

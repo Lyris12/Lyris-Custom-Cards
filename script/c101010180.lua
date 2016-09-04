@@ -37,7 +37,7 @@ function c101010180.chop2(e,tp,eg,ep,ev,re,r,rp)
 	e:GetLabelObject():SetLabel(1)
 	local p=tp
 	if re:GetHandler():GetControler()~=p then p=1-tp end
-	Duel.RaiseSingleEvent(e:GetHandler(),101010180,e,r,rp,p,0)
+	Duel.RaiseSingleEvent(e:GetHandler(),EVENT_CUSTOM+101010180,e,r,rp,p,0)
 end
 function c101010180.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetLabel()~=0

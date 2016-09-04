@@ -51,7 +51,7 @@ function c101020099.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Overlay(sc,Group.FromCards(tc))
 		Duel.SpecialSummon(sc,SUMMON_TYPE_XYZ,tp,tp,false,false,POS_FACEUP)
 		sc:CompleteProcedure()
-		Duel.RaiseSingleEvent(e:GetHandler(),101020099+,e,r,rp,tp,0)
+		Duel.RaiseSingleEvent(e:GetHandler(),EVENT_CUSTOM+101020099+,e,r,rp,tp,0)
 	end
 end
 function c101020099.damtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

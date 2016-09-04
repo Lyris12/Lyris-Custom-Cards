@@ -47,7 +47,7 @@ function c101010265.chop2(e,tp,eg,ep,ev,re,r,rp)
 	e:GetLabelObject():SetLabel(1)
 	local p=tp
 	if re:GetHandler():GetControler()~=p then p=1-tp end
-	Duel.RaiseSingleEvent(e:GetHandler(),101010265,e,r,rp,p,0)
+	Duel.RaiseSingleEvent(e:GetHandler(),EVENT_CUSTOM+101010265,e,r,rp,p,0)
 end
 function c101010265.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetLabel()~=0
@@ -56,11 +56,11 @@ function c101010265.filter(c,e,tp)
 	return c:IsSetCard(0x1613) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c101010265.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsRelateToEffect(e) and Duel.GetFlagEffect(tp,101010265)==0
+	if chk==0 then return e:GetHandler():IsRelateToEffect(e) and Duel.GetFlagEffect(tp,EVENT_CUSTOM+101010265)==0
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsExistingMatchingCard(c101010265.filter,e:GetHandler():GetControler(),LOCATION_DECK,0,1,nil,e,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
-	Duel.RegisterFlagEffect(tp,101010265,RESET_PHASE+PHASE_END,0,1)
+	Duel.RegisterFlagEffect(tp,EVENT_CUSTOM+101010265,RESET_PHASE+PHASE_END,0,1)
 end
 function c101010265.sumop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end

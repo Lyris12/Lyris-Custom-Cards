@@ -35,8 +35,8 @@ function c101010313.stcon(e,tp,eg,ep,ev,re,r,rp)
 			end
 			tc=eg:GetNext()
 		end
-		if tp1 then Duel.RaiseSingleEvent(c,101010313,e,r,rp,tp,0) end
-		if tp2 then Duel.RaiseSingleEvent(c,101010313,e,r,rp,1-tp,0) end
+		if tp1 then Duel.RaiseSingleEvent(c,EVENT_CUSTOM+101010313,e,r,rp,tp,0) end
+		if tp2 then Duel.RaiseSingleEvent(c,EVENT_CUSTOM+101010313,e,r,rp,1-tp,0) end
 	end
 end
 function c101010313.sttg(e,tp,eg,ep,ev,re,r,rp,chk)

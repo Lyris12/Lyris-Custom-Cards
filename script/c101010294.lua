@@ -146,7 +146,7 @@ function c101010294.acop(e,tp,eg,ep,ev,re,r,rp)
 	if eg:IsExists(Card.IsSetCard,1,c,0x785e) then
 		c:AddCounter(0x3001,1)
 		if c:GetCounter(0x3001)==3 then
-			Duel.RaiseSingleEvent(c,101010294,e,0,0,tp,0)
+			Duel.RaiseSingleEvent(c,EVENT_CUSTOM+101010294,e,0,0,tp,0)
 		end
 	end
 end
