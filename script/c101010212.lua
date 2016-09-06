@@ -92,8 +92,9 @@ end
 function c101010212.pscon(e,c,og)
 	if c==nil then return true end
 	local tp=c:GetControler()
-	if c:GetSequence()~=6 then return false end
-	local rpz=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
+	local osl=6
+	if c:GetSequence()==6 then osl=7 end
+	local rpz=Duel.GetFieldCard(tp,LOCATION_SZONE,osl)
 	if rpz==nil then return false end
 	local lscale=c:GetLeftScale()
 	local rscale=rpz:GetRightScale()
