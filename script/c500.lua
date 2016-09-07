@@ -10,16 +10,23 @@ function c500.initial_effect(c)
 		e0:SetOperation(c500.op)
 		Duel.RegisterEffect(e0,0)
 		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_FIELD)
-		e1:SetCode(EFFECT_TO_GRAVE_REDIRECT)
-		e1:SetTargetRange(0xef,0)
-		e1:SetTarget(function(e,c) return c.spatial end)
-		e1:SetValue(LOCATION_REMOVED)
+		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		e1:SetCode(EFFECT_SEND_REPLACE)
+		e1:SetTarget(c500.repop)
+		e1:SetValue(c500.repfilter)
 		Duel.RegisterEffect(e1,0)
 	end
 end
 function c500.regfilter(c)
 	return c.spatial
+end
+function c500.repfilter(c)
+	return c.spatial and bit.band(c:GetLocation(),LOCATION_REMOVED)==0 and c:GetDestination()==LOCATION_GRAVE
+end
+function c500.repop(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return eg:IsExists(c500.repfilter,1,nil) end
+	local g=eg:Filter(c500.repfilter,nil)
+	Duel.Remove(g,POS_FACEUP,r)
 end
 function c500.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
