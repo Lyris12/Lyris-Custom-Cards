@@ -1,5 +1,6 @@
 --襲雷竜－銀河
 function c101010266.initial_effect(c)
+	c:EnableCounterPermit(0x4b)
 	aux.EnablePendulumAttribute(c,false)
 	--Activate
 	local e0=Effect.CreateEffect(c)
@@ -69,7 +70,7 @@ function c101010266.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c101010266.op(e,tp,eg,ep,ev,re,r,rp)
-	e:GetHandler():AddCounter(0x105+COUNTER_NEED_ENABLE,3)
+	e:GetHandler():AddCounter(0x4b,3)
 end
 function c101010266.atcon(e,c)
 	return c==e:GetHandler()
@@ -104,8 +105,8 @@ function c101010266.disop(e,tp,eg,ep,ev,re,r,rp)
 	if re:GetHandler():IsRelateToEffect(re) then
 		Duel.Destroy(eg,REASON_EFFECT)
 		Duel.BreakEffect()
-		if c:IsCanRemoveCounter(tp,0x105,1,REASON_EFFECT) then
-			c:RemoveCounter(tp,0x105,1,REASON_EFFECT)
+		if c:IsCanRemoveCounter(tp,0x4b,1,REASON_EFFECT) then
+			c:RemoveCounter(tp,0x4b,1,REASON_EFFECT)
 		else
 			Duel.Destroy(c,REASON_EFFECT)
 		end
