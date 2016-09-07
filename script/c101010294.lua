@@ -1,6 +1,6 @@
 --Clarissa, Queen of Stellar Vine #2
 function c101010294.initial_effect(c)
-c:EnableCounterPermit(0x3001)
+	c:EnableCounterPermit(0x3001)
 	--add counter
 	local ae3=Effect.CreateEffect(c)
 	ae3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)

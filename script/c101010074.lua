@@ -1,5 +1,6 @@
 --パワー・コンダクター
 function c101010074.initial_effect(c)
+	c:EnableCounterPermit(0x66)
 --Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -45,7 +46,7 @@ function c101010074.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c101010074.value(e)
-	return e:GetHandler():GetCounter(0x104)*300
+	return e:GetHandler():GetCounter(0x66)*300
 end
 function c101010074.ctfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x93)
@@ -53,14 +54,14 @@ end
 function c101010074.ctop(e,tp,eg,ep,ev,re,r,rp)
 	local ct=eg:FilterCount(c101010074.ctfilter,nil)
 	if ct>0 then
-		e:GetHandler():AddCounter(0x104,ct)
+		e:GetHandler():AddCounter(0x66,ct)
 	end
 end
 function c101010074.fcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local n=e:GetLabel()
-	if n==1 then return c:GetCounter(0x104)>0
-		else return re:GetHandler()~=c and c:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and c:GetCounter(0x104)>0
+	if n==1 then return c:GetCounter(0x66)>0
+		else return re:GetHandler()~=c and c:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and c:GetCounter(0x66)>0
 	end
 end
 function c101010074.fcos(e,tp,eg,ep,ev,re,r,rp,chk)

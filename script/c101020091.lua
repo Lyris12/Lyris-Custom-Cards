@@ -1,5 +1,6 @@
 --Flame Flight - Roost
 function c101020091.initial_effect(c)
+	c:EnableCounterPermit(0x55)
 	--Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
@@ -41,11 +42,11 @@ function c101020091.ccon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c101020091.filter,1,nil)
 end
 function c101020091.cop(e,tp,eg,ep,ev,re,r,rp)
-	e:GetHandler():AddCounter(0x106,1)
+	e:GetHandler():AddCounter(0x55,1)
 end
 function c101020091.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard and e:GetHandler():IsCanRemoveCounter(tp,0x106,1,REASON_COST) end
-	e:GetHandler():RemoveCounter(tp,0x106,1,REASON_COST)
+	if chk==0 then return Duel.IsExistingMatchingCard and e:GetHandler():IsCanRemoveCounter(tp,0x55,1,REASON_COST) end
+	e:GetHandler():RemoveCounter(tp,0x55,1,REASON_COST)
 	e:SetLabelObject(Duel.SelectMatchingCard(tp,c101020091.filter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil):GetFirst())
 end
 function c101020091.op(e,tp,eg,ep,ev,re,r,rp)
@@ -74,7 +75,7 @@ function c101020091.op(e,tp,eg,ep,ev,re,r,rp)
 end
 function c101020091.con(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local ct=c:GetCounter(0x106)
+	local ct=c:GetCounter(0x55)
 	e:SetLabel(ct)
 	return c:IsReason(REASON_DESTROY) and c:IsLocation(LOCATION_GRAVE) and ct>0
 end

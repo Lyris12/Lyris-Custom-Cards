@@ -1,5 +1,6 @@
 --Real Rights - Punishment
 function c101020095.initial_effect(c)
+	c:EnableCounterPermit(0x89)
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
@@ -36,7 +37,7 @@ function c101020095.filter1(c)
 end
 function c101020095.addc2(e,tp,eg,ep,ev,re,r,rp)
 	if eg:IsExists(c101020095.filter1,1,nil) then
-		e:GetHandler():AddCounter(0x107+COUNTER_NEED_ENABLE,1)
+		e:GetHandler():AddCounter(0x89,1)
 	end
 end
 function c101020095.filter2(c,p)
@@ -44,11 +45,11 @@ function c101020095.filter2(c,p)
 end
 function c101020095.ctop(e,tp,eg,ep,ev,re,r,rp)
 	if eg:IsExists(c101020095.filter2,1,nil,tp) then
-		e:GetHandler():AddCounter(0x107+COUNTER_NEED_ENABLE,1)
+		e:GetHandler():AddCounter(0x89,1)
 	end
 end
 function c101020095.descon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetCounter(0x107)>=4
+	return e:GetHandler():GetCounter(0x89)>=4
 end
 function c101020095.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToGraveAsCost() end
