@@ -33,7 +33,7 @@ function c101010364.afilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xbb2)
 end
 function c101010364.val(e)
-	return (e:GetHandler():GetOverlayCount()*200)+(Duel.GetMatchingGroupCount(c101010364.afilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,e:GetHandler())*300)
+	return (e:GetHandler():GetOverlayCount()+Duel.GetMatchingGroupCount(c101010364.afilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,e:GetHandler()))*200
 end
 function c101010364.discon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and rp~=tp and Duel.GetTurnPlayer()==tp
