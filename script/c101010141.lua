@@ -6,6 +6,14 @@ function c101010141.initial_effect(c)
 	e0:SetCode(EVENT_DESTROY)
 	e0:SetOperation(c101010141.regop)
 	c:RegisterEffect(e0)
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_QUICK_O)
+	e4:SetRange(LOCATION_MZONE)
+	e4:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
+	e4:SetCondition(c101010141.rdcon)
+	e4:SetCost(c101010141.rdcost)
+	e4:SetOperation(c101010141.rdop)
+	c:RegisterEffect(e4)
 	--set
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -46,6 +54,25 @@ function c101010141.regop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.RegisterEffect(e1,tp)
 		Duel.RegisterFlagEffect(tp,101010141,RESET_PHASE+PHASE_END,0,1)
 	end
+end
+function c101010141.rdcon(e,tp,eg,ep,ev,re,r,rp)
+	local bc=Duel.GetAttackTarget()
+	return bc~=nil and bc:IsFaceup() and bc:IsSetCard(0x9008)
+end
+function c101010141.rdcost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetHandler():IsDiscardable() end
+	Duel.SendtoGrave(e:GetHandler(),REASON_COST+REASON_DISCARD)
+end
+function c101010141.rdop(e,tp,eg,ep,ev,re,r,rp)
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_PRE_BATTLE_DAMAGE)
+	e1:SetOperation(c101010141.damop)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	Duel.RegisterEffect(e1,tp)
+end
+function c101010141.damop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.ChangeBattleDamage(tp,ev/2)
 end
 function c101010141.actcon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(101010091)~=0
