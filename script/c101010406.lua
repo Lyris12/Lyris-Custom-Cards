@@ -4,9 +4,17 @@ function c101010406.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e1:SetCost(c101010406.cost)
 	e1:SetTarget(c101010406.settg)
 	e1:SetOperation(c101010406.setop)
 	c:RegisterEffect(e1)
+end
+function c101010406.filter(c)
+	return c:IsType(TYPE_MONSTER) and c:IsDiscardable()
+end
+function c101010406.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c101010406.filter,tp,LOCATION_HAND,0,1,nil) end
+	Duel.DiscardHand(tp,Card.IsType,1,1,REASON_COST+REASON_DISCARD,nil,TYPE_MONSTER)
 end
 function c101010406.setfilter(c)
 	return c:IsSetCard(0x9008) and c:IsType(TYPE_MONSTER)
