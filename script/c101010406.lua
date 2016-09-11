@@ -9,7 +9,7 @@ function c101010406.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c101010406.setfilter(c)
-	return c:IsSetCard(0x9008) and c:IsSSetable(true)
+	return c:IsSetCard(0x9008) and c:IsType(TYPE_MONSTER)
 end
 function c101010406.settg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c101010406.setfilter(chkc) end
@@ -22,4 +22,6 @@ function c101010406.setop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 then
 		Duel.SSet(tp,tc)
+		Duel.ConfirmCards(1-tp,tc)
+	end
 end
