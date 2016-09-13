@@ -75,26 +75,26 @@ function c101010408.act(e,tp,eg,ep,ev,re,r,rp)
 	if ev~=0 then
 		local ef=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_EFFECT)
 		if ef~=nil and (ef:GetHandler():IsType(TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)==TYPE_EFFECT) and ef:GetHandler():IsLocation(LOCATION_MZONE) then Duel.NegateEffect(ev) end
-		--disable
-		local e3=Effect.CreateEffect(c)
-		e3:SetType(EFFECT_TYPE_FIELD)
-		e3:SetRange(LOCATION_SZONE)
-		e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-		e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-		e3:SetTarget(c101010408.disable)
-		e3:SetCode(EFFECT_DISABLE)
-		c:RegisterEffect(e3)
-		--special summon
-		local e0=Effect.CreateEffect(c)
-		e0:SetCategory(CATEGORY_SPECIAL_SUMMON)
-		e0:SetType(EFFECT_TYPE_IGNITION)
-		e0:SetRange(LOCATION_SZONE)
-		e0:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-		e0:SetCost(c101010408.spcost)
-		e0:SetTarget(c101010408.sptg)
-		e0:SetOperation(c101010408.spop)
-		c:RegisterEffect(e0)
 	end
+	--disable
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_FIELD)
+	e3:SetRange(LOCATION_SZONE)
+	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
+	e3:SetTarget(c101010408.disable)
+	e3:SetCode(EFFECT_DISABLE)
+	c:RegisterEffect(e3)
+	--special summon
+	local e0=Effect.CreateEffect(c)
+	e0:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e0:SetType(EFFECT_TYPE_IGNITION)
+	e0:SetRange(LOCATION_SZONE)
+	e0:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e0:SetCost(c101010408.spcost)
+	e0:SetTarget(c101010408.sptg)
+	e0:SetOperation(c101010408.spop)
+	c:RegisterEffect(e0)
 end
 function c101010408.disable(e,c)
 	return c:IsType(TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)==TYPE_EFFECT
