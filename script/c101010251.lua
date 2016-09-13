@@ -50,6 +50,7 @@ function c101010251.act(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c101010251.after(e,tp)
+	if not Duel.SelectYesNo(tp,aux.Stringid(101010251,2)) then return end
 	local ct=Duel.Draw(tp,1,REASON_EFFECT)
 	if ct==0 then return end
 	local tc=Duel.GetOperatedGroup():GetFirst()

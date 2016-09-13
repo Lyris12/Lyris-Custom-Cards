@@ -75,7 +75,6 @@ function c101010091.spop(e,tp,eg,ep,ev,re,r,rp)
 	if tc then
 		Duel.SSet(tp,tc)
 		Duel.ConfirmCards(1-tp,tc)
-		tc:RegisterFlagEffect(101010091,RESET_EVENT+0x1fe0000,0,1)
 		local e2=Effect.CreateEffect(e:GetHandler())
 		e2:SetType(EFFECT_TYPE_FIELD)
 		e2:SetCode(EFFECT_TRAP_ACT_IN_SET_TURN)
@@ -112,7 +111,7 @@ function c101010091.act(e,tp,eg,ep,ev,re,r,rp)
 end
 function c101010091.after(e,tp)
 	local g=Duel.GetMatchingGroup(c101010091.actfilter,tp,LOCATION_DECK,0,nil)
-	if g:GetCount()>0 and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 then
+	if g:GetCount()>0 and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 Duel.SelectYesNo(tp,aux.Stringid(101010091,4)) then
 		Duel.BreakEffect()
 		Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010091,3))
 		local tc=g:Select(tp,1,1,nil)

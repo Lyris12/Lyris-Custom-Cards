@@ -13,7 +13,7 @@ local e1=Effect.CreateEffect(c)
 	c:RegisterEffect(e1)
 	--activate
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(101010187,0))
+	e2:SetDescription(aux.Stringid(101010187,1))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_ACTIVATE+EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
@@ -22,7 +22,7 @@ local e1=Effect.CreateEffect(c)
 	e2:SetOperation(c101010187.act)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
-	e3:SetDescription(aux.Stringid(101010187,1))
+	e3:SetDescription(aux.Stringid(101010187,2))
 	e3:SetCode(EVENT_CHAINING)
 	c:RegisterEffect(e3)
 end
@@ -51,7 +51,7 @@ function c101010187.filter(c)
 end
 function c101010187.after(e,tp)
 	local g=Duel.GetMatchingGroup(c101010187.filter,tp,LOCATION_DECK+LOCATION_REMOVED,0,nil)
-	if g:GetCount()>0 then
+	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101010187,3)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local sg=g:Select(tp,1,1,nil)
 		Duel.SendtoHand(sg,nil,REASON_EFFECT)

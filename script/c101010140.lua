@@ -105,10 +105,10 @@ function c101010140.act(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c101010140.after(e,tp)
-	local g=Duel.SelectMatchingCard(tp,Card.IsDestructable,tp,0,LOCATION_MZONE,1,1,nil)
-	local tc=g:GetFirst()
-	if tc then
-		Duel.HintSelection(g)
+	local g=Duel.GetMatchingGroup(Card.IsDestructable,tp,0,LOCATION_MZONE,nil)
+	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101010140,2)) then
+		local tc=g:Select(tp,1,1,nil)
+		Duel.HintSelection(tc)
 		Duel.BreakEffect()
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
