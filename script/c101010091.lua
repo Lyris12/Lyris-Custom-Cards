@@ -111,7 +111,7 @@ function c101010091.act(e,tp,eg,ep,ev,re,r,rp)
 end
 function c101010091.after(e,tp)
 	local g=Duel.GetMatchingGroup(c101010091.actfilter,tp,LOCATION_DECK,0,nil)
-	if g:GetCount()>0 and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 Duel.SelectYesNo(tp,aux.Stringid(101010091,4)) then
+	if g:GetCount()>0 and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and Duel.SelectYesNo(tp,aux.Stringid(101010091,4)) then
 		Duel.BreakEffect()
 		Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010091,3))
 		local tc=g:Select(tp,1,1,nil)
