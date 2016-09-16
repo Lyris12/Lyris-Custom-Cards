@@ -60,7 +60,7 @@ function c101010142.act(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c101010142.filter(c)
-	return c:IsSetCard(0x8) and bit.band(c:GetType(),0x81)==0x81 and c:IsAbleToHand()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x9008) and c:IsAbleToHand()
 end
 function c101010142.tttg(c)
 	return c:IsCode(17132130) or c:IsCode(83965310)
@@ -87,7 +87,7 @@ function c101010142.after(e,tp)
 		end
 		c=tg:GetNext()
 	end
-	local g=Duel.GetMatchingGroup(c101010142.filter,tp,LOCATION_GRAVE,0,nil)
+	local g=Duel.GetMatchingGroup(c101010142.filter,tp,LOCATION_DECK,0,nil)
 	if g:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local sg=g:Select(tp,1,1,nil)
