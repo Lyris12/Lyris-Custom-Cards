@@ -17,7 +17,7 @@ function c101010406.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsType,1,1,REASON_COST+REASON_DISCARD,nil,TYPE_MONSTER)
 end
 function c101010406.setfilter(c)
-	return c:IsSetCard(0x9008) and c:IsSSetable()
+	return c:IsSetCard(0x9008) (c:GetType()==0x81 or c:IsSSetable())
 end
 function c101010406.settg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c101010406.setfilter(chkc) end
