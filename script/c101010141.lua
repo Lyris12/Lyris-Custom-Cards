@@ -45,7 +45,7 @@ function c101010141.regop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c101010141.rdcon(e,tp,eg,ep,ev,re,r,rp)
 	local bc=Duel.GetAttackTarget()
-	return bc~=nil and bc:IsFaceup() and bc:IsSetCard(0x9008)
+	return bc~=nil and bc:IsFaceup() and bc:IsSetCard(0xf7a)
 end
 function c101010141.rdcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsDiscardable() end
@@ -63,7 +63,7 @@ function c101010141.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(tp,ev/2)
 end
 function c101010141.filter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x9008)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xf7a)
 end
 function c101010141.act(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,c101010141.filter,tp,LOCATION_GRAVE,0,1,1,nil)

@@ -19,7 +19,7 @@ local e1=Effect.CreateEffect(c)
 	c:RegisterEffect(e2)
 end
 function c101010187.filter(c,tp)
-	return c:GetType()==0x82 and (c:IsLocation(LOCATION_REMOVED) or (c:IsControler(tp) and c:IsSetCard(0x9008)))
+	return c:GetType()==0x82 and (c:IsLocation(LOCATION_REMOVED) or (c:IsControler(tp) and c:IsSetCard(0xf7a)))
 end
 function c101010187.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c101010187.filter,tp,LOCATION_DECK+LOCATION_REMOVED,LOCATION_REMOVED,1,nil,tp) end

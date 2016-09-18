@@ -28,7 +28,7 @@ function c101010130.condition(e,tp,eg,ep,ev,re,r,rp)
 	return g and g:IsExists(c101010130.tfilter,1,nil,tp)
 end
 function c101010130.dfilter(c,e,tp,m)
-	return c:IsFacedown() and c:IsSetCard(0x9008) and c:IsType(TYPE_TRAP) and Duel.IsExistingMatchingCard(c101010130.rfilter,tp,LOCATION_HAND+LOCATION_SZONE,0,1,c,e,tp,m,c)
+	return c:IsFacedown() and c:IsSetCard(0xf7a) and c:IsType(TYPE_TRAP) and Duel.IsExistingMatchingCard(c101010130.rfilter,tp,LOCATION_HAND+LOCATION_SZONE,0,1,c,e,tp,m,c)
 end
 function c101010130.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
@@ -42,7 +42,7 @@ function c101010130.mfilter(c)
 	return c:GetOriginalLevel()>0 and c:IsAbleToGrave()-- and (c:IsType(TYPE_MONSTER) or c:IsLocation(LOCATION_SZONE))
 end
 function c101010130.rfilter(c,e,tp,m,tc)
-	if not c:IsSetCard(0x9008) or bit.band(c:GetOriginalType(),0x81)~=0x81 or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
+	if not c:IsSetCard(0xf7a) or bit.band(c:GetOriginalType(),0x81)~=0x81 or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
 	local mg=nil
 	if c.mat_filter then
 		mg=m:Filter(c.mat_filter,c)

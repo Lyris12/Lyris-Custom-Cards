@@ -37,7 +37,7 @@ function c101010091.initial_effect(c)
 end
 function c101010091.dfilter(c,tp)
 	return c:IsReason(REASON_DESTROY)
-		and c:IsSetCard(0x9008) and c:GetPreviousControler()==tp
+		and c:IsSetCard(0xf7a) and c:GetPreviousControler()==tp
 end
 function c101010091.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=eg:Filter(c101010091.dfilter,nil,tp)
@@ -81,7 +81,7 @@ function c101010091.tg(e,c)
 	return c~=e:GetLabelObject()
 end
 function c101010091.actfilter(c)
-	return c:IsSetCard(0x9008) and c:IsType(TYPE_SPELL+TYPE_TRAP)
+	return c:IsSetCard(0xf7a) and c:IsType(TYPE_SPELL+TYPE_TRAP)
 end
 function c101010091.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

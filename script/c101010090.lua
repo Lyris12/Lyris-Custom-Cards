@@ -26,7 +26,7 @@ function c101010090.operation(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ConfirmDecktop(tp,1)
 	local g=Duel.GetDecktopGroup(tp,1)
 	local tc=g:GetFirst()
-	if tc:IsType(TYPE_TRAP) or (tc:GetType()==0x81 and tc:IsSetCard(0x9008)) then
+	if tc:IsType(TYPE_TRAP) or (tc:GetType()==0x81 and tc:IsSetCard(0xf7a)) then
 		Duel.DisableShuffleCheck()
 		Duel.SSet(tp,g)
 	else
@@ -38,7 +38,7 @@ function c101010090.act(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e1:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x9008))
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0xf7a))
 	e1:SetValue(aux.tgval)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)

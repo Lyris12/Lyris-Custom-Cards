@@ -34,14 +34,14 @@ function c101010251.act(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetOperatedGroup():GetFirst()
 	Duel.ConfirmCards(1-tp,tc)
 	Duel.ShuffleHand(tp)
-	if tc:IsType(TYPE_MONSTER) and tc:IsSetCard(0x9008) then
+	if tc:IsType(TYPE_MONSTER) and tc:IsSetCard(0xf7a) then
 		Duel.BreakEffect()
 		if Duel.GetLocationCount(tp,LOCATION_SZONE)>0 then Duel.SSet(tp,tc) end
 		Duel.Draw(tp,1,REASON_EFFECT)
 	end
 end
 function c101010251.filter(c)
-	return c:IsSetCard(0x9008) and c:IsType(TYPE_MONSTER) and c:GetCode()~=101010251
+	return c:IsSetCard(0xf7a) and c:IsType(TYPE_MONSTER) and c:GetCode()~=101010251
 end
 function c101010251.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
