@@ -21,7 +21,7 @@ function c101010121.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c101010121.ritual_filter(c,e,tp,m)
-	if not (c:IsSetCard(0x8) or c:IsSetCard(0x785a)) or bit.band(c:GetOriginalType(),0x81)~=0x81 or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
+	if not c:IsSetCard(0x9008) or bit.band(c:GetOriginalType(),0x81)~=0x81 or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
 	if c:IsLocation(LOCATION_SZONE) and c:IsControler(1-tp) and c:IsFacedown() then return false end
 	local mg=nil
 	if c.mat_filter then

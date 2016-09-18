@@ -1,26 +1,16 @@
 --F・HEROダイハードガル
 function c101010091.initial_effect(c)
---set
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_MONSTER_SSET)
-	e1:SetValue(TYPE_TRAP)
-	c:RegisterEffect(e1)
 	--activate
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(101010091,0))
-	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e2:SetType(EFFECT_TYPE_ACTIVATE+EFFECT_TYPE_QUICK_O)
-	e2:SetCode(EVENT_FREE_CHAIN)
-	e2:SetRange(LOCATION_SZONE)
-	e2:SetCondition(c101010091.actcon)
+	e2:SetDescription(aux.Stringid(101010091,1))
+	e2:SetCategory(CATEGORY_SEARCH)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e2:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
+	e2:SetCountLimit(1,101010091)
 	e2:SetTarget(c101010091.acttg)
 	e2:SetOperation(c101010091.act)
 	c:RegisterEffect(e2)
-	local e3=e2:Clone()
-	e3:SetDescription(aux.Stringid(101010091,1))
-	e3:SetCode(EVENT_CHAINING)
-	c:RegisterEffect(e3)
 	local g=Group.CreateGroup()
 	g:KeepAlive()
 	--spsummon
@@ -81,41 +71,28 @@ function c101010091.spop(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
 		e2:SetTargetRange(LOCATION_SZONE,0)
 		e2:SetCountLimit(1,101010091)
+		e2:SetLabelObject(tc)
+		e2:SetTarget(c101010091.tg)
 		e2:SetReset(RESET_PHASE+PHASE_END)
 		Duel.RegisterEffect(e2,tp)
 	end
 end
-function c101010091.actcon(e,tp,eg,ep,ev,re,r,rp)
-	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(101010091)~=0
-end
-function c101010091.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
+function c101010091.tg(e,c)
+	return c~=e:GetLabelObject()
 end
 function c101010091.actfilter(c)
-	return c:IsSetCard(0x9008) and c:IsType(TYPE_MONSTER) and c:GetCode()~=101010091
+	return c:IsSetCard(0x9008) and c:IsType(TYPE_SPELL+TYPE_TRAP)
+end
+function c101010091.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
+		and Duel.IsExistingMatchingCard(c101010091.actfilter,tp,LOCATION_DECK,0,1,nil) end
 end
 function c101010091.act(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) then
-		if Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)==0 then return end
-		if ev~=0 then
-			local ef=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_EFFECT)
-			if ef~=nil and ef:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then Card.ReleaseEffectRelation(c,ef) end
-		end
-		c101010091.after(e,tp)
-	end
-end
-function c101010091.after(e,tp)
-	local g=Duel.GetMatchingGroup(c101010091.actfilter,tp,LOCATION_DECK,0,nil)
-	if g:GetCount()>0 and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and Duel.SelectYesNo(tp,aux.Stringid(101010091,4)) then
-		Duel.BreakEffect()
-		Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010091,3))
-		local tc=g:Select(tp,1,1,nil)
-		Duel.SSet(tp,tc)
-		Duel.ConfirmCards(1-tp,tc)
+	if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 then return end
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010091,3))
+	local g=Duel.SelectMatchingCard(tp,c101010091.actfilter,tp,LOCATION_DECK,0,1,1,nil)
+	if g:GetCount()>0 then
+		Duel.SSet(tp,g)
+		Duel.ConfirmCards(1-tp,g)
 	end
 end

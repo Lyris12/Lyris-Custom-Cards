@@ -17,11 +17,12 @@ function c101010406.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsType,1,1,REASON_COST+REASON_DISCARD,nil,TYPE_MONSTER)
 end
 function c101010406.setfilter(c)
-	return c:IsSetCard(0x9008) and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0x9008) and c:IsSSetable()
 end
 function c101010406.settg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c101010406.setfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c101010406.setfilter,tp,LOCATION_GRAVE,0,1,nil) end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
+		and Duel.IsExistingTarget(c101010406.setfilter,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
 	local g=Duel.SelectTarget(tp,c101010406.setfilter,tp,LOCATION_GRAVE,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_LEAVE_GRAVE,g,1,0,0)

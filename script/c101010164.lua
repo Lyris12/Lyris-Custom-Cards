@@ -11,7 +11,7 @@ function c101010164.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c101010164.spfilter(c,e,tp,mc)
-	return c:IsSetCard(0x8) and (bit.band(c:GetType(),0x81)==0x81 or c:IsLocation(LOCATION_SZONE)) and (not c.mat_filter or c.mat_filter(mc))
+	return c:IsSetCard(0x9008) and (bit.band(c:GetType(),0x81)==0x81 or c:IsLocation(LOCATION_SZONE)) and (not c.mat_filter or c.mat_filter(mc))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true)
 		--and mc:IsCanBeRitualMaterial(c)
 end
