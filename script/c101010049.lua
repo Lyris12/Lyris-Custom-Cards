@@ -2,15 +2,7 @@
 function c101010049.initial_effect(c)
 c:EnableReviveLimit()
 	--xyz summon
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetCode(EFFECT_SPSUMMON_PROC)
-	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
-	e1:SetRange(LOCATION_EXTRA)
-	e1:SetCondition(c101010049.xyzcon)
-	e1:SetOperation(c101010049.xyzop)
-	e1:SetValue(SUMMON_TYPE_XYZ)
-	c:RegisterEffect(e1)
+	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsCode,70095154),5,2,nil,nil,5)
 	--detach
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -66,18 +58,6 @@ function c101010049.detop(e,tp,eg,ep,ev,re,r,rp)
 	local g=e:GetHandler():GetOverlayGroup()
 	g:AddCard(e:GetHandler())
 	Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
-end
-function c101010049.xyzfilter(c)
-	return c:IsCode(70095154) and c:IsCanBeXyzMaterial(c,true)
-end
-function c101010049.xyzcon(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroupCount(c101010049.xyzfilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
-	return g>1 and g<6
-end
-function c101010049.xyzop(e,tp,eg,ep,ev,re,r,rp)
-	local mg=Duel.SelectMatchingCard(tp,c101010049.xyzfilter,tp,LOCATION_MZONE,LOCATION_MZONE,2,5,nil)
-	e:GetHandler():SetMaterial(mg)
-	Duel.Overlay(e:GetHandler(),mg)
 end
 function c101010049.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp

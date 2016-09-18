@@ -41,7 +41,7 @@ function c101010251.act(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c101010251.filter(c)
-	return c:IsSetCard(0xf7a) and c:IsType(TYPE_MONSTER) and c:GetCode()~=101010251
+	return c:IsSetCard(0xf7a) and c:IsType(TYPE_SPELL+TYPE_TRAP+TYPE_RITUAL)
 end
 function c101010251.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

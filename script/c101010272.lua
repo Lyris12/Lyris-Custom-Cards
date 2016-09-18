@@ -48,17 +48,14 @@ function c101010272.actcon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_SET_TURN) or e:GetHandler():GetFlagEffect(101010091)~=0
 end
 function c101010272.cfilter(c)
-	return c:IsReleasableByEffect() and (c:IsLevelBelow(11) or c101010272.star(c))
-end
-function c101010272.star(c)
-	return c:IsCode(101010187) and c:IsHasEffect(101010187)
+	return c:IsReleasableByEffect() and (c:IsLevelBelow(11) or c:IsHasEffect(101010187))
 end
 function c101010272.actcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local cg=Duel.GetMatchingGroup(c101010272.cfilter,tp,LOCATION_MZONE+LOCATION_HAND,0,nil)
-	if chk==0 then return cg:IsExists(c101010272.star,1,nil) or cg:CheckWithSumEqual(Card.GetLevel,12,1,99) end
+	if chk==0 then return cg:IsExists(Card.IsHasEffect,1,nil,101010187) or cg:CheckWithSumEqual(Card.GetLevel,12,1,99) end
 	local g=nil
-	if not cg:CheckWithSumEqual(Card.GetLevel,12,1,99) or (cg:IsExists(c101010272.star,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(101010187,0))) then
-		g=cg:FilterSelect(tp,c101010272.star,1,1,nil)
+	if not cg:CheckWithSumEqual(Card.GetLevel,12,1,99) or (cg:IsExists(Card.IsHasEffect,1,nil,101010187) and Duel.SelectYesNo(tp,aux.Stringid(101010187,0))) then
+		g=cg:FilterSelect(tp,Card.IsHasEffect,1,1,nil,101010187)
 	else
 		g=cg:SelectWithSumEqual(tp,Card.GetLevel,12,1,99)
 	end
