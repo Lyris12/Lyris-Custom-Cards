@@ -25,8 +25,8 @@ function c101010408.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e5:SetTarget(c101010408.destg)
-	e5:SetOperation(c101010408.desop)
+	e4:SetTarget(c101010408.destg)
+	e4:SetOperation(c101010408.desop)
 	c:RegisterEffect(e4)
 end
 function c101010408.mat_filter(c)
@@ -49,7 +49,7 @@ function c101010408.actcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-3 and (Duel.CheckReleaseGroup(tp,nil,3,nil)
 		or Duel.IsExistingMatchingCard(c101010408.cfilter,tp,LOCATION_MZONE,0,1,nil)) end
 	local g=nil
-	if not Duel.CheckReleaseGroup(tp,nil,2,nil) or (cg:IsExists(Card.IsHasEffect,1,nil,101010187) and Duel.SelectYesNo(tp,aux.Stringid(101010187,0))) then
+	if not Duel.CheckReleaseGroup(tp,nil,2,nil) or (Duel.IsExistingMatchingCard(Card.IsHasEffect,1,nil,101010187) and Duel.SelectYesNo(tp,aux.Stringid(101010187,0))) then
 		g=cg:FilterSelect(tp,Card.IsHasEffect,1,1,nil,101010187)
 	else
 		g=Duel.SelectReleaseGroup(tp,nil,3,3,nil)
@@ -61,8 +61,9 @@ function c101010408.act(e,tp,eg,ep,ev,re,r,rp)
 	if c:IsRelateToEffect(e) then
 		if Duel.SpecialSummon(c,0,tp,tp,true,true,POS_FACEUP)==0 then
 			if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 and c:IsCanBeSpecialSummoned(e,0,tp,true,true) then
-			Duel.SendtoGrave(c,REASON_RULE)
-			return
+				Duel.SendtoGrave(c,REASON_RULE)
+				return
+			end
 		end
 		if ev~=0 then
 			local ef=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_EFFECT)
@@ -86,7 +87,7 @@ end
 function c101010408.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,0,1,e:GetHandler()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(Card.IsFaceup,tp,LOCATION_MZONE,0,e:GetHandler())
+	local g=Duel.SelectTarget(tp,Card.IsFaceup,tp,LOCATION_MZONE,0,1,1,e:GetHandler())
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,g,1,1-tp,g:GetFirst():GetBaseAttack())
 end
 function c101010408.desop(e,tp,eg,ep,ev,re,r,rp)

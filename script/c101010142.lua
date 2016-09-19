@@ -32,7 +32,7 @@ function c101010142.initial_effect(c)
 end
 function c101010142.rlv(e,c)
 	local lv=e:GetHandler():GetLevel()
-	if c:IsSetCard(0x8) then
+	if c:IsSetCard(0xf7a) then
 		local clv=c:GetLevel()
 		return lv*65536+clv
 	else return lv end

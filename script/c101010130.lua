@@ -28,7 +28,7 @@ function c101010130.condition(e,tp,eg,ep,ev,re,r,rp)
 	return g and g:IsExists(c101010130.tfilter,1,nil,tp)
 end
 function c101010130.dfilter(c,e,tp,m)
-	return c:IsFacedown() and c:IsSetCard(0xf7a) and c:IsType(TYPE_TRAP) and Duel.IsExistingMatchingCard(c101010130.rfilter,tp,LOCATION_HAND+LOCATION_SZONE,0,1,c,e,tp,m,c)
+	return c:IsFacedown() and c:IsType(TYPE_TRAP) and Duel.IsExistingMatchingCard(c101010130.rfilter,tp,LOCATION_HAND+LOCATION_SZONE,0,1,c,e,tp,m,c)
 end
 function c101010130.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
