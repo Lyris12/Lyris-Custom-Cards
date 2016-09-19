@@ -75,7 +75,12 @@ function c101010272.act(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		if Duel.SpecialSummon(c,0,tp,tp,true,true,POS_FACEUP)==0 then return end
+		if Duel.SpecialSummon(c,0,tp,tp,true,true,POS_FACEUP)==0 then
+			if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 and c:IsCanBeSpecialSummoned(e,0,tp,true,true) then
+				Duel.SendtoGrave(c,REASON_RULE)
+			end
+			return
+		end
 		if ev~=0 then
 			local ef=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_EFFECT)
 			if ef~=nil and ef:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then
