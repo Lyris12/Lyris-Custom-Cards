@@ -96,3 +96,8 @@ function c101010091.act(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
+c101010091.after=function(e,tp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
+		and Duel.IsExistingMatchingCard(c101010091.actfilter,tp,LOCATION_DECK,0,1,nil) end
+	c101010091.act(e,tp)
+end

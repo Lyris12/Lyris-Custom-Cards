@@ -102,3 +102,7 @@ function c101010142.ttval(e,c)
 	if e:GetHandler():GetSummonType()~=SUMMON_TYPE_SPECIAL then return false end
 	return c:IsRace(RACE_WARRIOR)
 end
+c101010142.after=function(e,tp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c101010142.filter,tp,LOCATION_DECK,0,1,nil)end
+	c101010142.act(e,tp)
+end

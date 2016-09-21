@@ -29,7 +29,11 @@ function c101010187.act(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,c101010187.filter,tp,LOCATION_DECK+LOCATION_REMOVED,LOCATION_REMOVED,1,1,nil,tp)
 	if g:GetCount()>0 then
-		Duel.SendtoHand(sg,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,sg)
+		Duel.SendtoHand(g,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,g)
 	end
+end
+c101010187.after=function(e,tp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c101010187.filter,tp,LOCATION_DECK+LOCATION_REMOVED,LOCATION_REMOVED,1,nil,tp) end
+	c101010187.act(e,tp)
 end

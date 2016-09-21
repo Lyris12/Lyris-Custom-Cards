@@ -116,7 +116,7 @@ function c101010408.act(e,tp,eg,ep,ev,re,r,rp)
 		if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101010408,2)) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 			local tc=g:Select(tp,1,1,nil)
-			Duel.SetTargetCard(tc)
+			Duel.HintSelection(tc)
 			Duel.BreakEffect()
 			Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
 		end

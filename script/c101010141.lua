@@ -21,7 +21,7 @@ function c101010141.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_CARD_TARGET)
-	e2:SetOperation(c101010090.act)
+	e2:SetOperation(c101010141.act)
 	c:RegisterEffect(e2)
 end
 function c101010141.regop(e,tp,eg,ep,ev,re,r,rp)
@@ -63,14 +63,14 @@ function c101010141.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(tp,ev/2)
 end
 function c101010141.filter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xf7a)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xf7a) and c.after and c.after(e,tp,0)
 end
 function c101010141.act(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,c101010141.filter,tp,LOCATION_GRAVE,0,1,1,nil)
 	local tc=g:GetFirst()
-	if tc and tc.after then
-		Duel.SetTargetCard(tc)
-		c:CopyEffect(tc:GetCode(),RESET_EVENT+0x1ff0000)
+	if tc then
+		Duel.HintSelection(g)
+		tc.after(e,tp,1)
 	end
 end
 function c101010141.val(e,re,dam)

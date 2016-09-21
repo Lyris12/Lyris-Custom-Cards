@@ -119,7 +119,7 @@ function c101010104.act(e,tp,eg,ep,ev,re,r,rp)
 		end
 		c:CompleteProcedure()
 		local g=Duel.GetMatchingGroup(c101010104.filter,tp,LOCATION_DECK,0,nil,e,tp)
-		if g:GetCount()>0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.SelectYesNo(tp,aux.Stringid(101010104,2)) then
+		if g:GetCount()>0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 then
 			Duel.BreakEffect()
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 			local tc=g:Select(tp,1,1,nil)

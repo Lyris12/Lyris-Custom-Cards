@@ -75,8 +75,7 @@ function c101010140.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 function c101010089.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and c:IsDestructable() end
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingTarget(Card.IsDestructable,tp,0,LOCATION_MZONE,1,nil) end
+	if chk==0 then return Duel.IsExistingTarget(Card.IsDestructable,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectTarget(tp,Card.IsDestructable,tp,0,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
@@ -93,7 +92,7 @@ end
 function c101010140.ctfilter(c,tp)
 	return c:GetOwner()==tp
 end
-function c10101040.exfilter(c,e,tp)
+function c101010140.exfilter(c,e,tp)
 	return not c101010140.retfilter(c,e,tp)
 end
 function c101010140.retop(e,tp,eg,ep,ev,re,r,rp)
@@ -112,4 +111,10 @@ function c101010140.retop(e,tp,eg,ep,ev,re,r,rp)
 		ct=ct+1
 	end
 	if ct>0 then Duel.SpecialSummonComplete() end
+end
+c101010140.after=function(e,tp,chk)
+	if chk==0 then return Duel.IsExistingTarget(Card.IsDestructable,tp,0,LOCATION_MZONE,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g=Duel.SelectTarget(tp,Card.IsDestructable,tp,0,LOCATION_MZONE,1,1,nil)
+	Duel.Destroy(g,REASON_EFFECT)
 end

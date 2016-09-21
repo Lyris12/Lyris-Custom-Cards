@@ -57,3 +57,7 @@ function c101010251.setop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,tc)
 	end
 end
+c101010251.after=function(e,tp,chk)
+	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) end
+	c101010251.act(e,tp)
+end
