@@ -31,7 +31,7 @@ function c481.regfilter(c)
 end
 function c481.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local g=Duel.GetMatchingGroup(c481.regfilter,0,LOCATION_EXTRA,LOCATION_EXTRA,nil)
+	local g=Duel.GetMatchingGroup(c481.regfilter,0,0xff,0xff,nil)
 	local tc=g:GetFirst()
 	while tc do
 		if tc:GetFlagEffect(481)==0 then

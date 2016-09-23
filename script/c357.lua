@@ -16,7 +16,7 @@ function c357.filter(c)
 end
 function c357.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local g=Duel.GetMatchingGroup(c357.filter,0,LOCATION_EXTRA+LOCATION_DECK,LOCATION_EXTRA+LOCATION_DECK,nil)
+	local g=Duel.GetMatchingGroup(c357.filter,0,0xff,0xff,nil)
 	local tc=g:GetFirst()
 	while tc do
 		if tc:IsLocation(LOCATION_DECK) then Duel.SendtoHand(tc,nil,REASON_RULE) end

@@ -11,8 +11,8 @@ function c101010431.initial_effect(c)
 	ae1:SetTarget(c101010431.target)
 	ae1:SetOperation(c101010431.op)
 	c:RegisterEffect(ae1)
-	if not spatial_check then
-		spatial_check=true
+	if not c101010431.global_check then
+		c101010431.global_check=true
 		local ge2=Effect.CreateEffect(c)
 		ge2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge2:SetCode(EVENT_ADJUST)

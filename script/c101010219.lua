@@ -42,8 +42,8 @@ function c101010219.initial_effect(c)
 	ae5:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_NO_TURN_RESET)
 	ae5:SetOperation(c101010219.regop)
 	c:RegisterEffect(ae5)
-	if not spatial_check then
-		spatial_check=true
+	if not c101010219.global_check then
+		c101010219.global_check=true
 		local ge2=Effect.CreateEffect(c)
 		ge2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge2:SetCode(EVENT_ADJUST)

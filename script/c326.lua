@@ -16,7 +16,7 @@ function c326.filterx(c)
 end
 function c326.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local g=Duel.GetMatchingGroup(c326.filterx,0,LOCATION_EXTRA,LOCATION_EXTRA,nil)
+	local g=Duel.GetMatchingGroup(c326.filterx,0,0xff,0xff,nil)
 	local tc=g:GetFirst()
 	while tc do
 		if tc:GetFlagEffect(326)==0 then

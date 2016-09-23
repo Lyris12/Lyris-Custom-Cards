@@ -22,12 +22,25 @@ function c101010366.initial_effect(c)
 		ge2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge2:SetCode(EVENT_ADJUST)
 		ge2:SetCountLimit(1)
+		ge2:SetLabel(500)
 		ge2:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
 		ge2:SetOperation(c101010366.chk)
 		Duel.RegisterEffect(ge2,0)
 	end
+	if not relay_check then
+		relay_check=true
+		local ge3=Effect.CreateEffect(c)
+		ge3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		ge3:SetCode(EVENT_ADJUST)
+		ge3:SetCountLimit(1)
+		ge3:SetLabel(481)
+		ge3:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
+		ge3:SetOperation(c101010366.chk)
+		Duel.RegisterEffect(ge3,0)
+	end
 end
 c101010366.spatial=true
+c101010366.altero=true
 --Spatial Formula filter(s)
 c101010366.alterf= function(mc)
 				local ck=false
@@ -42,10 +55,8 @@ c101010366.alterf= function(mc)
 c101010366.relay=true
 c101010366.point=1
 function c101010366.chk(e,tp,eg,ep,ev,re,r,rp)
-	Duel.CreateToken(tp,500)
-	Duel.CreateToken(1-tp,500)
-	Duel.CreateToken(tp,481)
-	Duel.CreateToken(1-tp,481)
+	Duel.CreateToken(tp,e:GetLabel())
+	Duel.CreateToken(1-tp,e:GetLabel())
 end
 function c101010366.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

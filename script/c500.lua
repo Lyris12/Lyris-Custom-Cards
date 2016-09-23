@@ -30,7 +30,7 @@ function c500.repop(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c500.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local g=Duel.GetMatchingGroup(c500.regfilter,0,LOCATION_DECK+LOCATION_EXTRA,LOCATION_DECK+LOCATION_EXTRA,nil)
+	local g=Duel.GetMatchingGroup(c500.regfilter,0,0xff,0xff,nil)
 	local tc=g:GetFirst()
 	local n=1
 	while tc do
@@ -68,8 +68,7 @@ function c500.op(e,tp,eg,ep,ev,re,r,rp)
 			n=1
 			if tc:GetRank()>4 then n=n+1 end
 			if tc:GetRank()>6 then n=n+1 end
-			if tc:GetRank()>9 and tc:IsAttribute(ATTRIBUTE_DEVINE) and tc:IsRace(RACE_DEVINE) then n=n+1 end
-			if tc.dimension_loss and not tc:IsDisabled() then n=tc.dimension_loss end
+			if tc.dimension_loss then n=tc.dimension_loss end
 			local e5=Effect.CreateEffect(tc)
 			e5:SetType(EFFECT_TYPE_SINGLE)
 			e5:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
@@ -84,38 +83,61 @@ function c500.op(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c500.sptfilter1(c,tp,djn,f)
-	return c:IsFaceup() and c:GetLevel()>0 and (not f or f(c)) and c:IsAbleToRemoveAsCost()
+	return c:IsFaceup() and c:GetLevel()>0 and (not f or f(c)) and c:IsAbleToRemove()
 		and Duel.IsExistingMatchingCard(c500.sptfilter2,tp,LOCATION_MZONE,0,1,c,djn,f,c:GetAttribute(),c:GetRace(),c:GetLevel())
 end
 function c500.sptafilter(c,alterf)
-	return c:IsFaceup() and alterf(c) and c:IsAbleToRemoveAsCost()
+	return c:IsFaceup() and alterf(c) and c:IsAbleToRemove()
 end
 function c500.sptfilter2(c,djn,f,at,rc,lv)
 	return c:IsFaceup() and c:GetAttribute()==at and c:GetRace()==rc
 		and c:GetLevel()>0 and (djn==lv or djn==c:GetLevel())
-		and (not f or f(c)) and c:IsAbleToRemoveAsCost()
+		and (not f or f(c)) and c:IsAbleToRemove()
 end
 function c500.sptcon(e,c)
 	if c==nil then return true end
 	if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
 	local tp=c:GetControler()
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<-2 then return end
-	if c.alterf and Duel.IsExistingMatchingCard(c500.sptafilter,tp,LOCATION_MZONE,0,1,nil,c.alterf)
+	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
+	local ct=-ft
+	local rt=1
+	if c.alterct then rt=c.alterct end
+	local mg=Duel.GetFieldGroup(tp,LOCATION_MZONE,0)
+	e:SetLabelObject(mg)
+	if ct<1 and c.alterf and mg:IsExists(c500.sptafilter,1,nil,c.alterf)
 		and (not c.alterop or c.alterop(e,tp,0)) then
 		return true
 	end
-	return Duel.IsExistingMatchingCard(c500.sptfilter1,tp,LOCATION_MZONE,0,1,nil,tp,c:GetRank(),c.material)
+	return ct<rt and mg:IsExists(c500.sptfilter1,1,nil,tp,c:GetRank(),c.material)
 end
 function c500.sptop(e,tp,eg,ep,ev,re,r,rp,c)
-	local x=c:GetRank()
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local m1=Duel.SelectMatchingCard(tp,c500.sptfilter1,tp,LOCATION_MZONE,0,1,1,nil,tp,x,c.material)
-	local tc=m1:GetFirst()
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local m2=Duel.SelectMatchingCard(tp,c500.sptfilter2,tp,LOCATION_MZONE,0,1,1,tc,x,c.material,tc:GetAttribute(),tc:GetRace(),tc:GetLevel())
-	m1:Merge(m2)
-	c:SetMaterial(m1)
-	Duel.Remove(m1,POS_FACEUP,REASON_MATERIAL+0x71500000000)
+	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
+	local ct=-ft
+	local rt=1
+	if c.alterct then rt=c.alterct end
+	local mg=Duel.GetFieldGroup(tp,LOCATION_MZONE,0)
+	local b1=ct<rt and mg:IsExists(c500.sptfilter1,1,nil,tp,c:GetRank(),c.material)
+	local b2=ct<1 and c.alterf and mg:IsExists(c500.sptafilter,1,nil,c.alterf)
+		and (not c.alterop or c.alterop(e,tp,0))
+	if b2 and (not b1 or (c.altero and Duel.SelectYesNo(tp,c.altdesc))) then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+		local m1=Duel.SelectMatchingCard(tp,c500.sptafilter,tp,LOCATION_MZONE,0,1,1,nil,c.alterf)
+		mg:Merge(m1)
+		if c.alterop then local mc=c.alterop(e,tp,1) if mc~=nil then mg:AddCard(mc) end end
+		c:SetMaterial(mg)
+		Duel.Remove(mg,POS_FACEUP,REASON_MATERIAL+0x400000)
+	else
+		local x=c:GetRank()
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+		local m1=Duel.SelectMatchingCard(tp,c500.sptfilter1,tp,LOCATION_MZONE,0,1,1,nil,tp,x,c.material)
+		local tc=m1:GetFirst()
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+		local m2=Duel.SelectMatchingCard(tp,c500.sptfilter2,tp,LOCATION_MZONE,0,1,1,tc,x,c.material,tc:GetAttribute(),tc:GetRace(),tc:GetLevel())
+		m1:Merge(m2)
+		mg:Merge(m1)
+		c:SetMaterial(mg)
+		Duel.Remove(mg,POS_FACEUP,REASON_MATERIAL+0x400000)
+	end
 end
 function c500.valcon(e,re,r,rp)
 	return bit.band(r,REASON_BATTLE+REASON_EFFECT)~=0

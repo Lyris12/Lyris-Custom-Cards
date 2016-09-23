@@ -35,8 +35,8 @@ function c101010435.initial_effect(c)
 	ae5:SetTarget(c101010435.rttg)
 	ae5:SetOperation(c101010435.rtop)
 	c:RegisterEffect(ae5)
-	if not spatial_check then
-		spatial_check=true
+	if not c101010435.global_check then
+		c101010435.global_check=true
 		local ge2=Effect.CreateEffect(c)
 		ge2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge2:SetCode(EVENT_ADJUST)

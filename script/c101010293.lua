@@ -16,8 +16,8 @@ function c101010293.initial_effect(c)
 	ae2:SetTarget(c101010293.syntg)
 	ae2:SetValue(1000)
 	c:RegisterEffect(ae2)
-	if not spatial_check then
-		spatial_check=true
+	if not c101010293.global_check then
+		c101010293.global_check=true
 		local ge2=Effect.CreateEffect(c)
 		ge2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge2:SetCode(EVENT_ADJUST)
@@ -28,7 +28,8 @@ function c101010293.initial_effect(c)
 	end
 end
 c101010293.spatial=true
-c101010293.alterf=	function(mc)
+c101010293.altero=true
+c101010293.alterf=  function(mc)
 				return bit.band(mc:GetSummonType(),SUMMON_TYPE_SYNCHRO)==SUMMON_TYPE_SYNCHRO and mc:GetMaterial():IsExists(Card.IsType,1,nil,TYPE_TUNER)
 			end
 function c101010293.chk(e,tp,eg,ep,ev,re,r,rp)
