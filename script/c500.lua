@@ -116,12 +116,13 @@ function c500.sptop(e,tp,eg,ep,ev,re,r,rp,c)
 	local rt=1
 	if c.alterct then rt=c.alterct end
 	local mg=Duel.GetFieldGroup(tp,LOCATION_MZONE,0)
+	e:SetLabelObject(mg)
 	local b1=ct<rt and mg:IsExists(c500.sptfilter1,1,nil,tp,c:GetRank(),c.material)
 	local b2=ct<1 and c.alterf and mg:IsExists(c500.sptafilter,1,nil,c.alterf)
 		and (not c.alterop or c.alterop(e,tp,0))
 	if b2 and (not b1 or (c.altero and Duel.SelectYesNo(tp,c.altdesc))) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-		mg=Duel.SelectMatchingCard(tp,c500.sptafilter,tp,LOCATION_MZONE,0,1,1,nil,c.alterf)
+		mg=mg:FilterSelect(tp,c500.sptafilter,1,1,nil,c.alterf)
 		e:SetLabelObject(mg)
 		if c.alterop then local mc=c.alterop(e,tp,1) if mc~=nil then mg:AddCard(mc) end end
 		c:SetMaterial(mg)
@@ -129,12 +130,12 @@ function c500.sptop(e,tp,eg,ep,ev,re,r,rp,c)
 	else
 		local x=c:GetRank()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-		local m1=Duel.SelectMatchingCard(tp,c500.sptfilter1,tp,LOCATION_MZONE,0,1,1,nil,tp,x,c.material)
+		local m1=mg:FilterSelect(tp,c500.sptfilter1,1,1,nil,tp,x,c.material)
 		local tc=m1:GetFirst()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-		local m2=Duel.SelectMatchingCard(tp,c500.sptfilter2,tp,LOCATION_MZONE,0,1,1,tc,x,c.material,tc:GetAttribute(),tc:GetRace(),tc:GetLevel())
+		local m2=mg:FilterSelect(tp,c500.sptfilter2,1,1,tc,x,c.material,tc:GetAttribute(),tc:GetRace(),tc:GetLevel())
 		m1:Merge(m2)
-		mg:Merge(m1)
+		mg=m1
 		c:SetMaterial(mg)
 		Duel.Remove(mg,POS_FACEUP,REASON_MATERIAL+0x400000)
 	end

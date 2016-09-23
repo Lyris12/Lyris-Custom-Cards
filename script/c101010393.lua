@@ -1,5 +1,14 @@
 --Dimension-Magica Swordsman
 function c101010393.initial_effect(c)
+	--While this card is banished, all "Dimension-Magica" and Spatial Monsters gain 500 ATK.
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_FIELD)
+	e0:SetRange(LOCATION_REMOVED)
+	e0:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
+	e0:SetCode(EFFECT_UPDATE_ATTACK)
+	e0:SetTarget(c101010393.atktg)
+	e0:SetValue(500)
+	c:RegisterEffect(e0)
 	--If this card is banished from the field: You can banish the top 2 cards of your Deck, then target 1 of your banished DARK Spellcaster-Type monsters, except "Dimension-Magica Swordsman"; Special Summon it.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -18,6 +27,9 @@ function c101010393.initial_effect(c)
 	e2:SetCondition(c101010393.matcon)
 	e2:SetOperation(c101010393.matop)
 	c:RegisterEffect(e2)
+end
+function c101010393.atktg(e,c)
+	return c:IsSetCard(0xa03) or c.spatial
 end
 function c101010393.condition(e)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)

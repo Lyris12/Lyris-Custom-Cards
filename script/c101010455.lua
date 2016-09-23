@@ -112,10 +112,6 @@ function c101010455.sptcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<-2 then return end
-	if c.alterf and Duel.IsExistingMatchingCard(c101010455.sptafilter,tp,LOCATION_MZONE,0,1,nil,c.alterf)
-		and (not c.alterop or c.alterop(e,tp,0)) then
-		return true
-	end
 	return Duel.IsExistingMatchingCard(c101010455.sptfilter1,tp,LOCATION_MZONE,0,1,nil,tp,c:GetRank(),c.material)
 end
 function c101010455.sptop(e,tp,eg,ep,ev,re,r,rp,c)
