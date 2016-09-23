@@ -121,8 +121,8 @@ function c500.sptop(e,tp,eg,ep,ev,re,r,rp,c)
 		and (not c.alterop or c.alterop(e,tp,0))
 	if b2 and (not b1 or (c.altero and Duel.SelectYesNo(tp,c.altdesc))) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-		local m1=Duel.SelectMatchingCard(tp,c500.sptafilter,tp,LOCATION_MZONE,0,1,1,nil,c.alterf)
-		mg:Merge(m1)
+		mg=Duel.SelectMatchingCard(tp,c500.sptafilter,tp,LOCATION_MZONE,0,1,1,nil,c.alterf)
+		e:SetLabelObject(mg)
 		if c.alterop then local mc=c.alterop(e,tp,1) if mc~=nil then mg:AddCard(mc) end end
 		c:SetMaterial(mg)
 		Duel.Remove(mg,POS_FACEUP,REASON_MATERIAL+0x400000)
