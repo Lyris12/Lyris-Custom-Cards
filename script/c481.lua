@@ -121,6 +121,7 @@ function c481.resfilter(c)
 end
 function c481.rescon(e,c)
 	if c==nil then return true end
+	if c:IsFacedown() then return false end
 	local tp=c:GetControler()
 	local g=Duel.GetMatchingGroup(c481.resfilter,tp,0xbe,0,nil)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
