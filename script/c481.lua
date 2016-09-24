@@ -9,21 +9,6 @@ function c481.initial_effect(c)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetOperation(c481.op)
 		Duel.RegisterEffect(e1,0)
-		--[[local ge1=Effect.CreateEffect(c)
-		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		ge1:SetCode(EVENT_ATTACK_ANNOUNCE)
-		ge1:SetOperation(c481.recount)
-		Duel.RegisterEffect(ge1,0)
-		local ge2=Effect.CreateEffect(c)
-		ge2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		ge2:SetCode(EVENT_ATTACK_DISABLED)
-		ge2:SetOperation(c481.recheck)
-		Duel.RegisterEffect(ge2,0)
-		local ge3=Effect.CreateEffect(c)
-		ge3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		ge3:SetCode(EVENT_BATTLED)
-		ge3:SetOperation(c481.recount2)
-		Duel.RegisterEffect(ge3,0)]]
 	end
 end
 function c481.regfilter(c)
@@ -35,7 +20,7 @@ function c481.op(e,tp,eg,ep,ev,re,r,rp)
 	local tc=g:GetFirst()
 	while tc do
 		if tc:GetFlagEffect(481)==0 then
-			tc:RegisterFlagEffect(10001100,0,EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE,1,tc.point)
+			if tc.point then tc:RegisterFlagEffect(10001100,0,EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE,1,tc.point) end
 			local rl=Effect.CreateEffect(tc)
 			rl:SetType(EFFECT_TYPE_SINGLE)
 			rl:SetCode(EFFECT_SPSUMMON_CONDITION)
@@ -140,13 +125,19 @@ function c481.rescon(e,c)
 	local g=Duel.GetMatchingGroup(c481.resfilter,tp,0xbe,0,nil)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if ft<=-g:FilterCount(Card.IsLocation,nil,LOCATION_MZONE) then return false end
-	return g:GetCount()>0 and Duel.IsExistingMatchingCard(c481.refilter,tp,LOCATION_EXTRA,0,1,nil,e,tp)
+	local sg=Duel.GetMatchingGroup(c481.refilter,tp,LOCATION_EXTRA,0,nil)
+	local exg=Duel.GetMatchingGroup(c481.refilterex,tp,0xff,0,nil)
+	sg:Merge(exg)
+	return g:GetCount()>0 and sg:GetCount()>0
 end
 function c481.fdfilter(c)
 	return c:IsFacedown() or c:IsLocation(LOCATION_HAND)
 end
 function c481.refilter(c)
 	return c:IsFaceup() and c.relay and not c:IsForbidden()
+end
+function c481.refilterex(c)
+	return c.relay and not c:IsForbidden() and c.relay_ext~=nil and c.relay_ext(c)
 end
 function c481.refilter1(c)
 	return not c:IsType(TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) and c481.refilter(c)
@@ -166,15 +157,21 @@ function c481.resop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 		Duel.SendtoDeck(tc,tp,1,REASON_MATERIAL+0x8773)
 		mg:Sub(tc)
 	end
+	local sg1=Duel.GetMatchingGroup(c481.refilter1,tp,LOCATION_EXTRA,0,nil)
+	local sg2=Duel.GetMatchingGroup(c481.refilter2,tp,LOCATION_EXTRA,0,nil)
+	local exg=Duel.GetMatchingGroup(c481.refilterex,tp,0xff,0,nil)
+	sg1:Merge(exg)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-	if Duel.IsExistingMatchingCard(c481.refilter1,tp,LOCATION_EXTRA,0,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(481,5)) then
+	if sg1:GetCount()>0 and (sg2:GetCount()==0 or Duel.SelectYesNo(tp,aux.Stringid(481,0))) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local rg=Duel.SelectMatchingCard(tp,c481.refilter1,tp,LOCATION_EXTRA,0,1,ft,nil)
+		local rg=sg1:Select(tp,1,ft,nil)
 		sg:Merge(rg)
 	end
-	if (not rg or ft>rg:GetCount()) and Duel.IsExistingMatchingCard(c481.refilter2,tp,LOCATION_EXTRA,0,1,nil) and (not rg or Duel.SelectYesNo(tp,aux.Stringid(481,1))) then
+	sg2:Merge(exg)
+	sg2:Sub(sg)
+	if (not rg or ft>rg:GetCount()) and sg2:GetCount()>0 and (not rg or Duel.SelectYesNo(tp,aux.Stringid(481,1))) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local pc=Duel.SelectMatchingCard(tp,c481.refilter2,tp,LOCATION_EXTRA,0,1,1,nil)
+		local pc=sg2:Select(tp,1,1,nil)
 		sg:Merge(pc)
 	end
 	local sc=sg:GetFirst()
@@ -195,7 +192,7 @@ function c481.pointop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local point=c:GetFlagEffectLabel(10001100)
 	if not point then
-		c:RegisterFlagEffect(10001100,0,EFFECT_FLAG_CLIENT_HINT+EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE,1,pt,aux.Stringid(481,0))
+		c:RegisterFlagEffect(10001100,0,EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE,1,pt)
 	else
 		c:SetFlagEffectLabel(10001100,point+pt)
 	end

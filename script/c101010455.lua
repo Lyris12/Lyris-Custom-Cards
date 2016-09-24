@@ -36,16 +36,8 @@ function c101010455.initial_effect(c)
 		ge2:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
 		ge2:SetOperation(c101010455.chk)
 		Duel.RegisterEffect(ge2,0)
-	end
-	if not c101010455.global_check then
-		c101010455.global_check=true
-		local ge3=Effect.CreateEffect(c)
-		ge3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		ge3:SetCode(EVENT_ADJUST)
-		ge3:SetCountLimit(1)
+		local ge3=ge2:Clone()
 		ge3:SetLabel(300)
-		ge3:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
-		ge3:SetOperation(c101010455.chk)
 		Duel.RegisterEffect(ge3,0)
 	end
 end
