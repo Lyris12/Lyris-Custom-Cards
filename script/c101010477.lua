@@ -22,6 +22,13 @@ function c101010477.initial_effect(c)
 	e1:SetTarget(c101010477.thtg)
 	e1:SetOperation(c101010477.thop)
 	c:RegisterEffect(e1)
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e0:SetCode(EFFECT_SEND_REPLACE)
+	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e0:SetRange(LOCATION_ONFIELD)
+	e0:SetTarget(c101010477.reen)
+	c:RegisterEffect(e0)
 	if not c101010477.global_check then
 		c101010477.global_check=true
 		local ge2=Effect.CreateEffect(c)
@@ -95,4 +102,11 @@ function c101010477.operation2(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetReset(RESET_EVENT+0x1fe0000)
 	e2:SetValue(d:GetDefense()/2)
 	d:RegisterEffect(e2)
+end
+function c101010477.reen(e,tp,eg,ep,ev,re,r,r,chk)
+	local c=e:GetHandler()
+	local tc1=Duel.GetFieldCard(tp,LOCATION_SZONE,6)
+	local tc2=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
+	if chk==0 then return c:IsOnField() and bit.band(c:GetDestination(),LOCATION_EXTRA+LOCATION_DECK+LOCATION_HAND)~=0 and (tc1==nil or tc2==nil) end
+	Duel.MoveToField(c,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 end

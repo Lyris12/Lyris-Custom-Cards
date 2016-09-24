@@ -81,11 +81,9 @@ function c101010455.banop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c101010455.reen(e,tp,eg,ep,ev,re,r,r,chk)
 	local c=e:GetHandler()
-	local loc=LOCATION_DECK
-	if c:IsType(TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) or c.spatial then loc=loc+LOCATION_HAND end
 	local tc1=Duel.GetFieldCard(tp,LOCATION_SZONE,6)
 	local tc2=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
-	if chk==0 then return c:IsOnField() and bit.band(c:GetDestination(),loc)~=0 and (tc1==nil or tc2==nil) end
+	if chk==0 then return c:IsOnField() and bit.band(c:GetDestination(),LOCATION_EXTRA+LOCATION_DECK+LOCATION_HAND)~=0 and (tc1==nil or tc2==nil) end
 	Duel.MoveToField(c,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 end
 function c101010455.sptfilter1(c,tp,djn,f)
