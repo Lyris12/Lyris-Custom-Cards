@@ -40,23 +40,27 @@ function c101010366.initial_effect(c)
 	end
 end
 c101010366.spatial=true
-c101010366.altero=true
 --Spatial Formula filter(s)
-c101010366.alterf= function(mc)
-				local ck=false
-				local g=mc:GetMaterial()
-				local tc=g:GetFirst()
-				while tc do
-					if tc.relay then ck=true end
-					tc=g:GetNext()
-				end
-				return mc.spatial and ck
-			end
+c101010366.alterf=  function(mc)
+						return mc.spatial or (mc.relay and mc:GetLevel()==7)
+					end
+c101010366.alterop= function(e,tp,chk)
+						local rc=e:GetLabelObject()
+						if chk==0 then return rc:IsExists(c101010366.alfilter,1,nil,rc) end
+						local mc=Duel.SelectMatchingCard(tp,c101010366.altfilter,tp,LOCATION_MZONE,0,1,1,rc:GetFirst(),rc:GetFirst())
+						return mc:GetFirst()
+					end
 c101010366.relay=true
 c101010366.point=1
 function c101010366.chk(e,tp,eg,ep,ev,re,r,rp)
 	Duel.CreateToken(tp,e:GetLabel())
 	Duel.CreateToken(1-tp,e:GetLabel())
+end
+function c101010366.alfilter(c,g)
+	return c:IsFaceup() and c101010366.alterf(c) and c:IsAbleToRemove() and g:IsExists(c101010366.altfilter,1,c,c)
+end
+function c101010366.altfilter(c,tc)
+	return c:IsFaceup() and ((not tc.relay and (c.relay and c:GetLevel()==7)) or (not tc.spatial and c.spatial)) and c:IsAbleToRemove()
 end
 function c101010366.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -80,7 +84,7 @@ function c101010366.filter(c)
 end
 function c101010366.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and c101010366.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c101010366.filter,tp,LOCATION_REMOVED,LOCATION_REMOVED,1,nil) end
+	if chk==0 then return Duel.IsExistingTarget(c101010366.filter,tp,LOCATION_REMOVED,LOCATION_REMOVED,1,nil) and Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 	local g=Duel.SelectTarget(tp,c101010366.filter,tp,LOCATION_REMOVED,LOCATION_REMOVED,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
