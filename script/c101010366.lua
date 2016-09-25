@@ -26,16 +26,8 @@ function c101010366.initial_effect(c)
 		ge2:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
 		ge2:SetOperation(c101010366.chk)
 		Duel.RegisterEffect(ge2,0)
-	end
-	if not relay_check then
-		relay_check=true
-		local ge3=Effect.CreateEffect(c)
-		ge3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		ge3:SetCode(EVENT_ADJUST)
-		ge3:SetCountLimit(1)
+		local ge3=ge2:Clone()
 		ge3:SetLabel(481)
-		ge3:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
-		ge3:SetOperation(c101010366.chk)
 		Duel.RegisterEffect(ge3,0)
 	end
 end
