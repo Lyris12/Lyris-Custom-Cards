@@ -1,13 +1,13 @@
---Radiant Sacred Dragun
+--レイディアント・セイクリド・ドラグーン
 function c101010291.initial_effect(c)
 aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_LIGHT),4,2)
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e0:SetCode(EVENT_PRE_BATTLE_DAMAGE)
+	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e0:SetCondition(c101010291.con)
 	e0:SetOperation(c101010291.hop)
 	c:RegisterEffect(e0)
-	
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetRange(LOCATION_MZONE)
@@ -26,7 +26,8 @@ aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_LIGHT),4
 	e3:SetCode(EFFECT_DEVINE_LIGHT)
 	e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e3:SetTargetRange(1,1)
-	e1:SetCondition(function(e) return Duel.GetMatchingGroupCount(c101010291.radon,e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)==1 end)
+	e3:SetCondition(function(e) return Duel.GetMatchingGroupCount(c101010291.radon,e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)==1 end)
+	e3:SetTarget(c101010291.tg)
 	c:RegisterEffect(e3)
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD)

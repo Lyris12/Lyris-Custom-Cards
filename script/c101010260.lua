@@ -1,5 +1,4 @@
---During your Standby Phase: You can reveal this card in your hand until the end of the turn; destroy a number of cards your opponent controls, up to the number of "Radiant" monsters that are revealed in your hand. You can only use the effect of "Radiant Devil" once per turn. All LIGHT monsters you control gain 200 ATK for each LIGHT monster that is revealed in your hand.
---炯然デビル
+--レイディアント・デビル
 function c101010260.initial_effect(c)
 --reveal
 	local e1=Effect.CreateEffect(c)
@@ -33,7 +32,7 @@ function c101010260.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_PUBLIC)
-	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,2)
 	e:GetHandler():RegisterEffect(e1)
 end
 function c101010260.radfilter(c)

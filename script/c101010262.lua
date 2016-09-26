@@ -1,4 +1,4 @@
---Radiant Viraldrive
+--レイディアント・ウイルス
 function c101010262.initial_effect(c)
 	--You can reveal this card in your hand until the end of this turn; reveal 1 "Radiant" card in your hand until the end of your opponent's turn.
 	local e1=Effect.CreateEffect(c)
@@ -27,7 +27,7 @@ function c101010262.operation(e,tp,eg,ep,ev,re,r,rp)
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_PUBLIC)
-		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END+RESET_OPPO_TURN)
 		tc:RegisterEffect(e1)
 	end
 end

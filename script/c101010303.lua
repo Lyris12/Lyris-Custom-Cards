@@ -1,4 +1,4 @@
---炯然スパーク
+--レイディアント・スパーク
 function c101010303.initial_effect(c)
 --Activate
 	local e0=Effect.CreateEffect(c)
@@ -33,7 +33,7 @@ function c101010303.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_IMMEDIATELY_APPLY)
 	e1:SetCode(EFFECT_PUBLIC)
-	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,2)
 	tc:RegisterEffect(e1)
 end
 function c101010303.filter(c)

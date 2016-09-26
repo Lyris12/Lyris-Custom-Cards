@@ -1,18 +1,13 @@
---Radiant Flash
+--レイディアント・フラッシュ
 function c101010320.initial_effect(c)
-local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetCode(EFFECT_CANNOT_SSET)
-	e2:SetCondition(c101010320.actlimit)
-	e2:SetValue(aux.TRUE)
-	c:RegisterEffect(e2)
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e3:SetCode(EFFECT_CANNOT_MSET)
+	e3:SetCode(EFFECT_CANNOT_SSET)
 	e3:SetRange(LOCATION_HAND)
 	e3:SetCondition(c101010320.actlimit)
 	e3:SetTargetRange(0,1)
+	e3:SetTarget(c101010320.actfilter)
 	e3:SetValue(aux.TRUE)
 	c:RegisterEffect(e3)
 	local e4=Effect.CreateEffect(c)
@@ -40,7 +35,7 @@ function c101010320.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_PUBLIC)
-	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,2)
 	g:RegisterEffect(e1)
 end
 function c101010320.target(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -69,11 +64,16 @@ function c101010320.activate(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 			rc:RegisterEffect(e1)
 			local e2=e1:Clone()
-			e2:SetCode(EFFECT_CANNOT_SSET)
+			e2:SetCode(EFFECT_CANNOT_TO_GRAVE)
 			rc:RegisterEffect(e2)
+			rc:RegisterFlagEffect(101010320,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 		end
 	end
 end
 function c101010320.actlimit(e)
-	return e:GetHandler():IsPublic()
+	local c=e:GetHandler()
+	return c:IsPublic()
+end
+function c101010320.actfilter(e,c)
+	return c:IsPublic() and c:GetFlagEffect(101010320)~=0
 end

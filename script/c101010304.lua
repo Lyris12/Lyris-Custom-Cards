@@ -1,4 +1,4 @@
---Radiant Beacon
+--レイディアント・ビーコン
 function c101010304.initial_effect(c)
 --Activate
 	local e1=Effect.CreateEffect(c)
@@ -30,21 +30,25 @@ function c101010304.activate(e,tp,eg,ep,ev,re,r,rp)
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
+		local tc=g:GetFirst()
 		local e0=Effect.CreateEffect(e:GetHandler())
 		e0:SetType(EFFECT_TYPE_SINGLE)
 		e0:SetCode(EFFECT_PUBLIC)
 		e0:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-		g:GetFirst():RegisterEffect(e0)
+		tc:RegisterEffect(e0)
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CANNOT_ACTIVATE)
-		e1:SetCondition(c101010304.actlimit)
+		e1:SetCondition(function(e) return e:GetHandler():IsPublic() end)
 		e1:SetValue(aux.TRUE)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-		g:GetFirst():RegisterEffect(e1)
+		tv:RegisterEffect(e1)
 		local e2=e1:Clone()
 		e2:SetCode(EFFECT_CANNOT_SSET)
-		g:GetFirst():RegisterEffect(e2)
+		tc:RegisterEffect(e2)
+		local e3=e1:Clone()
+		e3:SetCode(EFFECT_CANNOT_MSET)
+		tc:RegisterEffect(e3)
 	end
 end
 function c101010304.dfilter(c)

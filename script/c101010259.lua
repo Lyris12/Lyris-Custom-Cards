@@ -1,5 +1,4 @@
---While this card in your hand is revealed, you can Normal Summon 1 LIGHT monster from your hand as an additional Normal Summon. During your Draw Phase, instead of conducting your normal draw: you can reveal this card in your hand until the End Phase; Excavate the top 5 cards of your deck, and if there is a "Radiant" card among them, add all of the excavated cards to your hand, and if you do, reveal all non-"Radiant" cards excavated. You can only use this effect of "Radiant Angel" once per turn.
---炯然エンジェル
+--レイディアント・エンジェル
 function c101010259.initial_effect(c)
 --summon
 	local e0=Effect.CreateEffect(c)
@@ -32,16 +31,14 @@ function c101010259.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_PUBLIC)
-	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,2)
 	e:GetHandler():RegisterEffect(e1)
 end
 function c101010259.filter(c)
-	return c:IsSetCard(0x5e) and c:GetCode()~=101010259
+	return c:IsSetCard(0x5e) and c:IsAbleToHand() and c:GetCode()~=101010259
 end
 function c101010259.tg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then
-		if Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)<5 then return false end
-		return Duel.IsExistingMatchingCard(Card.IsSetCard,tp,LOCATION_DECK,0,1,nil,0x5e)
+	if chk==0 then return Duel.IsExistingMatchingCard(c101010259.filter,tp,LOCATION_DECK,0,1,nil)
 	end
 	local dt=Duel.GetDrawCount(tp)
 	if dt~=0 then
@@ -58,34 +55,23 @@ function c101010259.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,0,LOCATION_DECK)
 end
-function c101010259.op(e,tp,eg,ep,ev,re,r,rp)   
-	Duel.ConfirmDecktop(tp,5)
-	local g=Duel.GetDecktopGroup(p,5)
-	if g:IsExists(Card.IsSetCard,1,nil,0x5e) then
-		local tc=g:GetFirst()
-		while tc do
-			if tc:IsAbleToHand() then
-				Duel.SendtoHand(tc,nil,REASON_EFFECT)
-				local e1=Effect.CreateEffect(e:GetHandler())
-				e1:SetType(EFFECT_TYPE_SINGLE)
-				e1:SetCode(EFFECT_PUBLIC)
-				e1:SetReset(RESET_EVENT+0x1fe0000)
-				tc:RegisterEffect(e1)
-			else
-				Duel.SendtoGrave(tc,REASON_RULE)
-			end
-			tc=g:GetNext()
-		end
-		Duel.ShuffleDeck(tp)
-	else
-		Duel.ShuffleDeck(tp)
+function c101010259.op(e,tp,eg,ep,ev,re,r,rp)
+	local g=Duel.SelectMatchingCard(tp,c101010259.filter,tp,LOCATION_DECK,0,1,1,nil)
+	local tc=g:GetFirst()
+	if tc and Duel.SendtoHand(tc,nil,REASON_EFFECT)~=0 and tc:IsLocation(LOCATION_HAND) then
+		Duel.ConfirmCards(1-tp,tc)
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_PUBLIC)
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		tc:RegisterEffect(e1)
 	end
 end
 function c101010259.sumcon(e)
 	return e:GetHandler():IsPublic()
 end
 function c101010259.sumfilter(c)
-	return c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsSummonable(true,nil) and c:IsLevelBelow(4)
+	return c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsSummonable(true,nil) and c:IsLevelBelow(4) and c:GetCode()~=101010259
 end
 function c101010259.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
