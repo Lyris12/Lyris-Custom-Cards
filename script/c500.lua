@@ -20,14 +20,6 @@ end
 function c500.regfilter(c)
 	return c.spatial
 end
-function c500.repfilter(c)
-	return c.spatial and bit.band(c:GetLocation(),LOCATION_REMOVED)==0 and c:GetDestination()==LOCATION_GRAVE
-end
-function c500.repop(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return eg:IsExists(c500.repfilter,1,nil) end
-	local g=eg:Filter(c500.repfilter,nil)
-	Duel.Remove(g,POS_FACEUP,r)
-end
 function c500.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local g=Duel.GetMatchingGroup(c500.regfilter,0,0xff,0xff,nil)
@@ -65,22 +57,38 @@ function c500.op(e,tp,eg,ep,ev,re,r,rp)
 			e4:SetCode(EFFECT_CANNOT_BE_XYZ_MATERIAL)
 			e4:SetValue(1)
 			tc:RegisterEffect(e4)
-			n=1
-			if tc:GetRank()>4 then n=n+1 end
-			if tc:GetRank()>6 then n=n+1 end
-			if tc.dimension_loss then n=tc.dimension_loss end
 			local e5=Effect.CreateEffect(tc)
-			e5:SetType(EFFECT_TYPE_SINGLE)
-			e5:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
-			e5:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_NO_TURN_RESET+EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+			e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+			e5:SetCode(EFFECT_DESTROY_REPLACE)
+			e5:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 			e5:SetRange(LOCATION_MZONE)
-			e5:SetCountLimit(n)
-			e5:SetValue(c500.valcon)
+			e5:SetLabel(0)
+			e5:SetTarget(c500.valcon)
 			tc:RegisterEffect(e5)
+			local e6=Effect.CreateEffect(tc)
+			e6:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+			e6:SetCode(EVENT_TO_GRAVE)
+			e6:SetLabelObject(e5)
+			e6:SetOperation(c500.reset)
+			tc:RegisterEffect(e6)
+			local e7=e6:Clone()
+			e7:SetCode(EVENT_TO_DECK)
+			tc:RegisterEffect(e7)
+			local e8=e6:Clone()
+			e8:SetCode(EVENT_REMOVE)
+			tc:RegisterEffect(e8)
 			tc:RegisterFlagEffect(500,0,0,1)
 		end
 		tc=g:GetNext()
 	end
+end
+function c500.repfilter(c)
+	return c.spatial and bit.band(c:GetLocation(),LOCATION_REMOVED)==0 and c:GetDestination()==LOCATION_GRAVE
+end
+function c500.repop(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return eg:IsExists(c500.repfilter,1,nil) end
+	local g=eg:Filter(c500.repfilter,nil)
+	Duel.Remove(g,POS_FACEUP,r)
 end
 function c500.sptfilter1(c,tp,djn,f)
 	return c:IsFaceup() and c:GetLevel()>0 and (not f or f(c)) and c:IsAbleToRemove()
@@ -140,6 +148,19 @@ function c500.sptop(e,tp,eg,ep,ev,re,r,rp,c)
 		Duel.Remove(mg,POS_FACEUP,REASON_MATERIAL+0x400000)
 	end
 end
-function c500.valcon(e,re,r,rp)
-	return bit.band(r,REASON_BATTLE+REASON_EFFECT)~=0
+function c500.valcon(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+	if chk==0 then
+		local n=1
+		if c:GetRank()>4 then n=n+1 end
+		if c:GetRank()>6 then n=n+1 end
+		if c.dimension_loss then n=c.dimension_loss end
+		return n>e:GetLabel()
+	end
+	Duel.Hint(HINT_CARD,0,c:GetOriginalCode())
+	e:SetLabel(e:GetLabel()+1)
+	return true
+end
+function c500.reset(e,tp,eg,ep,ev,re,r,rp)
+	e:GetLabelObject():SetLabel(0)
 end
