@@ -56,7 +56,7 @@ function c101010474.setcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(101010474)~=0
 end
 function c101010474.filter(c)
-	return c:IsSetCard(0x89f) and c:IsType(TYPE_MONSTER) and c:IsSSetable(true)
+	return c:IsSetCard(0x89f) and c:IsType(TYPE_MONSTER) and c:IsSSetable(true) and c:GetCode()~=101010474
 end
 function c101010474.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
