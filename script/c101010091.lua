@@ -81,7 +81,7 @@ function c101010091.tg(e,c)
 	return c~=e:GetLabelObject()
 end
 function c101010091.actfilter(c)
-	return c:IsSetCard(0xf7a) and c:IsType(TYPE_SPELL+TYPE_TRAP)
+	return c:IsSetCard(0xf7a) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSSetable()
 end
 function c101010091.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
