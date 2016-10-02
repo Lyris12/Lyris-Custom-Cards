@@ -155,7 +155,7 @@ function c481.resop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	while mg:GetCount()>0 do
 		local tc=mg:Select(tp,1,1,nil)
 		pt2=pt2+1
-		Duel.SendtoDeck(tc,tp,1,REASON_MATERIAL+0x8773)
+		Duel.SendtoDeck(tc,tp,1,REASON_MATERIAL+0x800000)
 		mg:Sub(tc)
 	end
 	local sg1=Duel.GetMatchingGroup(c481.refilter1,tp,LOCATION_EXTRA,0,nil)
