@@ -18,7 +18,7 @@ aux.EnablePendulumAttribute(c,false)
 	e7:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e7:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e7:SetRange(LOCATION_MZONE)
-	e7:SetValue(aux.tgval)
+	e7:SetValue(1)
 	c:RegisterEffect(e7)
 	--While you control another face-up "Earth Enforcer" monster, your opponent cannot Set cards.
 	local e2=Effect.CreateEffect(c)

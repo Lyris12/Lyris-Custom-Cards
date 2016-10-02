@@ -72,7 +72,7 @@ function c101010344.matop(e,tp,eg,ep,ev,re,r,rp)
 	c:RegisterEffect(e3)
 	local e5=e3:Clone()
 	e5:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-	e5:SetValue(aux.tgval)
+	e5:SetValue(1)
 	c:RegisterEffect(e5)
 end
 function c101010344.tfilter(c,te)

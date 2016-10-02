@@ -13,7 +13,7 @@ function c101010079.initial_effect(c)
 	c:RegisterEffect(e4)
 	local e5=e4:Clone()
 	e5:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-	e5:SetValue(aux.tgval)
+	e5:SetValue(1)
 	c:RegisterEffect(e5)
 	--If this card is banished: You can target 1 "PSYStream" monster you control; it cannot be destroyed by card effects this turn.
 	local e1=Effect.CreateEffect(c)
