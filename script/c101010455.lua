@@ -10,6 +10,16 @@ function c101010455.initial_effect(c)
 	ae1:SetTarget(c101010455.bantg)
 	ae1:SetOperation(c101010455.banop)
 	c:RegisterEffect(ae1)
+	--deck master effects
+	local ae2=Effect.CreateEffect(c)
+	ae2:SetType(EFFECT_TYPE_IGNITION)
+	ae2:SetRange(LOCATION_PZONE)
+	ae2:SetCategory(CATEGORY_TODECK+CATEGORY_DRAW)
+	ae2:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	ae2:SetCountLimit(1)
+	ae2:SetTarget(c101010455.dmtg)
+	ae2:SetOperation(c101010455.dmop)
+	c:RegisterEffect(ae2)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
@@ -79,7 +89,32 @@ function c101010455.banop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoGrave(tc,REASON_EFFECT)
 	end
 end
-function c101010455.reen(e,tp,eg,ep,ev,re,r,r,chk)
+--Once per turn: You can target 2 of your banished monsters; shuffle them into the Deck, then draw 1 card.
+function c101010455.filter(c)
+	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsAbleToDeck()
+end
+function c101010455.dmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c101010455.filter(chkc) end
+	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) and Duel.IsExistingTarget(c101010455.filter,tp,LOCATION_REMOVED,0,2,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+	local g=Duel.SelectTarget(tp,c101010455.filter,tp,LOCATION_REMOVED,0,2,2,nil)
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,2,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
+end
+function c101010455.dmop(e,tp,eg,ep,ev,re,r,rp)
+	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
+	if tg:GetCount()>0 then
+		Duel.SendtoDeck(tg,nil,2,REASON_EFFECT)
+		local g=Duel.GetOperatedGroup()
+		if g:IsExists(Card.IsLocation,1,nil,LOCATION_DECK) then Duel.ShuffleDeck(tp) end
+		local ct=g:FilterCount(Card.IsLocation,nil,LOCATION_DECK+LOCATION_EXTRA)
+		if ct>0 then
+			Duel.BreakEffect()
+			Duel.Draw(tp,1,REASON_EFFECT)
+		end
+	end
+end
+function c101010455.reen(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	local tc1=Duel.GetFieldCard(tp,LOCATION_SZONE,6)
 	local tc2=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
