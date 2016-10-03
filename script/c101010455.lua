@@ -89,7 +89,6 @@ function c101010455.banop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoGrave(tc,REASON_EFFECT)
 	end
 end
---Once per turn: You can target 2 of your banished monsters; shuffle them into the Deck, then draw 1 card.
 function c101010455.filter(c)
 	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsAbleToDeck()
 end
