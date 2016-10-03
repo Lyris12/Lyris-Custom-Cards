@@ -32,43 +32,6 @@ function c101020074.initial_effect(c)
 	e0:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e0:SetOperation(c101020074.operation)
 	c:RegisterEffect(e0)
-	--token
-	local e4=Effect.CreateEffect(c)
-	e4:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOKEN)
-	e4:SetCode(EVENT_BATTLE_DAMAGE)
-	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e4:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return ep~=tp end)
-	e4:SetTarget(c101020074.sptg)
-	e4:SetOperation(c101020074.spop)
-	c:RegisterEffect(e4)
-	--draw
-	local e3=Effect.CreateEffect(c)
-	e3:SetCategory(CATEGORY_DRAW)
-	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e3:SetRange(LOCATION_MZONE)
-	e3:SetCode(EVENT_BATTLE_DESTROYED)
-	e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e3:SetCondition(c101020074.condition)
-	e3:SetTarget(c101020074.mattg)
-	e3:SetOperation(c101020074.matop)
-	c:RegisterEffect(e3)
-	--atkup
-	local e6=Effect.CreateEffect(c)
-	e6:SetType(EFFECT_TYPE_SINGLE)
-	e6:SetCode(EFFECT_UPDATE_ATTACK)
-	e6:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e6:SetRange(LOCATION_MZONE)
-	e6:SetValue(c101020074.atkval)
-	c:RegisterEffect(e6)
-	--Destroy replace
-	local e7=Effect.CreateEffect(c)
-	e7:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
-	e7:SetCode(EFFECT_DESTROY_REPLACE)
-	e7:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e7:SetRange(LOCATION_MZONE)
-	e7:SetTarget(c101020074.reptg)
-	e7:SetOperation(c101020074.repop)
-	c:RegisterEffect(e7)
 end
 function c101020074.splimit(e,se,sp,st)
 	return not e:GetHandler():IsLocation(LOCATION_EXTRA)
@@ -143,74 +106,4 @@ function c101020074.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 function c101020074.aclimit(e,re,tp)
 	return re:IsHasType(EFFECT_TYPE_ACTIVATE)
-end
-function c101020074.condition(e,tp,eg,ep,ev,re,r,rp)
-	local tc=eg:GetFirst()
-	local rc=tc:GetReasonCard()
-	return eg:GetCount()==1 and rc:IsControler(tp) and rc:GetOriginalCode()==101020074
-		and tc:IsReason(REASON_BATTLE)-- and tc:IsType(TYPE_MONSTER)
-end
-function c101020074.mattg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) end
-	Duel.SetTargetPlayer(tp)
-	Duel.SetTargetParam(1)
-	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
-end
-function c101020074.matop(e,tp,eg,ep,ev,re,r,rp)
-	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
-	Duel.Draw(p,d,REASON_EFFECT)
-end
-function c101020074.atkval(e,c)
-	return Duel.GetMatchingGroupCount(Card.IsCode,e:GetHandlerPlayer(),LOCATION_MZONE,0,nil,101020074.*300
-end
-function c101020074.repfilter(c)
-	return c:GetOriginalCode()==101020074 and not c:IsStatus(STATUS_DESTROY_CONFIRMED+STATUS_BATTLE_DESTROYED)
-end
-function c101020074.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	local c=e:GetHandler()
-	if chk==0 then return not c:IsReason(REASON_REPLACE) and c:IsOnField() and c:IsFaceup()
-		and Duel.IsExistingMatchingCard(c101020074.repfilter,tp,LOCATION_MZONE,0,1,c) end
-	if Duel.SelectYesNo(tp,aux.Stringid(101020074,1)) then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESREPLACE)
-		local g=Duel.SelectMatchingCard(tp,c101020074.repfilter,tp,LOCATION_MZONE,0,1,1,c)
-		e:SetLabelObject(g:GetFirst())
-		Duel.HintSelection(g)
-		g:GetFirst():SetStatus(STATUS_DESTROY_CONFIRMED,true)
-		return true
-	else return false end
-end
-function c101020074.repop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=e:GetLabelObject()
-	tc:SetStatus(STATUS_DESTROY_CONFIRMED,false)
-	Duel.Destroy(tc,REASON_EFFECT+REASON_REPLACE)
-end
-function c101020074.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	local c=e:GetHandler()
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,101020074+,0x4db,0x4011,c:GetAttack(),c:GetDefense(),c:GetLevel(),RACE_MACHINE,ATTRIBUTE_LIGHT) end
-	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
-end
-function c101020074.spop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	local c=e:GetHandler()
-	if Duel.IsPlayerCanSpecialSummonMonster(tp,101020074+,0x4db,0x4011,c:GetAttack(),c:GetDefense(),c:GetLevel(),RACE_MACHINE,ATTRIBUTE_LIGHT) then
-		local token=Duel.CreateToken(tp,101020074.
-		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
-		local e1=Effect.CreateEffect(e:GetHandler())
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_SET_BASE_ATTACK)
-		e1:SetValue(c:GetAttack())
-		e1:SetReset(RESET_EVENT+0x1fe0000)
-		token:RegisterEffect(e1)
-		local e2=e1:Clone()
-		e2:SetCode(EFFECT_SET_BASE_DEFENSE)
-		e2:SetValue(c:GetDefense())
-		token:RegisterEffect(e2)
-		local e3=e1:Clone()
-		e3:SetCode(EFFECT_CHANGE_LEVEL)
-		e3:SetValue(c:GetLevel())
-		token:RegisterEffect(e3)
-		Duel.SpecialSummonComplete()
-	end
 end

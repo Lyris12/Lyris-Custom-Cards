@@ -29,6 +29,12 @@ function c500.op(e,tp,eg,ep,ev,re,r,rp)
 		if tc:IsLocation(LOCATION_DECK) then Duel.DisableShuffleCheck() Duel.SendtoHand(tc,nil,REASON_RULE) end
 		if tc:GetFlagEffect(500)==0 then
 			tc:EnableReviveLimit()
+			local e0=Effect.CreateEffect(c)
+			e0:SetType(EFFECT_TYPE_SINGLE)
+			e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+			e0:SetCode(EFFECT_SPSUMMON_CONDITION)
+			e0:SetValue(c500.splimit)
+			c:RegisterEffect(e0)
 			local e1=Effect.CreateEffect(tc)
 			e1:SetType(EFFECT_TYPE_FIELD)
 			e1:SetCode(EFFECT_SPSUMMON_PROC)
@@ -89,6 +95,9 @@ function c500.repop(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return eg:IsExists(c500.repfilter,1,nil) end
 	local g=eg:Filter(c500.repfilter,nil)
 	Duel.Remove(g,POS_FACEUP,r)
+end
+function c500.splimit(e,se,sp,st)
+	return not e:GetHandler():IsLocation(LOCATION_EXTRA) or bit.band(st,0x7150)==0x7150
 end
 function c500.sptfilter1(c,tp,djn,f)
 	return c:IsFaceup() and c:GetLevel()>0 and (not f or f(c)) and c:IsAbleToRemove()
