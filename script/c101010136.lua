@@ -10,23 +10,29 @@ function c101010136.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c101010136.condition(e,tp,eg,ep,ev,re,r,rp)
-	return tp~=Duel.GetTurnPlayer() and Duel.IsPlayerCanDiscardDeck(tp,1) 
+	return tp~=Duel.GetTurnPlayer() and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_DECK,0,nil)>0 and Duel.GetBattleDamage(tp)>=100
 end
 function c101010136.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) end
-	local t={}
-	local l=1
-	local dam=math.floor(Duel.GetBattleDamage(tp)/100)
-	while Duel.IsPlayerCanDraw(tp,l) do
-		t[l]=l
-		l=l+1
-		if l>dam then break end
+	if chk==0 then return true end
+	local dam=Duel.GetBattleDamage(tp)
+	local ct=Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)
+	if ct==1 then
+		local announce=1
+	else
+		local t={}
+		local l=1
+		while dam>0 and ct>0 do
+			dam=dam-100
+			ct=ct-1
+			t[l]=l
+			l=l+1
+		end
+		Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(85087012,2))
+		local announce=Duel.AnnounceNumber(tp,table.unpack(t))
 	end
-	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010136,0))
-	local announce=Duel.AnnounceNumber(tp,table.unpack(t))
 	local g=Duel.GetDecktopGroup(tp,announce)
 	Duel.DisableShuffleCheck()
-	Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
+	Duel.Remove(g,POS_FACEUP,REASON_COST)
 	local fg=g:FilterCount(Card.IsLocation,nil,LOCATION_REMOVED)
 	if announce>fg then announce=fg end
 	e:SetLabel(announce)
@@ -35,7 +41,7 @@ end
 function c101010136.activate(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetBattleDamage(tp)>=e:GetLabel()*100 then
 		Duel.ChangeBattleDamage(tp,Duel.GetBattleDamage(tp)-e:GetLabel()*100)
-		else
+	else
 		Duel.ChangeBattleDamage(tp,0)
 	end
 	local e1=Effect.CreateEffect(e:GetHandler())
