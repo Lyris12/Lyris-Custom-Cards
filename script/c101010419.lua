@@ -81,46 +81,46 @@ function c101010419.posop(e,tp,eg,ep,ev,re,r,rp)
 		a:RegisterEffect(e1)
 	end
 end
-function c101010419.ffilter(c,mg)
-	return c:IsSetCard(0x167) and mg:IsExists(c101010419.fsfilter,1,c,c:GetCode())
-end
-function c101010419.fsfilter(c,code)
-	return c:IsSetCard(0x167) and c:GetCode()~=code
-end
 function c101010419.fscondition(e,g,gc,chkf)
 	if g==nil then return false end
-	return g:IsExists(c101010419.ffilter,1,nil,g)
+	if gc then
+		local mg=g:Filter(Card.IsFusionSetCard,nil,0x167)
+		mg:AddCard(gc)
+		return gc:IsFusionSetCard(0x167) and mg:GetClassCount(Card.GetCode)>1
+	end
+	local fs=false
+	local mg=g:Filter(Card.IsFusionSetCard,nil,0x167)
+	if mg:IsExists(aux.FConditionCheckF,1,nil,chkf) then fs=true end
+	return mg:GetClassCount(Card.GetCode)>1 and (fs or chkf==PLAYER_NONE)
 end
 function c101010419.fsoperation(e,tp,eg,ep,ev,re,r,rp,gc,chkf)
-	--[[if gc then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
-		local g1=eg:FilterSelect(tp,c101010419.fsilter,1,1,gc,gc:GetCode())
-		local code=g1:GetFirst():GetCode()
-		eg:Remove(Card.IsCode,nil,code)
-		while eg:IsExists(c101010419.fsfilter,gc,code) do
+	if gc then
+		local sg=eg:Filter(Card.IsFusionSetCard,gc,0x167)
+		sg:Remove(Card.IsCode,nil,gc:GetCode())
+		local g=Group.CreateGroup()
+		while sg:IsExists(Card.IsFusionSetCard,nil,0x167) do
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
-			local g2=eg:FilterSelect(tp,c101010419.fsfilter,1,1,g1:GetFirst(),code)
-			g1:AddCard(g2:GetFirst())
-			code=g2:GetFirst():GetCode()
-			eg:Remove(Card.IsCode,nil,code)
-			if not Duel.SelectYesNo(tp,aux.Stringid(101010099,0)) then break end   
+			g:Merge(sg:Select(tp,1,1,nil))
+			sg:Remove(Card.IsCode,nil,g:GetFirst():GetCode())
+			if sg:FilterCount(Card.IsFusionSetCard,nil,0x167)==0 or not Duel.SelectYesNo(tp,aux.Stringid(101010038,0)) then break end
 		end
-		Duel.SetFusionMaterial(g1)
+		Duel.SetFusionMaterial(g)
 		return
 	end
-	local sg=eg:Filter(c101010419.ffilter,nil,eg)]]
+	local sg=eg:Filter(Card.IsFusionSetCard,nil,0x167)
+	local g1=nil
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
-	local g1=eg:FilterSelect(tp,c101010419.ffilter,1,1,nil,eg)
-	local code=g1:GetFirst():GetCode()
-	eg:Remove(Card.IsCode,nil,code)
-	while eg:IsExists(c101010419.fsfilter,1,g1:GetFirst(),code) do
+	if chkf~=PLAYER_NONE then g1=sg:FilterSelect(tp,aux.FConditionCheckF,1,1,nil,chkf)
+	else g1=sg:Select(tp,1,1,nil) end
+	sg:Remove(Card.IsCode,nil,g1:GetFirst():GetCode())
+	local g2=Group.CreateGroup()
+	while sg:IsExists(Card.IsFusionSetCard,1,nil,0x167) do
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
-		local g2=eg:FilterSelect(tp,c101010419.fsfilter,1,1,g1:GetFirst(),code)
-		g1:AddCard(g2:GetFirst())
-		code=g2:GetFirst():GetCode()
-		eg:Remove(Card.IsCode,nil,code)
-		if not eg:IsExists(c101010419.fsfilter,1,g1:GetFirst(),code) or not Duel.SelectYesNo(tp,aux.Stringid(101010099,0)) then break end
+		g2:Merge(sg:Select(tp,1,1,nil))
+		sg:Remove(Card.IsCode,nil,g2:GetFirst():GetCode())
+		if sg:FilterCount(Card.IsFusionSetCard,nil,0x167)==0 or not Duel.SelectYesNo(tp,aux.Stringid(101010038,0)) then break end
 	end
+	g1:Merge(g2)
 	Duel.SetFusionMaterial(g1)
 end
 function c101010419.succon(e)
