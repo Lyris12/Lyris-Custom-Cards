@@ -56,6 +56,11 @@ function c481.op(e,tp,eg,ep,ev,re,r,rp)
 				ge2:SetCode(EVENT_ATTACK_DISABLED)
 				ge2:SetOperation(c481.recheck)
 				Duel.RegisterEffect(ge2,0)
+				local ge3=Effect.CreateEffect(tc)
+				ge3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+				ge3:SetCode(EVENT_BATTLED)
+				ge3:SetOperation(c481.recount2)
+				Duel.RegisterEffect(ge3,0)
 			end
 			--relay summon
 			local ge4=Effect.CreateEffect(tc)
@@ -63,7 +68,7 @@ function c481.op(e,tp,eg,ep,ev,re,r,rp)
 			ge4:SetType(EFFECT_TYPE_FIELD)
 			ge4:SetCode(EFFECT_SPSUMMON_PROC_G)
 			ge4:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_IGNORE_IMMUNE)
-			ge4:SetRange(LOCATION_EXTRA)
+			ge4:SetRange(LOCATION_EXTRA+LOCATION_ONFIELD)
 			ge4:SetCountLimit(1,10001000)
 			ge4:SetCondition(c481.rescon)
 			ge4:SetOperation(c481.resop)
@@ -114,6 +119,9 @@ function c481.recheck(e,tp,eg,ep,ev,re,r,rp)
 	if ct then
 		tc:SetFlagEffectLabel(10001000,0)
 	end
+end
+function c481.recount2(e,tp,eg,ep,ev,re,r,rp)
+	Duel.RegisterFlagEffect(tp,10001000,RESET_PHASE+PHASE_END,0,1)
 end
 function c481.resfilter(c)
 	if c:IsLocation(LOCATION_REMOVED) and c:IsFacedown() then return false end
@@ -178,7 +186,7 @@ function c481.resop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	local sc=sg:GetFirst()
 	while sc do
 		sc:SetMaterial(g)
-		local pt1=Duel.GetBattledCount(tp)
+		local pt1=Duel.GetFlagEffect(tp,10001000)
 		local e1=Effect.CreateEffect(sc)
 		e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_SPSUMMON_SUCCESS)
