@@ -15,7 +15,7 @@ function c101010482.initial_effect(c)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetValue(c101010482.atkval)
 	c:RegisterEffect(e2)
-	--If this card declares an attack: You can target 1 other "Lavalympian" Relay monster you control; it gains 1000 ATK, but shuffle it into the Deck at the end of the Battle Phase.
+	--If this card declares an attack: You can target 1 other "Lavalympian" monster you control that can still attack at this time; it gains 1000 ATK, but shuffle it into the Deck at the end of the Battle Phase.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -25,7 +25,7 @@ function c101010482.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c101010482.filter(c)
-	return c:IsFaceup() and c:IsSetCard(2849)
+	return c:IsFaceup() and c:IsSetCard(0xb21)
 end
 function c101010482.atkval(e,c)
 	return Duel.GetMatchingGroupCount(c101010482.filter,e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)*200
@@ -39,9 +39,14 @@ function c101010482.spcon(e,c)
 	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(c101010482.spfilter,tp,LOCATION_EXTRA,0,2,nil)
 end
 function c101010482.atkfilter(c)
-	return c101010482.filter(c) and c:IsAttackable()
+	return c101010482.filter(c) and c:IsAttackable() and c:GetAttackAnnouncedCount()==0
 end
 function c101010482.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	local c=e:GetHandler()
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c101010482.atkfilter(chkc) and chkc~=c end
+	if chk==0 then return Duel.IsExistingTarget(c101010482.atkfilter,tp,LOCATION_MZONE,0,1,c) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
+	Duel.SelectTarget(tp,c101010482.atkfilter,tp,LOCATION_MZONE,0,1,1,c)
 end
 function c101010482.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=Duel.GetFirstTarget()
@@ -56,10 +61,11 @@ function c101010482.atkop(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e2:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
 		e2:SetCode(EVENT_PHASE+PHASE_BATTLE)
+		e2:SetRange(LOCATION_MZONE)
 		e2:SetOperation(c101010482.tdop)
 		e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE)
 		e2:SetCountLimit(1)
-		c:RegisterEffect(e2,tp)
+		c:RegisterEffect(e2)
 	end
 end
 function c101010482.tdop(e,tp,eg,ep,ev,re,r,rp)
