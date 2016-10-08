@@ -12,10 +12,10 @@ function c101010393.initial_effect(c)
 	--If this card is banished from the field: You can banish the top 2 cards of your Deck, then target 1 of your banished DARK Spellcaster-Type monsters, except "Dimension-Magica Swordsman"; Special Summon it.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e1:SetCode(EVENT_REMOVE)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
-	e1:SetCondition(c101010393.condition)
+	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e1:SetCountLimit(1)
 	e1:SetCost(c101010393.cost)
 	e1:SetTarget(c101010393.target)
 	e1:SetOperation(c101010393.operation)
@@ -30,9 +30,6 @@ function c101010393.initial_effect(c)
 end
 function c101010393.atktg(e,c)
 	return c:IsSetCard(0xa03) or c.spatial
-end
-function c101010393.condition(e)
-	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function c101010393.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetDecktopGroup(tp,2)
