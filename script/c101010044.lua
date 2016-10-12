@@ -9,7 +9,7 @@ function c101010044.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetHintTiming(TIMING_BATTLE_START,0)
+	e1:SetHintTiming(TIMING_BATTLE_START)
 	e1:SetCountLimit(1)
 	e1:SetCondition(c101010044.condition)
 	e1:SetCost(c101010044.cost)
@@ -37,7 +37,6 @@ function c101010044.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 	local g=Duel.GetMatchingGroup(c101010044.filter2,tp,LOCATION_MZONE,0,nil)
 	local tc=g:GetFirst()
-	if not tc then return end
 	while tc do
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)

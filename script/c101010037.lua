@@ -34,7 +34,7 @@ function c101010037.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c101010037.splimit(e,se,sp,st)
-	return st==SUMMON_TYPE_FUSION+0xFA0
+	return st==SUMMON_TYPE_FUSION+0x800
 end
 function c101010037.dmgcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp

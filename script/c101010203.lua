@@ -91,7 +91,7 @@ function c101010203.fsoperation(e,tp,eg,ep,ev,re,r,rp,gc,chkf)
 	Duel.SetFusionMaterial(g1)
 end
 function c101010203.splimit(e,se,sp,st)
-	return (bit.band(st,SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION or bit.band(st,SUMMON_TYPE_FUSION+0xFA0)==SUMMON_TYPE_FUSION+0xFA0) and se:GetHandler():IsSetCard(0x4093) --true
+	return (bit.band(st,SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION or bit.band(st,SUMMON_TYPE_FUSION+0x800)==SUMMON_TYPE_FUSION+0x800) and se:GetHandler():IsSetCard(0x4093) --true
 end
 function c101010203.csfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x4093)

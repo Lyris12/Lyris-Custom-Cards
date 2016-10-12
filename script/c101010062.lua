@@ -27,7 +27,7 @@ function c101010062.filter1(c,e)
 end
 function c101010062.filter2(c,e,tp,m,f,chkf)
 	local st=SUMMON_TYPE_FUSION
-	if c:IsSetCard(0x4093) then st=st+0xFA0 end
+	if c:IsSetCard(0x4093) then st=st+0x800 end
 	return c:IsType(TYPE_FUSION) and c:IsRace(RACE_MACHINE) and c:IsAttribute(ATTRIBUTE_LIGHT+ATTRIBUTE_DARK) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,st,tp,true,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
@@ -74,7 +74,7 @@ function c101010062.activate(e,tp,eg,ep,ev,re,r,rp)
 			Duel.Remove(mat1,POS_FACEUP,REASON_EFFECT+REASON_MATERIAL+REASON_FUSION)
 			Duel.BreakEffect()
 			local st=SUMMON_TYPE_FUSION
-			if tc:IsSetCard(0x4093) then st=st+0xFA0 end
+			if tc:IsSetCard(0x4093) then st=st+0x800 end
 			Duel.SpecialSummon(tc,st,tp,tp,true,false,POS_FACEUP)
 		else
 			local mat2=Duel.SelectFusionMaterial(tp,tc,mg2,nil,chkf)
