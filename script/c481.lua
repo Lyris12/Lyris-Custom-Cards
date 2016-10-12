@@ -42,13 +42,13 @@ function c481.op(e,tp,eg,ep,ev,re,r,rp)
 			ge0:SetRange(LOCATION_ONFIELD)
 			ge0:SetTarget(c481.reen)
 			tc:RegisterEffect(ge0)
-			--[[redirect
+			--redirect
 			local ge7=Effect.CreateEffect(tc)
 			ge7:SetType(EFFECT_TYPE_SINGLE)
 			ge7:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 			ge7:SetCode(EFFECT_CANNOT_TO_DECK)
 			ge7:SetCondition(function(e) return e:GetHandler():GetDestination()==LOCATION_GRAVE end)
-			tc:RegisterEffect(ge7)]]
+			tc:RegisterEffect(ge7)
 			--counter
 			if not point_track then
 				point_track=true
