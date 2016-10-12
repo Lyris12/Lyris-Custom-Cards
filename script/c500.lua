@@ -104,7 +104,7 @@ function c500.repop(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(g,POS_FACEUP,r)
 end
 function c500.splimit(e,se,sp,st)
-	return not e:GetHandler():IsLocation(LOCATION_EXTRA) or bit.band(st,0x4000)==0x4000
+	return bit.band(st,0x4000)==0x4000
 end
 function c500.sptfilter1(c,tp,djn,f)
 	return c:IsFaceup() and c:GetLevel()>0 and (not f or f(c)) and c:IsAbleToRemove()
