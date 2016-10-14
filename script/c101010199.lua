@@ -36,6 +36,7 @@ function c101010199.operation(e,tp,eg,ep,ev,re,r,rp)
 		local b2=true
 		local b3=true
 		local off=0
+		local sel=0
 		repeat
 			local ops={}
 			local opval={}
@@ -57,62 +58,74 @@ function c101010199.operation(e,tp,eg,ep,ev,re,r,rp)
 			end
 			local op=Duel.SelectOption(tp,table.unpack(ops))
 			if opval[op]==1 then
-				--The ATK of 1 face-up monster your opponent controls becomes 0 and this card's ATK becomes that monster's original ATK.
-				local bc=sg:Select(tp,1,1,nil):GetFirst()
-				local e1=Effect.CreateEffect(c)
-				e1:SetType(EFFECT_TYPE_SINGLE)
-				e1:SetCode(EFFECT_SET_ATTACK_FINAL)
-				e1:SetValue(b:GetBaseAttack())
-				e1:SetReset(RESET_EVENT+0x1fe0000)
-				c:RegisterEffect(e1)
-				local e1=Effect.CreateEffect(c)
-				e1:SetType(EFFECT_TYPE_SINGLE)
-				e1:SetCode(EFFECT_SET_ATTACK_FINAL)
-				e1:SetValue(0)
-				e1:SetReset(RESET_EVENT+0x1fe0000)
-				bc:RegisterEffect(e1)
+				sel=sel+1
 				b1=false
 			elseif opval[op]==2 then
-				local a=sg:Select(tp,1,1,nil):GetFirst()
-				--Until the end of this turn, negate the effects of 1 face-up monster your opponent controls and this card gains that monster's effects.
-				local e1=Effect.CreateEffect(c)
-				e1:SetType(EFFECT_TYPE_SINGLE)
-				e1:SetCode(EFFECT_DISABLE)
-				e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-				a:RegisterEffect(e1)
-				local e2=Effect.CreateEffect(c)
-				e2:SetType(EFFECT_TYPE_SINGLE)
-				e2:SetCode(EFFECT_DISABLE_EFFECT)
-				e2:SetValue(RESET_TURN_SET)
-				e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-				a:RegisterEffect(e2)
-				local code=a:GetOriginalCode()
-				c:CopyEffect(code,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+				sel=sel+2
 				b2=false
 			else
-				local a=sg:Select(tp,1,1,nil):GetFirst()
-				--The name of 1 face-up monster your opponent controls becomes "Unknown" and this card gains that monster's original name.
-				local code=a:GetCode()
-				--code
-				local e1=Effect.CreateEffect(c)
-				e1:SetType(EFFECT_TYPE_SINGLE)
-				e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-				e1:SetRange(LOCATION_MZONE)
-				e1:SetCode(EFFECT_CHANGE_CODE)
-				e1:SetValue(0)
-				e1:SetReset(RESET_EVENT+0x1fe0000)
-				a:RegisterEffect(e1)
-				--code
-				local e2=Effect.CreateEffect(c)
-				e2:SetType(EFFECT_TYPE_SINGLE)
-				e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-				e2:SetCode(EFFECT_ADD_CODE)
-				e2:SetValue(code)
-				e2:SetReset(RESET_EVENT+0x1fe0000)
-				c:RegisterEffect(e2)
+				sel=sel+4
 				b3=false
 			end
 			ct=ct-1
 		until ct==0 or off<3 or not Duel.SelectYesNo(tp,aux.Stringid(101010199,4))
+		if bit.band(sel,1)~=0 then
+			--The ATK of 1 face-up monster your opponent controls becomes 0 and this card's ATK becomes that monster's original ATK.
+			local bc=sg:Select(tp,1,1,nil):GetFirst()
+			Duel.HintSelection(Group.FromCards(bc))
+			local e1=Effect.CreateEffect(c)
+			e1:SetType(EFFECT_TYPE_SINGLE)
+			e1:SetCode(EFFECT_SET_ATTACK_FINAL)
+			e1:SetValue(b:GetBaseAttack())
+			e1:SetReset(RESET_EVENT+0x1fe0000)
+			c:RegisterEffect(e1)
+			local e1=Effect.CreateEffect(c)
+			e1:SetType(EFFECT_TYPE_SINGLE)
+			e1:SetCode(EFFECT_SET_ATTACK_FINAL)
+			e1:SetValue(0)
+			e1:SetReset(RESET_EVENT+0x1fe0000)
+			bc:RegisterEffect(e1)
+		end
+		if bit.band(sel,2)~=0 then
+			local a=sg:Select(tp,1,1,nil):GetFirst()
+			Duel.HintSelection(Group.FromCards(a))
+			--Until the end of this turn, negate the effects of 1 face-up monster your opponent controls and this card gains that monster's effects.
+			local e1=Effect.CreateEffect(c)
+			e1:SetType(EFFECT_TYPE_SINGLE)
+			e1:SetCode(EFFECT_DISABLE)
+			e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+			a:RegisterEffect(e1)
+			local e2=Effect.CreateEffect(c)
+			e2:SetType(EFFECT_TYPE_SINGLE)
+			e2:SetCode(EFFECT_DISABLE_EFFECT)
+			e2:SetValue(RESET_TURN_SET)
+			e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+			a:RegisterEffect(e2)
+			local code=a:GetOriginalCode()
+			c:CopyEffect(code,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		end
+		if bit.band(sel,4)~=0 then
+			local ad=sg:Select(tp,1,1,nil):GetFirst()
+			Duel.HintSelection(Group.FromCards(ad))
+			--The name of 1 face-up monster your opponent controls becomes "Unknown" and this card gains that monster's original name.
+			local code=ad:GetCode()
+			--code
+			local e1=Effect.CreateEffect(c)
+			e1:SetType(EFFECT_TYPE_SINGLE)
+			e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+			e1:SetRange(LOCATION_MZONE)
+			e1:SetCode(EFFECT_CHANGE_CODE)
+			e1:SetValue(0)
+			e1:SetReset(RESET_EVENT+0x1fe0000)
+			ad:RegisterEffect(e1)
+			--code
+			local e2=Effect.CreateEffect(c)
+			e2:SetType(EFFECT_TYPE_SINGLE)
+			e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+			e2:SetCode(EFFECT_ADD_CODE)
+			e2:SetValue(code)
+			e2:SetReset(RESET_EVENT+0x1fe0000)
+			c:RegisterEffect(e2)
+		end
 	end
 end
