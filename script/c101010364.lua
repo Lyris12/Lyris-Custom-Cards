@@ -7,7 +7,7 @@ c:EnableReviveLimit()
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_PIERCE)
 	c:RegisterEffect(e0)
-	--This card gains 200 ATK for each "Blademaster" monster you control, plus an additonal 300 ATK for each other "Bladewing" monster you control.
+	--This card gains 200 ATK for each Xyz Material attached to this card and each other "Blademaster" monster you control.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -15,7 +15,7 @@ c:EnableReviveLimit()
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetValue(c101010364.val)
 	c:RegisterEffect(e1)
-	--During your Battle Phase, if your opponent activates a card or effect: You can detach 1 Xyz Material from this card; this card can make a second attack during each Battle Phase this turn, also, negate the activation, and if you do, destroy it.
+	--During your Battle Phase, if your opponent activates a card or effect: You can detach 1 Xyz Material from this card; this card can make a second attack during each Battle Phase this turn, but any battle damage your opponent takes for the rest of the turn becomes halved, also, negate the activation, and if you do, destroy it.
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(101010364,0))
 	e2:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
