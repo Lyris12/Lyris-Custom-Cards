@@ -13,9 +13,16 @@ function c101010123.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_EQUIP)
 	e2:SetCode(EFFECT_PIERCE)
+	e2:SetLabelObject(e1)
 	e2:SetCondition(c101010123.con)
 	c:RegisterEffect(e2)
-	e1:SetLabelObject(e2)
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
+	e3:SetCode(EVENT_PRE_BATTLE_DAMAGE)
+	e3:SetLabelObject(e1)
+	e3:SetCondition(c101010123.con)
+	e3:SetOperation(c101010123.rdop)
+	c:RegisterEffect(e3)
 	--Equip limit
 	local e3=Effect.CreateEffect(c)
 	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -41,8 +48,16 @@ function c101010123.op(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Equip(tp,e:GetHandler(),tc)
 	end
 end
-function c101010123.con(e,tp,eg,ep,ev,re,r,rp)
-	local q=e:GetLabel()
+function c101010123.con(e)
+	local q=e:GetLabelObject():GetLabel()
 	local tc=Duel.GetAttackTarget()
 	return tc and tc:IsAttribute(q)
+end
+function c101010123.rdop(e,tp,eg,ep,ev,re,r,rp)
+	local atk=e:GetHandler():GetEquipTarget():GetAttack()
+	if ep~=tp then
+		Duel.ChangeBattleDamage(ep,ev+atk)
+	else
+		Duel.Damage(1-tp,atk,REASON_BATTLE)
+	end
 end

@@ -33,7 +33,7 @@ function c101010172.eqfilter(c)
 	local atk=c:GetTextAttack()
 	if atk==-2 then atk=c:GetBaseAttack() end
 	if atk~=c:GetAttack() and atk==0 then return false end
-	return c:IsFaceup() and not c:IsAttribute(ATTRIBUTE_LIGHT)
+	return c:IsFaceup()
 end
 function c101010172.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetLocation()==LOCATION_MZONE and chkc:IsControler(tp) and c101010172.eqfilter(chkc) end
@@ -103,4 +103,5 @@ function c101010172.ldop(e,tp,eg,ep,ev,re,r,rp)
 	local atk=math.abs(atk1-atk2)
 	local lp=e:GetLabel()
 	Duel.SetLP(qp,lp-atk)
+	e:SetLabel(Duel.GetLP(qp))
 end

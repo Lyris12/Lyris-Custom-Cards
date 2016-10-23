@@ -10,13 +10,13 @@ function c101010413.initial_effect(c)
 	e0:SetCondition(c101010413.spcon)
 	e0:SetOperation(c101010413.spop)
 	c:RegisterEffect(e0)
-	--Must be Fusion Summoned by the effect of an "Attribrutal Fusion" card or Special Summoned by banishing 2 monsters you control (You do not use Polymerization.), and cannot be Special Summoned by other ways.
-	-- local e2=Effect.CreateEffect(c)
-	-- e2:SetType(EFFECT_TYPE_SINGLE)
-	-- e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-	-- e2:SetCode(EFFECT_SPSUMMON_CONDITION)
-	-- e2:SetValue(aux.FALSE)
-	-- c:RegisterEffect(e2)
+	--Must be Fusion Summoned or Special Summoned by banishing 2 monsters you control while this card's Level is equal to 1 of those monsters' Levels. (in which case you do not use Polymerization), and cannot be Special Summoned by other ways.
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_SINGLE)
+	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e2:SetCode(EFFECT_SPSUMMON_CONDITION)
+	e2:SetValue(aux.FALSE)
+	c:RegisterEffect(e2)
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -30,61 +30,26 @@ end
 function c101010413.spcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
-	return Duel.GetLocationCount(tp,LOCATION_MZONE)>-2 and Duel.IsExistingMatchingCard(Card.IsAbleToRemoveAsCost,tp,LOCATION_MZONE,0,2,nil)
+	return Duel.GetLocationCount(tp,LOCATION_MZONE)>-2 and Duel.IsExistingMatchingCard(c101010413.spfilter1,tp,LOCATION_MZONE,0,2,nil,tp,c:GetLevel())
+end
+function c101010413.spfilter1(c,tp,djn)
+	return c:IsFaceup() and c:GetLevel()>0 and c:IsAbleToRemoveAsCost()
+		and Duel.IsExistingMatchingCard(c101010413.spfilter2,tp,LOCATION_MZONE,0,1,c,djn,f,c:GetAttribute(),c:GetRace(),c:GetLevel())
+end
+function c101010413.spfilter2(c,djn,at,rc,lv)
+	return c:IsFaceup() and c:GetAttribute()==at and c:GetRace()==rc
+		and c:GetLevel()>0 and (djn==lv or djn==c:GetLevel()) and c:IsAbleToRemoveAsCost()
 end
 function c101010413.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	local g=Duel.GetMatchingGroup(Card.IsAbleToRemoveAsCost,tp,LOCATION_MZONE,0,nil)
+	local x=c:GetLevel()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local tc1=g:Select(tp,1,1,nil)
-	local atk1=tc1:GetFirst():GetAttack()
-	local def1=tc1:GetFirst():GetDefense()
-	local lv1=tc1:GetFirst():GetLevel()
-	local rk1=tc1:GetFirst():GetRank()
-	g:RemoveCard(tc1:GetFirst())
-	local tc2=g:Select(tp,1,1,nil)
-	local atk2=tc2:GetFirst():GetAttack()
-	local def2=tc2:GetFirst():GetDefense()
-	local lv2=tc2:GetFirst():GetLevel()
-	local rk2=tc2:GetFirst():GetRank()
-	tc1:Merge(tc2)
-	Duel.Remove(tc1,POS_FACEUP,REASON_COST)
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_SET_BASE_ATTACK)
-	e1:SetReset(RESET_TODECK)
-	e1:SetValue(atk1+atk2)
-	c:RegisterEffect(e1)
-	local e0=Effect.CreateEffect(c)
-	e0:SetType(EFFECT_TYPE_SINGLE)
-	e0:SetCode(EFFECT_SET_BASE_DEFENSE)
-	e0:SetReset(RESET_TODECK)
-	e0:SetValue(def1+def2)
-	c:RegisterEffect(e0)
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetCode(EFFECT_CHANGE_LEVEL)
-	e2:SetReset(RESET_TODECK)
-	if rk1>0 and lv1>0 then
-		e2:SetValue(lv1+rk1)
-		elseif lv1>0 and lv2>0 then
-		e2:SetValue(lv1+lv2)
-		elseif lv1>0 and rk2>0 then
-		e2:SetValue(lv1+rk2)
-		elseif lv2>0 and rk1>0 then
-		e2:SetValue(rk1+lv2)
-		elseif lv2>0 and rk2>0 then
-		e2:SetValue(lv2+rk2)
-		else
-		--elseif rk1>0 and rk2>0 then
-		e2:SetValue(rk1+rk2)
-	end
-	c:RegisterEffect(e2)
-	--cannot be XYZ
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_CANNOT_BE_XYZ_MATERIAL)
-	e1:SetReset(RESET_TODECK)
-	c:RegisterEffect(e1)
+	local m1=g:FilterSelect(tp,c500.spfilter1,1,1,nil,tp,x)
+	local tc=m1:GetFirst()
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+	local m2=g:FilterSelect(tp,c500.spfilter2,1,1,tc,x,tc:GetAttribute(),tc:GetRace(),tc:GetLevel())
+	m1:Merge(m2)
+	Duel.Remove(m1,POS_FACEUP,REASON_COST)
 end
 function c101010413.con(e,tp,eg,ep,ev,re,r,rp)
 	return bit.band(e:GetHandler():GetSummonType(),SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION
