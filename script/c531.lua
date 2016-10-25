@@ -59,7 +59,7 @@ function c531.op(e,tp,eg,ep,ev,re,r,rp)
 			ge4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 			ge4:SetCode(EVENT_SPSUMMON_SUCCESS)
 			ge4:SetReset(RESET_EVENT+EVENT_ADJUST,1)
-			ge4:SetCondition(function(e) return bit.band(e:GetHandler():GetSummonType(),0x4000)==0x4000 end)
+			ge4:SetCondition(function(e) return bit.band(e:GetHandler():GetSummonType(),0x1000)==0x1000 end)
 			ge4:SetOperation(function(e) e:GetHandler():CompleteProcedure() end)
 			tc:RegisterEffect(ge4)
 			--
