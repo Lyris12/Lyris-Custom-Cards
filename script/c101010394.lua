@@ -1,13 +1,5 @@
 --Dimension-Magica Dark Magician
 function c101010394.initial_effect(c)
-	--This card's name becomes "Dark Magician" while it is on the field.
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e2:SetCode(EFFECT_CHANGE_CODE)
-	e2:SetRange(LOCATION_MZONE)
-	e2:SetValue(46986414)
-	c:RegisterEffect(e2)
 	--Once per turn: You can target 1 monster in your Graveyard; Special Summon it, and its name becomes "Dark Magician" until the end of the turn.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
