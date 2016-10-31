@@ -43,7 +43,7 @@ function c101010017.condition2(e,tp,eg,ep,ev,re,r,rp)
 end
 function c101010017.cost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToDeckAsCost() end
-	Duel.SendtoDeck(e:GetHandler(),nil,0,REASON_COST)
+	Duel.SendtoDeck(e:GetHandler(),nil,1,REASON_COST)
 end
 function c101010017.operation2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local a=Duel.GetAttacker()
@@ -54,33 +54,11 @@ function c101010017.operation2(e,tp,eg,ep,ev,re,r,rp,chk)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-	local c=nil
 	if a:GetControler()==tp then
 		e1:SetValue(d:GetAttack())
 		a:RegisterEffect(e1)
-		a:RegisterFlagEffect(101010017,RESET_EVENT+0x1fe0000,0,1)
-		c=a
 	else
 		e1:SetValue(a:GetAttack())
 		d:RegisterEffect(e1)
-		d:RegisterFlagEffect(101010017,RESET_EVENT+0x1fe0000,0,1)
-		c=d
 	end
-	local e2=Effect.CreateEffect(e:GetHandler())
-	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e2:SetCode(EVENT_PHASE+PHASE_END)
-	e2:SetLabelObject(c)
-	e2:SetCountLimit(1)
-	e2:SetReset(RESET_PHASE+PHASE_END)
-	e2:SetOperation(c101010017.damop)
-	Duel.RegisterEffect(e2,tp)
-end
-function c101010017.damop(e)
-	local c=e:GetOwner()
-	local ce=e:GetLabelObject()
-	if ce:GetFlagEffect(101010017)~=0 then
-		if c:GetSequence()==0 then Duel.DisableShuffleCheck() end
-		Duel.SendtoGrave(c,REASON_EFFECT)
-	end
-	ce:ResetFlagEffect(101010017)
 end
