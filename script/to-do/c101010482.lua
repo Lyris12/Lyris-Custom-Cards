@@ -1,6 +1,6 @@
 --Lavalympian Basketball Guard
 function c101010482.initial_effect(c)
-	--If you have at least 2 face-up "Lavalympian" Relay Monsters in your Extra Deck, you can Special Summon this card (from your hand).
+	--If you have at least 2 face-up FIRE Relay Monsters in your Extra Deck, you can Special Summon this card (from your hand).
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
@@ -8,14 +8,14 @@ function c101010482.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e1:SetCondition(c101010482.spcon)
 	c:RegisterEffect(e1)
-	--This card gains 200 ATK for each "Lavalympian" monster you control.
+	--This card gains 200 ATK for each "Magmalympian" monster you control.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetValue(c101010482.atkval)
 	c:RegisterEffect(e2)
-	--If this card declares an attack: You can target 1 other "Lavalympian" monster you control that can still attack at this time; it gains 1000 ATK, but shuffle it into the Deck at the end of the Battle Phase.
+	--If this card declares an attack: You can target 1 other FIRE Relay monster you control that can still declare its regular attack; it gains 1000 ATK, but shuffle it into the Deck at the end of the Battle Phase.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -23,6 +23,7 @@ function c101010482.initial_effect(c)
 	e3:SetTarget(c101010482.atktg)
 	e3:SetOperation(c101010482.atkop)
 	c:RegisterEffect(e3)
+	--When your opponent targets this card for an attack: You can target 1 other "Magmalympian" monster you control; that attack now targets the new target.
 end
 function c101010482.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0xb21)
