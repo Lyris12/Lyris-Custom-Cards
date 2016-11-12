@@ -1,6 +1,38 @@
 --デュエル・アカデミア・ハイツ (アクション デゥエル モード)
 function c101010126.initial_effect(c)
---Activate
+	local f=Card.IsCanBeSpecialSummoned
+	Card.IsCanBeSpecialSummoned=function(c,e,tpe,tgp,con,conr)
+		if Duel.IsPlayerAffectedByEffect(tgp,101010126) then
+			if Duel.IsPlayerAffectedByEffect(tgp,EFFECT_CANNOT_SPECIAL_SUMMON) and c:IsType(TYPE_MONSTER) then
+				return true
+			end
+			return c:IsType(TYPE_MONSTER) and f(c,e,tpe,tgp,true,true)
+		end
+		return f(c,e,tpe,tgp,con,conr)
+	end
+	local proc=Duel.SpecialSummonStep
+	Duel.SpecialSummonStep=function(tc,tpe,sump,tgp,check,limit,pos)
+		if Duel.IsPlayerAffectedByEffect(sump,101010126) then
+			if Duel.IsPlayerAffectedByEffect(sump,EFFECT_CANNOT_SPECIAL_SUMMON) and tc:IsType(TYPE_MONSTER) then
+				Duel.MoveToField(tc,sump,tgp,LOCATION_MZONE,pos,true)
+				Duel.RaiseEvent(tc,EVENT_SPSUMMON_SUCCESS,e,REASON_EFFECT,sump,sump,0)
+				return
+			end
+			proc(tc,tpe,sump,tgp,true,true,pos)
+		else proc(tc,tpe,sump,tgp,check,limit,pos) end
+	end
+	local proc2=Duel.SpecialSummon
+	Duel.SpecialSummon=function(g,tpe,sump,tgp,check,limit,pos)
+		if Duel.IsPlayerAffectedByEffect(sump,101010126) then
+			if Duel.IsPlayerAffectedByEffect(sump,EFFECT_CANNOT_SPECIAL_SUMMON) and tc:IsType(TYPE_MONSTER) then
+				Duel.MoveToField(tc,sump,tgp,LOCATION_MZONE,pos,true)
+				Duel.RaiseEvent(tc,EVENT_SPSUMMON_SUCCESS,e,REASON_EFFECT,sump,sump,0)
+				return
+			end
+			proc2(g,tpe,sump,tgp,true,true,pos)
+	   else proc2(g,tpe,sump,tgp,check,limit,pos) end
+	end
+	--Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
@@ -13,6 +45,14 @@ function c101010126.initial_effect(c)
 	e2:SetRange(LOCATION_HAND+LOCATION_DECK)
 	e2:SetOperation(c101010126.op)
 	c:RegisterEffect(e2)
+	--
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_FIELD)
+    e0:SetCode(101010126)
+	e0:SetRange(LOCATION_FZONE)
+	e0:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e0:SetTargetRange(1,1)
+	c:RegisterEffect(e0)
 	--fusion
 	local fus=Effect.CreateEffect(c)
 	fus:SetCategory(CATEGORY_SPECIAL_SUMMON)

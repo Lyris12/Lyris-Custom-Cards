@@ -23,7 +23,7 @@ function c101010436.filter1(c,e)
 	return c:IsCanBeFusionMaterial() and c:IsAbleToRemove() and not c:IsImmuneToEffect(e)
 end
 function c101010436.filter2(c,e,tp,m,f,chkf)
-	return c:IsType(TYPE_FUSION) and (not f or f(c))
+	return c:IsType(TYPE_FUSION) and c:IsAttribute(ATTRIBUTE_WATER) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
 function c101010436.target(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -67,7 +67,7 @@ function c101010436.operation(e,tp,eg,ep,ev,re,r,rp)
 		if sg1:IsContains(tc) and (sg2==nil or not sg2:IsContains(tc) or not Duel.SelectYesNo(tp,ce:GetDescription())) then
 			local mat1=Duel.SelectFusionMaterial(tp,tc,mg1,nil,chkf)
 			tc:SetMaterial(mat1)
-			Duel.Overlay(tc,mat1)
+			Duel.SendtoGrave(mat1,REASON_EFFECT+REASON_MATERIAL+REASON_FUSION)
 			Duel.BreakEffect()
 			Duel.SpecialSummon(tc,SUMMON_TYPE_FUSION,tp,tp,false,false,POS_FACEUP)
 		else
