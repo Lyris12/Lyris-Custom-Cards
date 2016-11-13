@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳＳ－メッセンジャーシール
 function c101010083.initial_effect(c)
 --If this card is sent to the Graveyard for a Synchro Summon: target that Synchro Monster; Draw 1 card, plus another card if that target is WATER.

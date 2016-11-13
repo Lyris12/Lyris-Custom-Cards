@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --デュエル・アカデミア・ハイツ (アクション デゥエル モード)
 function c101010126.initial_effect(c)
 	local f=Card.IsCanBeSpecialSummoned

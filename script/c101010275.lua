@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --
 function c101010275.initial_effect(c)
 --fusion material

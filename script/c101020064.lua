@@ -1,3 +1,4 @@
+--created & coded by Hiro
 --Aggecko Shilo
 function c101020064.initial_effect(c)
 	--banish

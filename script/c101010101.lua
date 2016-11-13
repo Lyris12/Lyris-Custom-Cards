@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --襲雷属性－地球
 function c101010101.initial_effect(c)
 --self-destruct

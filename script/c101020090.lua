@@ -1,3 +1,5 @@
+--created by Hiro
+--coded by Lyris
 --ファイヤーストローム・ツイスター
 function c101020090.initial_effect(c)
 	local e1=Effect.CreateEffect(c)

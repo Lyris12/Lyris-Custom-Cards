@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Cyberspace Sun Moon Dragon
 function c101010108.initial_effect(c)
 --fusion material

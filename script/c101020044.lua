@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --リベリオファング
 function c101020044.initial_effect(c)
 	aux.EnablePendulumAttribute(c,false)

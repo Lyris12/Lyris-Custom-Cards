@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバー・ドラゴン・ジュッぺЯノヴァ
 function c101010212.initial_effect(c)
 c:EnableReviveLimit()

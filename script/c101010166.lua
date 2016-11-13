@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Super Power Bond
 function c101010166.initial_effect(c)
 --Activate

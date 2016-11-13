@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --機夜行襲雷竜－ミッドナイト
 function c101010039.initial_effect(c)
 c:EnableReviveLimit()

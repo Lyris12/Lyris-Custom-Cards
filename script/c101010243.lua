@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバー・ソカープレイヤー
 function c101010243.initial_effect(c)
 --atk

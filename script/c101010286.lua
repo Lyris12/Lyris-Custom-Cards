@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Magmastar Dragon
 function c101010286.initial_effect(c)
 	c:EnableReviveLimit()

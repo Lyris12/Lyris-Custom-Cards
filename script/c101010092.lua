@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Liquid Crystapal Red
 function c101010092.initial_effect(c)
 local e1=Effect.CreateEffect(c)

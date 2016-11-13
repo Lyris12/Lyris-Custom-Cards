@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ジュエル・チェーン・ホイップ
 function c101010274.initial_effect(c)
 c:EnableReviveLimit()

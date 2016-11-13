@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --PSYStream Current
 function c101010053.initial_effect(c)
 --Activate

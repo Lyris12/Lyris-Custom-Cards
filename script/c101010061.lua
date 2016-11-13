@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Shooting Cyber Star
 function c101010061.initial_effect(c)
 c:SetUniqueOnField(1,0,101010061)

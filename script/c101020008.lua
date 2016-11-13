@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --FF－スワン
 function c101020008.initial_effect(c)
 	--search

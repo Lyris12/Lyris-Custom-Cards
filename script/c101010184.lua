@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Wyvern of Stellar Vine
 function c101010184.initial_effect(c)
 	c:EnableUnsummonable()

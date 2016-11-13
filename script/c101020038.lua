@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Hiro
 function c101020038.initial_effect(c)
 	--If this card is Tributed for the Ritual Summon of a "Real Rights" monster: You can draw 1 card.

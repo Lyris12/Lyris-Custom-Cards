@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ファントム・ペンデュレーディ　ドラコ・旋風
 function c101010422.initial_effect(c)
 	c:EnableReviveLimit()

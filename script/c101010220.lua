@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバー・ネット・ラッシュ！
 function c101010220.initial_effect(c)
 --Activate

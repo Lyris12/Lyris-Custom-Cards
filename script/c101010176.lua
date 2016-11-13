@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --リレー・アース
 function c101010176.initial_effect(c)
 --Activate

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --超竜星ドゥニンル
 function c101010263.initial_effect(c)
 --attribute(field)

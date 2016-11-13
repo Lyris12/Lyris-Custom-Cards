@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --RDM－マック・フォース
 function c101010229.initial_effect(c)
 --cannot fetch

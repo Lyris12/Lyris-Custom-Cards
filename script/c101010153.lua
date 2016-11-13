@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --襲雷竜－月
 function c101010153.initial_effect(c)
 aux.EnablePendulumAttribute(c)

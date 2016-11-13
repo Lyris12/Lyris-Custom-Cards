@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Dragon Virgale
 function c101010271.initial_effect(c)
 --attack

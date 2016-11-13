@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Earth Enforcement - Ensnaring Succession
 function c101010128.initial_effect(c)
 --Activate

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳＳ－轟く潮ジノバシル
 function c101010210.initial_effect(c)
 --synchro summon

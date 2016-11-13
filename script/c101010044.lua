@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバー・アポロ・ドラゴン
 function c101010044.initial_effect(c)
 --synchro summon

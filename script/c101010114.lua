@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --アースの隠術
 function c101010114.initial_effect(c)
 --Activate

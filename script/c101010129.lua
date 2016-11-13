@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --PSYStream Barrierreef
 function c101010129.initial_effect(c)
 local e1=Effect.CreateEffect(c)

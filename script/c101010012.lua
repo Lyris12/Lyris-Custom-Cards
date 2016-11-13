@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --FF－レイニアス
 function c101010012.initial_effect(c)
 local e3=Effect.CreateEffect(c)

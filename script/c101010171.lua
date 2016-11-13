@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --
 function c101010171.initial_effect(c)
 --Activate

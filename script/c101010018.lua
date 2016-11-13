@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバー・ワイバーン
 function c101010018.initial_effect(c)
 --pendulum summon

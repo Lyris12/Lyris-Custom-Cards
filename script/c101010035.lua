@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --鎧光竜－サイバー・ネット・ドラゴン
 function c101010035.initial_effect(c)
 c:EnableReviveLimit()

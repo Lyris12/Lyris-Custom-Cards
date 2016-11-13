@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Dragluo Returner
 function c101020029.initial_effect(c)
 	--If this card is Pendulum Summoned, its controller cannot Special Summon monsters for the rest of the turn, except Dragon-Type monsters.

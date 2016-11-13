@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Cyber Space
 function c101010167.initial_effect(c)
 local e2=Effect.CreateEffect(c)

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Flame Flight - Penguin
 function c101010106.initial_effect(c)
 --spsummon condition

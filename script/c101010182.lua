@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --If this card is sent to the Graveyard for the Synchro Summon of a Level 4 or lower WATER monster: You can return this card to your hand. If this card is sent to the Graveyard for the Synchro Summon of a "Tide" monster: Special Summon this card in Defense Position.
 --ＳＳ－始まり潮アレク
 function c101010182.initial_effect(c)

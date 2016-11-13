@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --旋風のヘルダイブ・スラッシャー
 function c101010118.initial_effect(c)
 --Activate

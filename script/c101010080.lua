@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳＳＤーサイクロン
 function c101010080.initial_effect(c)
 --bounce

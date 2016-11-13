@@ -1,3 +1,5 @@
+--created by Hiro
+--coded by Lyris
 --Aggecko Tettitory
 function c101020101.initial_effect(c)
 	--Activate

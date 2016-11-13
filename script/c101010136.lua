@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --次元盾
 function c101010136.initial_effect(c)
 --Activate

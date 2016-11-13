@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Lawbook
 function c101020093.initial_effect(c)
 	aux.AddRitualProcEqual2(c,c101020093.ritual_filter)

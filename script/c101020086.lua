@@ -1,3 +1,4 @@
+--created & coded by Hiro
 --Shinigami, Tsuiho Demise Reaper 
 function c101020086.initial_effect(c)
 	--xyz summon

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --PSYStream Journey
 function c101010069.initial_effect(c)
 --When your opponent activates a card or effect in response to the Special Summon of a "PSYStream" monster: Negate the activation, and if you do, destroy it.

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --レイディアント・フラッシュ
 function c101010320.initial_effect(c)
 	local e3=Effect.CreateEffect(c)

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --PSYStream Dragon
 function c101010040.initial_effect(c)
 c:EnableReviveLimit()

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Blitzkrieg Element - PSYph
 function c101010194.initial_effect(c)
 --self-destruct

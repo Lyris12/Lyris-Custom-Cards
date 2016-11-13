@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Dragon Scorpierce
 function c101010198.initial_effect(c)
 --attack

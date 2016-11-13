@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバー・ネット・ホーン
 function c101010019.initial_effect(c)
 --equip

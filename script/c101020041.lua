@@ -1,3 +1,4 @@
+--created & coded by Hiro
 --プラズマ・スラッシュ・ブレイド
 function c101020041.initial_effect(c)
 	--Activate

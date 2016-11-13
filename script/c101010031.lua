@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --機夜行襲雷－イーヴニング
 function c101010031.initial_effect(c)
 --self-destruct

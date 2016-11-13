@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --フレイーム・フュージョン
 function c101010055.initial_effect(c)
 --Activate

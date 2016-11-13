@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Action Card - 
 function c101010178.initial_effect(c)
 --Activate

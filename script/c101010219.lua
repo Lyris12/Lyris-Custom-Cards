@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --スターライト・クェーサー・ドラゴン
 function c101010219.initial_effect(c)
 	--[[summon condition

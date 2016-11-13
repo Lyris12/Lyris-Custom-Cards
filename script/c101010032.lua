@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Blitzkrieg Dragon - Obsidian
 function c101010032.initial_effect(c)
 --self-destruct

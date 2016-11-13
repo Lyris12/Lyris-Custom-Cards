@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Rainbow-Eyes Starchaser
 function c101010351.initial_effect(c)
 	--During your Main Phase 1: You can dispose 1 of this card's Points; this card can attack your opponent directly this turn.

@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Ascendant
 function c101020036.initial_effect(c)
 	--to hand

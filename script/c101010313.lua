@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Vicarious Summoning
 function c101010313.initial_effect(c)
 	--Return all monsters whose controllers are different from their owners to the hand, then each player can Special Summon 1 monster that was returned this way from their hand or Extra Deck to their side of the field.

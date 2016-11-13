@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --烈風のクリスタロス・エッジ
 function c101010119.initial_effect(c)
 --Activate

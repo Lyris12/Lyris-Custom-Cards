@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Magician
 function c101020031.initial_effect(c)
 	--search

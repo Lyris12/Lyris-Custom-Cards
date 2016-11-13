@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Rusted Dragon Zero
 function c101020115.initial_effect(c)
 	--Once per turn, you can also Xyz Summon "Rusted Dragon Zero" by using "Rusted Dragon Doom" you control as the Xyz Material. (Xyz Materials attached to that monster also become Xyz Materials on this card.)

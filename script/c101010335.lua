@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --White Wisteria Wisp
 function c101010335.initial_effect(c)
 	aux.EnablePendulumAttribute(c)

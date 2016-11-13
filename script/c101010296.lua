@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --真黒竜サイバー・ダークネス・ドラゴン "THE NIGHT"
 function c101010296.initial_effect(c)
 --grave-down

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳーＶｉｎｅ(セイクリド・ヴァイン)の騎士－クライッシャ
 function c101010433.initial_effect(c)
 	--Once per turn, during either player's turn: You can banish 1 card from your hand, then target 1 card on the field, then apply the effect based on its type. (If the target is Set, reveal it first.) ● Monster: Banish it. ● Spell: Shuffle it into the Deck. ● Trap: Return it to the hand.

@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Rusted Dragon MkIII
 function c101020110.initial_effect(c)
 	--If you control a "Rusted" monster, you can Special Summon this card (from your hand).

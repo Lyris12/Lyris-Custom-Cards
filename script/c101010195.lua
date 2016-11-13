@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Blitzkrieg Element - Infernil
 function c101010195.initial_effect(c)
 --self-destruct

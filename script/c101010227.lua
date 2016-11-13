@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --未来型融合－フューチャーリスチック・フュージョン
 function c101010227.initial_effect(c)
 c:SetUniqueOnField(1,0,101010227)

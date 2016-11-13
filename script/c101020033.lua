@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Vanguard
 function c101020033.initial_effect(c)
 	--s/t destroy

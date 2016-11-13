@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Rusted Dragon Kernel
 function c101020111.initial_effect(c)
 	--If you control no monsters, you can Special Summon this card (from your hand).

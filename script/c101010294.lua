@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Clarissa, Queen of Stellar Vine #2
 function c101010294.initial_effect(c)
 	c:EnableCounterPermit(0x3001)

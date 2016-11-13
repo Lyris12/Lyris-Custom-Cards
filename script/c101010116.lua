@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --シー・ストーム
 function c101010116.initial_effect(c)
 --Activate

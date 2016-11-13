@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --アトリビュート・クロスボー
 function c101010168.initial_effect(c)
 	aux.AddEquipProcedure(c,nil,nil,nil,nil,c101010168.tg)

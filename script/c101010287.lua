@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --No.24 サイバー・ドラゴン・丸藤
 function c101010287.initial_effect(c)
 --xyz summon

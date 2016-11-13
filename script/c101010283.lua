@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --レイディアント・ドラグーン
 function c101010283.initial_effect(c)
 aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_LIGHT),aux.NonTuner(nil),1)

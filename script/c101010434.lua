@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Starry-Eyes Spatial Dragon
 function c101010434.initial_effect(c)
 	--attack banish

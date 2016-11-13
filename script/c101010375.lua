@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorious Weapon - Aries
 function c101010375.initial_effect(c)
 	aux.AddEquipProcedure(c)

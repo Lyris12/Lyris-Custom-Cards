@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Aggecko Guaneri
 function c101010112.initial_effect(c)
 aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x6d6),4,2)

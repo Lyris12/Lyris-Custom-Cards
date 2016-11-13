@@ -1,3 +1,5 @@
+--created by NovaTsukimori
+--coded by Lyris
 --Blitzkrieg Mekdragon Ni
 function c101020118.initial_effect(c)
 	--If a "Blitzkrieg" monster(s) you control was destroyed by a card effect (except during the Damage Step): You can Special Summon this card from your hand.

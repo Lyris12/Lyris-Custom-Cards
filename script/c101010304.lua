@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --レイディアント・ビーコン
 function c101010304.initial_effect(c)
 --Activate

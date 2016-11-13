@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --レイディアント・レオ
 function c101010261.initial_effect(c)
 local e1=Effect.CreateEffect(c)

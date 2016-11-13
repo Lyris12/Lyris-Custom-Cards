@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ガーディアン・ライリス
 function c101010240.initial_effect(c)
 --synchro summon

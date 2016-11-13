@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --White Wisteria Wyvern
 function c101010334.initial_effect(c)
 	aux.EnablePendulumAttribute(c)

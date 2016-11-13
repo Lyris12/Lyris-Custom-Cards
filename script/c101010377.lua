@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Wield Sagittarius
 function c101010377.initial_effect(c)
 	aux.AddEquipProcedure(c)

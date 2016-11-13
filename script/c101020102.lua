@@ -1,3 +1,5 @@
+--created by Hiro
+--coded by Lyris
 --Aggecko Instinct
 function c101020102.initial_effect(c)
 	--Activate

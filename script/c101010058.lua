@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --旋風のブリーズ
 function c101010058.initial_effect(c)
 --Activate

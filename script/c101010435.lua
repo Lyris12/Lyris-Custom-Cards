@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --機光襲雷竜－ビッグバン
 function c101010435.initial_effect(c)
 	--self-destruct

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --青光神竜－サイバー・アイス・ドラゴン
 function c101010409.initial_effect(c)
 	--fusion material

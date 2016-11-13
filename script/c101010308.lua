@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --集いし襲雷
 function c101010308.initial_effect(c)
 --activate

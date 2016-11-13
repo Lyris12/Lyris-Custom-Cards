@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Cyber Space Wolf
 function c101010147.initial_effect(c)
 c:EnableReviveLimit()

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ネオ光の波動
 function c101010172.initial_effect(c)
 	aux.AddEquipProcedure(c,nil,nil,nil,nil,nil,c101010172.operation)

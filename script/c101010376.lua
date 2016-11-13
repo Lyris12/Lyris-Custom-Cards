@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Wield Gemini
 function c101010376.initial_effect(c)
 	aux.AddEquipProcedure(c)

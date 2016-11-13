@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --旋風の宝玉－ダイヤモンド・シンクロ・ドラゴン
 function c101010043.initial_effect(c)
 c:EnableReviveLimit()

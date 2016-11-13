@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバー・スター・ドラゴン
 function c101010412.initial_effect(c)
 	--fusion material

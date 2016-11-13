@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --エネルギ・アルケミー
 function c101010236.initial_effect(c)
 --Activate

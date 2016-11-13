@@ -1,3 +1,4 @@
+--created & coded by Hiro
 --Seaciun, Tsuiho Leviathan
 function c101020057.initial_effect(c)
 	--return to grave/negate spells

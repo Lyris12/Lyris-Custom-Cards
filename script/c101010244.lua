@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Sea Scout Dragon - Monsoon
 function c101010244.initial_effect(c)
 --change name

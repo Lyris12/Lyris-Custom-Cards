@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --時間竜神－ディアルガ
 function c101020074.initial_effect(c)
 	--fusion material

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳＳ－九世のナイク
 function c101010156.initial_effect(c)
 --level

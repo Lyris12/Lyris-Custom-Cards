@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Flame Flight - Flock
 function c101010056.initial_effect(c)
 --Activate

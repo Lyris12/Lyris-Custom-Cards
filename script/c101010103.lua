@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --襲雷属性－水
 function c101010103.initial_effect(c)
 --self-destruct

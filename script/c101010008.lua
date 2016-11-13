@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --PSYStream Lochness
 function c101010008.initial_effect(c)
 --When this card is Special Summoned: You can add 1 "PSYStream" card from your Deck to your hand.

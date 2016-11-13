@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --PSYStream Maiden
 function c101010006.initial_effect(c)
 --When this card is Special Summoned: You can target 1 of your banished "PSYStream" monsters, except "PSYStream Maiden"; Special Summon that target.

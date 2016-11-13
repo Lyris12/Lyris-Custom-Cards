@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Speed Stripe Relay Dragon
 function c101010336.initial_effect(c)
 	--During the Damage Step of either player's turn, when this card is battling: You can dispose 1 of this card's Points, halve the ATK/DEF of the monster it is battling.

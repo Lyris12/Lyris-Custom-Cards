@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Monument Rustkey
 function c101010466.initial_effect(c)
 	--Activate

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --EE・キャルファーレー
 function c101010046.initial_effect(c)
 c:EnableReviveLimit()

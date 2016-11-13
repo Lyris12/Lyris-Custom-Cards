@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Sea Scout - Hydrohale
 function c101010245.initial_effect(c)
 aux.EnablePendulumAttribute(c)

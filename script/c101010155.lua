@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳＳ－トライデニュート
 function c101010155.initial_effect(c)
 --limit synch

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Red-Eyed Blazing Dragon
 function c101010186.initial_effect(c)
 --special summon

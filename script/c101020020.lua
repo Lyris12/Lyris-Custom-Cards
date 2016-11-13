@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Aquarium Mermaid of Stellar Vine
 function c101020020.initial_effect(c)
 	--If this card is Normal or Special Summoned: You can add 1 "Stellar Vine" from your Deck to your hand, except "Aquarium Mermaid of Stellar Vine".

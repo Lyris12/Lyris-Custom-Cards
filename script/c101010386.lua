@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --
 function c101010386.initial_effect(c)
 	c:EnableReviveLimit()

@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Lycurgus
 function c101020068.initial_effect(c)
 	c:EnableReviveLimit()

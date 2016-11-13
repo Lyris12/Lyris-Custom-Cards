@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --If this card was Synchro Summoned using "Sea Scout - Sotileo of the Quiet Tide" as a Synchro Material Monster, this card gains 400 ATK. At the end of the Damage Step, if this card attacked: Target 1 other WATER monster you control that has attacked this turn; that target gains 300 ATK, also, it can make a second attack during this Battle Phase.
 --ＳＳ－高まる潮バオルス
 function c101010209.initial_effect(c)

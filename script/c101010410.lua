@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --FFD－サンデー
 function c101010410.initial_effect(c)
 	--spsummon condition

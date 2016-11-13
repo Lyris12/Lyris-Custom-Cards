@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --any amount of LP in multiples of 100
 --Flame Flight Dragon - Friday
 function c101010034.initial_effect(c)

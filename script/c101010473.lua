@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Monument Platinarchive
 function c101010473.initial_effect(c)
 	--Activate

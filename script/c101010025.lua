@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Cyberspace Quetzalcoatl
 function c101010025.initial_effect(c)
 --add LIGHT attribute

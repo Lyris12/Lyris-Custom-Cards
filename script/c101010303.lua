@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --レイディアント・スパーク
 function c101010303.initial_effect(c)
 --Activate

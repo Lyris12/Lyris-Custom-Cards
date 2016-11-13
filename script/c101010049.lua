@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバー・ドラゴン・メイ
 function c101010049.initial_effect(c)
 c:EnableReviveLimit()

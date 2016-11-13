@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Astral Dragon of Stellar Vine
 function c101010432.initial_effect(c)
 	if not c101010432.global_check then

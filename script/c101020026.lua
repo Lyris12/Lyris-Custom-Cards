@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Dragluo Ninja
 function c101020026.initial_effect(c)
 	--spsummon

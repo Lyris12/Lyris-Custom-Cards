@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Liquid Crystapal Cerulean
 function c101010339.initial_effect(c)
 local e1=Effect.CreateEffect(c)

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Dragon Piscesgalio
 function c101010196.initial_effect(c)
 --attack

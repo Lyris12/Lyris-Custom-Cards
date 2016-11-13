@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Blitzkrieg Dragon Gold
 function c101020052.initial_effect(c)
 	--self-destruct

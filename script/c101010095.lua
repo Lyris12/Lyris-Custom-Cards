@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Cyberspace Panther
 function c101010095.initial_effect(c)
 c:EnableReviveLimit()

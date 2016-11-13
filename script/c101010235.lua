@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --襲雷渦動
 function c101010235.initial_effect(c)
 --Activate

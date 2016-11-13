@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Dragon Leostrike
 function c101010355.initial_effect(c)
 --attack

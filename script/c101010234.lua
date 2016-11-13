@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Blademastery
 function c101010234.initial_effect(c)
 --activate

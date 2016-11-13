@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Tide Witch of Stellar Vine
 function c101020024.initial_effect(c)
 	--search1

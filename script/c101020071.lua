@@ -1,3 +1,5 @@
+--created by NovaTsukimori
+--coded by Lyris
 --Cyber End Grand Dragon
 function c101020071.initial_effect(c)
 	--A Fusion Summon of this card can only be done with the above Fusion Materials.

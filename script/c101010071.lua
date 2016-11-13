@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --旋風のガスト
 function c101010071.initial_effect(c)
 --Activate

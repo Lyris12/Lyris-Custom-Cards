@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Flame Flight - Owl
 function c101010010.initial_effect(c)
 	--search

@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Flame Flight - Hawk
 function c101020010.initial_effect(c)
 	--If this card is Tribute Summoned: You can add 1 "Flame Flight" monster from your Deck to your hand, except "Flame Flight - Hawk".

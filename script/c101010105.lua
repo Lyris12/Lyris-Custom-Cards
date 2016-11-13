@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --FF－ファルコン・ラプター
 function c101010105.initial_effect(c)
 --spsummon condition

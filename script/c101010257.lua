@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --チビ・ドラッグルーオン
 function c101010257.initial_effect(c)
 --pendulum summon

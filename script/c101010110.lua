@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳＳ－迅速のデルフィノス
 function c101010110.initial_effect(c)
 --synchro summon

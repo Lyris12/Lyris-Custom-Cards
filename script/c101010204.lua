@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Blitzkrieg Meknight Dragon - Eclipse
 function c101010204.initial_effect(c)
 c:EnableReviveLimit()

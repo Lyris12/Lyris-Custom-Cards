@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Frozen Flower Garden
 function c101010436.initial_effect(c)
 	--Activate

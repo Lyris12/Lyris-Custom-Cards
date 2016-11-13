@@ -1,3 +1,5 @@
+--created & NovaTsukimori
+--coded by Lyris
 --Cyber Dragon - Chaos Serpent
 function c101020065.initial_effect(c)
 	--If this card is Impure Summoned: You can send 1 LIGHT Machine-Type monster from your Deck to the Graveyard.

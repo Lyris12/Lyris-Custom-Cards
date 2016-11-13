@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --DNAトランズミューテーション
 function c101010133.initial_effect(c)
 --Activate

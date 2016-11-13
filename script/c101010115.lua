@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --シー・スカウトティング
 function c101010115.initial_effect(c)
 --Activate

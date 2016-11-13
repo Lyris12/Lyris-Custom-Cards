@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Rank-Up-Magic Fusion Cross
 function c101010316.initial_effect(c)
 --Target 1 Fusion Monster you control; Special Summon from your Extra Deck, 1 monster that shares a Type and Attribute with that monster you control with a Rank equal to that monster's Level + 1, by using it as the Xyz Material. (This Special Summon is treated as an Xyz Summon. Xyz Materials attached to it also become Xyz Materials on the Summoned monster.)

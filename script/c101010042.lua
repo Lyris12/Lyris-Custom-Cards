@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --旋風のファイター
 function c101010042.initial_effect(c)
 c:EnableReviveLimit()

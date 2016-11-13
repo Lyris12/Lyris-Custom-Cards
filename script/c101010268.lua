@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Dragon Aqualeios
 function c101010268.initial_effect(c)
 --attack

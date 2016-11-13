@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --リベリオン・ファントム
 function c101020045.initial_effect(c)
 	aux.EnablePendulumAttribute(c)

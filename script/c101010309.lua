@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Wield Taurus
 function c101010309.initial_effect(c)
 	aux.AddEquipProcedure(c)

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳＳＤ－フロント・ブロー
 function c101010205.initial_effect(c)
 aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),2)

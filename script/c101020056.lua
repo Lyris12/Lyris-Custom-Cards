@@ -1,3 +1,4 @@
+--created & coded by Hiro
 --Darkius, Tsuiho Warlock
 function c101020056.initial_effect(c)
 	--return to grave/negate other traps

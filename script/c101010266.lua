@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --襲雷竜－銀河
 function c101010266.initial_effect(c)
 	c:EnableCounterPermit(0x4b)

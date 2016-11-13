@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --機光襲雷竜－ニューン
 function c101010038.initial_effect(c)
 c:EnableReviveLimit()

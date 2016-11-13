@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Cyberspace Turtle
 function c101010027.initial_effect(c)
 --add LIGHT attribute

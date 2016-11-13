@@ -1,3 +1,5 @@
+--created by Hiro
+--coded by Lyris
 --Flame Flight - Perch
 function c101020104.initial_effect(c)
 	c:SetUniqueOnField(1,0,101020104)

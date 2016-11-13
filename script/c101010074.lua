@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --パワー・コンダクター
 function c101010074.initial_effect(c)
 	c:EnableCounterPermit(0x66)

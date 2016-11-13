@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Earth Enforcement - Sealing Quake
 function c101010127.initial_effect(c)
 --Activate

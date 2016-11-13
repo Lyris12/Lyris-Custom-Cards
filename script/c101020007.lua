@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --FF－イーグル
 function c101020007.initial_effect(c)
 	--summon success

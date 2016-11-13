@@ -1,3 +1,5 @@
+--created by NovaTsukimori
+--coded by Lyris
 --Blitz Field
 function c101020119.initial_effect(c)
 	--If this card is destroyed: Destroy all monsters you control.

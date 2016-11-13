@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Sea Scout - Bladace
 function c101010246.initial_effect(c)
 aux.EnablePendulumAttribute(c)

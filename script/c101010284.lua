@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --レイディアント・ファントム
 function c101010284.initial_effect(c)
 c:EnableReviveLimit()

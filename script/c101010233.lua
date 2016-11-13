@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Blazing Sky
 function c101010233.initial_effect(c)
 local e1=Effect.CreateEffect(c)

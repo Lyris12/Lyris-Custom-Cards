@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Monument Shattered Pyramid
 function c101010462.initial_effect(c)
 	--set

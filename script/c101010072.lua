@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --旋風のアップドラフト
 function c101010072.initial_effect(c)
 --Activate

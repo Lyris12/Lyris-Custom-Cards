@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Blitzkrieg Meklight Dragon - Horos
 function c101010290.initial_effect(c)
 aux.AddXyzProcedure(c,nil,4,2)

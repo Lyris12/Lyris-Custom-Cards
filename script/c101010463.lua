@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Monument Aluminum Cloth
 function c101010463.initial_effect(c)
 	--set

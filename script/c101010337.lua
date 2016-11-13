@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --
 function c101010337.initial_effect(c)
 --search

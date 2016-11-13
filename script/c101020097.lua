@@ -1,3 +1,5 @@
+--created by Hiro
+--coded by Lyris
 --The Tsuiho Movement
 function c101020097.initial_effect(c)
 	--Activate

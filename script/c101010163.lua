@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ファイヤースピン・フュージョン
 function c101010163.initial_effect(c)
 --Activate

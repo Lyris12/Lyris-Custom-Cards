@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Dragluo Prophet
 function c101020028.initial_effect(c)
 	--You cannot Pendulum Summon monsters, except Dragon-Type monsters. This effect cannot be negated.

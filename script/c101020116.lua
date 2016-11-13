@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Rusted Bond
 function c101020116.initial_effect(c)
 	--Fusion Summon 1 Zombie-Type Fusion Monster from your Extra Deck, using monsters from your hand or your side of the field as Fusion Materials, and it gains ATK equal to its original ATK. During the End Phase of the turn this card is activated, you take damage equal to the amount of ATK gained from this effect at the time of the Summon.

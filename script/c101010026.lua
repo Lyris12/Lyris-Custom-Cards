@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Cyberspace Leo
 function c101010026.initial_effect(c)
 --add LIGHT attribute

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバード
 function c101010146.initial_effect(c)
 	--be material

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Xyz Fusion
 function c101010066.initial_effect(c)
 --Activate

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバー・タイガー
 function c101010045.initial_effect(c)
 --synchro summon

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Cyber Space Chimera
 function c101010216.initial_effect(c)
 c:EnableReviveLimit()

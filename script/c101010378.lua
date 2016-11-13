@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Wield Ophichius
 function c101010378.initial_effect(c)
 c:SetUniqueOnField(1,0,101010378)

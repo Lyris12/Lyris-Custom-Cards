@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --機光襲雷－アフターニューン
 function c101010030.initial_effect(c)
 --self-destruct

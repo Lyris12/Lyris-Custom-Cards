@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Monument Brasscube
 function c101010469.initial_effect(c)
 	--materials

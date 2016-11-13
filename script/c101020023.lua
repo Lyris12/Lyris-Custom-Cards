@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Rippling Samurai of Stellar Vine
 function c101020023.initial_effect(c)
 	--This card can attack your opponent directly.

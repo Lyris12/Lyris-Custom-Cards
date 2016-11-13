@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバー・ネット・エッジ
 function c101010020.initial_effect(c)
 --equip

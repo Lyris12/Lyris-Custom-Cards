@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --機光襲雷－ドーン
 function c101010414.initial_effect(c)
 --self-destruct

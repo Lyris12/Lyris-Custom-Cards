@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --旋風のストーム
 function c101010057.initial_effect(c)
 --Activate

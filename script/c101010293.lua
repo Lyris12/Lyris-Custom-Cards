@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Sea Scout of Stellar Vine
 function c101010293.initial_effect(c)
 	local ae1=Effect.CreateEffect(c)

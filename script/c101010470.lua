@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Monument Goldaxe
 function c101010470.initial_effect(c)
 	--set
