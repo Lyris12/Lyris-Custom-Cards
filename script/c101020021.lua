@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Binded Zebra of Stellar Vine
 function c101020021.initial_effect(c)
 	--summon success

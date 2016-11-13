@@ -1,3 +1,5 @@
+--created by Hiro
+--coded by Lyris
 --ファイナル・フレイーム・フュージョン
 function c101020089.initial_effect(c)
 	--code

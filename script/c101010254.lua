@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --剣主 三
 function c101010254.initial_effect(c)
 --pierce

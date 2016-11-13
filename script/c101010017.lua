@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --カラミティ
 function c101010017.initial_effect(c)
 --to hand

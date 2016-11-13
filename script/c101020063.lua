@@ -1,3 +1,4 @@
+--created & coded by Hiro
 --Aggecko Sierra
 function c101020063.initial_effect(c)
 	--atkup

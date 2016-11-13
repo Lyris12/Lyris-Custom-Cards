@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --PSYStream Migration
 function c101010054.initial_effect(c)
 --activate

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Cyberspace Solar Dragon
 function c101010037.initial_effect(c)
 --fusion material

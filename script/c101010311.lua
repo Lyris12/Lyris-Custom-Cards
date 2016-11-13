@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Wield Libra
 function c101010311.initial_effect(c)
 --Activate

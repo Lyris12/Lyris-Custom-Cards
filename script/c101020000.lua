@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Lyris, Meksoldier of the Cybernetic World
 function c101020000.initial_effect(c)
 	--banish

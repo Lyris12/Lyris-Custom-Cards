@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Flame Flight - Vulture
 function c101020011.initial_effect(c)
 	--When this card is Normal or Special Summoned: You can target 1 "Flame Flight" monster in your Graveyard, except "Flame Flight - Vulture"; add that target to your hand. You can only use this effect of "Flame Flight - Vulture" once per turn.

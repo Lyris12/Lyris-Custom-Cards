@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --機夜行襲雷竜－モルニング
 function c101010419.initial_effect(c)
 	c:EnableReviveLimit()

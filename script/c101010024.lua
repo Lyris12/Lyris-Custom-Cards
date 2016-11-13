@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Cyberspace Dragon
 function c101010024.initial_effect(c)
 --add LIGHT attribute

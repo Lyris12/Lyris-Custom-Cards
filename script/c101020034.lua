@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Guardian
 function c101020034.initial_effect(c)
 	--hand des

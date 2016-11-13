@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Monk
 function c101020030.initial_effect(c)
 	--search

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --カオス・クローク
 function c101010264.initial_effect(c)
 --equip(Negate)

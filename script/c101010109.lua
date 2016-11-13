@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --PSYStream Whale
 function c101010109.initial_effect(c)
 c:EnableReviveLimit()

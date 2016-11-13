@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --旋風のヘドウィンド
 function c101010177.initial_effect(c)
 --Activate(summon)

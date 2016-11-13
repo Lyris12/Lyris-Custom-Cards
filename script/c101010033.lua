@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Change all monsters your opponent controls to face-up Attack Position, and if you do, those monsters cannot change their Battle Position, also, they must attack this card next turn.
 --FFD-Eternity
 function c101010033.initial_effect(c)

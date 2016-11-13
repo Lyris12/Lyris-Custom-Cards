@@ -1,3 +1,4 @@
+--created & coded by Hiro
 --Aggecko Azul
 function c101020062.initial_effect(c)
 	--summon and draw

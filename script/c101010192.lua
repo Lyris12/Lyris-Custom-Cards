@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --襲雷竜－光
 function c101010192.initial_effect(c)
 local e3=Effect.CreateEffect(c)

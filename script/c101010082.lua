@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --This card can attack your opponent directly, but when it does so using this effect, any battle damage it inflicts to your opponent is halved.
 --ＳＳ－スピリット・キャンパー
 function c101010082.initial_effect(c)

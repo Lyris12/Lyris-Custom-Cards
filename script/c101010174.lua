@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Anti-Space Matter
 function c101010174.initial_effect(c)
 --Activate

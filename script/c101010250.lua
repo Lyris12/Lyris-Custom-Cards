@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --
 function c101010250.initial_effect(c)
 --atkup

@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Judgment
 function c101020106.initial_effect(c)
 	--Activate

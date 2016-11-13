@@ -1,3 +1,5 @@
+--created by Hiro
+--coded by Lyris
 --Gemination Shrine
 function c101020100.initial_effect(c)
 	--activate

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Dragon Sagitton
 function c101010357.initial_effect(c)
 c:EnableReviveLimit()

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Osmotic Pressure
 function c101010065.initial_effect(c)
 	--activate

@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Dragluo Samurai
 function c101020027.initial_effect(c)
 	aux.EnablePendulumAttribute(c)

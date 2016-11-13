@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Blitzkrieg Rush
 function c101020096.initial_effect(c)
 	--Activate

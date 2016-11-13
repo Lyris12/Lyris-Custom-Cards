@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --旋風のクリアーシンクロドラゴン
 function c101010041.initial_effect(c)
 c:EnableReviveLimit()

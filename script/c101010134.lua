@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ミーターモーフアイシス
 function c101010134.initial_effect(c)
 local e0=Effect.CreateEffect(c)

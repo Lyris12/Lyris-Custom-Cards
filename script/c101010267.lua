@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Malefic Blitzkrieg Dragon - Big Bang
 function c101010267.initial_effect(c)
 c:EnableReviveLimit()

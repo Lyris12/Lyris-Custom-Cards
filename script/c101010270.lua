@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Dragon Capricornus
 function c101010270.initial_effect(c)
 --to hand

@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Dragluon's Legacy
 function c101020092.initial_effect(c)
 	--Target 1 Dragon-Type Xyz Monster in your Graveyard and 2 "Dragluo" cards in your Pendulum Zone; Special Summon the first target, and if you do, attach the second targets to it as Xyz Materials.

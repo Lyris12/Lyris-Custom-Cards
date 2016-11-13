@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --烈風のアルバトロズ
 function c101010088.initial_effect(c)
 --disable

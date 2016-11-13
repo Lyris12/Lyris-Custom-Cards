@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Flame Flight - Hummingbird
 function c101010086.initial_effect(c)
 --fusion substitute

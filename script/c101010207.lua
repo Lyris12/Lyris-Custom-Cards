@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳＳ－リーム・イクスパンス・ドラゴン
 function c101010207.initial_effect(c)
 --synchro summon

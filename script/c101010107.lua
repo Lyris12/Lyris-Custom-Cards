@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --FFD－メテオ
 function c101010107.initial_effect(c)
 --spsummon condition

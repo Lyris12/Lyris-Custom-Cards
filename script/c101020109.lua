@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Rusted Dragon MkII
 function c101020109.initial_effect(c)
 	--If this card is Normal Summoned: You can add 1 "Rusted" monster from your Deck to your hand, except "Rusted Dragon MkII".

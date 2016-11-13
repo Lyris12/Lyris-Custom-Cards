@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Crysta Cavern
 function c101010300.initial_effect(c)
 local e1=Effect.CreateEffect(c)

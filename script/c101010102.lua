@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --襲雷属性－エアー
 function c101010102.initial_effect(c)
 --self-destruct

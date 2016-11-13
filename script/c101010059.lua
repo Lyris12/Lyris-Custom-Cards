@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバー・ドラゴン・ティマイオス
 function c101010059.initial_effect(c)
 --add code

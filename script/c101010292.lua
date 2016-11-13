@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victory Dragon Libraker
 function c101010292.initial_effect(c)
 --Xyz Summon

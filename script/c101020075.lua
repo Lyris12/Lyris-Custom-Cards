@@ -1,3 +1,5 @@
+--created by Damian
+--coded by Lyris
 --機皇帝サイバー・エクセディエル∞
 function c101020075.initial_effect(c)
 	--Synchro Summon

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --EE・ウィノーナー
 function c101010005.initial_effect(c)
 --You can target 1 "Earth Enforcer" Xyz Monster you control; discard this card from your hand, then attach 1 "Earth Enforcer" monster from your Deck to that Xyz Monster as an Xyz Material.

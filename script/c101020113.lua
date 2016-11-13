@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Rusted End Dragon
 function c101020113.initial_effect(c)
 	c:EnableReviveLimit()

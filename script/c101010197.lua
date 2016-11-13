@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Dragon Cancerder
 function c101010197.initial_effect(c)
 --attack

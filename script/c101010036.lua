@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバー・クイーン ライリス
 function c101010036.initial_effect(c)
 c:EnableReviveLimit()

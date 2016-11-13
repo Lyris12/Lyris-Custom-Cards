@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Jury
 function c101020094.initial_effect(c)
 	--Activate

@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Flame Flight - Hiro
 function c101020009.initial_effect(c)
 	--You can discard this card, then target 1 "Flame Flight" monster in your Graveyard, except "Flame Flight - Hiro"; Special Summon that target. You can only use this effect of "Flame Flight - Hiro" once per turn.

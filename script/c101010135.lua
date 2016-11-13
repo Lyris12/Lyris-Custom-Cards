@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --短期流罪
 function c101010135.initial_effect(c)
 local e0=Effect.CreateEffect(c)

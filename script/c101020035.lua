@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Witch
 function c101020035.initial_effect(c)
 	--direct attack

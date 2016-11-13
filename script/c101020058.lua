@@ -1,3 +1,4 @@
+--created & coded by Hiro
 --Draguld, Tsuiho Gladiator
 function c101020058.initial_effect(c)
 	--banished effect

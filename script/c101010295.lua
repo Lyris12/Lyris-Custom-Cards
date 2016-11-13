@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --バトル・シティ
 function c101010295.initial_effect(c)
 --Activate

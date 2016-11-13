@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --2 or more "Crystal Beast" cards
 --Must first be Fusion Summoned, or Special Summoned (from your banished, Graveyard, or Extra Deck) by banishing 7 "Crystal Beast" cards with different names from your field and/or Graveyard. (You do not use "Polymerization") If this card was Fusion Summoned, this card gains 350 ATK for each Fusion Material Monster with a different name used to Fusion Summon this card, also, apply these effects to this card:
 --(all effects listed below)

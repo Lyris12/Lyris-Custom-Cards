@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Advance Sea Scout - Spectral Marksman
 function c101010281.initial_effect(c)
 --synchro summon

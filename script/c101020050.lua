@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Anti-Space Matter
 function c101020050.initial_effect(c)
 	--Activate

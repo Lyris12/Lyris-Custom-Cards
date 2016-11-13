@@ -1,3 +1,4 @@
+--created & coded by Hiro
 --Aggecko Serpent
 function c101020061.initial_effect(c)
 	--destroy

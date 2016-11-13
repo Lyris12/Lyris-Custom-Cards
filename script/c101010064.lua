@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --襲雷の大振り
 function c101010064.initial_effect(c)
 --Activate

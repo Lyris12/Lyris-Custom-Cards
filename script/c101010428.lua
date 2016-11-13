@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ファントム・ペンデュレーディ サイバー・ドラゴン・アイン
 function c101010428.initial_effect(c)
 	--xyz summon

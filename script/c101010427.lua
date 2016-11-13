@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Cyberspace Eclipse Dragon
 function c101010427.initial_effect(c)
 	--xyz summon

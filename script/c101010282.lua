@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Advance Sea Scout - Oreph of the Passing Tide
 function c101010282.initial_effect(c)
 --synchro summon

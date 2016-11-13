@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --海洋底拡大
 function c101010175.initial_effect(c)
 --Activate

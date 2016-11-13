@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳＳ－サファイア・コマンダー
 function c101010111.initial_effect(c)
 --synchro summon

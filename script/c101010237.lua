@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Liquid Crystapal Chartreuse
 function c101010237.initial_effect(c)
 local e1=Effect.CreateEffect(c)

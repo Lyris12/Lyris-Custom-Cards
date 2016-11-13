@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ドミニオン・オヴ・ヴォイド
 function c101010169.initial_effect(c)
 --Activate

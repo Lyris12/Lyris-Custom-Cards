@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Rusted Dragon
 function c101020108.initial_effect(c)
 	--special summon

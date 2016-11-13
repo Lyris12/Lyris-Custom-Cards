@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Rusted Twin Dragon
 function c101020112.initial_effect(c)
 	c:EnableReviveLimit()

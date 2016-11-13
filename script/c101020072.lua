@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Flame Flight - Strix
 function c101020072.initial_effect(c)
 	c:EnableReviveLimit()

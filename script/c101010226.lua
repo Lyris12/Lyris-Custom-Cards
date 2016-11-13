@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorious Inscription
 function c101010226.initial_effect(c)
 --Activate

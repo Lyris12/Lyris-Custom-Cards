@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Liquid Crystapal Spring
 function c101010253.initial_effect(c)
 local e1=Effect.CreateEffect(c)

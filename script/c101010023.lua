@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバー・キャット
 function c101010023.initial_effect(c)
 	--be material

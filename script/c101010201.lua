@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --FFD－プロミネンス
 function c101010201.initial_effect(c)
 --damage conversion

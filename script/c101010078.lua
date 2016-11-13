@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --PSYStream Miniwhale
 function c101010078.initial_effect(c)
 --When this card is Special Summoned: You can banish 1 "PSYStream" monster from your Deck, except "PSYStream Miniwhale".

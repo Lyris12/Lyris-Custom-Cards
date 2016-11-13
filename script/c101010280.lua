@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Blitzkrieg Spark Dragon - Sea Scout Tsunami
 function c101010280.initial_effect(c)
 c:EnableReviveLimit()

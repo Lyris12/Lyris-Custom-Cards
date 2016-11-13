@@ -1,3 +1,5 @@
+--created by NovaTsukimori
+--coded by Lyris
 --Cyber Dragon Blitzkrieg
 function c101020084.initial_effect(c)
 	c:EnableReviveLimit()

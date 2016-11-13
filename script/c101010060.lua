@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --オーバーレイ・フュージョン
 function c101010060.initial_effect(c)
 --Activate

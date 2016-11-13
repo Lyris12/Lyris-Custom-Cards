@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --
 function c101010256.initial_effect(c)
 --special summon

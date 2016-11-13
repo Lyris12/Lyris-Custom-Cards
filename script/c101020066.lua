@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Solon
 function c101020066.initial_effect(c)
 	c:EnableReviveLimit()

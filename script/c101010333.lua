@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --White Wisteria Wing
 function c101010333.initial_effect(c)
 	aux.EnablePendulumAttribute(c)

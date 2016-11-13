@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Blazing Fusion
 function c101010117.initial_effect(c)
 --Activate

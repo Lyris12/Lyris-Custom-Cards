@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --水中噴出
 function c101010231.initial_effect(c)
 local e1=Effect.CreateEffect(c)

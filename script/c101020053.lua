@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Matsuo, Tsuiho Assailant
 function c101020053.initial_effect(c)
 	--double

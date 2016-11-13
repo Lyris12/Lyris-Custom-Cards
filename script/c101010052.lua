@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --PSYStream River
 function c101010052.initial_effect(c)
 local e0=Effect.CreateEffect(c)

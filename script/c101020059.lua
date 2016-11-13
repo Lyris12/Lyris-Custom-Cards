@@ -1,3 +1,4 @@
+--created & coded by Hiro
 --Aggecko Kimbu
 function c101020059.initial_effect(c)
 	--bounce

@@ -1,3 +1,4 @@
+--created & coded by Hiro
 --Ashur, Tsuiho General
 function c101020054.initial_effect(c)
 	--back to grave/banish another

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --トラップマジック融合
 function c101010228.initial_effect(c)
 --Activate

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --
 function c101010249.initial_effect(c)
 --summon with no tribute

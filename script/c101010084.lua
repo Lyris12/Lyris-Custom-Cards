@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳＳ－ナース・レイダー
 function c101010084.initial_effect(c)
 --revive

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --White Wisteria Widow
 function c101010387.initial_effect(c)
 	c:EnableCounterPermit(0x63)

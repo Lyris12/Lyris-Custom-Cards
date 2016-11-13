@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Big Bang Fusion
 function c101010062.initial_effect(c)
 --Activate

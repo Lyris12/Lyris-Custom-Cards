@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --レイディアント・エンジェル
 function c101010259.initial_effect(c)
 --summon

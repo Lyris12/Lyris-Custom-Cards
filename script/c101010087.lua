@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --烈風のラーク
 function c101010087.initial_effect(c)
 --search

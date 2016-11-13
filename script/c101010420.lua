@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --, also, other monsters you control cannot attack this turn
 --ＳＳＤ－津波
 function c101010420.initial_effect(c)

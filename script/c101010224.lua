@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --アトリビュート・ゲッコー
 function c101010224.initial_effect(c)
 --Activate

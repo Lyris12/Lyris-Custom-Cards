@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Dragon Snakesisfy
 function c101010369.initial_effect(c)
 --enhance summon

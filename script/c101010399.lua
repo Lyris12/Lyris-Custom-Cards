@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Dimension-Magica White Kuribohle
 function c101010399.initial_effect(c)
 	local e1=Effect.CreateEffect(c)

@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Hammurabi
 function c101020067.initial_effect(c)
 	c:EnableReviveLimit()

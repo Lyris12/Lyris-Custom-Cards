@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --翠玉のゴーントリット－ライリス
 function c101010241.initial_effect(c)
 --Equip

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --旋風のフェザーマン
 function c101010014.initial_effect(c)
 local e0=Effect.CreateEffect(c)

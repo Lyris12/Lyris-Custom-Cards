@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Monument Tinframe
 function c101010461.initial_effect(c)
 	--set

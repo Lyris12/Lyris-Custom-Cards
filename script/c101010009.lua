@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --PSYStream Behemoth
 function c101010009.initial_effect(c)
 --When this card is Special Summoned: You can target 1 face-up monster your opponent controls; reveal the bottom card of your Deck, and if it was a "PSYStream" card, add that card to your hand, then banish the opponent's monster. 

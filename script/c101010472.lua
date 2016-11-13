@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Monument Steelsword
 function c101010472.initial_effect(c)
 	--Fusion Material: 2 Level 5 or lower LIGHT Machine-Type monsters

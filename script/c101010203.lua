@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Cosmostech Astronomical Dragon
 function c101010203.initial_effect(c)
 c:EnableReviveLimit()

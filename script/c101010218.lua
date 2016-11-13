@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Starnight Cyber Dragon
 function c101010218.initial_effect(c)
 	local ae4=Effect.CreateEffect(c)

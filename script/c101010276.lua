@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Cyber Light Twin Dragon
 function c101010276.initial_effect(c)
 --fusion material

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Flame Flight - Raven
 function c101010085.initial_effect(c)
 local e3=Effect.CreateEffect(c)

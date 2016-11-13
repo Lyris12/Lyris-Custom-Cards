@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Wield Aquarius
 function c101010437.initial_effect(c)
 	--Activate

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳＳ－静かなる潮ソティレオ
 function c101010208.initial_effect(c)
 --synchro summon

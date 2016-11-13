@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Dragluo Elder
 function c101010258.initial_effect(c)
 --pendulum summon

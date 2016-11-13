@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --White Wisteria World
 function c101010388.initial_effect(c)
 	local e1=Effect.CreateEffect(c)

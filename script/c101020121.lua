@@ -1,3 +1,5 @@
+--created by NovaTsukimori
+--coded by Lyris
 --Rank-Up-Magic Lyris Force
 function c101020121.initial_effect(c)
 	--Target 1 Xyz Monster you control; Special Summon from your Extra Deck, 1 "Blitzkrieg" Xyz Monster with the same Type as that monster but 1 Rank higher by using that target as the Xyz Material. (This Special Summon is treated as an Xyz Summon. Xyz Materials attached to it also become Xyz Materials on the Summoned monster.)

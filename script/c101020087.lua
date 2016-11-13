@@ -1,3 +1,4 @@
+--created & coded by Hiro
 --Aggecko Amadues
 function c101020087.initial_effect(c)
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x6d6),4,2)

@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Blitzkrieg Dragon Steel
 function c101020051.initial_effect(c)
 	--self-destruct

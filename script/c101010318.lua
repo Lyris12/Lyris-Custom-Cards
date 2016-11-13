@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Bladewing Soaring
 function c101010318.initial_effect(c)
 --When your oppoent activates a monster effect that targets a "Blademaster" or "Bladewing" monster you control: Negate the activation, and if you do, destroy it.

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Rainbow-Eyes Amaranth Pulse
 function c101010312.initial_effect(c)
 local e1=Effect.CreateEffect(c)

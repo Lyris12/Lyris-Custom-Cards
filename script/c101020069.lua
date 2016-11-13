@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Draco
 function c101020069.initial_effect(c)
 	c:EnableReviveLimit()

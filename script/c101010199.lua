@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --The Dwarfed Charon
 function c101010199.initial_effect(c)
 	--Once per turn: You can declare 1 card name; look at your opponent's hand, and apply a number of these effects, depending on the number of copies of the declared card they have; (effects below)

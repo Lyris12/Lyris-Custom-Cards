@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --RUM－シャイニング・フューチャ
 function c101010165.initial_effect(c)
 --Activate

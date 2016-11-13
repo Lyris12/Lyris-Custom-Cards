@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Monument Goldenrod
 function c101010474.initial_effect(c)
 	--set

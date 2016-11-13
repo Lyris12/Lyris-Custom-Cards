@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Blitzkrieg Monsoon
 function c101010125.initial_effect(c)
 	--Activate

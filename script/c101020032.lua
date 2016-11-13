@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Protector
 function c101020032.initial_effect(c)
 	--search1

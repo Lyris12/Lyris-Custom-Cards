@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバー・ハイドラ
 function c101010423.initial_effect(c)
 	--synchro summon

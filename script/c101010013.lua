@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --旋風のライダー
 function c101010013.initial_effect(c)
 --spsummon

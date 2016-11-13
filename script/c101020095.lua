@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Punishment
 function c101020095.initial_effect(c)
 	c:EnableCounterPermit(0x89)

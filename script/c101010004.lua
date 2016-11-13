@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --EE・ナヌーク
 function c101010004.initial_effect(c)
 --spsummon

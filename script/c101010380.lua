@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Superpowered Metropolis - San Fransokyo
 --超大国の都市ーサン・フランソ京
 function c101010380.initial_effect(c)

@@ -1,3 +1,5 @@
+--created by Hiro
+--coded by Lyris
 --Flame Flight - Roost
 function c101020091.initial_effect(c)
 	c:EnableCounterPermit(0x55)

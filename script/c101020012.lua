@@ -1,3 +1,5 @@
+--created by Hintin
+--coded by Lyris
 --Red Soldier
 function c101020012.initial_effect(c)
 	c:SetSPSummonOnce(101020012)

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Liquid Crystapal Orange
 function c101010252.initial_effect(c)
 local e1=Effect.CreateEffect(c)

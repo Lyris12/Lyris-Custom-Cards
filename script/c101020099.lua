@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Rank-Up-Magic Rebellion Force
 function c101020099.initial_effect(c)
 	--Activate

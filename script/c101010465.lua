@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Monument Leadlocket
 function c101010465.initial_effect(c)
 	--set

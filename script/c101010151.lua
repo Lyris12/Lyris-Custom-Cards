@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --襲雷属性－フレイーム
 function c101010151.initial_effect(c)
 --self-destruct

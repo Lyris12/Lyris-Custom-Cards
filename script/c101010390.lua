@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Galactic Mirror Force
 function c101010390.initial_effect(c)
 	--When an opponent's monster declares an attack: Apply this effect, depending on the number of Attack Position monsters your opponent controls; (effects below)

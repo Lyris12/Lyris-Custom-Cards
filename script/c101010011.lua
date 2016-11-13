@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Flame Flight - Crow
 function c101010011.initial_effect(c)
 local e1=Effect.CreateEffect(c)

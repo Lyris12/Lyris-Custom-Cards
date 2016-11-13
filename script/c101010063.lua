@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --襲雷・ストライク
 function c101010063.initial_effect(c)
 --Activate

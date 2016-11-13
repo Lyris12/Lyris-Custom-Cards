@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳＳＤ－ファイナレヴォン
 function c101010206.initial_effect(c)
 aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsType,TYPE_SYNCHRO),aux.NonTuner(Card.IsType,TYPE_SYNCHRO),1)

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳＳ－優美のテンプラー
 function c101010421.initial_effect(c)
 	--synchro summon

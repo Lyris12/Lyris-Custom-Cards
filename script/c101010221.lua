@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Action Card - 
 function c101010221.initial_effect(c)
 local e1=Effect.CreateEffect(c)

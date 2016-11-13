@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Yu Gi Oh! EVOLUTE Card Template: This is a Template for Level 5/Rank 3 or Below, Please do not Delete the parts where are labelled as "Do not remove".
 --If You wish a non Effect Evolute Monster, just keep the Summoning function and undeletable ones.
 

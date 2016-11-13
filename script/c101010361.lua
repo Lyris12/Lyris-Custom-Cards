@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victory Dragon Ariesen
 function c101010361.initial_effect(c)
 c:EnableReviveLimit()

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --PSYStream Tortise
 function c101010079.initial_effect(c)
 --If you control at least 2 other "PSYStream" cards, except "PSYStream Tortise", other "PSYStream" monsters you control cannot be targeted by attacks or card effects.

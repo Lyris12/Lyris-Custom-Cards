@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Starry-Eyes Stripe Dragon
 function c101010366.initial_effect(c)
 	--If this face-up card would be banished, return it to the Extra Deck instead.

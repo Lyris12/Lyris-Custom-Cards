@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ポワー・エンフォースメント
 function c101010161.initial_effect(c)
 --Activate

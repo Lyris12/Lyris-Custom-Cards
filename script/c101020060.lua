@@ -1,3 +1,4 @@
+--created & coded by Hiro
 --Aggecko Sicron
 function c101020060.initial_effect(c)
 	--to deck and special summon

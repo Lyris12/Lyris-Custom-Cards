@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Celestial Resonance - Xyz Fusion
 function c101010314.initial_effect(c)
 --synchro effect

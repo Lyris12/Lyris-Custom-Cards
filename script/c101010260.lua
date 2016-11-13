@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --レイディアント・デビル
 function c101010260.initial_effect(c)
 --reveal

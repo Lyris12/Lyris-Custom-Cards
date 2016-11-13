@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --光の波動
 function c101010073.initial_effect(c)
 --Activate(effect)

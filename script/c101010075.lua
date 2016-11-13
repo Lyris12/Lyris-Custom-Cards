@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --襲雷のアートィレリー
 function c101010075.initial_effect(c)
 	--

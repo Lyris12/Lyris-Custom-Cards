@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Magma Fusion
 function c101010298.initial_effect(c)
 --Activate

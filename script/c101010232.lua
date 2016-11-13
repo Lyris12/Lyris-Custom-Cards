@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --荒潮
 function c101010232.initial_effect(c)
 --Activate

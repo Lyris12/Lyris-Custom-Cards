@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ドラッグルーオンの伝説
 function c101010319.initial_effect(c)
 --Activate

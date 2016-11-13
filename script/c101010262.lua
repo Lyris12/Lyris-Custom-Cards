@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --レイディアント・ウイルス
 function c101010262.initial_effect(c)
 	--You can reveal this card in your hand until the end of this turn; reveal 1 "Radiant" card in your hand until the end of your opponent's turn.

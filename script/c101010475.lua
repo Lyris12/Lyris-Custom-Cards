@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Monument Bronzeboard
 function c101010475.initial_effect(c)
 	--Fusion Material: 2 Level 4, 5, or 6 LIGHT Machine-Type monsters

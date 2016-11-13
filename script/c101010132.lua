@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --During your opponent's turn: Special Summon this card as an Effect Monster Card with every Attribute (Dragon-Type/Level 5/2600 ATK/1500 DEF). (This card is NOT treated as a Trap Card.) If this card is targeted by your opponent: Destroy this Card.
 --襲雷神－ズース
 function c101010132.initial_effect(c)

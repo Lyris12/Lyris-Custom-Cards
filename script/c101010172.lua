@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ネオ光の波動
 function c101010172.initial_effect(c)
 local e0=Effect.CreateEffect(c)

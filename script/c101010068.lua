@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --PSYStream Flow
 function c101010068.initial_effect(c)
 --Banish 1 "PSYStream" monster from your Deck.

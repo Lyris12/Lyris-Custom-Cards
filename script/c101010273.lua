@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victorial Dragon Dragotaurus
 function c101010273.initial_effect(c)
 c:EnableReviveLimit()

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Earth Enforcement - Binding Nature
 function c101010067.initial_effect(c)
 --Activate

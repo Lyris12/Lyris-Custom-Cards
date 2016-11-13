@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --EE・エーエレン
 function c101010003.initial_effect(c)
 --special summon

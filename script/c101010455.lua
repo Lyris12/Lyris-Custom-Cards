@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Starry-Eyes Spatial Dragon (DM)
 function c101010455.initial_effect(c)
 	local ae1=Effect.CreateEffect(c)

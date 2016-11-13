@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Sea Scout - Hiro
 function c101020013.initial_effect(c)
 	--If this card is Normal Summoned: You can Special Summon 1 "Sea Scout" monster from your Deck, except "Sea Scout - Hiro", but you cannot Special Summon monsters for the rest of this turn, except WATER monsters from the Extra Deck.

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --PSYStream Sprite
 function c101010007.initial_effect(c)
 	--During the turn this card was banished by a "PSYStream" card, when your opponent activates a monster effect: You can reveal the bottom card of your Deck, and if it was a "PSYStream" card, add that card to your hand, then negate the activation, and if you do, banish it. (This is a Quick Effect.)

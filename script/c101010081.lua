@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ＳＳーマリフレアー
 function c101010081.initial_effect(c)
 --direct

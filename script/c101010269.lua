@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Victory Dragon Geminira
 function c101010269.initial_effect(c)
 --attack

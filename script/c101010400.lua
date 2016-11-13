@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Dimension-Magica Darknova
 function c101010400.initial_effect(c)
 	--If this card was Spatial Summoned using "Starry-Eyes Spatial Dragon" as any of its Space Materials: You can target 1 of your banished "Dimension-Magica" monsters, except "Dimension-Magica Darknova"; add it to your hand. You can only use this effect of "Dimension-Magica Darknova" once per turn.

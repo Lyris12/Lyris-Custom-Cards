@@ -1,3 +1,4 @@
+--created & coded by Hiro
 --Quirinus, Tsuiho Arcane Knight
 function c101020055.initial_effect(c)
 	--banished special summon

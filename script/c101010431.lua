@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Osa, Princess of Stellar Vine
 function c101010431.initial_effect(c)
 	--to grave

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Sea Scout - Relic Trainee
 function c101010183.initial_effect(c)
 --Synchro

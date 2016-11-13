@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --ソウル・インバージョン・チャネル－青
 function c101010439.initial_effect(c)
 	local e1=Effect.CreateEffect(c)

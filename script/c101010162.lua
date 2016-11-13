@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --強力海流
 function c101010162.initial_effect(c)
 local e0=Effect.CreateEffect(c)

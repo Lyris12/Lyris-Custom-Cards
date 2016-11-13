@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Real Rights - Survivor
 function c101020037.initial_effect(c)
 	--to grave

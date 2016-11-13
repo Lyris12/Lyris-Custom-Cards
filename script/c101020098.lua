@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Rank-Up-Magic Factorial Force
 function c101020098.initial_effect(c)
 	--Activate

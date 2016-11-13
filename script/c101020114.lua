@@ -1,3 +1,5 @@
+--created by LionHeartKIng
+--coded by Lyris
 --Rusted Dragon Doom
 function c101020114.initial_effect(c)
 	c:EnableReviveLimit()
