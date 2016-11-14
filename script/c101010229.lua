@@ -21,10 +21,11 @@ function c101010229.filter1(c,e,tp)
 	local rk=c:GetRank()
 	local at=c:GetAttribute()
 	return rk>1 and c:IsFaceup()
-		and Duel.IsExistingMatchingCard(c101010229.filter2,tp,LOCATION_EXTRA,0,1,nil,rk,at,e,tp)
+		and Duel.IsExistingMatchingCard(c101010229.filter2,tp,LOCATION_EXTRA,0,1,nil,rk,at,e,tp,c:GetCode())
 		and not Duel.IsExistingMatchingCard(c101010229.filter3,tp,LOCATION_MZONE,0,1,nil,rk)
 end
-function c101010229.filter2(c,rk,at,e,tp)
+function c101010229.filter2(c,rk,at,e,tp,code)
+	if c:GetOriginalCode()==6165656 and code~=48995978 then return false end
 	return c:IsRankBelow(rk-1) and c:IsRace(RACE_MACHINE) and c:GetAttribute()~=at
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end

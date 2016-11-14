@@ -29,9 +29,10 @@ function c101010165.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetLP(tp)<=Duel.GetLP(1-tp)-3000
 end
 function c101010165.filter1(c,e,tp)
-	return c:GetRank()>0 and c:IsFaceup() and Duel.IsExistingMatchingCard(c101010165.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c:GetRank()+3,c:GetRace())
+	return c:GetRank()>0 and c:IsFaceup() and Duel.IsExistingMatchingCard(c101010165.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c:GetRank()+3,c:GetRace(),c:GetCode())
 end
-function c101010165.filter2(c,e,tp,rank,rc)
+function c101010165.filter2(c,e,tp,rank,rc,code)
+	if c:GetOriginalCode()==6165656 and code~=48995978 then return false end
 	return c:GetRank()==rank and c:IsAttribute(ATTRIBUTE_LIGHT) and not c:IsRace(rc) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
 function c101010165.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
