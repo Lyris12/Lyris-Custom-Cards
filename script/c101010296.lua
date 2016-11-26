@@ -28,7 +28,6 @@ function c101010296.initial_effect(c)
 	cp:SetCode(EVENT_FREE_CHAIN)
 	cp:SetRange(LOCATION_MZONE)
 	cp:SetCountLimit(1)
-	cp:SetCondition(c101010296.con)
 	cp:SetCost(c101010296.scost)
 	cp:SetOperation(c101010296.soperation)
 	c:RegisterEffect(cp)
@@ -38,7 +37,6 @@ function c101010296.initial_effect(c)
 	e7:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e7:SetRange(LOCATION_MZONE)
 	e7:SetCode(EFFECT_DESTROY_REPLACE)
-	e7:SetCondition(c101010296.con)
 	e7:SetTarget(c101010296.desreptg)
 	e7:SetOperation(c101010296.desrepop)
 	c:RegisterEffect(e7)
@@ -60,62 +58,9 @@ function c101010296.chk(e,tp,eg,ep,ev,re,r,rp)
 	Duel.CreateToken(tp,388)
 	Duel.CreateToken(1-tp,388)
 end
-function c101010296.addcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+8751
-end
-function c101010296.addc(e,tp,eg,ep,ev,re,r,rp)
-		e:GetHandler():AddCounter(0x88,8)
-end
-function c101010296.rfilter(c)
-	return c:GetLevel()==4
-end
-function c101010296.spfilter(c)
-	return c:GetCode()==40418351 or c:GetCode()==40418352
-end
-function c101010296.spcon(e,c)
-	if c==nil then return true end
-	local tp=c:GetControler()
-	local g1=Duel.GetMatchingGroup(c101010296.spfilter,tp,LOCATION_MZONE,0,nil)
-	if g1:GetCount()>0 then
-		local g2=Duel.IsExistingMatchingCard(c101010296.rfilter,tp,LOCATION_MZONE,0,1,g1:GetFirst())
-		return Duel.GetLocationCount(tp,LOCATION_MZONE)>-2 and g2
-	end
-	return false
-end
-function c101010296.spop(e,tp,eg,ep,ev,re,r,rp,c)
-	local g2=Duel.SelectMatchingCard(tp,c101010296.spfilter,tp,LOCATION_MZONE,0,1,1,nil)
-	local g1=Duel.SelectMatchingCard(tp,c101010296.rfilter,tp,LOCATION_MZONE,0,1,1,g2:GetFirst())
-	g1:Merge(g2)
-	Duel.Release(g1,REASON_COST)
-end
-function c101010296.efilter1(e,te)
-	return te:IsActiveType(TYPE_TRAP) or te:IsActiveType(TYPE_SPELL)
-end
-function c101010296.cfilter(c)
-	return c:IsType(TYPE_SPELL) and c:IsAbleToGraveAsCost()
-end
-function c101010296.acos(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c101010296.cfilter,tp,LOCATION_HAND,0,1,e:GetHandler()) end
-	Duel.DiscardHand(tp,c101010296.cfilter,1,1,REASON_COST)
-end
-function c101010296.addct2(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-	Duel.SetOperationInfo(0,CATEGORY_COUNTER,nil,3,0,0x88)
-end
-function c101010296.addc2(e,tp,eg,ep,ev,re,r,rp)
-	if e:GetHandler():IsRelateToEffect(e) then
-		e:GetHandler():AddCounter(0x88,3)
-	end
-end
-function c101010296.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetCounter(0x88)>2
-end
-function c101010296.efilter(e,te)
-	return  te:IsHasCategory(CATEGORY_NEGATE+CATEGORY_DISABLE)-- and te:GetCode()~=97268402
-end
 function c101010296.atkval(e,c)
 	local tp=e:GetHandlerPlayer()
-	return Duel.GetFieldGroupCount(tp,LOCATION_GRAVE,0)*(-100)
+	return -Duel.GetFieldGroupCount(tp,LOCATION_GRAVE,0)*100
 end
 function c101010296.filter(c)
 	return c:IsRace(RACE_DRAGON)
