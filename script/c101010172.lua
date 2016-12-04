@@ -1,7 +1,14 @@
 --created & coded by Lyris
 --ネオ光の波動
 function c101010172.initial_effect(c)
-	aux.AddEquipProcedure(c,nil,nil,nil,nil,nil,c101010172.operation)
+local e0=Effect.CreateEffect(c)
+	e0:SetCategory(CATEGORY_EQUIP)
+	e0:SetType(EFFECT_TYPE_ACTIVATE)
+	e0:SetCode(EVENT_FREE_CHAIN)
+	e0:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e0:SetTarget(c101010172.target)
+	e0:SetOperation(c101010172.operation)
+	c:RegisterEffect(e0)
 	--negate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -9,6 +16,13 @@ function c101010172.initial_effect(c)
 	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e1:SetOperation(c101010172.lmop)
 	c:RegisterEffect(e1)
+	--Equip limit
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_SINGLE)
+	e3:SetCode(EFFECT_EQUIP_LIMIT)
+	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+	e3:SetValue(1)
+	c:RegisterEffect(e3)
 	--Attribute
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_EQUIP)
@@ -16,10 +30,24 @@ function c101010172.initial_effect(c)
 	e4:SetValue(ATTRIBUTE_LIGHT)
 	c:RegisterEffect(e4)
 end
+function c101010172.eqfilter(c)
+	local atk=c:GetTextAttack()
+	if atk==-2 then atk=c:GetBaseAttack() end
+	if atk~=c:GetAttack() and atk==0 then return false end
+	return c:IsFaceup()
+end
+function c101010172.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:GetLocation()==LOCATION_MZONE and chkc:IsControler(tp) and c101010172.eqfilter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c101010172.eqfilter,tp,LOCATION_MZONE,0,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
+	Duel.SelectTarget(tp,c101010172.eqfilter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_EQUIP,e:GetHandler(),1,0,0)
+end
 function c101010172.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) and tc:IsFaceup() then
+		Duel.Equip(tp,c,tc)
 		--drawback
 		local e2=Effect.CreateEffect(c)
 		e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
