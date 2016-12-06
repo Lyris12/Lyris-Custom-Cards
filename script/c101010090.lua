@@ -7,7 +7,7 @@ function c101010090.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
-	e2:SetCondition(c101010090.condition)
+	e1:SetCondition(c101010090.condition)
 	e1:SetOperation(c101010090.operation)
 	c:RegisterEffect(e1)
 end
