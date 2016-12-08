@@ -73,6 +73,7 @@ end
 function c101010104.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsExistingMatchingCard(c101010104.filter,tp,LOCATION_DECK,0,1,nil) end
+	e:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
 function c101010104.operation(e,tp,eg,ep,ev,re,r,rp)

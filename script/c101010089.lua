@@ -32,6 +32,7 @@ function c101010089.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c101010089.filter(chkc,e,tp) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZOME)>0
 	and Duel.IsExistingTarget(c101010089.filter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
+	e:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local tc=Duel.SelectTarget(tp,c101010089.filter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,tc,1,0,0)

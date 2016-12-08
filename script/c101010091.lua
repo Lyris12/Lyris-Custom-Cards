@@ -26,6 +26,7 @@ function c101010091.filter(c)
 end
 function c101010091.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c101010091.filter,tp,LOCATION_DECK,0,1,nil) end
+	e:SetCategory(CATEGORY_TOHAND)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function c101010091.operation(e,tp,eg,ep,ev,re,r,rp)
