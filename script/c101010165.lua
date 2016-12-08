@@ -6,7 +6,7 @@ function c101010165.initial_effect(c)
 	e0:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
-	e0:SetCountLimit(1)
+	e0:SetCountLimit(1,101010165+EFFECT_COUNT_CODE_OATH)
 	e0:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e0:SetCondition(c101010165.condition)
 	e0:SetTarget(c101010165.target)
@@ -14,14 +14,9 @@ function c101010165.initial_effect(c)
 	c:RegisterEffect(e0)
 	--Negate
 	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
-	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_QUICK_O)
-	e1:SetCode(EVENT_CHAINING)
-	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_CHAIN_SOLVING)
 	e1:SetRange(LOCATION_GRAVE)
-	e1:SetCondition(c101010165.discon)
-	e1:SetCost(c101010165.cost)
-	e1:SetTarget(c101010165.distg)
 	e1:SetOperation(c101010165.operation)
 	c:RegisterEffect(e1)
 end
@@ -63,25 +58,13 @@ end
 function c101010165.cfilter(c)
 	return c:IsLocation(LOCATION_MZONE) and c:IsFaceup() and c:IsType(TYPE_XYZ) and c:IsAttribute(ATTRIBUTE_LIGHT)
 end
-function c101010165.discon(e,tp,eg,ep,ev,re,r,rp)
-	if not Duel.IsChainNegatable(ev) then return false end
-	if  not re:IsActiveType(TYPE_MONSTER) and not re:IsHasType(EFFECT_TYPE_ACTIVATE) then return false end
-	local tg=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
-	return tg and tg:IsExists(c101010165.cfilter,1,nil)
-end
-function c101010165.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
-	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
-end
-function c101010165.distg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
-	if re:GetHandler():IsDestructable() and re:GetHandler():IsRelateToEffect(re) then
-		Duel.SetOperationInfo(0,CATEGORY_DESTROY,eg,1,0,0)
-	end
-end
 function c101010165.operation(e,tp,eg,ep,ev,re,r,rp)
-	Duel.NegateActivation(ev)
+	if rp==tp or not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return end
+	local g=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
+	if not g or not g:IsExists(c101010165.cfilter,1,nil) then return end
+	local c=e:GetHandler()
+	if not c:IsAbleToRemoveAsCost() or Duel.Remove(c,POS_FACEUP,REASON_COST)==0 then return end
+	Duel.NegateEffect(ev)
 	if re:GetHandler():IsRelateToEffect(re) then
 		Duel.Destroy(eg,REASON_EFFECT)
 	end
