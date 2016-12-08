@@ -30,5 +30,17 @@ function c101010140.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c101010140.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	
+	if tc:IsRelateToEffect(e) and Duel.Remove(tc,tc:GetPosition(),REASON_EFFECT+REASON_TEMPORARY)~=0 then
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		e1:SetCode(EVENT_PHASE+PHASE_END)
+		e1:SetReset(RESET_PHASE+PHASE_END)
+		e1:SetLabelObject(tc)
+		e1:SetCountLimit(1)
+		e1:SetOperation(c101010140.retop)
+		Duel.RegisterEffect(e1,tp)
+	end
+end
+function c101010140.retop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.ReturnToField(e:GetLabelObject())
 end
