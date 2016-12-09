@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Earth Enforcer Leader Sacagawea
 function c101010048.initial_effect(c)
 	c:EnableReviveLimit()

@@ -1,6 +1,7 @@
+--created & coded by Lyris
 --Earth's Assistant
 function c101010051.initial_effect(c)
-	--Target 1 "Earth Enforcer" monster you control with a Level; Special Summon 1 "Earth Enforcer" Xyz Monster from your Extra Deck, except "Earth Enforcer Leader Sacagawea", by using it as the Xyz Material, and if you do, attach this card to it as additional Xyz Material. (This Special Summon is treated as an Xyz Summon.)
+	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

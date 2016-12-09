@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Fate's Ritual
 function c101010121.initial_effect(c)
 	aux.AddRitualProcEqual2(c,c101010121.rfilter)

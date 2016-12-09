@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Fate's Ritual Art
 function c101010130.initial_effect(c)
 	--When a card or effect is activated that targets exactly 1 card you control (and no other cards): Target another card on the field that would be an appropriate target for that card/effect; Tribute other cards from your hand or field, then Ritual Summon 1 "Fate's" Ritual Monster from your hand whose Level exactly equals the total Levels of those monsters, and if you do, that card/effect now targets the new target. You can only use the effect of "Fate's Ritual Art" once per turn.

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Crystapal Lyris the Emerald
 function c101010076.initial_effect(c)
 aux.EnablePendulumAttribute(c)

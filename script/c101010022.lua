@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --サイバネティック・セージ
 function c101010022.initial_effect(c)
 --pendulum summon

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Attribute Spear
 function c101010123.initial_effect(c)
 	--Activate

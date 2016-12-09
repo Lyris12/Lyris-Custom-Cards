@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Fate's Poison Prohibitor
 function c101010141.initial_effect(c)
 	--If this card is destroyed by a player's card effect: Halve all damage taken by that player's opponent until the end of this turn. You can only use this effect of "Fate's Poison Prohibitor" once per turn.

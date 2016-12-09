@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Clear Protector
 function c101010096.initial_effect(c)
 	--This card's owner is unaffected by the effects of "Clear World".

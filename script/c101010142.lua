@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Fate's Pair Puzzler
 function c101010142.initial_effect(c)
 	--If you Ritual Summon exactly 1 "Fate's" Ritual Monster with a card effect that requires use of monsters, this card can be used as the entire requirement.

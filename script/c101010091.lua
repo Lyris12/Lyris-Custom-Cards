@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Fate's Hardy Mise
 function c101010091.initial_effect(c)
 	--If this card is Special Summoned from the hand or with a "Fate's" card: You can add 1 "Fate's" Spell/Trap Card from your Deck to your hand. If this card was Pendulum Summoned, you must have a "Fate's" card in your Pendulum Zone to activate this effect. You can only use this effect of "Fate's Hardy Mise" once per turn.

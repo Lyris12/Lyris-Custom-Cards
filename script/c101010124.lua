@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Blitzkrieg Sky
 function c101010124.initial_effect(c)
 	--When this card is activated: You can add 1 "Blitzkrieg" monster from your Deck to your hand.

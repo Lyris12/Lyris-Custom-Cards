@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Clear Seraphim
 function c101010122.initial_effect(c)
 	--Activate

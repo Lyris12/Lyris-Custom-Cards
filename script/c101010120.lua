@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Fate's Charity
 function c101010120.initial_effect(c)
 	--Activate

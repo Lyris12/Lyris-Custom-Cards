@@ -1,6 +1,7 @@
+--created & coded by Lyris
 --Crysta Catch
 function c101010131.initial_effect(c)
-	--Activate Excavate cards from the top of your Deck until you excavate a "Liquid Crystapal" monster, Special Summon it in face-up Defense Position, also, shuffle all excavated cards not Summoned by this effect into the Deck.
+	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
