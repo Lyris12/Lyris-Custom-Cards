@@ -8,6 +8,7 @@ aux.EnablePendulumAttribute(c)
 	e2:SetCode(EVENT_TO_HAND)
 	e2:SetRange(LOCATION_PZONE)
 	e2:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
+	e2:SetCondition(c101010076.spcon)
 	e2:SetTarget(c101010076.sumtg)
 	e2:SetOperation(c101010076.sumop)
 	c:RegisterEffect(e2)
@@ -16,7 +17,8 @@ function c101010076.cfilter(c)
 	return not c:IsReason(REASON_DRAW) and c:IsType(TYPE_SPELL)
 end
 function c101010076.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c101010076.cfilter,1,nil)
+	local ap=eg:GetFirst():GetControler()
+	return not eg:IsExists(Card.IsControler,1,nil,1-ap) and eg:IsExists(c101010076.cfilter,1,nil)
 end
 function c101010076.filter(c,e,tp)
 	return c:IsSetCard(0x1613) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
@@ -24,13 +26,12 @@ end
 function c101010076.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local p=e:GetHandler():GetControler()
 	if chk==0 then return true end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,ep,LOCATION_DECK)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,eg:GetFirst():GetControler(),LOCATION_DECK)
 end
 function c101010076.sumop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	local mg=eg:Filter(c101010076.cfilter,nil)
-	if mg:IsExists(Card.IsControler,1,nil,tp) and mg:IsExists(Card.IsControler,1,nil,1-tp) then return end
 	local p=c:GetControler()
 	local ap=eg:GetFirst():GetControler()
 	local sg=Duel.GetMatchingGroup(c101010076.filter,p,LOCATION_DECK,0,nil,e,ap)
