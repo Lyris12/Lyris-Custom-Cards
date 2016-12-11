@@ -73,8 +73,8 @@ function c357.sumop(e,tp,eg,ep,ev,re,r,rp,c,og)
 		e1:SetReset(RESET_EVENT+0x1fe0000)
 		tc:RegisterEffect(e1)
 		local e2=e1:Clone()
-		e1:SetCode(EFFECT_DISABLE_EFFECT)
-		tc:RegisterEffect(e1)
+		e2:SetCode(EFFECT_DISABLE_EFFECT)
+		tc:RegisterEffect(e2)
 		tc=mg:GetNext()
 	end
 end
