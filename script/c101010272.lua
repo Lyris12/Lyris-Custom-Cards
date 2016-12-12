@@ -68,7 +68,7 @@ function c101010272.tgchange(e,tp,eg,ep,ev,re,r,rp)
 	if not fc:IsControler(tp) or not fc:IsOnField() then return end
 	local tf=re:GetTarget()
 	local res,ceg,cep,cev,cre,cr,crp=Duel.CheckEvent(re:GetCode(),true)
-	local nc=Duel.GetMatchingGroup(tp,c101010272.cefilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,fc,re,rp,tf,ceg,cep,cev,cre,cr,crp)
+	local nc=Duel.GetMatchingGroup(c101010272.cefilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,fc,re,rp,tf,ceg,cep,cev,cre,cr,crp)
 	if nc:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101010272,0)) then
 		local tc=nc:Select(tp,1,1,nil)
 		Duel.Hint(HINT_CARD,0,101010272)
