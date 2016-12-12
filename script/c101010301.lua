@@ -18,10 +18,12 @@ function c101010301.filter(c,e,tp)
 	return c:IsSetCard(0xbb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c101010301.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c101010301.spfilter,tp,LOCATION_MZONE,0,1,nil,e,tp) end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingMatchingCard(c101010301.spfilter,tp,LOCATION_MZONE,0,1,nil,e,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_OVERLAY)
 end
 function c101010301.op2(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local g=Group.CreateGroup()
 	local xg=Duel.GetMatchingGroup(c101010301.spfilter,tp,LOCATION_MZONE,0,nil,e,tp)
 	local tc=xg:GetFirst()

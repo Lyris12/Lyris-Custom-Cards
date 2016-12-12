@@ -18,7 +18,7 @@ function c101010091.condition(e,tp,eg,ep,ev,re,r,rp)
 	if bit.band(c:GetSummonType(),SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM then
 		local pc1=Duel.GetFieldCard(tp,LOCATION_SZONE,6)
 		local pc2=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
-		return pc1:IsSetCard(0xf7a) or pc2:IsSetCard(0xf7a)
+		return (pc1 and pc1:IsSetCard(0xf7a)) or (pc2 and pc2:IsSetCard(0xf7a))
 	end
 	return c:GetSummonLocation()==LOCATION_HAND or re:GetHandler():IsSetCard(0xf7a)
 end

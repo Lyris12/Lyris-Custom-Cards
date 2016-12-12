@@ -23,20 +23,20 @@ function c101010130.condition(e,tp,eg,ep,ev,re,r,rp)
 	e:SetLabelObject(tc)
 	return tc:IsOnField()
 end
-function c21501505.filter(c,re,rp,tf,ceg,cep,cev,cre,cr,crp,e,tp,mg)
+function c101010130.filter(c,re,rp,tf,ceg,cep,cev,cre,cr,crp,e,tp,mg)
 	return tf(re,rp,ceg,cep,cev,cre,cr,crp,0,c) and Duel.IsExistingMatchingCard(c101010130.rfilter,tp,LOCATION_HAND,0,1,c,e,tp,mg,c)
 end
-function c21501505.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c101010130.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local tf=re:GetTarget()
 	local res,ceg,cep,cev,cre,cr,crp=Duel.CheckEvent(re:GetCode(),true)
-	if chkc then return chkc:IsOnField() and c21501505.filter(chkc,re,rp,tf,ceg,cep,cev,cre,cr,crp) end
+	if chkc then return chkc:IsOnField() and c101010130.filter(chkc,re,rp,tf,ceg,cep,cev,cre,cr,crp) end
 	if chk==0 then
 		local mg=Duel.GetRitualMaterial(tp)
-		return Duel.IsExistingTarget(c21501505.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetLabelObject(),re,rp,tf,ceg,cep,cev,cre,cr,crp,e,tp,mg)
+		return Duel.IsExistingTarget(c101010130.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetLabelObject(),re,rp,tf,ceg,cep,cev,cre,cr,crp,e,tp,mg)
 	end
 	local mg=Duel.GetRitualMaterial(tp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
-	Duel.SelectTarget(tp,c21501505.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,e:GetLabelObject(),re,rp,tf,ceg,cep,cev,cre,cr,crp,e,tp,mg)
+	Duel.SelectTarget(tp,c101010130.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,e:GetLabelObject(),re,rp,tf,ceg,cep,cev,cre,cr,crp,e,tp,mg)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
 end
 function c101010130.rfilter(c,e,tp,m,tc)

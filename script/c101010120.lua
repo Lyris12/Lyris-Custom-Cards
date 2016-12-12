@@ -19,7 +19,7 @@ function c101010120.cfilter(c,tp)
 	return c:IsSetCard(0xf7a) and c:IsDiscardable()
 end
 function c101010120.star(c)
-	return c:IsFaceup() and c:IsHasEffect(101010187) and c:IsReleasableByEffect()
+	return c:IsFaceup() and c:IsHasEffect(101010187)
 end
 function c101010120.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local b1=Duel.IsExistingMatchingCard(c101010120.cfilter,tp,LOCATION_HAND,0,1,nil,tp)
@@ -37,10 +37,10 @@ function c101010120.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function c101010120.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsPlayerCanDraw(tp,2) end
+	if chk==0 then return Duel.IsPlayerCanDraw(tp,3) end
 	Duel.SetTargetPlayer(tp)
-	Duel.SetTargetParam(2)
-	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,2)
+	Duel.SetTargetParam(3)
+	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,3)
 end
 function c101010120.activate(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)

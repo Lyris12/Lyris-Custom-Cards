@@ -8,7 +8,7 @@ function c101010089.initial_effect(c)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e1:SetCountLimit(1,101010089)
-	e2:SetCondition(c101010089.condition)
+	e1:SetCondition(c101010089.condition)
 	e1:SetTarget(c101010089.target)
 	e1:SetOperation(c101010089.operation)
 	c:RegisterEffect(e1)
@@ -21,7 +21,7 @@ function c101010089.condition(e,tp,eg,ep,ev,re,r,rp)
 	if bit.band(c:GetSummonType(),SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM then
 		local pc1=Duel.GetFieldCard(tp,LOCATION_SZONE,6)
 		local pc2=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
-		return pc1:IsSetCard(0xf7a) or pc2:IsSetCard(0xf7a)
+		return (pc1 and pc1:IsSetCard(0xf7a)) or (pc2 and pc2:IsSetCard(0xf7a))
 	end
 	return c:GetSummonLocation()==LOCATION_HAND or re:GetHandler():IsSetCard(0xf7a)
 end
