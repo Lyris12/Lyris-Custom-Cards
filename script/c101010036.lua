@@ -1,4 +1,5 @@
---created & coded by Lyris
+--created by Outlaw1994
+--coded by Lyris
 --サイバー・クイーン ライリス
 function c101010036.initial_effect(c)
 c:EnableReviveLimit()
@@ -95,7 +96,7 @@ function c101010036.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	e:SetLabelObject(g:GetFirst())
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g:GetFirst(),1,0,0)
 	return true
-	else return false end	
+	else return false end   
 end
 function c101010036.tdop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject()
