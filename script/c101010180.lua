@@ -1,7 +1,7 @@
 --Crystapal Nikos the Amethyst
 function c101010180.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
-	--After the effect of a Spell Card in a player's Spell & Trap Zone resolves: Excavate cards from the top of your Deck until you excavate a "Liquid Crystapal" monster, that player Special Summons that card to their field, also, shuffle all excavated cards not Summoned by this effect back into the Deck.
+	--After the effect of a Trap Card resolves: Excavate cards from the top of your Deck until you excavate a "Liquid Crystapal" monster, that player Special Summons that card to their field, also, shuffle all excavated cards not Summoned by this effect back into the Deck.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_CHAIN_SOLVED)
