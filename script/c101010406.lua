@@ -24,15 +24,16 @@ function c101010406.star(c)
 	return c:IsFaceup() and c:IsHasEffect(101010187)
 end
 function c101010406.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
 	if chk==0 then
 		if e:GetLabel()~=0 then return Duel.CheckReleaseGroup(tp,c101010406.star,1,nil)
-		else return Duel.IsExistingMatchingCard(c101010406.filter,tp,LOCATION_HAND,0,1,nil) end
+		else return Duel.IsExistingMatchingCard(c101010406.filter,tp,LOCATION_HAND,0,1,c) end
 	end
 	Duel.Hint(HINT_OPSELECTED,0,e:GetDescription())
 	if e:GetLabel()~=0 then
 		local g=Duel.SelectReleaseGroup(tp,c101010406.star,1,1,nil)
 		Duel.Release(g,REASON_COST)
-	else Duel.DiscardHand(tp,Card.IsType,1,1,REASON_COST+REASON_DISCARD,nil,TYPE_SPELL+TYPE_TRAP) end
+	else Duel.DiscardHand(tp,Card.IsType,1,1,REASON_COST+REASON_DISCARD,c,TYPE_SPELL+TYPE_TRAP) end
 end
 function c101010406.setfilter(c,e,tp)
 	return c:IsSetCard(0xf7a) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)

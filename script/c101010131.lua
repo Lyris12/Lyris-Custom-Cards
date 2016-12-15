@@ -10,6 +10,7 @@ function c101010131.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c101010131.operation(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local g=Duel.GetMatchingGroup(Card.IsSetCard,tp,LOCATION_DECK,0,nil,0x1613)
 	local dcount=Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)
 	if dcount==0 then return end

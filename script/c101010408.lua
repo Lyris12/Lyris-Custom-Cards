@@ -33,7 +33,7 @@ function c101010408.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	end
 	if chk==0 then return Duel.IsExistingTarget(c101010408.filter,tp,LOCATION_MZONE,loc,1,c,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
-	local g=Duel.SelectTarget(tp,c101010408.filter,tp,LOCATION_MZONE,loc,1,1,c):GetFirst()
+	local g=Duel.SelectTarget(tp,c101010408.filter,tp,LOCATION_MZONE,loc,1,1,c,e,tp):GetFirst()
 	if g:IsLocation(LOCATION_GRAVE) then
 		e:SetCategory(CATEGORY_DAMAGE+CATEGORY_SPECIAL_SUMMON)
 		Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,0,0)

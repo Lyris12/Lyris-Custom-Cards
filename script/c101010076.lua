@@ -51,7 +51,7 @@ function c101010076.sumop(e,tp,eg,ep,ev,re,r,rp)
 			Duel.ConfirmDecktop(p,1)
 			dc=Duel.GetDecktopGroup(p,1):GetFirst()
 			if sg:IsContains(dc) then
-				Duel.SpecialSummonStep(dc,0,p,ap,false,false,POS_FACEUP)
+				Duel.SpecialSummonStep(dc,0,ap,ap,false,false,POS_FACEUP)
 				ct=ct-1
 			else
 				Duel.MoveSequence(dc,1)

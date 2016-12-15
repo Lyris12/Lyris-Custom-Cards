@@ -26,7 +26,7 @@ function c101010089.condition(e,tp,eg,ep,ev,re,r,rp)
 	return c:GetSummonLocation()==LOCATION_HAND or re:GetHandler():IsSetCard(0xf7a)
 end
 function c101010089.filter(c,e,tp)
-	return c:IsSetCard(0xf7a) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xf7a) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsCode(101010089)
 end
 function c101010089.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c101010089.filter(chkc,e,tp) end
