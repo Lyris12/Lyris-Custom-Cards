@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Clear Magician
 function c101010100.initial_effect(c)
 	--If this card is Normal or Special Summoned: Declare 1 Attribute, then target a number of Spell/Trap Card(s) your opponent controls, up to the number of other monsters on the field with that Attribute; destroy them, then, place a number of Spell Counters on this card, up to the number of cards destroyed by this effect.

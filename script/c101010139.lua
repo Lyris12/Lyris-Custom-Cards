@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Cyber Apollo Dragon/Assault Mode
 function c101010139.initial_effect(c)
 	--Cannot special summon

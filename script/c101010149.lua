@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Clear Pixie
 function c101010149.initial_effect(c)
 	--hand

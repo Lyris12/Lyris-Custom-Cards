@@ -23,15 +23,6 @@ function c101010169.initial_effect(c)
 	e3:SetTarget(c101010169.rtarget)
 	e3:SetValue(c101010169.rvalue)
 	c:RegisterEffect(e3)
-	--Atk up
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_FIELD)
-	e2:SetCode(EFFECT_SET_ATTACK)
-	e2:SetRange(LOCATION_FZONE)
-	e2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e2:SetTarget(c101010169.atktg)
-	e2:SetValue(c101010169.atkval)
-	c:RegisterEffect(e2)
 end
 function c101010169.thfilter(c)
 	return c:IsSetCard(0x5d) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
@@ -40,16 +31,12 @@ function c101010169.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c101010169.thfilter,tp,LOCATION_DECK,0,1,1,nil)
-	if g:GetCount()>0 then Duel.SendtoHand(g,nil,REASON_EFFECT) Duel.ConfirmCards(1-tp,g) end
-	-- g and
-end
-function c101010169.atktg(e,c)
-	return c:IsAttribute(ATTRIBUTE_DARK)
-end
-function c101010169.atkval(e,c)
-	local atk=c:GetBaseAttack()
-	return atk*1.2
+	local g=Duel.GetMatchingGroup(c101010169.thfilter,tp,LOCATION_DECK,0,nil)
+	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(101010169,0)) then
+		local tc=g:Select(tp,1,1,nil)
+		Duel.SendtoHand(tc,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,tc)
+	end
 end
 function c101010169.rmtg(e,c,sump,sumtype,sumpos,targetp)
 	return not c:IsLocation(LOCATION_OVERLAY) and not c:IsType(TYPE_SPELL+TYPE_TRAP)

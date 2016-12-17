@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Clear Beast
 function c101010148.initial_effect(c)
 	--destroy replace
