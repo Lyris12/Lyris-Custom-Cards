@@ -1,0 +1,76 @@
+--created & coded by Lyris
+--Clear Bird
+function c101010099.initial_effect(c)
+	--Once per turn: You can target 1 Spell/Trap card your opponent controls; shuffle that target into its owner's Deck.
+	local e7=Effect.CreateEffect(c)
+	e7:SetCategory(CATEGORY_TODECK)
+	e7:SetType(EFFECT_TYPE_IGNITION)
+	e7:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e7:SetRange(LOCATION_MZONE)
+	e7:SetCountLimit(1)
+	e7:SetCondition(c101010099.tpcon)
+	e7:SetTarget(c101010099.tdtg)
+	e7:SetOperation(c101010099.tdop)
+	c:RegisterEffect(e7)
+	--immune
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetTargetRange(1,0)
+	e1:SetCode(97811903)
+	e1:SetCondition(c101010099.tpcon)
+	c:RegisterEffect(e1)
+	local e2=e1:Clone()
+	e2:SetTargetRange(0,1)
+	e2:SetCondition(c101010099.ntpcon)
+	c:RegisterEffect(e2)
+	--cannot be material
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_SINGLE)
+	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e3:SetRange(LOCATION_MZONE)
+	e3:SetCode(EFFECT_UNRELEASABLE_SUM)
+	e3:SetValue(1)
+	e3:SetCondition(c101010099.ntpcon)
+	c:RegisterEffect(e3)
+	local e4=e3:Clone()
+	e4:SetCode(EFFECT_UNRELEASABLE_NONSUM)
+	c:RegisterEffect(e4)
+	local e5=Effect.CreateEffect(c)
+	e5:SetType(EFFECT_TYPE_SINGLE)
+	e5:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e5:SetCode(EFFECT_CANNOT_BE_FUSION_MATERIAL)
+	e5:SetValue(1)
+	e5:SetCondition(c101010099.ntpcon)
+	c:RegisterEffect(e5)
+	local e6=e5:Clone()
+	e6:SetCode(EFFECT_CANNOT_BE_SYNCHRO_MATERIAL)
+	c:RegisterEffect(e6)
+	local e7=e5:Clone()
+	e7:SetCode(EFFECT_CANNOT_BE_XYZ_MATERIAL)
+	c:RegisterEffect(e7)
+end
+function c101010099.tpcon(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	return c:IsLocation(LOCATION_MZONE) and c:IsControler(c:GetOwner())
+end
+function c101010099.ntpcon(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	return c:IsLocation(LOCATION_MZONE) and c:IsControler(1-c:GetOwner())
+end
+function c101010099.filter(c)
+	return c:IsType(TYPE_TRAP+TYPE_SPELL) and c:IsAbleToDeck()
+end
+function c101010099.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingTarget(c101010099.filter,tp,0,LOCATION_SZONE,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+	local g=Duel.SelectTarget(tp,c101010099.filter,tp,0,LOCATION_SZONE,1,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,g:GetCount(),0,0)
+end
+function c101010099.tdop(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFirstTarget()
+	if tc:IsRelateToEffect(e) then
+		Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)
+	end
+end
