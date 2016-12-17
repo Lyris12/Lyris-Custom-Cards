@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Fate's Blue Lightning
 function c101010408.initial_effect(c)
 	c:EnableReviveLimit()

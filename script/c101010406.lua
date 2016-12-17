@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Fate's Decision
 function c101010406.initial_effect(c)
 	--Discard 1 Spell/Trap Card, then target 1 "Fate's" monster in your Graveyard; Special Summon it.

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Fate's World Judge
 function c101010200.initial_effect(c)
 	c:EnableReviveLimit()
