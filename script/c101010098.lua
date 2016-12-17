@@ -1,6 +1,6 @@
 --created & coded by Lyris
---Clear Shark
-function c101010097.initial_effect(c)
+--Clear Tyranno
+function c101010098.initial_effect(c)
 	--normal summon
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetDescription(aux.Stringid(101010097,0))
@@ -85,12 +85,13 @@ end
 function c101010097.targ(e,tp,eg,ep,ev,re,r,rp,chk)
 	local d=Duel.GetAttackTarget()
 	if chk ==0 then return Duel.GetAttacker()==e:GetHandler()
-		and d~=nil and d:IsFaceup() and d:IsAttribute(ATTRIBUTE_EARTH+ATTRIBUTE_FIRE) and d:IsRelateToBattle() end
+		and d~=nil and d:IsFaceup() and d:IsAttribute(ATTRIBUTE_WIND+ATTRIBUTE_WATER) and d:IsRelateToBattle() end
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,d,1,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,d:GetOriginalLevel()*200)
 end
 function c101010097.op(e,tp,eg,ep,ev,re,r,rp)
 	local d=Duel.GetAttackTarget()
-	if d~=nil and d:IsRelateToBattle() then
-		Duel.Destroy(d,REASON_EFFECT)
+	if d~=nil and d:IsRelateToBattle() and Duel.Destroy(d,REASON_EFFECT)~=0 and d:IsLocation(LOCATION_GRAVE) then
+		 Duel.Damage(1-tp,d:GetLevel()*200,REASON_EFFECT)
 	end
 end
