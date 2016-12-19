@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --Black Ring Connection
 function c101010170.initial_effect(c)
-	--Tribute as many face-up monsters as possible that are listed on a Fusion Monster that can only be Special Summoned with a "Black Ring" Spell Card, then Special Summon that Fusion Monster from your Extra Deck. If the Summoned monster attacks an opponent's monster while this card is banished, your opponent cannot activate Spell/Trap cards until the end of the Damage Step. After activation, banish this card instead of sending it to the Graveyard.
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)

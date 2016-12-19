@@ -26,17 +26,34 @@ function c101010202.initial_effect(c)
 	e3:SetTarget(c101010202.reptg)
 	c:RegisterEffect(e3)
 end
-function c101010202.mfilter1(c,tp,loc1,loc2)
-	return c:IsCode(101010408) and (not c:IsLocation(LOCATION_MZONE+LOCATION_HAND) or c:IsReleasableByEffect()) and Duel.IsExistingMatchingCard(c101010202.mfilter2,tp,loc1,loc2,1,nil)
+function c101010202.mfilter1(c,tp)
+	return not c:IsLocation(LOCATION_MZONE+LOCATION_HAND) or c:IsReleasableByEffect()
 end
-function c101010202.mfilter2(c)
-	return c:IsSetCard(0xf7a) and (not c:IsLocation(LOCATION_MZONE+LOCATION_HAND) or c:IsReleasableByEffect())
+function c101010202.mfilter2(c,g,f1,f2)
+	if not f1(c) and not f2(c) then return false end
+	if f1(c) and not f2(c) then return g:IsExists(c101010202.mfilter3,1,c,f1,f2) end
+	if f2(c) and not f1(c) then return g:IsExists(c101010202.mfilter3,1,c,f2,f1) end
+	return g:IsExists(c101010202.mfilter3,1,c,nil,f1,f2)
+end
+function c101010202.mfilter3(c,f1,f2)
+	return f1(c) and not f2(c)
 end
 function c101010202.material(tp,loc1,loc2,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c101010202.mfilter1,tp,loc1,loc2,1,nil,tp,loc1,loc2) end
-	local g1=Duel.SelectMatchingCard(tp,c101010202.mfilter1,tp,loc1,loc2,1,1,nil,tp,loc1,loc2)
+	local g=Duel.GetMatchingGroup(c101010202.mfilter1,tp,loc1,loc2,nil,tp)
+	local f0=((c:IsOnField() and c:IsControler(tp)) or Duel.GetLocationCount(tp,LOCATION_MZONE)>0)
+	local f1=aux.FilterBoolFunction(Card.IsCode,101010408) and f0
+	local f2=aux.FilterBoolFunction(Card.IsSetCard,0xf7a) and f0
+	if chk==0 then return g:IsExists(c101010202.mfilter2,1,nil,g,f1,f2) end
+	local g1=g:FilterSelect(tp,c101010202.mfilter2,1,1,nil,g,f1,f2)
 	local tc=g1:GetFirst()
-	local g2=Duel.SelectMatchingCard(tp,c101010202.mfilter2,tp,loc1,loc2,1,1,tc)
+	local g2=nil
+	if f1(tc) and not f2(tc) then
+		g2=g:FilterSelect(tp,c101010202.mfilter3,1,1,tc,f1,f2)
+	elseif f2(tc) and not f1(tc) then
+		g2=g:FilterSelect(tp,c101010202.mfilter3,1,1,tc,f2,f1)
+	else
+		g2=g:Select(tp,1,1,tc)
+	end
 	g1:Merge(g2)
 	return g1
 end
