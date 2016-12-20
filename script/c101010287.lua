@@ -1,5 +1,5 @@
 --created & coded by Lyris
---No.24 サイバー・ドラゴン・丸藤
+--サイバー・ドラゴン・丸藤
 function c101010287.initial_effect(c)
 --xyz summon
 	c:EnableReviveLimit()
@@ -64,7 +64,6 @@ function c101010287.initial_effect(c)
 	e2:SetOperation(c101010287.op)
 	c:RegisterEffect(e2)
 end
-c101010287.xyz_number=24
 function c101010287.addcon(e,c)
 	return c==e:GetHandler()
 end
@@ -85,9 +84,6 @@ function c101010287.atop(e,tp,eg,ep,ev,re,r,rp)
 		local tc=g:RandomSelect(tp,1):GetFirst()
 		Duel.Overlay(c,tc)
 	end
-end
-function c101010287.indes(e,c)
-	return not c:IsSetCard(0x48) or not c:IsSetCard(0x1048)
 end
 function c101010287.limit(e,tp,eg,ep,ev,re,r,rp)
 	e:GetHandler():RegisterFlagEffect(101010287,RESET_EVENT+0xfc0000+RESET_PHASE+PHASE_END,0,1)
