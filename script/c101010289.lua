@@ -85,6 +85,7 @@ function c101010289.copy(e,tp,eg,ep,ev,re,r,rp)
 end
 function c101010289.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetOverlayGroup():IsExists(Card.IsAbleToRemoveAsCost,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVEXYZ)
 	local g=e:GetHandler():GetOverlayGroup():FilterSelect(tp,Card.IsAbleToRemoveAsCost,1,1,nil)
 	Duel.Remove(g,0,REASON_COST)
 end

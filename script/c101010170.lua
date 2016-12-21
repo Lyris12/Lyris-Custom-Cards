@@ -12,7 +12,7 @@ function c101010170.initial_effect(c)
 end
 function c101010170.spfilter(c,e,tp)
 	local loc=LOCATION_MZONE
-	if c:IsRace(RACE_MACHINE) then loc=loc+LOCATION_REMOVED end
+	if c:IsRace(RACE_MACHINE) then loc=loc+LOCATION_GRAVE end
 	return c:IsType(TYPE_FUSION) and c:IsSetCard(0x5d) and c.material(tp,loc,0,0)
 		and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
@@ -27,12 +27,12 @@ function c101010170.activate(e,tp,eg,ep,ev,re,r,rp)
 		local tg=sg:Select(tp,1,1,nil)
 		local tc=tg:GetFirst()
 		local loc=LOCATION_MZONE
-		if tc:IsRace(RACE_MACHINE) then loc=loc+LOCATION_REMOVED end
+		if tc:IsRace(RACE_MACHINE) then loc=loc+LOCATION_GRAVE end
 		local mat=tc.material(tp,loc,0,1)
 		local fg=mat:Filter(Card.IsLocation,nil,LOCATION_MZONE)
 		Duel.Release(fg,REASON_EFFECT)
-		local rg=mat:Filter(Card.IsLocation,nil,LOCATION_REMOVED)
-		Duel.SendtoGrave(rg,REASON_EFFECT+REASON_RETURN)
+		local rg=mat:Filter(Card.IsLocation,nil,LOCATION_GRAVE)
+		Duel.Remove(rg,POS_FACEUP,REASON_EFFECT+REASON_RETURN)
 		Duel.BreakEffect()
 		Duel.SpecialSummon(tc,0,tp,tp,true,false,POS_FACEUP)
 		tc:CompleteProcedure()
