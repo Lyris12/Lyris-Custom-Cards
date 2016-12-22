@@ -3,26 +3,33 @@
 function c101010285.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
 	--Once per turn, during either player's turn: You can send 1 "Fate's" monster you control to the Graveyard, then target 1 Pendulum card your opponent controls; Special Summon 1 "Illusioner Token" (Warrior-Type/Pendulum/LIGHT/Level 1/ATK 0/DEF 0), then place that Token in your Pendulum Zone. (When Summoned, its Pendulum Scale becomes equal to the targeted card's Pendulum Scale.)
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_QUICK_O)
-	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCountLimit(1)
-	e1:SetRange(LOCATION_PZONE)
-	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetCost(c101010285.cost)
-	e1:SetTarget(c101010285.pttg)
-	e1:SetOperation(c101010285.ptop)
-	c:RegisterEffect(e1)
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_QUICK_O)
+	e2:SetCode(EVENT_FREE_CHAIN)
+	e2:SetCountLimit(1)
+	e2:SetRange(LOCATION_PZONE)
+	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e2:SetCost(c101010285.ptcost)
+	e2:SetTarget(c101010285.pttg)
+	e2:SetOperation(c101010285.ptop)
+	c:RegisterEffect(e2)
 	--During either player's turn, when a card or effect is activated: You can Special Summon this card from your Graveyard.
-	
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_QUICK_O)
+	e3:SetCode(EVENT_CHAINING)
+	e3:SetRange(LOCATION_GRAVE)
+	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e3:SetTarget(c101010285.sptg)
+	e3:SetOperation(c101010285.spop)
+	c:RegisterEffect(e3)
 	--If this card is Special Summoned from the hand or with another "Fate's" card, except by Pendulum Summon: You take no damage for the rest of this turn, also, if you control a "Fate's" monster, except "Fate's Illusioner", gain LP equal to the amount of damage you took this turn, then you can inflict damage to your opponent equal to the amount of LP you gained.
 	
 end
 function c101010285.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xf7a) and c:IsAbleToGraveAsCost()
 end
-function c101010285.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c101010285.ptcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c101010285.cfilter,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,c101010285.cfilter,tp,LOCATION_MZONE,0,1,1,nil)
@@ -81,4 +88,15 @@ function c101010285.sdfilter(c)
 end
 function c101010285.descon(e)
 	return Duel.IsExistingMatchingCard(c101010285.sdfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
+end
+function c101010285.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
+end
+function c101010285.spop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	if c:IsReleasableByEffect(e) then
+		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
+	end
 end
