@@ -23,10 +23,11 @@ function c101010285.initial_effect(c)
 	e3:SetTarget(c101010285.sptg)
 	e3:SetOperation(c101010285.spop)
 	c:RegisterEffect(e3)
-	--If this card is Special Summoned from the hand or with a "Fate's" card, except by Pendulum Summon: You take no damage for the rest of this turn, also, if you control a "Fate's" monster, except "Fate's Illusioner", gain LP equal to the amount of damage you took this turn, then you can inflict damage to your opponent equal to the amount of LP you gained.
+	--If this card is Special Summoned from the hand or with another "Fate's" card, except by Pendulum Summon: You take no damage for the rest of this turn, also, if you control a "Fate's" monster, except "Fate's Illusioner", gain LP equal to the amount of damage you took this turn, then you can inflict damage to your opponent equal to the amount of LP you gained.
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e4:SetCountLimit(1,101010285)
 	e4:SetCondition(c101010285.condition)
 	e4:SetTarget(c101010285.target)
 	e4:SetOperation(c101010285.operation)
@@ -124,9 +125,10 @@ function c101010285.descon(e)
 	return Duel.IsExistingMatchingCard(c101010285.sdfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
 function c101010285.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
+	local c=e:GetHandler()
+	if chk==0 then return re:GetHandler()~=c and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and c:IsCanBeSpecialSummoned(e,0,tp,false,false) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
 end
 function c101010285.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -136,8 +138,8 @@ function c101010285.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c101010285.condition(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if bit.band(c:GetSummonType(),SUMMON_TYPE_PEMDULUM)==SUMMON_TYPE_PEMDULUM then return false end
-	return c:GetSummonLocation()==LOCATION_HAND or re:GetHandler():IsSetCard(0xf7a)
+	if bit.band(c:GetSummonType(),SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM then return false end
+	return c:GetSummonLocation()==LOCATION_HAND or (re:GetHandler():IsSetCard(0xf7a) and re:GetHandler()~=c)
 end
 function c101010285.rfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xf7a) and not c:IsCode(101010285)
@@ -150,12 +152,13 @@ function c101010285.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function c101010285.operation(e,tp,eg,ep,ev,re,r,rp)
-	local e1=Effect.CreateEffect(c)
+	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CHANGE_DAMAGE)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e1:SetTargetRange(1,0)
 	e1:SetValue(0)
+	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
 	if Duel.IsExistingMatchingCard(c101010285.rfilter,tp,LOCATION_MZONE,0,1,nil) then
 		local dam=Duel.Recover(tp,c101010285[tp],REASON_EFFECT)
