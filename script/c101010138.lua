@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Crystapal Hiro the Pearl
 function c101010138.initial_effect(c)
 	aux.EnablePendulumAttribute(c)

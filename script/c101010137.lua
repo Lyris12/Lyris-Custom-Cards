@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Crystapal Avzin the Diamond
 function c101010137.initial_effect(c)
 	aux.EnablePendulumAttribute(c)

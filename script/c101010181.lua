@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Crystapal Luna the Opal
 function c101010181.initial_effect(c)
 	aux.EnablePendulumAttribute(c)

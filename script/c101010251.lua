@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Fate's Joker
 function c101010251.initial_effect(c)
 	--When this card is destroyed by battle: You can target 1 "Fate's" monster in your Graveyard with less than 1900 ATK, except "Fate's Joker"; Special Summon that target.

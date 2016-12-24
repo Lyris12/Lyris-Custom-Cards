@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Fate's Chaos Deity
 function c101010272.initial_effect(c)
 	c:EnableReviveLimit()

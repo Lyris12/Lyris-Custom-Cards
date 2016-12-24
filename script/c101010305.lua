@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Dazzling Pendulum
 function c101010305.initial_effect(c)
 	--If this card is Summoned: You can Tribute it; banish 1 monster from your hand and add from your Deck to your hand, 1 Pendulum Monster with the same Type, Attribute, and Level as that banished monster had in the hand, but with a different name, but for the rest of the turn, monsters with the same name as that monster added to your hand by this effect cannot be banished from the hand.

@@ -1,3 +1,4 @@
+--created & coded by Lyris
 --Crystapal Nikos the Amethyst
 function c101010180.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
