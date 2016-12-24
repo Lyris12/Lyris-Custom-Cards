@@ -70,7 +70,7 @@ function c101010021.filter2(c)
 	return c:IsRace(RACE_MACHINE) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsAbleToRemove()
 end
 function c101010021.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c101010021.filter2,tp,LOCATION_DECK+LOCATION_HAND,0,1,nil) end
+	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,nil,1,tp,LOCATION_DECK+LOCATION_HAND)
 end
 function c101010021.rmop(e,tp,eg,ep,ev,re,r,rp)
