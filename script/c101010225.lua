@@ -44,6 +44,9 @@ function c101010225.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_EFFECT)
 	end
 end
+function c101010225.brfilter(c)
+	return c:IsFaceup() and c:IsCode(101010225)
+end
 function c101010225.atkcon(e)
-	return Duel.IsExistingMatchingCard(Card.IsCode,e:GetHandler():GetControler(),LOCATION_REMOVED,0,1,nil,101010225)
+	return Duel.IsExistingMatchingCard(c101010225.brfilter,e:GetHandler():GetControler(),LOCATION_REMOVED,0,1,nil)
 end

@@ -48,8 +48,11 @@ function c101010170.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_EFFECT)
 	end
 end
+function c101010170.brfilter(c)
+	return c:IsFaceup() and c:IsCode(101010170)
+end
 function c101010170.atkcon(e)
-	return (Duel.GetAttacker()==e:GetHandler() and Duel.GetAttackTarget()~=nil) and Duel.IsExistingMatchingCard(Card.IsCode,e:GetHandler():GetControler(),LOCATION_REMOVED,0,1,nil,101010170)
+	return (Duel.GetAttacker()==e:GetHandler() and Duel.GetAttackTarget()~=nil) and Duel.IsExistingMatchingCard(c101010170.brfilter,e:GetHandler():GetControler(),LOCATION_REMOVED,0,1,nil)
 end
 function c101010170.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local e1=Effect.CreateEffect(e:GetHandler())
