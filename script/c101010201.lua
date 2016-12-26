@@ -43,7 +43,10 @@ function c101010201.recop(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	local bc=Duel.GetAttacker()
 	if bc==e:GetHandler() then bc=Duel.GetAttackTarget() end
-	if Duel.Recover(p,d,REASON_EFFECT)~=0 and bc~=nil then Duel.SendtoDeck(bc,nil,2,REASON_EFFECT) end
+	if Duel.Recover(p,d,REASON_EFFECT)~=0
+		and bc~=nil and bc:IsRelateToBattle() then
+		Duel.SendtoDeck(bc,nil,2,REASON_EFFECT)
+	end
 end
 function c101010201.rev(e,re,r,rp,rc)
 	return bit.band(r,REASON_EFFECT)>0
