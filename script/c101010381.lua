@@ -1,6 +1,6 @@
 --Plasmaslash Blades
 function c101010381.initial_effect(c)
-	--Activate Equip only to a monster you control.
+	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(1068)
 	e1:SetCategory(CATEGORY_EQUIP)
