@@ -1,13 +1,11 @@
 --created & coded by Lyris
---パワー・コンダクター
+--ポワー・コンダクター
 function c101010074.initial_effect(c)
 	c:EnableCounterPermit(0x66)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e1)
-	--atk boost
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_UPDATE_ATTACK)
@@ -16,14 +14,12 @@ function c101010074.initial_effect(c)
 	e0:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x93))
 	e0:SetValue(c101010074.value)
 	c:RegisterEffect(e0)
-	--add counter
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetOperation(c101010074.ctop)
 	c:RegisterEffect(e2)
-	--fusion (on-field)
 	local e5=Effect.CreateEffect(c)
 	e5:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e5:SetType(EFFECT_TYPE_QUICK_O)
@@ -35,7 +31,6 @@ function c101010074.initial_effect(c)
 	e5:SetTarget(c101010074.f1target)
 	e5:SetOperation(c101010074.f1activate)
 	c:RegisterEffect(e5)
-	--fusion (off-field)
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)

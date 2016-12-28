@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Clear Bird
+--クリアー・バード
 function c101010099.initial_effect(c)
-	--Once per turn: You can target 1 Spell/Trap card your opponent controls; shuffle that target into its owner's Deck.
 	local e7=Effect.CreateEffect(c)
 	e7:SetCategory(CATEGORY_TODECK)
 	e7:SetType(EFFECT_TYPE_IGNITION)
@@ -12,7 +11,6 @@ function c101010099.initial_effect(c)
 	e7:SetTarget(c101010099.tdtg)
 	e7:SetOperation(c101010099.tdop)
 	c:RegisterEffect(e7)
-	--immune
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -25,7 +23,6 @@ function c101010099.initial_effect(c)
 	e2:SetTargetRange(0,1)
 	e2:SetCondition(c101010099.ntpcon)
 	c:RegisterEffect(e2)
-	--cannot be material
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)

@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Pegasus of Stellar Vine
+--「S・Vine」ペガサス
 function c101010185.initial_effect(c)
---summon with no tribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(83274244,0))
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)

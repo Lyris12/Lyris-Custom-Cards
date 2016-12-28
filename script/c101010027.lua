@@ -1,14 +1,12 @@
 --created & coded by Lyris
---Cyberspace Turtle
+--サイバー・スペース・タートル
 function c101010027.initial_effect(c)
---add LIGHT attribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e1:SetValue(ATTRIBUTE_LIGHT)
 	c:RegisterEffect(e1)
-	--to defense
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_POSITION)
 	e2:SetType(EFFECT_TYPE_TRIGGER_F+EFFECT_TYPE_SINGLE)
@@ -16,7 +14,6 @@ function c101010027.initial_effect(c)
 	e2:SetCondition(c101010027.poscon)
 	e2:SetOperation(c101010027.posop)
 	c:RegisterEffect(e2)
-	--cannot be battle target
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
@@ -24,7 +21,6 @@ function c101010027.initial_effect(c)
 	e3:SetTargetRange(0,LOCATION_MZONE)
 	e3:SetValue(c101010027.tg)
 	c:RegisterEffect(e3)
-	--banished effect
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)

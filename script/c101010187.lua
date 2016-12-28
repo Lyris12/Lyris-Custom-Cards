@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Fate's Magic Stargazer
+--フェイツ・マジガイ
 function c101010187.initial_effect(c)
-	--When you activate the effect of a "Fate's" Spell/Trap Card that requires you to discard a card(s) to activate, you can Tribute this card you control instead of paying that card's cost.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(101010187)
@@ -9,7 +8,6 @@ function c101010187.initial_effect(c)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(1,0)
 	c:RegisterEffect(e1)
-	--If this card is Special Summoned from the hand or with a "Fate's" card: you can add 1 banished Ritual Spell Card or 1 "Fate's" Ritual Spell Card from your Deck to your hand. If this card was Pendulum Summoned, you must have a "Fate's" card in your Pendulum Zone to activate this effect. You can only use this effect of "Fate's Magic Stargazer" once per turn.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)

@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Earth Enforcement - Sealing Quake
+--アース・エンフォスメント－シーリング・クエーク
 function c101010127.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCategory(CATEGORY_DECKDES)
@@ -10,7 +9,6 @@ function c101010127.initial_effect(c)
 	e1:SetTarget(c101010127.tg)
 	e1:SetOperation(c101010127.op)
 	c:RegisterEffect(e1)
-	--destroy
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

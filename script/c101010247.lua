@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Ｓ・Ｖｉｎｅの公爵－ザフィル
+--S・Vine王子Zyphyr
 function c101010247.initial_effect(c)
---on-banish
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_REMOVE)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -11,7 +10,6 @@ function c101010247.initial_effect(c)
 	e1:SetTarget(c101010247.destg)
 	e1:SetOperation(c101010247.desop)
 	c:RegisterEffect(e1)
-	--disable
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_BE_BATTLE_TARGET)

@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Cyber Space Chimera
+--サイバー・スペース・キマイラ
 function c101010216.initial_effect(c)
 c:EnableReviveLimit()
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x4093),5,2)
@@ -9,13 +9,11 @@ c:EnableReviveLimit()
 	e6:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e6:SetValue(ATTRIBUTE_LIGHT)
 	c:RegisterEffect(e6)
-	--
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetProperty(EFFECT_FLAG_CARD_TARGET) --+EFFECT_FLAG_DAMAGE_STEP)
-	e2:SetCondition(c101010216.con)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET) 	e2:SetCondition(c101010216.con)
 	e2:SetCost(c101010216.cost)
 	e2:SetTarget(c101010216.target)
 	e2:SetOperation(c101010216.atkop)

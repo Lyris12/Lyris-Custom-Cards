@@ -1,7 +1,6 @@
 --created & coded by Lyris
---アースの隠術
+--アースの隠れ術
 function c101010114.initial_effect(c)
---Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e0:SetProperty(EFFECT_FLAG_CARD_TARGET)
@@ -10,7 +9,6 @@ function c101010114.initial_effect(c)
 	e0:SetTarget(c101010114.target)
 	e0:SetOperation(c101010114.activate)
 	c:RegisterEffect(e0)
-	--If this card is detached from an "Earth Enforcer" Xyz Monster and sent to the Graveyard to activate that monster's effect: You can target 1 "Earth Enforcer" monster you control; Special Summon 1 "Earth Enforcer" monster from your Extra Deck using it as the Xyz Material. (This Special Summon is treated as an Xyz Summon. Xyz Materials attached to that target also becomes Xyz Materials on the Summoned Monster.)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

@@ -2,7 +2,6 @@
 --機夜行襲雷竜－ミッドナイト
 function c101010039.initial_effect(c)
 c:EnableReviveLimit()
-	--fusion material
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -10,7 +9,6 @@ c:EnableReviveLimit()
 	e1:SetCondition(c101010039.fscondition)
 	e1:SetOperation(c101010039.fsoperation)
 	c:RegisterEffect(e1)
-	--self-destruct
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -19,7 +17,6 @@ c:EnableReviveLimit()
 	e2:SetCondition(c101010039.descon)
 	e2:SetOperation(c101010039.desop)
 	c:RegisterEffect(e2)
-	--destroy
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_DESTROY)
 	e3:SetType(EFFECT_TYPE_IGNITION)
@@ -29,7 +26,6 @@ c:EnableReviveLimit()
 	e3:SetTarget(c101010039.tg)
 	e3:SetOperation(c101010039.op)
 	c:RegisterEffect(e3)
-	--special summon
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

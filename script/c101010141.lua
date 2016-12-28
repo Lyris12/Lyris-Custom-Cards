@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Fate's Poison Prohibitor
+--フェイツ・プロヒビトガル
 function c101010141.initial_effect(c)
-	--If this card is destroyed by a player's card effect: Halve all damage taken by that player's opponent until the end of this turn. You can only use this effect of "Fate's Poison Prohibitor" once per turn.
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e0:SetCode(EVENT_DESTROY)
@@ -9,7 +8,6 @@ function c101010141.initial_effect(c)
 	e0:SetCondition(function(e) return e:GetHandler():IsReason(REASON_EFFECT) end)
 	e0:SetOperation(c101010141.regop)
 	c:RegisterEffect(e0)
-	--During damage calculation, if a monster your opponent controls battles a "Fate's" monster you control: You can discard this card; halve all battle damage you take for the rest of this turn.
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_QUICK_O)
 	e4:SetRange(LOCATION_HAND)
@@ -19,7 +17,6 @@ function c101010141.initial_effect(c)
 	e4:SetCost(c101010141.rdcost)
 	e4:SetOperation(c101010141.rdop)
 	c:RegisterEffect(e4)
-	--If this card is Special Summoned from the hand or with a "Fate's" card: You can target 1 "Fate's" monster in your Graveyard, except "Fate's Poison Prohibitor"; use 1 of that target's effects that would activate when it is Special Summoned as this card's effect. If this card was Pendulum Summoned, you must have a "Fate's" card in your Pendulum Zone to activate this effect.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)

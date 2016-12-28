@@ -1,7 +1,6 @@
 --created & coded by Lyris
---烈風のアルバトロズ
+--烈風のアルバトロス
 function c101010088.initial_effect(c)
---disable
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_DISABLE)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -12,7 +11,6 @@ function c101010088.initial_effect(c)
 	e0:SetTarget(c101010088.distg)
 	e0:SetOperation(c101010088.disop)
 	c:RegisterEffect(e0)
-	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
@@ -20,7 +18,6 @@ function c101010088.initial_effect(c)
 	e1:SetRange(LOCATION_HAND)
 	e1:SetCondition(c101010088.spcon)
 	c:RegisterEffect(e1)
-	--search
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

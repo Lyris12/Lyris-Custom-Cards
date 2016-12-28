@@ -1,14 +1,12 @@
 --created & coded by Lyris
---Blademaster Training
+--剣主トレーニング
 function c101010230.initial_effect(c)
---activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_TOHAND)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	e0:SetOperation(c101010230.activate)
 	c:RegisterEffect(e0)
-	--cannot change position
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetRange(LOCATION_SZONE)
@@ -17,7 +15,6 @@ function c101010230.initial_effect(c)
 	e1:SetTargetRange(0,LOCATION_MZONE)
 	e1:SetTarget(aux.TargetBoolFunction(Card.IsDefensePos))
 	c:RegisterEffect(e1)
-	--disable If a "Blademaster" monster you control attacks an opponent's monster, that monster's effect is negated during the Battle Phase only.
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_BE_BATTLE_TARGET)

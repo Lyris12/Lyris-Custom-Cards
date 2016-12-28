@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Sea Scout Dragon - Monsoon
+--SSDモンスーン
 function c101010244.initial_effect(c)
---change name
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -9,7 +8,6 @@ function c101010244.initial_effect(c)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetValue(101010244)
 	c:RegisterEffect(e1)
-	--spsummon
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_SPSUMMON_PROC)
@@ -18,7 +16,6 @@ function c101010244.initial_effect(c)
 	e2:SetCondition(c101010244.spscon)
 	e2:SetOperation(c101010244.spsop)
 	c:RegisterEffect(e2)
-	--fetch
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -27,7 +24,6 @@ function c101010244.initial_effect(c)
 	e0:SetTarget(c101010244.rttg)
 	e0:SetOperation(c101010244.rtop)
 	c:RegisterEffect(e0)
-	--material
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e3:SetCode(EVENT_BE_MATERIAL)
@@ -78,7 +74,6 @@ function c101010244.matop(e,tp,eg,ep,ev,re,r,rp)
 	e0:SetOperation(c101010244.spop)
 	e0:SetReset(RESET_EVENT+0x1fe0000)
 	rc:RegisterEffect(e0)
-	--actlimit
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)

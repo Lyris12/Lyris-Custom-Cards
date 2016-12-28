@@ -1,8 +1,6 @@
 --created & coded by Lyris
---If this card is sent to the Graveyard for the Synchro Summon of a Level 4 or lower WATER monster: You can return this card to your hand. If this card is sent to the Graveyard for the Synchro Summon of a "Tide" monster: Special Summon this card in Defense Position.
---ＳＳ－始まり潮アレク
+--SS始まりの潮アレック
 function c101010182.initial_effect(c)
---to hand
 	local e0=Effect.CreateEffect(c)
 	e0:SetDescription(aux.Stringid(101010182,0))
 	e0:SetCategory(CATEGORY_TOHAND)
@@ -14,7 +12,6 @@ function c101010182.initial_effect(c)
 	e0:SetTarget(c101010182.thtg)
 	e0:SetOperation(c101010182.thop)
 	c:RegisterEffect(e0)
-	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010182,1))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -27,18 +24,6 @@ function c101010182.initial_effect(c)
 	e1:SetTarget(c101010182.sptg)
 	e1:SetOperation(c101010182.spop)
 	c:RegisterEffect(e1)
-	--[[local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(101010182,1))
-	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e3:SetCode(EVENT_TO_GRAVE)
-	e3:SetProperty(EFFECT_FLAG_DELAY)
-	e3:SetCountLimit(1,EFFECT_COUNT_CODE_OATH)
-	e3:SetLabel(1)
-	e3:SetCondition(c101010182.spcon2)
-	e3:SetTarget(c101010182.sptg)
-	e3:SetOperation(c101010182.spop)
-	c:RegisterEffect(e3)]]
 end
 function c101010182.thcon1(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

@@ -1,16 +1,13 @@
 --created & coded by Lyris
 --サイバー・ワイバーン
 function c101010018.initial_effect(c)
---pendulum summon
 	aux.EnablePendulumAttribute(c,false)
-	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(1160)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCondition(c101010018.condition)
 	c:RegisterEffect(e1)
-	--Spell effect
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e4:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
@@ -19,7 +16,6 @@ function c101010018.initial_effect(c)
 	e4:SetCountLimit(1)
 	e4:SetValue(c101010018.value)
 	c:RegisterEffect(e4)
-	--Monster effect
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_TOHAND)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)

@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Girl of Stellar Vine
+--「S・Vine」ベイブ
 function c101010159.initial_effect(c)
---draw
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOGRAVE)
 	e1:SetType(EFFECT_TYPE_TRIGGER_F+EFFECT_TYPE_SINGLE)
@@ -10,7 +9,6 @@ function c101010159.initial_effect(c)
 	e1:SetTarget(c101010159.drtg)
 	e1:SetOperation(c101010159.drop)
 	c:RegisterEffect(e1)
-	--banish
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_REMOVE)
 	e2:SetType(EFFECT_TYPE_IGNITION)

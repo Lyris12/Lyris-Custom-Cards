@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Fate's World Judge
+--フェイツ・ジュリーガイ
 function c101010200.initial_effect(c)
 	c:EnableReviveLimit()
-	--Any card that is Tributed and sent to the Graveyard is banished instead.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetRange(LOCATION_MZONE)
@@ -11,7 +10,6 @@ function c101010200.initial_effect(c)
 	e1:SetTarget(function(e,c) return bit.band(c:GetReason(),REASON_RELEASE)==REASON_RELEASE end)
 	e1:SetValue(LOCATION_REMOVED)
 	c:RegisterEffect(e1)
-	--If this card is Ritual Summoned or Special Summoned with a "Fate's" card: Your opponent cannot Special Summon Level/Rank 4 or higher monsters for the rest of this turn.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)

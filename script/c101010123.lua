@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Attribute Spear
+--アトリビュート・スピア
 function c101010123.initial_effect(c)
-	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(1068)
 	e1:SetCategory(CATEGORY_EQUIP)
@@ -12,7 +11,6 @@ function c101010123.initial_effect(c)
 	e1:SetTarget(c101010123.tg)
 	e1:SetOperation(c101010123.op)
 	c:RegisterEffect(e1)
-	--pierce
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_EQUIP)
 	e2:SetCode(EFFECT_PIERCE)
@@ -24,7 +22,6 @@ function c101010123.initial_effect(c)
 	e3:SetCondition(c101010123.con)
 	e3:SetOperation(c101010123.rdop)
 	c:RegisterEffect(e3)
-	--Equip limit
 	local e4=Effect.CreateEffect(c)
 	e4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e4:SetType(EFFECT_TYPE_SINGLE)

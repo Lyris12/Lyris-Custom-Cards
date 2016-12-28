@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Fate's Dainty Diaduke
+--フェイツ・デーンティー・ダイヤガル
 function c101010090.initial_effect(c)
-	--If this card is Special Summoned from the hand or with a "Fate's" card: "Fate's" monsters cannot be targeted or destroyed by card effects for the rest of this turn. If this card was Pendulum Summoned, you must have a "Fate's" card in your Pendulum Zone to activate this effect.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)

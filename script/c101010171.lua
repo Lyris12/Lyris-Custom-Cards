@@ -1,14 +1,12 @@
 --created & coded by Lyris
---
+--襲雷降雨
 function c101010171.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetOperation(c101010171.activate)
 	c:RegisterEffect(e1)
-	--disable
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetRange(LOCATION_SZONE)
@@ -17,7 +15,6 @@ function c101010171.initial_effect(c)
 	e2:SetValue(aux.tgoval)
 	e2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	c:RegisterEffect(e2)
-	--choice 1: draw
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(1108)
 	e5:SetCategory(CATEGORY_DRAW)
@@ -29,7 +26,6 @@ function c101010171.initial_effect(c)
 	e5:SetTarget(c101010171.tg1)
 	e5:SetOperation(c101010171.op1)
 	c:RegisterEffect(e5)
-	--choice 2: gain LP
 	local e6=Effect.CreateEffect(c)
 	e6:SetDescription(1123)
 	e6:SetCategory(CATEGORY_RECOVER)

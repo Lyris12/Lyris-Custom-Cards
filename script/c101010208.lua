@@ -1,16 +1,13 @@
 --created & coded by Lyris
---ＳＳ－静かなる潮ソティレオ
+--SS静かなりの潮ソートレオ
 function c101010208.initial_effect(c)
---synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
 	c:EnableReviveLimit()
-	--mat check
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_MATERIAL_CHECK)
 	e0:SetValue(c101010208.matcheck)
 	c:RegisterEffect(e0)
-	--atkup
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -18,7 +15,6 @@ function c101010208.initial_effect(c)
 	e2:SetOperation(c101010208.op)
 	e2:SetLabelObject(e0)
 	c:RegisterEffect(e2)
-	--level
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetCountLimit(1)

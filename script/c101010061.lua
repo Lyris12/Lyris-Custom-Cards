@@ -1,15 +1,13 @@
 --created & coded by Lyris
---Shooting Cyber Star
+--サイバー・スペースの流れ星
 function c101010061.initial_effect(c)
 c:SetUniqueOnField(1,0,101010061)
-	--search
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e2:SetType(EFFECT_TYPE_ACTIVATE)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetOperation(c101010061.activate)
 	c:RegisterEffect(e2)
-	--negate and destroy
 	local e3=Effect.CreateEffect(c)
 	e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e3:SetType(EFFECT_TYPE_QUICK_O)

@@ -1,14 +1,12 @@
 --created & coded by Lyris
---ＳＳ－トライデニュート
+--SSトライデニュート
 function c101010155.initial_effect(c)
---limit synch
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_CANNOT_BE_SYNCHRO_MATERIAL)
 	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e0:SetValue(c101010155.val)
 	c:RegisterEffect(e0)
-	--level
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_MZONE)
@@ -16,7 +14,6 @@ function c101010155.initial_effect(c)
 	e1:SetCondition(c101010155.con)
 	e1:SetOperation(c101010155.op)
 	c:RegisterEffect(e1)
-	--special summon
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_SPSUMMON_PROC)

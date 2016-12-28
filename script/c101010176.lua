@@ -1,14 +1,12 @@
 --created & coded by Lyris
 --リレー・アース
 function c101010176.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetTarget(c101010176.mttg1)
 	e1:SetOperation(c101010176.matop)
 	c:RegisterEffect(e1)
-	--material
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)

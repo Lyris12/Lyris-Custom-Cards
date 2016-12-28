@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Liquid Crystapal Cyan
+--LCmサイヤ
 function c101010144.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DESTROY)

@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Starnight Cyber Dragon
+--スターナイト・サイバー・ドラゴン
 function c101010218.initial_effect(c)
 	local ae4=Effect.CreateEffect(c)
 	ae4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)

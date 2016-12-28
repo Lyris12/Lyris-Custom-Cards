@@ -1,7 +1,6 @@
 --created & coded by Lyris
---海洋底拡大
+--シー淵劈
 function c101010175.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -45,7 +44,6 @@ function c101010175.operation(e,tp,eg,ep,ev,re,r,rp)
 		e3:SetCode(EFFECT_ADD_TYPE)
 		e3:SetValue(TYPE_TUNER)
 		tc:RegisterEffect(e3)
-		--destroy
 		local e4=Effect.CreateEffect(c)
 		e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)

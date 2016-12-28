@@ -1,14 +1,12 @@
 --created & coded by Lyris
---Clear Sphere
+--クリアー・スフィア
 function c101010150.initial_effect(c)
-	--code
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetType(EFFECT_TYPE_SINGLE)
 	ae1:SetCode(EFFECT_ADD_CODE)
 	ae1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	ae1:SetValue(100000160)
 	c:RegisterEffect(ae1)
-	--special summon
 	local ae2=Effect.CreateEffect(c)
 	ae2:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOHAND+CATEGORY_SEARCH)
 	ae2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -17,7 +15,6 @@ function c101010150.initial_effect(c)
 	ae2:SetTarget(c101010150.sptg)
 	ae2:SetOperation(c101010150.spop)
 	c:RegisterEffect(ae2)
-	--immune
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -30,7 +27,6 @@ function c101010150.initial_effect(c)
 	e2:SetTargetRange(0,1)
 	e2:SetCondition(c101010150.ntpcon)
 	c:RegisterEffect(e2)
-	--cannot be material
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)

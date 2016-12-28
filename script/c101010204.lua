@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Blitzkrieg Meknight Dragon - Eclipse
+--機夜行襲雷竜－エクリプス
 function c101010204.initial_effect(c)
 c:EnableReviveLimit()
-	--fusion material
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -10,7 +9,6 @@ c:EnableReviveLimit()
 	e0:SetCondition(c101010204.fscondition)
 	e0:SetOperation(c101010204.fsoperation)
 	c:RegisterEffect(e0)
-	--self-destruct
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_DESTROY)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -19,7 +17,6 @@ c:EnableReviveLimit()
 	e3:SetCondition(c101010204.descon)
 	e3:SetOperation(c101010204.desop)
 	c:RegisterEffect(e3)
-	--attribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetRange(0xf3)
@@ -28,7 +25,6 @@ c:EnableReviveLimit()
 	e1:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e1:SetValue(ATTRIBUTE_LIGHT)
 	c:RegisterEffect(e1)
-	--destroy
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -38,7 +34,6 @@ c:EnableReviveLimit()
 	e2:SetTarget(c101010204.dstg)
 	e2:SetOperation(c101010204.dsop)
 	c:RegisterEffect(e2)
-	--special summon
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -130,7 +125,6 @@ function c101010204.dsop(e,tp,eg,ep,ev,re,r,rp)
 	local dg=Group.CreateGroup()
 	if ct>0 then
 		local g=Duel.GetMatchingGroup(c101010204.dfilter,tp,LOCATION_DECK+LOCATION_MZONE,LOCATION_MZONE,nil)
-		--for i=1,ct
 		while ct>0 and g:GetCount()>0 do
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 			local tc=g:Select(tp,1,1,nil):GetFirst()

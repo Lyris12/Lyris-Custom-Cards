@@ -1,14 +1,12 @@
 --created & coded by Lyris
---剣主 四
+--剣主アレ四ャンド王
 function c101010214.initial_effect(c)
 c:EnableReviveLimit()
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xbb2),4,2)
-	--pierce
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_PIERCE)
 	c:RegisterEffect(e0)
-	--atkup
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -16,7 +14,6 @@ c:EnableReviveLimit()
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetValue(function(e,c) return c:GetOverlayCount()*300 end)
 	c:RegisterEffect(e1)
-	--pos
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_POSITION+CATEGORY_DRAW)
 	e2:SetType(EFFECT_TYPE_IGNITION)

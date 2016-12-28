@@ -1,7 +1,6 @@
 --created & coded by Lyris
---フレイーム・フライト
+--フレイム・フライト
 function c101010070.initial_effect(c)
---Fusion Summon 1 FIRE Fusion Monster from your Extra Deck, using monsters from your Main Deck or your side of the field as Fusion Materials.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Clear Protector
+--クリアー・シールドーム
 function c101010096.initial_effect(c)
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -13,7 +13,6 @@ function c101010096.initial_effect(c)
 	local ae3=ae1:Clone()
 	ae3:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(ae)
-	--Your opponent cannot attack with monsters of the declared Attribute.
 	local ae4=Effect.CreateEffect(c)
 	ae4:SetType(EFFECT_TYPE_FIELD)
 	ae4:SetCode(EFFECT_CANNOT_ATTACK)
@@ -22,7 +21,6 @@ function c101010096.initial_effect(c)
 	ae4:SetCondition(c101010096.tpcon)
 	ae4:SetTarget(c101010096.block)
 	c:RegisterEffect(ae4)
-	--You cannot Special Summon monsters from the hand or Deck with the declared Attribute.
 	local ae5=Effect.CreateEffect(c)
 	ae5:SetType(EFFECT_TYPE_FIELD)
 	ae5:SetRange(LOCATION_MZONE)
@@ -32,7 +30,6 @@ function c101010096.initial_effect(c)
 	ae5:SetValue(c101010096.sumlimit)
 	ae5:SetCondition(c101010096.ntpcon)
 	c:RegisterEffect(ae5)
-	--immune
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -45,7 +42,6 @@ function c101010096.initial_effect(c)
 	e2:SetTargetRange(0,1)
 	e2:SetCondition(c101010096.ntpcon)
 	c:RegisterEffect(e2)
-	--If this card is Summoned: Its owner declares 1 Attribute.
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_SINGLE)
 	e5:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)

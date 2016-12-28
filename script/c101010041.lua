@@ -1,8 +1,7 @@
 --created & coded by Lyris
---旋風のクリアーシンクロドラゴン
+--旋風のクリア・シンクロ・ドラゴン
 function c101010041.initial_effect(c)
 c:EnableReviveLimit()
-	--synchro summon
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_SPSUMMON_PROC)
@@ -13,7 +12,6 @@ c:EnableReviveLimit()
 	e0:SetOperation(c101010041.synop)
 	e0:SetValue(SUMMON_TYPE_SYNCHRO)
 	c:RegisterEffect(e0)
-	--When this card is Synchro Summoned: Negate the effects of 1 Spell Card on the field and/or 1 Trap Card in the Graveyard, also, target that card(s); shuffle them into the Deck.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TODECK)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -24,7 +22,6 @@ c:EnableReviveLimit()
 	e1:SetTarget(c101010041.tdtg)
 	e1:SetOperation(c101010041.tdop)
 	c:RegisterEffect(e1)
-	--to deck
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TODECK+CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_QUICK_O)

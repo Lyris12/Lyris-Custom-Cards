@@ -1,7 +1,6 @@
 --created & coded by Lyris
---
+--サイバー・ライト・ドラゴン・ツヴァイ
 function c101010250.initial_effect(c)
---atkup
 	local e1=Effect.CreateEffect(c)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -10,7 +9,6 @@ function c101010250.initial_effect(c)
 	e1:SetCondition(c101010250.atkcon)
 	e1:SetValue(400)
 	c:RegisterEffect(e1)
-	--change code
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(101010250,0))
 	e2:SetType(EFFECT_TYPE_IGNITION)
@@ -19,7 +17,6 @@ function c101010250.initial_effect(c)
 	e2:SetCost(c101010250.cost)
 	e2:SetOperation(c101010250.cdop)
 	c:RegisterEffect(e2)
-	--code
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_CHANGE_CODE)

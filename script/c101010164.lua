@@ -1,7 +1,6 @@
 --created & coded by Lyris
---A Fated Encounter
+--フェイツ出会い
 function c101010164.initial_effect(c)
-	--Banish from your Extra Deck, 1 monster that has a Level and 1 monster that does not have a Level, also, after that, Ritual Summon any number of "Fate's" Ritual Monsters from your hand whose total Levels exactly equal the sum of the indicator stars on the banished monsters. You can only use this effect of "A Fated Encounter" once per turn.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

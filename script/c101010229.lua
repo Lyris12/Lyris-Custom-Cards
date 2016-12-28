@@ -1,13 +1,11 @@
 --created & coded by Lyris
---RDM－マック・フォース
+--RDMマッハ・フォース
 function c101010229.initial_effect(c)
---cannot fetch
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_CANNOT_TO_HAND)
 	e0:SetRange(LOCATION_DECK)
 	c:RegisterEffect(e0)
-	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

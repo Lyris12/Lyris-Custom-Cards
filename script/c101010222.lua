@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Blademaster's Call
+--剣主コール
 function c101010222.initial_effect(c)
---Activate this card if you control no monsters: Special Summon 1 "Blademaster" or "Bladewing" monster from your Deck, then target that monster with this card, negate it's effects.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -11,7 +10,6 @@ function c101010222.initial_effect(c)
 	e1:SetTarget(c101010222.target)
 	e1:SetOperation(c101010222.activate)
 	c:RegisterEffect(e1)
-	--When this card leaves the field, return that target to the hand.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -24,7 +22,6 @@ function c101010222.initial_effect(c)
 	e3:SetOperation(c101010222.desop)
 	e3:SetLabelObject(e2)
 	c:RegisterEffect(e3)
-	--When that target leaves the field, destroy this card.
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e4:SetRange(LOCATION_SZONE)

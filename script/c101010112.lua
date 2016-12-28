@@ -1,8 +1,5 @@
---created & coded by Lyris
---Aggecko Guaneri
 function c101010112.initial_effect(c)
 aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x6d6),4,2)
-	--immune Once per turn, if this card attacks: You can detach 1 Xyz Material from this card; this card is unaffected by other non-"Aggecko" card effects until the end of the Battle Phase. (This is a Quick Effect.)
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_QUICK_O)
 	e0:SetCode(EVENT_FREE_CHAIN)
@@ -12,7 +9,6 @@ aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x6d6),4,2)
 	e0:SetCost(c101010112.cost)
 	e0:SetOperation(c101010112.operation)
 	c:RegisterEffect(e0)
-	--attach
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_BATTLE_DESTROYING)

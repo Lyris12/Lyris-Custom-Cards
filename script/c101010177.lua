@@ -1,7 +1,6 @@
 --created & coded by Lyris
---旋風のヘドウィンド
+--旋風のヘッドウィンド
 function c101010177.initial_effect(c)
---Activate(summon)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DISABLE_SUMMON+CATEGORY_TODECK)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

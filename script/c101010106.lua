@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Flame Flight - Penguin
+--FFペンギン
 function c101010106.initial_effect(c)
---spsummon condition
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -9,7 +8,6 @@ function c101010106.initial_effect(c)
 	e2:SetRange(LOCATION_EXTRA)
 	e2:SetValue(aux.fuslimit)
 	c:RegisterEffect(e2)
-	--removal
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_NEGATE)
 	e0:SetType(EFFECT_TYPE_QUICK_O)
@@ -20,7 +18,6 @@ function c101010106.initial_effect(c)
 	e0:SetTarget(c101010106.target)
 	e0:SetOperation(c101010106.op)
 	c:RegisterEffect(e0)
-	--fusion summon
 	c:EnableReviveLimit()
 	aux.AddFusionProcFun2(c,c101010106.ffilter1,c101010106.ffilter2,true)
 end

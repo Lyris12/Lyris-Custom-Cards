@@ -9,21 +9,18 @@ local e0=Effect.CreateEffect(c)
 	e0:SetTarget(c101010172.target)
 	e0:SetOperation(c101010172.operation)
 	c:RegisterEffect(e0)
-	--negate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetRange(LOCATION_SZONE)
 	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e1:SetOperation(c101010172.lmop)
 	c:RegisterEffect(e1)
-	--Equip limit
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_EQUIP_LIMIT)
 	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e3:SetValue(1)
 	c:RegisterEffect(e3)
-	--Attribute
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_EQUIP)
 	e4:SetCode(EFFECT_CHANGE_ATTRIBUTE)
@@ -48,7 +45,6 @@ function c101010172.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) and tc:IsFaceup() then
 		Duel.Equip(tp,c,tc)
-		--drawback
 		local e2=Effect.CreateEffect(c)
 		e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e2:SetRange(LOCATION_SZONE)
@@ -72,7 +68,6 @@ function c101010172.lmop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(Card.IsType,tp,0xff,0xff,e:GetHandler():GetEquipTarget(),TYPE_MONSTER)
 	local tc=g:GetFirst()
 	while tc do
-		--disable
 		local e2=Effect.CreateEffect(e:GetHandler())
 		e2:SetType(EFFECT_TYPE_SINGLE)
 		e2:SetCode(EFFECT_DISABLE)

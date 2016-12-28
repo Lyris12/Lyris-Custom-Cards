@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --シー・ストーム
 function c101010116.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)

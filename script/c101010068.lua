@@ -1,7 +1,6 @@
 --created & coded by Lyris
---PSYStream Flow
+--PSYストリーム・リヴァーフロウ
 function c101010068.initial_effect(c)
---Banish 1 "PSYStream" monster from your Deck.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_REMOVE)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -34,36 +33,3 @@ function c101010068.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-	--[[If this card is in your Graveyard: You can banish this card from your Graveyard; Special Summon 1 "PSYStream" monster from your hand.
-	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e2:SetType(EFFECT_TYPE_IGNITION)
-	e2:SetRange(LOCATION_GRAVE)
-	e2:SetCountLimit(1,201010671)
-	e2:SetCost(c101010068.cost)
-	e2:SetTarget(c101010068.tg)
-	e2:SetOperation(c101010068.op)
-	c:RegisterEffect(e2)
-end
-function c101010068.tcfilter(c)
-	return c:IsSetCard(0x127) and c:IsAbleToRemoveAsCost()
-end
-function c101010068.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() and Duel.IsExistingMatchingCard(c101010068.tcfilter,tp,LOCATION_HAND,0,1,nil) end
-	local g=Duel.SelectMatchingCard(tp,c101010068.tcfilter,tp,LOCATION_HAND,0,1,1,nil)
-	g:AddCard(e:GetHandler())
-	Duel.Remove(g,POS_FACEUP,REASON_COST)
-end
-function c101010068.tg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(c101010068.filter,tp,LOCATION_HAND,0,1,nil,e,tp) end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
-end
-function c101010068.op(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c101010068.filter,tp,LOCATION_HAND,0,1,1,nil,e,tp)
-	if g:GetCount()>0 then
-		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
-	end
-end]]

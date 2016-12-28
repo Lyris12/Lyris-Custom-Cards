@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Dimension Birth
+--次元誕生
 function c101010173.initial_effect(c)
-	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -45,7 +44,6 @@ function c101010173.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if mg:GetCount()<=1 or not Duel.IsExistingMatchingCard(c101010173.sfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg) then return end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
---Banish the top 5 cards of your Deck; Spatial Summon 1 Spatial Monster from your Extra Deck, by returning 2 monsters among the banished cards to the Graveyard, and using them as its Space Materials. You cannot Special Summon other monsters from the Extra Deck during the turn you Special Summon using this card.
 function c101010173.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local g=e:GetLabelObject()
@@ -80,5 +78,4 @@ function c101010173.op(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c101010173.sumlimit(e,c,sump,sumtype,sumpos,targetp,se)
-	return c:IsLocation(LOCATION_EXTRA)--[[ and e:GetLabelObject()~=se]]
-end
+	return c:IsLocation(LOCATION_EXTRA)end

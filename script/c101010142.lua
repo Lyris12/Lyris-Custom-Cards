@@ -1,14 +1,11 @@
 --created & coded by Lyris
---Fate's Pair Puzzler
+--フェイツ・ドゥオガイ
 function c101010142.initial_effect(c)
-	--If you Ritual Summon exactly 1 "Fate's" Ritual Monster with a card effect that requires use of monsters, this card can be used as the entire requirement.
-	--ritual tribute
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_RITUAL_LEVEL)
 	e0:SetValue(c101010142.rlv)
 	c:RegisterEffect(e0)
-	--This Special Summoned card can be treated as 3 Tributes for the Tribute or Special Summon of a Warrior-Type monster.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -19,7 +16,6 @@ function c101010142.initial_effect(c)
 	e2:SetCode(EFFECT_TRIPLE_TRIBUTE)
 	e2:SetValue(c101010142.ttval)
 	c:RegisterEffect(e2)
-	--If this card is Special Summoned from the hand or with a "Fate's" card: You can add 1 "Fate's" monster from your Deck to your hand, except "Fate's Pair Puzzler". If this card was Pendulum Summoned, you must have a "Fate's" card in your Pendulum Zone to activate this effect. You can only use this effect of "Fate's Pair Puzzler" once per turn.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -43,7 +39,6 @@ function c101010142.tttg(c)
 end
 function c101010142.spop(e,tp,eg,ep,ev,re,r,rp)
 	e:GetHandler():RegisterFlagEffect(101010142,RESET_EVENT+0x1ff0000,0,1)
-	--triple tribute
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetDescription(aux.Stringid(101010142,0))
 	e1:SetType(EFFECT_TYPE_FIELD)

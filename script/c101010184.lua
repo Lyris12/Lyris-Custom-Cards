@@ -1,15 +1,13 @@
 --created & coded by Lyris
---Wyvern of Stellar Vine
+--「S・Vine」ワイヴァーン
 function c101010184.initial_effect(c)
 	c:EnableReviveLimit()
-	--special summon condition
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e3:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e3:SetValue(aux.FALSE)
 	c:RegisterEffect(e3)
-	--special summon
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -18,7 +16,6 @@ function c101010184.initial_effect(c)
 	e2:SetTarget(c101010184.sptg)
 	e2:SetOperation(c101010184.spop)
 	c:RegisterEffect(e2)
-	--
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_REMOVE+CATEGORY_TOGRAVE)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)

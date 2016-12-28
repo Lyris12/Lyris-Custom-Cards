@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Blademastery
+--剣主行動
 function c101010234.initial_effect(c)
---activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

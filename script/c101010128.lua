@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Earth Enforcement - Ensnaring Succession
+--アース・エンフォスメント－エンスネアリング・サクセッション
 function c101010128.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
@@ -11,7 +10,6 @@ function c101010128.initial_effect(c)
 	e1:SetTarget(c101010128.target)
 	e1:SetOperation(c101010128.activate)
 	c:RegisterEffect(e1)
-	--destroy
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

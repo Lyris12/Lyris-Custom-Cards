@@ -1,7 +1,6 @@
 --created & coded by Lyris
---RUM－シャイニング・フューチャ
+--RUM－ザ・シャイニング・フューチャ
 function c101010165.initial_effect(c)
---Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
@@ -12,7 +11,6 @@ function c101010165.initial_effect(c)
 	e0:SetTarget(c101010165.target)
 	e0:SetOperation(c101010165.activate)
 	c:RegisterEffect(e0)
-	--Negate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_CHAIN_SOLVING)

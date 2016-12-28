@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Anti-Space Matter
+--対宙
 function c101010174.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_REMOVE+CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

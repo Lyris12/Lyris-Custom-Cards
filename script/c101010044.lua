@@ -1,10 +1,8 @@
 --created & coded by Lyris
 --サイバー・アポロ・ドラゴン
 function c101010044.initial_effect(c)
---synchro summon
 	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_MACHINE),aux.NonTuner(Card.IsAttribute,ATTRIBUTE_LIGHT),1)
 	c:EnableReviveLimit()
-	--gain effect
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetProperty(EFFECT_FLAG_NO_TURN_RESET)

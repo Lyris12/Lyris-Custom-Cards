@@ -1,15 +1,13 @@
 --created & coded by Lyris
---ＳＳＤ－ファイナレヴォン
+--SSDファイナレヴォン
 function c101010206.initial_effect(c)
 aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsType,TYPE_SYNCHRO),aux.NonTuner(Card.IsType,TYPE_SYNCHRO),1)
-	--double
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_PRE_BATTLE_DAMAGE)
 	e4:SetCondition(c101010206.damcon)
 	e4:SetOperation(c101010206.damop)
 	c:RegisterEffect(e4)
-	--actlimit
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -22,7 +20,6 @@ aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsType,TYPE_SYNCHRO),aux.N
 	local e2=e3:Clone()
 	e2:SetCode(EFFECT_CANNOT_TRIGGER)
 	c:RegisterEffect(e2)
-	--When another monster you control is targeted for an attack: You can banish this card; banish the attacking monster.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_REMOVE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
@@ -75,7 +72,6 @@ function c101010206.op(e,tp,eg,ep,ev,re,r,rp)
 			oc=og:GetNext()
 		end
 		og:KeepAlive()
-		--During the End Phase, if this effect was activated this turn (and was not negated): Special Summon this card, and if you do, return any monsters banished by this effect to the field, and their ATK becomes 0 until the end of your opponent's next turn.
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 		e1:SetCode(EVENT_PHASE+PHASE_END)

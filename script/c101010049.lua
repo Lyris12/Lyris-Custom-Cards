@@ -2,9 +2,7 @@
 --サイバー・ドラゴン・メイ
 function c101010049.initial_effect(c)
 c:EnableReviveLimit()
-	--xyz summon
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsCode,70095154),5,2,nil,nil,5)
-	--detach
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e3:SetCode(EVENT_PHASE+PHASE_END)
@@ -13,7 +11,6 @@ c:EnableReviveLimit()
 	e3:SetCondition(c101010049.rmcon)
 	e3:SetOperation(c101010049.rmop)
 	c:RegisterEffect(e3)
-	--cannot fuse
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE)
 	e4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -23,7 +20,6 @@ c:EnableReviveLimit()
 	local e5=e4:Clone()
 	e5:SetCode(EFFECT_CANNOT_BE_XYZ_MATERIAL)
 	c:RegisterEffect(e5)
-	--release from xyz
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_BECOME_TARGET)
@@ -31,7 +27,6 @@ c:EnableReviveLimit()
 	e2:SetCondition(c101010049.detcon)
 	e2:SetOperation(c101010049.detop)
 	c:RegisterEffect(e2)
-	--indes
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_SINGLE)
 	e6:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
@@ -39,7 +34,6 @@ c:EnableReviveLimit()
 	e6:SetRange(LOCATION_MZONE)
 	e6:SetValue(c101010049.efilter)
 	c:RegisterEffect(e6)
-	--You can return all banished Machine-Type monsters to the graveyard; Special Summon 1 Machine-Type monster from your Deck or Extra Deck whose Level/Rank is equal to or less than the number of cards returned, ignoring the Summoning conditions. This card must have an Xyz Material(s) attached to it to activate and resolve this effect.
 	local e7=Effect.CreateEffect(c)
 	e7:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e7:SetType(EFFECT_TYPE_IGNITION)

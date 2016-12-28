@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Fate's Necro Lord
+--フェイツ・ネクロガイ
 function c101010140.initial_effect(c)
-	--If this card is Special Summoned from the hand or with a "Fate's" card: You can target 1 monster your opponent controls; banish it until the end of this turn. If this card was Pendulum Summoned, you must have a "Fate's" card in your Pendulum Zone to activate this effect. You can only use this effect of "Fate's Necro Lord" once per turn.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)

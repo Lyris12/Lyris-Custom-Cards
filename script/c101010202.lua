@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Fate's Яeversed Dragoon
+--フェイツ・ドラグーン"Я"
 function c101010202.initial_effect(c)
 	c:EnableReviveLimit()
 	local e1=Effect.CreateEffect(c)
@@ -8,7 +8,6 @@ function c101010202.initial_effect(c)
 	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e1:SetValue(aux.FALSE)
 	c:RegisterEffect(e1)
-	--During the End Phase, if this card is attached to an Xyz Monster, send this card to the Graveyard. 
 	if not c101010202.global_check then
 		c101010202.global_check=true
 		local e2=Effect.CreateEffect(c)
@@ -18,7 +17,6 @@ function c101010202.initial_effect(c)
 		e2:SetOperation(c101010202.desop2)
 		Duel.RegisterEffect(e2)
 	end
-	--If this card would be returned to the Extra Deck, shuffle 1 other monster you control into the Deck instead, and if you do, inflict damage to your opponent equal to the its ATK on the field.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e3:SetCode(EFFECT_SEND_REPLACE)

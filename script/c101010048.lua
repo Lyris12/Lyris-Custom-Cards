@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Earth Enforcer Leader Sacagawea
+--EELサカジャウェア
 function c101010048.initial_effect(c)
 	c:EnableReviveLimit()
 	local e0=Effect.CreateEffect(c)
@@ -12,7 +12,6 @@ function c101010048.initial_effect(c)
 	e0:SetOperation(aux.XyzOperation(aux.FilterBoolFunction(Card.IsSetCard,0xeeb),0,3,3))
 	e0:SetValue(SUMMON_TYPE_XYZ)
 	c:RegisterEffect(e0)
-	--Cannot be targeted by card effects.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -20,7 +19,6 @@ function c101010048.initial_effect(c)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetValue(1)
 	c:RegisterEffect(e1)
-	--While you control another face-up "Earth Enforcer" monster, your opponent cannot Set cards.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_CANNOT_MSET)
@@ -40,7 +38,6 @@ function c101010048.initial_effect(c)
 	e5:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
 	e5:SetTarget(c101010048.sumlimit)
 	c:RegisterEffect(e5)
-	--Change all Defense Position WATER, FIRE, and WIND monsters to Attack Position.
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_FIELD)
 	e6:SetCode(EFFECT_SET_POSITION)
@@ -49,7 +46,6 @@ function c101010048.initial_effect(c)
 	e6:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
 	e6:SetValue(POS_FACEUP_ATTACK)
 	c:RegisterEffect(e6)
-	--All WATER, FIRE, and WIND monsters on the field must attack, if able.
 	local e7=Effect.CreateEffect(c)
 	e7:SetType(EFFECT_TYPE_FIELD)
 	e7:SetCode(EFFECT_MUST_ATTACK)
@@ -57,7 +53,6 @@ function c101010048.initial_effect(c)
 	e7:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
 	e7:SetTarget(c101010048.postg)
 	c:RegisterEffect(e7)
-	--While you control another monster, your opponent cannot target this card for attacks.
 	local e8=Effect.CreateEffect(c)
 	e8:SetType(EFFECT_TYPE_SINGLE)
 	e8:SetProperty(EFFECT_FLAG_SINGLE_RANGE)

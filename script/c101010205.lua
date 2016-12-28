@@ -1,9 +1,8 @@
 --created & coded by Lyris
---ＳＳＤ－フロント・ブロー
+--SSDフロントブロ
 function c101010205.initial_effect(c)
 aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),2)
 	c:EnableReviveLimit()
-	--atkup
 	local e1=Effect.CreateEffect(c)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -13,7 +12,6 @@ aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),2)
 	e1:SetCondition(c101010205.atkcon)
 	e1:SetValue(300)
 	c:RegisterEffect(e1)
-	--When this card is Synchro Summoned: You can Special Summon 1 monster from your hand, and if you do, that monster gains this effect until the end of the turn. (below)
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

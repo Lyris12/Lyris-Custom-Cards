@@ -1,29 +1,24 @@
 --created & coded by Lyris
---Cyberspace Solar Dragon
+--サイバー・スペース・ソーラー・ドラゴン
 function c101010037.initial_effect(c)
---fusion material
 	c:EnableReviveLimit()
 	aux.AddFusionProcCodeFun(c,101010037,aux.FilterBoolFunction(Card.IsSetCard,0x4093),2,true,true)
-	--add LIGHT attribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e1:SetValue(ATTRIBUTE_LIGHT)
 	c:RegisterEffect(e1)
-	--spsummon condition
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e2:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e2:SetValue(c101010037.splimit)
 	c:RegisterEffect(e2)
-	--pierce
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_PIERCE)
 	c:RegisterEffect(e3)
-	--damage
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_DAMAGE)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)

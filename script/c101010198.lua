@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Victorial Dragon Scorpierce
+--制勝竜♏
 function c101010198.initial_effect(c)
---attack
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_ATTACK_ANNOUNCE)

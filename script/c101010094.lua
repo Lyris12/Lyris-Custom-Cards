@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Liquid Crystapal Blue
+--LCmブルー
 function c101010094.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TODECK)

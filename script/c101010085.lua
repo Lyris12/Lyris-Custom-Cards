@@ -1,12 +1,11 @@
 --created & coded by Lyris
---Flame Flight - Raven
+--FFレ－ヴン
 function c101010085.initial_effect(c)
 local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(101010085)
 	e3:SetRange(0xfe)
 	c:RegisterEffect(e3)
-	--fusion react
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_BE_MATERIAL)

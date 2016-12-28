@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --機光襲雷－ドーン
 function c101010028.initial_effect(c)
---self-destruct
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -10,13 +9,11 @@ function c101010028.initial_effect(c)
 	e2:SetCondition(c101010028.descon)
 	e2:SetOperation(c101010028.desop)
 	c:RegisterEffect(e2)
-	--protect
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_TO_GRAVE)
 	e0:SetOperation(c101010028.regop)
 	c:RegisterEffect(e0)
-	--fetch
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Fate's Joker
+--フェイツ・ジョーカーガル
 function c101010251.initial_effect(c)
-	--When this card is destroyed by battle: You can target 1 "Fate's" monster in your Graveyard with less than 1900 ATK, except "Fate's Joker"; Special Summon that target.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_BATTLE_DESTROYED)
@@ -10,7 +9,6 @@ function c101010251.initial_effect(c)
 	e1:SetTarget(c101010251.settg)
 	e1:SetOperation(c101010251.setop)
 	c:RegisterEffect(e1)
-	--If this card is Special Summoned from the hand or with a "Fate's" card: You can draw 1 card, and if you do, reveal it, then, if it was a "Fate's" monster, Special Summon it in Attack Position, also, draw 1 more card. If this card was Pendulum Summoned, you must have a "Fate's" card in your Pendulum Zone to activate this effect. You can only use this effect of "Fate's Joker" once per turn.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)

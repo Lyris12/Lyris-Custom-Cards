@@ -25,7 +25,6 @@ function c101010192.regcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c101010192.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	--While this card is banished or in the Graveyard because it was destroyed, "Blitzkrieg" Spell/Trap Cards you control cannot be destroyed card effects.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EFFECT_DESTROY_REPLACE)

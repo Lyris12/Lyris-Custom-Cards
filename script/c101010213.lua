@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Clear Trojan
+--クリアー・トロイ
 function c101010213.initial_effect(c)
-	--Activate Special Summon 1 "Clear" monster from your Deck to your opponent's field, but its ATK becomes 0, and it cannot be destroyed by battle or card effects.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)

@@ -1,12 +1,10 @@
 --created & coded by Lyris
---Osmotic Pressure
+--浸透圧
 function c101010065.initial_effect(c)
-	--activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e0)
-	--disable Negate the effects of all FIRE monsters on the field.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetRange(LOCATION_FZONE)
@@ -14,7 +12,6 @@ function c101010065.initial_effect(c)
 	e3:SetTarget(c101010065.disable)
 	e3:SetCode(EFFECT_DISABLE)
 	c:RegisterEffect(e3)
-	--During the End Phase: Destroy all monsters on the field that have an ATK or DEF difference greater than 2500, also, destroy all monsters on the field with 0 ATK or DEF.
 	local e1=Effect.CreateEffect(c)
 	e1:SetRange(LOCATION_FZONE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_FIELD)

@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Flame Flight - Owl
+--FFアウル
 function c101010010.initial_effect(c)
-	--search
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010010,0))
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
@@ -11,7 +10,6 @@ function c101010010.initial_effect(c)
 	e1:SetTarget(c101010010.target)
 	e1:SetOperation(c101010010.operation)
 	c:RegisterEffect(e1)
-	--material
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_BE_MATERIAL)

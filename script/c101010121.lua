@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Fate's Ritual
+--フェイツ儀式
 function c101010121.initial_effect(c)
 	aux.AddRitualProcEqual2(c,c101010121.rfilter)
-	--to hand
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_GRAVE)

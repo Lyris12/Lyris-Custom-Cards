@@ -1,14 +1,12 @@
 --created & coded by Lyris
---ドミニオン・オヴ・ヴォイド
+--ヴォイドの国土
 function c101010169.initial_effect(c)
---Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	e0:SetOperation(c101010169.op)
 	c:RegisterEffect(e0)
-	--grave seal
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CANNOT_REMOVE)

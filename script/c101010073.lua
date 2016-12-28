@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --光の波動
 function c101010073.initial_effect(c)
---Activate(effect)
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010073,0))
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -12,7 +11,6 @@ function c101010073.initial_effect(c)
 	e1:SetTarget(c101010073.target1)
 	e1:SetOperation(c101010073.activate1)
 	c:RegisterEffect(e1)
-	--Activate(attack)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_ACTIVATE)
 	e2:SetDescription(aux.Stringid(101010073,1))

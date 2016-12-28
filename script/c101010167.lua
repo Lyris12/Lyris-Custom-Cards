@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Cyber Space
+--サイバー・スペース宇宙
 function c101010167.initial_effect(c)
 local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_ACTIVATE)

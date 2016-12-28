@@ -1,7 +1,6 @@
 --created & coded by Lyris
---FFD－メテオ
+--FFDメテオル
 function c101010107.initial_effect(c)
---spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -9,7 +8,6 @@ function c101010107.initial_effect(c)
 	e1:SetRange(LOCATION_EXTRA)
 	e1:SetValue(aux.fuslimit)
 	c:RegisterEffect(e1)
-	--actlimit
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -19,7 +17,6 @@ function c101010107.initial_effect(c)
 	e2:SetValue(c101010107.aclimit)
 	e2:SetCondition(c101010107.actcon)
 	c:RegisterEffect(e2)
-	--destroy replace
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EFFECT_DESTROY_REPLACE)
@@ -27,7 +24,6 @@ function c101010107.initial_effect(c)
 	e0:SetTarget(c101010107.reptg)
 	e0:SetValue(c101010107.repval)
 	c:RegisterEffect(e0)
-	--destroy
 	local e5=Effect.CreateEffect(c)
 	e5:SetCategory(CATEGORY_DESTROY)
 	e5:SetType(EFFECT_TYPE_IGNITION)
@@ -38,7 +34,6 @@ function c101010107.initial_effect(c)
 	e5:SetTarget(c101010107.dtg)
 	e5:SetOperation(c101010107.dop)
 	c:RegisterEffect(e5)
-	--Special summon
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_SINGLE)
 	e6:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -47,7 +42,6 @@ function c101010107.initial_effect(c)
 	e6:SetTarget(c101010107.sptg)
 	e6:SetOperation(c101010107.spop)
 	c:RegisterEffect(e6)
-	--fusion summon
 	c:EnableReviveLimit()
 	aux.AddFusionProcFun2(c,c101010107.ffilter1,c101010107.ffilter2,true)
 end
@@ -105,7 +99,6 @@ end
 function c101010107.repfilter(c,tp)
 	return c:IsFaceup() and c:IsControler(1-tp) and c:GetAttack()>0 and c:IsReason(REASON_BATTLE)
 end
---If this card destroys a monster by battle, inflict damage to your opponent equal to half its ATK, also, move it to a possible location at random, instead.
 function c101010107.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetAttacker()==e:GetHandler() and eg:IsExists(c101010107.repfilter,1,nil,tp) end
 	local tc=eg:GetFirst()

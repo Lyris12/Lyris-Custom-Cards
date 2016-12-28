@@ -1,7 +1,6 @@
 --created & coded by Lyris
---EE・ウィノーナー
+--EEウィノナ
 function c101010005.initial_effect(c)
---You can target 1 "Earth Enforcer" Xyz Monster you control; discard this card from your hand, then attach 1 "Earth Enforcer" monster from your Deck to that Xyz Monster as an Xyz Material.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_HAND)
@@ -9,7 +8,6 @@ function c101010005.initial_effect(c)
 	e1:SetTarget(c101010005.mattg)
 	e1:SetOperation(c101010005.matop)
 	c:RegisterEffect(e1)
-	--If this card is detached from an "Earth Enforcer" Xyz Monster and sent to the Graveyard to activate that monster's effect: You can pay 1000 LP; add this card from your Graveyard to your hand.
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_TOHAND)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

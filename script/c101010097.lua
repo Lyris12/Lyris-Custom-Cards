@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Clear Shark
+--クリアー・シャーク
 function c101010097.initial_effect(c)
-	--normal summon
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetDescription(aux.Stringid(101010097,0))
 	ae1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -10,12 +9,10 @@ function c101010097.initial_effect(c)
 	ae1:SetCondition(c101010097.otcon)
 	ae1:SetValue(SUMMON_TYPE_NORMAL)
 	c:RegisterEffect(ae1)
-	--pierce
 	local ae2=Effect.CreateEffect(c)
 	ae2:SetType(EFFECT_TYPE_SINGLE)
 	ae2:SetCode(EFFECT_PIERCE)
 	c:RegisterEffect(ae2)
-	--destroy
 	local ae3=Effect.CreateEffect(c)
 	ae3:SetCategory(CATEGORY_DESTROY)
 	ae3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -24,7 +21,6 @@ function c101010097.initial_effect(c)
 	ae3:SetTarget(c101010097.targ)
 	ae3:SetOperation(c101010097.op)
 	c:RegisterEffect(ae3)
-	--immune
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -37,7 +33,6 @@ function c101010097.initial_effect(c)
 	e2:SetTargetRange(0,1)
 	e2:SetCondition(c101010097.ntpcon)
 	c:RegisterEffect(e2)
-	--cannot be material
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)

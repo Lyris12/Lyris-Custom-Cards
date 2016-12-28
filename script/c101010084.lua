@@ -1,7 +1,6 @@
 --created & coded by Lyris
---ＳＳ－ナース・レイダー
+--SSナーシ・レイダー
 function c101010084.initial_effect(c)
---revive
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_IGNITION)

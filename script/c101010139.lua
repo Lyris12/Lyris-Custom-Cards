@@ -1,14 +1,12 @@
 --created & coded by Lyris
---Cyber Apollo Dragon/Assault Mode
+--サイバー・アポロ・ドラゴン／バスター
 function c101010139.initial_effect(c)
-	--Cannot special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e1:SetValue(aux.FALSE)
 	c:RegisterEffect(e1)
-	--copy
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_IGNITION)
 	e5:SetCode(EVENT_FREE_CHAIN)
@@ -18,7 +16,6 @@ function c101010139.initial_effect(c)
 	e5:SetTarget(c101010139.cptg)
 	e5:SetOperation(c101010139.cpop)
 	c:RegisterEffect(e5)
-	--Special summon
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_SINGLE)
 	e6:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -28,7 +25,6 @@ function c101010139.initial_effect(c)
 	e6:SetTarget(c101010139.sptg)
 	e6:SetOperation(c101010139.spop)
 	c:RegisterEffect(e6)
-	--assault mode activate
 	if not c101010139.global_check then
 		c101010139.global_check=true
 		local ama=Effect.CreateEffect(c)
@@ -102,7 +98,6 @@ function c101010139.amaop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=g:GetFirst()
 	while tc do
 		if tc:GetFlagEffect(101010139)==0 then
-			--Activate
 			local e1=Effect.CreateEffect(tc)
 			e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 			e1:SetDescription(aux.Stringid(101010139,0))

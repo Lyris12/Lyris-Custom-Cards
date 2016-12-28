@@ -1,7 +1,6 @@
 --created & coded by Lyris
---襲雷・ストライク
+--襲雷ストアイク
 function c101010063.initial_effect(c)
---Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_REMOVE+CATEGORY_DESTROY)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
@@ -30,7 +29,6 @@ function c101010063.filter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x167)
 end
 function c101010063.op(e,tp,eg,ep,ev,re,r,rp)
-	--destroy them, and if you do, destroy an equal amount cards your opponent controls. If less cards were destroyed on your field by this effect, destroy cards from your opponent's hand at random (if possible), and if you do, banish the remaining number of cards from the top of your opponent's Deck. Banish all cards destroyed by this effect, except "Blitzkrieg" monsters, instead of sending them to the Graveyard.
 	local ct=0
 	local loc=LOCATION_REMOVED
 	local tc=nil

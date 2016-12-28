@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Clear Pixie
+--クリアー・ピクシー
 function c101010149.initial_effect(c)
-	--hand
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetCategory(CATEGORY_TODECK)
 	ae1:SetType(EFFECT_TYPE_IGNITION)
@@ -12,7 +11,6 @@ function c101010149.initial_effect(c)
 	ae1:SetTarget(c101010149.dctg)
 	ae1:SetOperation(c101010149.dcop)
 	c:RegisterEffect(ae1)
-	--immune
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -25,7 +23,6 @@ function c101010149.initial_effect(c)
 	e2:SetTargetRange(0,1)
 	e2:SetCondition(c101010149.ntpcon)
 	c:RegisterEffect(e2)
-	--cannot be material
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)

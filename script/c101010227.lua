@@ -1,8 +1,7 @@
 --created & coded by Lyris
---未来型融合－フューチャーリスチック・フュージョン
+--未来型融合フューチャーイスティカル・フュージョン
 function c101010227.initial_effect(c)
 c:SetUniqueOnField(1,0,101010227)
-	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -44,7 +43,6 @@ function c101010227.activate(e,tp,eg,ep,ev,re,r,rp)
 			tc=fg:GetNext()
 		end
 		Duel.Remove(mat,POS_FACEUP,REASON_EFFECT+REASON_MATERIAL+REASON_FUSION)
-		--special summon
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_PHASE+PHASE_STANDBY)
@@ -76,7 +74,6 @@ function c101010227.proc(e,tp,eg,ep,ev,re,r,rp)
 			if Duel.SpecialSummonStep(tc,SUMMON_TYPE_FUSION,tp,tp,false,false,POS_FACEUP) then
 				tc:CompleteProcedure()
 				c:SetCardTarget(tc)
-				--destroy
 				local e4=Effect.CreateEffect(c)
 				e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 				e4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)

@@ -1,9 +1,7 @@
 --created & coded by Lyris
 --サイバネティック・セージ
 function c101010022.initial_effect(c)
---pendulum summon
 	aux.EnablePendulumAttribute(c,false)
-	--Activate
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(1160)
 	e5:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
@@ -11,7 +9,6 @@ function c101010022.initial_effect(c)
 	e5:SetCode(EVENT_FREE_CHAIN)
 	e5:SetOperation(c101010022.activate)
 	c:RegisterEffect(e5)
-	--spell effect
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e4:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
@@ -28,7 +25,6 @@ function c101010022.initial_effect(c)
 	e6:SetTarget(c101010022.sstg)
 	e6:SetOperation(c101010022.ssop)
 	c:RegisterEffect(e6)
-	--maintain (Monster)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -38,14 +34,12 @@ function c101010022.initial_effect(c)
 	e1:SetCondition(c101010022.mtcon)
 	e1:SetOperation(c101010022.mtop)
 	c:RegisterEffect(e1)
-	--redirect
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
 	e2:SetCondition(c101010022.recon)
 	e2:SetValue(LOCATION_REMOVED)
 	c:RegisterEffect(e2)
-	--damage conversion
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)

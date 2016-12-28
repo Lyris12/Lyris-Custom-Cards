@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Clear Magician
+--クリアー・マジシャン
 function c101010100.initial_effect(c)
-	--If this card is Normal or Special Summoned: Declare 1 Attribute, then target a number of Spell/Trap Card(s) your opponent controls, up to the number of other monsters on the field with that Attribute; destroy them, then, place a number of Spell Counters on this card, up to the number of cards destroyed by this effect.
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetCategory(CATEGORY_DESTROY)
 	ae1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -13,7 +12,6 @@ function c101010100.initial_effect(c)
 	local ae2=ae1:Clone()
 	ae2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(ae2)
-	--atkup
 	local ae3=Effect.CreateEffect(c)
 	ae3:SetType(EFFECT_TYPE_SINGLE)
 	ae3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -22,7 +20,6 @@ function c101010100.initial_effect(c)
 	ae3:SetCondition(c101010100.tpcon)
 	ae3:SetValue(c101010100.attackup)
 	c:RegisterEffect(ae3)
-	--cannot summon
 	local ae4=Effect.CreateEffect(c)
 	ae4:SetType(EFFECT_TYPE_FIELD)
 	ae4:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
@@ -35,7 +32,6 @@ function c101010100.initial_effect(c)
 	local ae5=ae4:Clone()
 	ae5:SetCode(EFFECT_CANNOT_SUMMON)
 	c:RegisterEffect(ae5)
-	--immune
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -48,7 +44,6 @@ function c101010100.initial_effect(c)
 	e2:SetTargetRange(0,1)
 	e2:SetCondition(c101010100.ntpcon)
 	c:RegisterEffect(e2)
-	--cannot be material
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)

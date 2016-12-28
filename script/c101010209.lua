@@ -1,17 +1,13 @@
 --created & coded by Lyris
---If this card was Synchro Summoned using "Sea Scout - Sotileo of the Quiet Tide" as a Synchro Material Monster, this card gains 400 ATK. At the end of the Damage Step, if this card attacked: Target 1 other WATER monster you control that has attacked this turn; that target gains 300 ATK, also, it can make a second attack during this Battle Phase.
---ＳＳ－高まる潮バオルス
+--SS高まりの潮バオルス
 function c101010209.initial_effect(c)
---synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
 	c:EnableReviveLimit()
-	--mat check
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_MATERIAL_CHECK)
 	e0:SetValue(c101010209.matcheck)
 	c:RegisterEffect(e0)
-	--atkup
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
@@ -20,7 +16,6 @@ function c101010209.initial_effect(c)
 	e1:SetValue(400)
 	e1:SetLabelObject(e0)
 	c:RegisterEffect(e1)
-	--2ndatk
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e2:SetCode(EVENT_DAMAGE_STEP_END)

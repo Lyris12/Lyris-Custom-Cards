@@ -1,8 +1,6 @@
 --created & coded by Lyris
---During your opponent's turn: Special Summon this card as an Effect Monster Card with every Attribute (Dragon-Type/Level 5/2600 ATK/1500 DEF). (This card is NOT treated as a Trap Card.) If this card is targeted by your opponent: Destroy this Card.
---襲雷神－ズース
+--襲雷神ズース
 function c101010132.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -34,7 +32,6 @@ function c101010132.spop(e,tp,eg,ep,ev,re,r,rp)
 		c:AddMonsterAttribute(TYPE_EFFECT,0xff)
 		Duel.SpecialSummonStep(c,0,tp,tp,true,false,POS_FACEUP)
 		c:AddMonsterAttributeComplete()
-		--effects
 		local e3=Effect.CreateEffect(c)
 		e3:SetCategory(CATEGORY_DESTROY)
 		e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)

@@ -1,7 +1,6 @@
 --created & coded by Lyris
---アトリビュート・クロスボー
+--アトリビュート・クロスボウ
 function c101010168.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_EQUIP)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -10,7 +9,6 @@ function c101010168.initial_effect(c)
 	e1:SetTarget(c101010168.tg)
 	e1:SetOperation(c101010168.op)
 	c:RegisterEffect(e1)
-	--
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_CANNOT_BE_BATTLE_TARGET)
@@ -22,13 +20,11 @@ function c101010168.initial_effect(c)
 	e2:SetValue(c101010168.val)
 	c:RegisterEffect(e2)
 	e1:SetLabelObject(e2)
-	--Double Attack
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_EQUIP)
 	e3:SetCode(EFFECT_EXTRA_ATTACK)
 	e3:SetValue(1)
 	c:RegisterEffect(e3)
-	--Equip limit
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE)
 	e4:SetCode(EFFECT_EQUIP_LIMIT)

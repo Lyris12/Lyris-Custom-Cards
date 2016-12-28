@@ -1,7 +1,6 @@
 --created & coded by Lyris
---サイバー・ネット・ホーン
+--サイバーネット・ホーン
 function c101010019.initial_effect(c)
---equip
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_EQUIP)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -13,7 +12,6 @@ function c101010019.initial_effect(c)
 	local e2=e1:Clone()
 	e2:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
 	c:RegisterEffect(e2)
-	--poschange
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_POSITION)
 	e3:SetType(EFFECT_TYPE_TRIGGER_F+EFFECT_TYPE_SINGLE)
@@ -22,7 +20,6 @@ function c101010019.initial_effect(c)
 	e3:SetTarget(c101010019.postg)
 	e3:SetOperation(c101010019.posop)
 	c:RegisterEffect(e3)
-	--banish
 	local e5=Effect.CreateEffect(c)
 	e5:SetCategory(CATEGORY_REMOVE)
 	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)

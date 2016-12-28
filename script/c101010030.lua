@@ -1,7 +1,6 @@
 --created & coded by Lyris
---機光襲雷－アフターニューン
+--機光襲雷 アーフタヌーン
 function c101010030.initial_effect(c)
---self-destruct
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -10,7 +9,6 @@ function c101010030.initial_effect(c)
 	e2:SetCondition(c101010030.descon)
 	e2:SetOperation(c101010030.desop)
 	c:RegisterEffect(e2)
-	--damage
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e3:SetCode(EVENT_DESTROYED)
@@ -50,7 +48,6 @@ function c101010030.damcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c101010030.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_CARD,0,101010030)
-	--local g=eg:Filter(c101010030.filter,nil)
 	local atk=0
 	local tatk=0
 	local tc=eg:GetFirst()

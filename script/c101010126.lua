@@ -1,5 +1,5 @@
 --created & coded by Lyris
---デュエル・アカデミア・ハイツ (アクション デゥエル モード)
+--デュエル・アカデミア・ハイツ
 function c101010126.initial_effect(c)
 	local f=Card.IsCanBeSpecialSummoned
 	Card.IsCanBeSpecialSummoned=function(c,e,tpe,tgp,con,conr)
@@ -33,7 +33,6 @@ function c101010126.initial_effect(c)
 			proc2(g,tpe,sump,tgp,true,true,pos)
 	   else proc2(g,tpe,sump,tgp,check,limit,pos) end
 	end
-	--Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
@@ -46,7 +45,6 @@ function c101010126.initial_effect(c)
 	e2:SetRange(LOCATION_HAND+LOCATION_DECK)
 	e2:SetOperation(c101010126.op)
 	c:RegisterEffect(e2)
-	--
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
     e0:SetCode(101010126)
@@ -54,7 +52,6 @@ function c101010126.initial_effect(c)
 	e0:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
     e0:SetTargetRange(1,1)
 	c:RegisterEffect(e0)
-	--fusion
 	local fus=Effect.CreateEffect(c)
 	fus:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	fus:SetType(EFFECT_TYPE_IGNITION)
@@ -63,7 +60,6 @@ function c101010126.initial_effect(c)
 	fus:SetTarget(c101010126.fustg)
 	fus:SetOperation(c101010126.fusop)
 	c:RegisterEffect(fus)
-	--tag out
 	local tag=Effect.CreateEffect(c)
 	tag:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	tag:SetRange(LOCATION_FZONE)
@@ -80,7 +76,6 @@ function c101010126.initial_effect(c)
 	e1:SetTarget(c101010126.tagtg2)
 	e1:SetOperation(c101010126.tagop2)
 	c:RegisterEffect(e1)
-	--no response to Extra Deck summon
 	local nr1=Effect.CreateEffect(c)
 	nr1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	nr1:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -95,10 +90,6 @@ function c101010126.initial_effect(c)
 	nr2:SetOperation(c101010126.nrop2)
 	c:RegisterEffect(nr2)
 end
--- function c101010126.tagcon(e,tp,eg,ep,ev,re,r,rp)
-	-- local tc=eg:GetFirst()
-	-- return tc:GetLocation()~=0x40 and (tc:IsType(TYPE_FUSION) or tc:IsType(TYPE_SYNCHRO) or tc:IsType(TYPE_XYZ))
--- end
 function c101010126.tagcon2(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	return tc:IsType(TYPE_FUSION) or tc:IsType(TYPE_SYNCHRO) or tc:IsType(TYPE_XYZ)
@@ -184,8 +175,7 @@ function c101010126.tagop2(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c101010126.filter2(c,e)
-	return (c:IsType(TYPE_FUSION) or c:IsType(TYPE_SYNCHRO) or c:IsType(TYPE_XYZ)) and (c:GetDestination()~=LOCATION_OVERLAY or c:GetDestination()~=LOCATION_EXTRA) and c:IsOnField() and c:IsControler(c:GetOwner()) --and c==e:GetLabelObject()
-end
+	return (c:IsType(TYPE_FUSION) or c:IsType(TYPE_SYNCHRO) or c:IsType(TYPE_XYZ)) and (c:GetDestination()~=LOCATION_OVERLAY or c:GetDestination()~=LOCATION_EXTRA) and c:IsOnField() and c:IsControler(c:GetOwner()) end
 function c101010126.nrcon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	return tc:GetPreviousLocation()==LOCATION_EXTRA

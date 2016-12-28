@@ -1,12 +1,10 @@
 --created & coded by Lyris
---剣主 二
+--剣主二
 function c101010190.initial_effect(c)
---pierce
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_PIERCE)
 	c:RegisterEffect(e0)
-	--atkup
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -14,7 +12,6 @@ function c101010190.initial_effect(c)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetValue(c101010190.val)
 	c:RegisterEffect(e1)
-	--summon success
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -23,7 +20,6 @@ function c101010190.initial_effect(c)
 	e3:SetTarget(c101010190.sumtg)
 	e3:SetOperation(c101010190.sumop)
 	c:RegisterEffect(e3)
-	--spsummon success
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e2:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_SINGLE)

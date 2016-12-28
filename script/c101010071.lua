@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --旋風のガスト
 function c101010071.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_NEGATE+CATEGORY_TODECK)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

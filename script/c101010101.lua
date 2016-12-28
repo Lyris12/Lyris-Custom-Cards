@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --襲雷属性－地球
 function c101010101.initial_effect(c)
---self-destruct
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -10,7 +9,6 @@ function c101010101.initial_effect(c)
 	e2:SetCondition(c101010101.descon)
 	e2:SetOperation(c101010101.desop)
 	c:RegisterEffect(e2)
-	--attribute
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -18,7 +16,6 @@ function c101010101.initial_effect(c)
 	e2:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e2:SetValue(ATTRIBUTE_DARK)
 	c:RegisterEffect(e2)
-	--destroy
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(1118)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TODECK)

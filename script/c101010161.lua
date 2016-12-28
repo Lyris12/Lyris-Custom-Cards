@@ -1,7 +1,6 @@
 --created & coded by Lyris
---ポワー・エンフォースメント
+--ポワー・エンフォスメント
 function c101010161.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
@@ -22,7 +21,6 @@ function c101010161.operation(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetLabel(2)
 	e2:SetCode(EFFECT_CANNOT_ATTACK)
 	Duel.RegisterEffect(e2,tp)
-	--
 	local e3=Effect.CreateEffect(e:GetHandler())
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)

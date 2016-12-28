@@ -2,7 +2,6 @@
 --旋風のファイター
 function c101010042.initial_effect(c)
 c:EnableReviveLimit()
-	--synchro summon
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_SPSUMMON_PROC)
@@ -13,7 +12,6 @@ c:EnableReviveLimit()
 	e0:SetOperation(c101010042.synop)
 	e0:SetValue(SUMMON_TYPE_SYNCHRO)
 	c:RegisterEffect(e0)
-	--to deck
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -21,7 +19,6 @@ c:EnableReviveLimit()
 	e1:SetCode(EFFECT_BATTLE_DESTROY_REDIRECT)
 	e1:SetValue(LOCATION_DECKSHF)
 	c:RegisterEffect(e1)
-	--Atk up
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
@@ -29,7 +26,6 @@ c:EnableReviveLimit()
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetValue(c101010042.atkval)
 	c:RegisterEffect(e2)
-	--to deck
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TODECK+CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_QUICK_O)

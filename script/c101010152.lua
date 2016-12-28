@@ -2,7 +2,6 @@
 --襲雷竜－太陽
 function c101010152.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
-	--
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetRange(LOCATION_MZONE)
@@ -11,14 +10,12 @@ function c101010152.initial_effect(c)
 	e0:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e0:SetValue(ATTRIBUTE_FIRE)
 	c:RegisterEffect(e0)
-	--cannot special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e1:SetValue(function(e,se,sp,st) return st==SUMMON_TYPE_PENDULUM end)
 	c:RegisterEffect(e1)
-	--summon,flip
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -28,7 +25,6 @@ function c101010152.initial_effect(c)
 	local e3=e2:Clone()
 	e3:SetCode(EVENT_FLIP)
 	c:RegisterEffect(e3)
-	--self-destruct
 	local e5=Effect.CreateEffect(c)
 	e5:SetCategory(CATEGORY_DESTROY)
 	e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -53,7 +49,6 @@ function c101010152.atcon(e,c)
 end
 function c101010152.retreg(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	--to hand
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e1:SetCategory(CATEGORY_TOHAND)

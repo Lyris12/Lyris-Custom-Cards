@@ -1,8 +1,7 @@
 --created & coded by Lyris
---旋風の宝玉－ダイヤモンド・シンクロ・ドラゴン
+--宝玉風のシンクロ・ドラゴン
 function c101010043.initial_effect(c)
 c:EnableReviveLimit()
-	--synchro summon
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_SPSUMMON_PROC)
@@ -13,7 +12,6 @@ c:EnableReviveLimit()
 	e0:SetOperation(c101010043.synop)
 	e0:SetValue(SUMMON_TYPE_SYNCHRO)
 	c:RegisterEffect(e0)
-	--summon-to deck
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_TODECK)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -24,13 +22,11 @@ c:EnableReviveLimit()
 	e3:SetTarget(c101010043.tdtg)
 	e3:SetOperation(c101010043.tdop)
 	c:RegisterEffect(e3)
-	--battle indestructable
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
 	e2:SetValue(1)
 	c:RegisterEffect(e2)
-	--to deck
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TODECK+CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_QUICK_O)

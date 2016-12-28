@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Fate's Twilight Mistress
+--フェイツ・トワイライトガル
 function c101010104.initial_effect(c)
 	c:EnableReviveLimit()
-	--token
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -14,7 +13,6 @@ function c101010104.initial_effect(c)
 	local e2=e0:Clone()
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
 	c:RegisterEffect(e2)
-	--If this card is Ritual Summoned or Special Summoned with a "Fate's" card: You can Special Summon 1 Level 4 or lower "Fate's" monster from your Deck.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)

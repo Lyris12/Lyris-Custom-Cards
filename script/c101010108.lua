@@ -1,30 +1,25 @@
 --created & coded by Lyris
---Cyberspace Sun Moon Dragon
+--サイバー・スペース・サン・ムーン・ドラゴン
 function c101010108.initial_effect(c)
---fusion material
 	c:EnableReviveLimit()
 	aux.AddFusionProcCodeFun(c,101010108,aux.FilterBoolFunction(Card.IsSetCard,0x4093),1,true,true)
-	--add LIGHT attribute
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e2:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e2:SetValue(ATTRIBUTE_LIGHT)
 	c:RegisterEffect(e2)
-	--spsummon condition
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e3:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e3:SetValue(c101010108.splimit)
 	c:RegisterEffect(e3)
-	--extra att
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE)
 	e4:SetCode(EFFECT_EXTRA_ATTACK)
 	e4:SetValue(1)
 	c:RegisterEffect(e4)
-	--destroy
 	local e5=Effect.CreateEffect(c)
 	e5:SetCategory(CATEGORY_DESTROY)
 	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

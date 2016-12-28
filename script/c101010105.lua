@@ -1,7 +1,6 @@
 --created & coded by Lyris
---FF－ファルコン・ラプター
+--FFファルコン・ラプター
 function c101010105.initial_effect(c)
---spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -19,7 +18,6 @@ function c101010105.initial_effect(c)
 	e0:SetCost(c101010105.cost)
 	e0:SetOperation(c101010105.spellop)
 	c:RegisterEffect(e0)
-	--fusion summon
 	c:EnableReviveLimit()
 	aux.AddFusionProcFun2(c,c101010105.ffilter1,c101010105.ffilter2,true)
 end

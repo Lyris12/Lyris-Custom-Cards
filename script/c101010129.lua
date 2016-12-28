@@ -1,11 +1,10 @@
 --created & coded by Lyris
---PSYStream Barrierreef
+--PSYストリーム・バリアリーフ
 function c101010129.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e1)
-	--If a "PSYStream" card(s) you control would destroyed by battle or card effect, you can send "PSYStream" cards from your Deck to the Graveyard, up to the number of "PSYStream" cards that would be destroyed, instead of destroying an equal amount of those cards.
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EFFECT_DESTROY_REPLACE)
@@ -14,7 +13,6 @@ local e1=Effect.CreateEffect(c)
 	e4:SetOperation(c101010129.repop)
 	e4:SetValue(c101010129.repval)
 	c:RegisterEffect(e4)
-	--
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_REMOVE)
@@ -54,7 +52,6 @@ end
 function c101010129.tgop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsReason(REASON_EFFECT) and c:GetReasonEffect():IsSetCard(0x127) then
-		--Each time the effect of a banished "PSYStream" monster is activated while this card is in your Graveyard, except during the turn this card was sent to the Graveyard, inflict 500 damage to your opponent.
 		local e2=Effect.CreateEffect(c)
 		e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e2:SetCode(EVENT_CHAINING)

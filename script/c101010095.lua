@@ -1,15 +1,13 @@
 --created & coded by Lyris
---Cyberspace Panther
+--サイバー・スペース・パンサー
 function c101010095.initial_effect(c)
 c:EnableReviveLimit()
-	--add LIGHT attribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e1:SetValue(ATTRIBUTE_LIGHT)
 	c:RegisterEffect(e1)
-	--spsummon proc
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_SPSUMMON_PROC)
@@ -18,12 +16,10 @@ c:EnableReviveLimit()
 	e2:SetCondition(c101010095.spcon)
 	e2:SetOperation(c101010095.spop)
 	c:RegisterEffect(e2)
-	--pierce
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_PIERCE)
 	c:RegisterEffect(e3)
-	--damage
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_DAMAGE)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -33,7 +29,6 @@ c:EnableReviveLimit()
 	e4:SetTarget(c101010095.damtg)
 	e4:SetOperation(c101010095.damop)
 	c:RegisterEffect(e4)
-	--add Cyber Space
 	local e5=Effect.CreateEffect(c)
 	e5:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

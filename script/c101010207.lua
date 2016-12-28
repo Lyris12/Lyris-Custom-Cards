@@ -1,16 +1,13 @@
 --created & coded by Lyris
---ＳＳ－リーム・イクスパンス・ドラゴン
+--SSリーム・エクスパンス・ドラゴン
 function c101010207.initial_effect(c)
---synchro summon
 	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsType,TYPE_SYNCHRO),aux.NonTuner(Card.IsType,TYPE_SYNCHRO),2)
 	c:EnableReviveLimit()
-	--cannot special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
 	c:RegisterEffect(e1)
-	--actlimit
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -23,7 +20,6 @@ function c101010207.initial_effect(c)
 	local e2=e3:Clone()
 	e2:SetCode(EFFECT_CANNOT_TRIGGER)
 	c:RegisterEffect(e2)
-	--At the end of the Damage Step, if this card attacked: Draw 1 card, then, you can Special Summon 1 monster from your hand, and if you do, destroy up to 3 monsters your opponent controls.
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_DRAW+CATEGORY_SPECIAL_SUMMON+CATEGORY_DESTROY)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)

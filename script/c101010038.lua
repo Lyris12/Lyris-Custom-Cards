@@ -2,7 +2,6 @@
 --機光襲雷竜－ニューン
 function c101010038.initial_effect(c)
 c:EnableReviveLimit()
-	--fusion material
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -10,7 +9,6 @@ c:EnableReviveLimit()
 	e1:SetCondition(c101010038.fscondition)
 	e1:SetOperation(c101010038.fsoperation)
 	c:RegisterEffect(e1)
-	--self-destruct
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -19,7 +17,6 @@ c:EnableReviveLimit()
 	e2:SetCondition(c101010038.descon)
 	e2:SetOperation(c101010038.desop)
 	c:RegisterEffect(e2)
-	--draw
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_DRAW+CATEGORY_DESTROY)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -29,7 +26,6 @@ c:EnableReviveLimit()
 	e4:SetTarget(c101010038.sptg)
 	e4:SetOperation(c101010038.spop)
 	c:RegisterEffect(e4)
-	--mat check
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_MATERIAL_CHECK)

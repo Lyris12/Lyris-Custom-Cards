@@ -1,5 +1,5 @@
 --created & coded by Lyris
---EE・キャルファーレー
+--EEキャルフレー
 function c101010046.initial_effect(c)
 c:EnableReviveLimit()
 	local e0=Effect.CreateEffect(c)
@@ -12,7 +12,6 @@ c:EnableReviveLimit()
 	e0:SetOperation(aux.XyzOperation(aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_EARTH),0,2,2))
 	e0:SetValue(SUMMON_TYPE_XYZ)
 	c:RegisterEffect(e0)
-	--special summon
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -21,7 +20,6 @@ c:EnableReviveLimit()
 	e2:SetTarget(c101010046.tg)
 	e2:SetOperation(c101010046.op)
 	c:RegisterEffect(e2)
-	--draw
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010046,0))
 	e1:SetCategory(CATEGORY_DRAW)

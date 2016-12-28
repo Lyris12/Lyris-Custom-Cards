@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Fate's Doomed Monger
+--フェイツ・デスガイ
 function c101010089.initial_effect(c)
-	--If this card is Normal or Special Summoned from the hand or with a "Fate's" card: You can target 1 "Fate's" monster in your Graveyard; Special Summon it in Attack Position. If this card was Pendulum Summoned, you must have a "Fate's" card in your Pendulum Zone to activate this effect. You can only use this effect of "Fate's Doomed Monger" once per turn.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

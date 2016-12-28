@@ -1,5 +1,5 @@
 --created & coded by Lyris
---ミーターモーフアイシス
+--メタモルフォシス
 function c101010134.initial_effect(c)
 local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_SPECIAL_SUMMON)

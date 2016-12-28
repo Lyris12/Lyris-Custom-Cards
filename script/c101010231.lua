@@ -1,5 +1,5 @@
 --created & coded by Lyris
---水中噴出
+--水中爆
 function c101010231.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

@@ -1,8 +1,6 @@
 --created & coded by Lyris
---This card can attack your opponent directly, but when it does so using this effect, any battle damage it inflicts to your opponent is halved.
---ＳＳ－スピリット・キャンパー
+--SSスピリット・キャンパー
 function c101010082.initial_effect(c)
---special summon
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_SPSUMMON_PROC)
@@ -10,7 +8,6 @@ function c101010082.initial_effect(c)
 	e2:SetRange(LOCATION_HAND)
 	e2:SetCondition(c101010082.spcon)
 	c:RegisterEffect(e2)
-	--destroy
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010082,0))
 	e1:SetCategory(CATEGORY_DESTROY)

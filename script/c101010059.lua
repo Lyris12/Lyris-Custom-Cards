@@ -1,14 +1,12 @@
 --created & coded by Lyris
 --サイバー・ドラゴン・ティマイオス
 function c101010059.initial_effect(c)
---add code
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_ADD_FUSION_CODE)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e2:SetValue(70095154)
 	c:RegisterEffect(e2)
-	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -18,7 +16,6 @@ function c101010059.initial_effect(c)
 	e1:SetTarget(c101010059.target)
 	e1:SetOperation(c101010059.activate)
 	c:RegisterEffect(e1)
-	--add code
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_ADD_TYPE)

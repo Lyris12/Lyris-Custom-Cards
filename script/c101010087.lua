@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --烈風のラーク
 function c101010087.initial_effect(c)
---search
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -12,7 +11,6 @@ function c101010087.initial_effect(c)
 	e0:SetTarget(c101010087.tg)
 	e0:SetOperation(c101010087.op)
 	c:RegisterEffect(e0)
-	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)

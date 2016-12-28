@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Blitzkrieg Monsoon
+--襲雷台風
 function c101010125.initial_effect(c)
-	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DESTROY)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

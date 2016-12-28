@@ -1,7 +1,6 @@
 --created & coded by Lyris
---ＳＳＤーサイクロン
+--SSDサイクロン
 function c101010080.initial_effect(c)
---bounce
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_TOHAND)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -10,7 +9,6 @@ function c101010080.initial_effect(c)
 	e0:SetTarget(c101010080.rttg)
 	e0:SetOperation(c101010080.rtop)
 	c:RegisterEffect(e0)
-	--actlimit
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -20,7 +18,6 @@ function c101010080.initial_effect(c)
 	e1:SetValue(c101010080.aclimit)
 	e1:SetCondition(c101010080.actcon)
 	c:RegisterEffect(e1)
-	--spsummon
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_SPSUMMON_PROC)

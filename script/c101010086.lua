@@ -1,13 +1,11 @@
 --created & coded by Lyris
---Flame Flight - Hummingbird
+--FFハミングバード
 function c101010086.initial_effect(c)
---fusion substitute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_FUSION_SUBSTITUTE)
 	e1:SetCondition(c101010086.subcon)
 	c:RegisterEffect(e1)
-	--material
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_BE_MATERIAL)

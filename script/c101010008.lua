@@ -1,7 +1,6 @@
 --created & coded by Lyris
---PSYStream Lochness
+--PSYストリーム・ロックネス
 function c101010008.initial_effect(c)
---When this card is Special Summoned: You can add 1 "PSYStream" card from your Deck to your hand.
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -11,7 +10,6 @@ function c101010008.initial_effect(c)
 	e0:SetTarget(c101010008.thtg)
 	e0:SetOperation(c101010008.thop)
 	c:RegisterEffect(e0)
-	--During either player's Main Phase, if this card was banished this turn: You can target 1 Spell/Trap Card your opponent controls; reveal the bottom card of your Deck, and if it was a "PSYStream" card, add that card to your hand, then destroy that target.
 	if not c101010008.global_check then
 		c101010008.global_check=true
 		local ge1=Effect.CreateEffect(c)
@@ -33,12 +31,10 @@ function c101010008.initial_effect(c)
 	e1:SetTarget(c101010008.target)
 	e1:SetOperation(c101010008.activate)
 	c:RegisterEffect(e1)
-	--This card can attack your opponent directly.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_DIRECT_ATTACK)
 	c:RegisterEffect(e2)
-	--If this card attacks directly, any battle damage your opponent takes becomes 800 if the amount is more than than 700.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EVENT_PRE_BATTLE_DAMAGE)

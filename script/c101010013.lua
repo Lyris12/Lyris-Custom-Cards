@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --旋風のライダー
 function c101010013.initial_effect(c)
---spsummon
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
@@ -11,7 +10,6 @@ function c101010013.initial_effect(c)
 	e0:SetTarget(c101010013.sptg)
 	e0:SetOperation(c101010013.spop)
 	c:RegisterEffect(e0)
-	--search1
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -22,7 +20,6 @@ function c101010013.initial_effect(c)
 	e1:SetTarget(c101010013.thtg)
 	e1:SetOperation(c101010013.thop)
 	c:RegisterEffect(e1)
-	--search2
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)

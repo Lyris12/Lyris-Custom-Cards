@@ -1,9 +1,8 @@
---created by Outlaw1994
+--created by Outlaw
 --coded by Lyris
---サイバー・クイーン ライリス
+--サイバー・クイーン・ライリス
 function c101010036.initial_effect(c)
 c:EnableReviveLimit()
-	--fusion material
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -11,7 +10,6 @@ c:EnableReviveLimit()
 	e1:SetCondition(c101010036.fscondition)
 	e1:SetOperation(c101010036.fsoperation)
 	c:RegisterEffect(e1)
-	--special summon
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_IGNITION)
@@ -20,7 +18,6 @@ c:EnableReviveLimit()
 	e2:SetTarget(c101010036.sstg)
 	e2:SetOperation(c101010036.ssop)
 	c:RegisterEffect(e2)
-	--destroy replace
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_DESTROY_REPLACE)
@@ -29,7 +26,6 @@ c:EnableReviveLimit()
 	e3:SetTarget(c101010036.tdtg)
 	e3:SetOperation(c101010036.tdop)
 	c:RegisterEffect(e3)
-	--to graveyard
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_TOHAND)
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET)

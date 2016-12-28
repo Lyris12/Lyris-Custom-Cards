@@ -1,14 +1,12 @@
 --created & coded by Lyris
---ＳＳ－九世のナイク
+--SS第九のナイク
 function c101010156.initial_effect(c)
---level
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_UPDATE_LEVEL)
 	e0:SetRange(LOCATION_MZONE)
 	e0:SetValue(c101010156.val)
 	c:RegisterEffect(e0)
-	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)

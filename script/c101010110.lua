@@ -1,10 +1,8 @@
 --created & coded by Lyris
---ＳＳ－迅速のデルフィノス
+--SS神速のデェルフィノス
 function c101010110.initial_effect(c)
---synchro summon
 	aux.AddSynchroProcedure2(c,nil,aux.NonTuner(nil))
 	c:EnableReviveLimit()
-	--banish
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e0:SetRange(LOCATION_MZONE)
@@ -13,7 +11,6 @@ function c101010110.initial_effect(c)
 	e0:SetTarget(c101010110.syntg)
 	e0:SetValue(c101010110.synval)
 	c:RegisterEffect(e0)
-	--synchro effect
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(101010110,1))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)

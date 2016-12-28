@@ -1,7 +1,6 @@
 --created & coded by Lyris
---EE・ナヌーク
+--EEナヌック
 function c101010004.initial_effect(c)
---spsummon
 	local e0=Effect.CreateEffect(c)
 	e0:SetDescription(aux.Stringid(101010004,0))
 	e0:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -12,7 +11,6 @@ function c101010004.initial_effect(c)
 	e0:SetTarget(c101010004.sptg)
 	e0:SetOperation(c101010004.spop)
 	c:RegisterEffect(e0)
-	--disact
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_TO_GRAVE)

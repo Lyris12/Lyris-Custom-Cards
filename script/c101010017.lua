@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --カラミティ
 function c101010017.initial_effect(c)
---to hand
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetDescription(aux.Stringid(101010017,0))
@@ -10,7 +9,6 @@ function c101010017.initial_effect(c)
 	e1:SetTarget(c101010017.target1)
 	e1:SetOperation(c101010017.operation1)
 	c:RegisterEffect(e1)
-	--atkup
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetDescription(aux.Stringid(101010017,1))

@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Action Card - 
+--クリスタ・フォーメーション
 function c101010221.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)

@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Blitzkrieg Dragon - Obsidian
+--襲雷竜－オブシディアン
 function c101010032.initial_effect(c)
---self-destruct
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_DESTROY)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -10,7 +9,6 @@ function c101010032.initial_effect(c)
 	e0:SetCondition(c101010032.descon)
 	e0:SetOperation(c101010032.desop)
 	c:RegisterEffect(e0)
-	--attribute
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -18,7 +16,6 @@ function c101010032.initial_effect(c)
 	e2:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e2:SetValue(ATTRIBUTE_DARK)
 	c:RegisterEffect(e2)
-	--special summon
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

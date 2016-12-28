@@ -1,7 +1,6 @@
 --created & coded by Lyris
---FFD－プロミネンス
+--FFDプロミネンス
 function c101010201.initial_effect(c)
---damage conversion
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_SINGLE_RANGE)
@@ -11,7 +10,6 @@ function c101010201.initial_effect(c)
 	e1:SetCondition(function(e) return e:GetHandler():IsHasEffect(101010055) end)
 	e1:SetValue(c101010201.rev)
 	c:RegisterEffect(e1)
-	--recover
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e2:SetCategory(CATEGORY_TODECK)
@@ -20,7 +18,6 @@ function c101010201.initial_effect(c)
 	e2:SetTarget(c101010201.rectg)
 	e2:SetOperation(c101010201.recop)
 	c:RegisterEffect(e2)
-	--fusion summon
 	c:EnableReviveLimit()
 	aux.AddFusionProcFun2(c,c101010201.ffilter1,c101010201.ffilter2,true)
 end

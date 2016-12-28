@@ -1,7 +1,6 @@
 --created & coded by Lyris
---EE・エーエレン
+--EEアエレン
 function c101010003.initial_effect(c)
---special summon
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -11,7 +10,6 @@ function c101010003.initial_effect(c)
 	e3:SetTarget(c101010003.sumtg)
 	e3:SetOperation(c101010003.sumop)
 	c:RegisterEffect(e3)
-	--
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_TO_GRAVE)

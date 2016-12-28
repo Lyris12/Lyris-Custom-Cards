@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Sea Scout - Hydrohale
+--SSハイドロヘール
 function c101010245.initial_effect(c)
 aux.EnablePendulumAttribute(c)
-	--You can also Pendulum Summon Level 1 monsters, but if you do, you cannot Pendulum Summon monsters this turn, except "Sea Scout" monsters. This effect cannot be negated.
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010245,0))
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -14,7 +13,6 @@ aux.EnablePendulumAttribute(c)
 	e1:SetOperation(c101010245.psop)
 	e1:SetValue(SUMMON_TYPE_PENDULUM)
 	c:RegisterEffect(e1)
-	--Unless you have a WATER monster in your other Pendulum Zone, this card's Pendulum Scale becomes 3.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_CHANGE_LSCALE)
@@ -26,7 +24,6 @@ aux.EnablePendulumAttribute(c)
 	local e3=e2:Clone()
 	e3:SetCode(EFFECT_CHANGE_RSCALE)
 	c:RegisterEffect(e3)
-	--"Sea Scout" monsters you control cannot be destroyed by card effects.
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EFFECT_DESTROY_REPLACE)
@@ -34,7 +31,6 @@ aux.EnablePendulumAttribute(c)
 	e4:SetTarget(c101010245.indtg)
 	e4:SetValue(c101010245.indval)
 	c:RegisterEffect(e4)
-	--During damage calculation (in either player's turn), if a "Sea Scout" monster you control battles an opponent's monster: You can discard this card from your hand; your battling monster gains ATK equal to the ATK of the opponent's monster it is battling during the Damage Step only. You can only use the effect of "Sea Scout - Hydrohale" once per turn.
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_QUICK_O)
 	e5:SetCode(EVENT_FREE_CHAIN)

@@ -1,14 +1,12 @@
 --created & coded by Lyris
---Cyberspace Quetzalcoatl
+--サイバー・スペース・ケツァールコーアータル
 function c101010025.initial_effect(c)
---add LIGHT attribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e1:SetValue(ATTRIBUTE_LIGHT)
 	c:RegisterEffect(e1)
-	--special summon
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_IGNITION)
@@ -17,7 +15,6 @@ function c101010025.initial_effect(c)
 	e2:SetTarget(c101010025.sptg)
 	e2:SetOperation(c101010025.spop)
 	c:RegisterEffect(e2)
-	--search
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

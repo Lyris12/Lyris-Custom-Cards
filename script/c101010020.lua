@@ -1,7 +1,6 @@
 --created & coded by Lyris
---サイバー・ネット・エッジ
+--サイバーネット・エッジ
 function c101010020.initial_effect(c)
---equip
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_EQUIP)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -13,7 +12,6 @@ function c101010020.initial_effect(c)
 	local e2=e1:Clone()
 	e2:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
 	c:RegisterEffect(e2)
-	--double
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_EXTRA_ATTACK)
@@ -28,14 +26,12 @@ function c101010020.initial_effect(c)
 	e7:SetCode(EFFECT_CANNOT_ATTACK)
 	e7:SetCondition(c101010020.atkcon2)
 	c:RegisterEffect(e7)
-	--damage reduction
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_PRE_BATTLE_DAMAGE)
 	e4:SetCondition(c101010020.atkcon)
 	e4:SetOperation(c101010020.atkop)
 	c:RegisterEffect(e4)
-	--banish
 	local e5=Effect.CreateEffect(c)
 	e5:SetCategory(CATEGORY_REMOVE)
 	e5:SetProperty(EFFECT_FLAG_CARD_TARGET)
@@ -92,13 +88,6 @@ function c101010020.atkcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c101010020.atkop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,ev/2)
-	--[[local c=e:GetHandler()
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_SET_ATTACK_FINAL)
-	e1:SetReset(RESET_PHASE+PHASE_DAMAGE_CAL)
-	e1:SetValue(c:GetAttack()*0.75)
-	c:RegisterEffect(e1)]]
 end
 function c101010020.dircon(e)
 	return e:GetHandler():GetAttackAnnouncedCount()>0

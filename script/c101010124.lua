@@ -1,14 +1,12 @@
 --created & coded by Lyris
---Blitzkrieg Sky
+--襲雷の空
 function c101010124.initial_effect(c)
-	--When this card is activated: You can add 1 "Blitzkrieg" monster from your Deck to your hand.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e1:SetOperation(c101010124.activate)
 	c:RegisterEffect(e1)
-	--The effects of "Blitzkrieg" monsters you control cannot be activated.
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_FIELD)
 	e5:SetRange(LOCATION_FZONE)
@@ -16,7 +14,6 @@ function c101010124.initial_effect(c)
 	e5:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x167))
 	e5:SetTargetRange(LOCATION_MZONE,0)
 	c:RegisterEffect(e5)
-	--The controller of a "Blitzkrieg" monster chooses attack targets for their opponent, also, their opponent's face-up monsters, except "Blitzkrieg" monsters, must attack, if able.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetRange(LOCATION_FZONE)

@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Liquid Crystapal Purple
+--LCmパープル
 function c101010238.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_REMOVE+CATEGORY_TODECK)

@@ -1,12 +1,10 @@
 --created & coded by Lyris
---襲雷の大振り
+--襲雷大降り
 function c101010064.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e1)
-	--spsummon
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(101010064,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -20,7 +18,6 @@ function c101010064.initial_effect(c)
 	e2:SetTarget(c101010064.sptg2)
 	e2:SetOperation(c101010064.spop)
 	c:RegisterEffect(e2)
-	--
 	local e1=Effect.CreateEffect(c)
 	e1:SetRange(LOCATION_SZONE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)

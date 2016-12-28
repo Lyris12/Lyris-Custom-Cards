@@ -1,12 +1,10 @@
 --created & coded by Lyris
---Victorious Inscription
+--制勝銘
 function c101010226.initial_effect(c)
---Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e0)
-	--inscribe
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_MZONE)
@@ -33,7 +31,6 @@ function c101010226.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,tp,800)
 	end
 end
---if that target is a Relay Monster, shuffle that target into the Deck, otherwise, take 800 damage, and if you do, this turn, it becomes unaffected by other card effects during the Battle Phase only.
 function c101010226.operation(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()

@@ -1,7 +1,6 @@
 --created & coded by Lyris
---機夜行襲雷－イーヴニング
+--機夜行襲雷 エーブニング
 function c101010031.initial_effect(c)
---self-destruct
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -10,7 +9,6 @@ function c101010031.initial_effect(c)
 	e2:SetCondition(c101010031.descon)
 	e2:SetOperation(c101010031.desop)
 	c:RegisterEffect(e2)
-	--damage
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e3:SetCode(EVENT_DESTROYED)

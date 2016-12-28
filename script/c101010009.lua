@@ -1,7 +1,6 @@
 --created & coded by Lyris
---PSYStream Behemoth
+--PSYストリーム・キマイラ
 function c101010009.initial_effect(c)
---When this card is Special Summoned: You can target 1 face-up monster your opponent controls; reveal the bottom card of your Deck, and if it was a "PSYStream" card, add that card to your hand, then banish the opponent's monster. 
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e0:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -10,7 +9,6 @@ function c101010009.initial_effect(c)
 	e0:SetTarget(c101010009.negtg)
 	e0:SetOperation(c101010009.negop)
 	c:RegisterEffect(e0)
-	--If this card is banished: You can target 1 "PSYStream" monster you control; it cannot be targeted by your opponent's card effects this turn.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_REMOVE)
@@ -20,12 +18,10 @@ function c101010009.initial_effect(c)
 	e1:SetTarget(c101010009.target)
 	e1:SetOperation(c101010009.operation)
 	c:RegisterEffect(e1)
-	--This card can attack your opponent directly.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_DIRECT_ATTACK)
 	c:RegisterEffect(e2)
-	--If this card attacks directly, any battle damage your opponent takes becomes 500 if the amount is more than than 900.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EVENT_PRE_BATTLE_DAMAGE)

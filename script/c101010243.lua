@@ -1,7 +1,6 @@
 --created & coded by Lyris
---サイバー・ソカープレイヤー
+--サイバー・ソッカ・プレイヤー
 function c101010243.initial_effect(c)
---atk
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010243,0))
 	e1:SetCategory(CATEGORY_ATKCHANGE)

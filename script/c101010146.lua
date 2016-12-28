@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --サイバード
 function c101010146.initial_effect(c)
-	--be material
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -11,14 +10,12 @@ function c101010146.initial_effect(c)
 	e4:SetTarget(c101010146.mattg)
 	e4:SetOperation(c101010146.matop)
 	c:RegisterEffect(e4)
-	--synlimit
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_CANNOT_BE_SYNCHRO_MATERIAL)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1:SetValue(c101010146.synlimit)
 	c:RegisterEffect(e1)
-	--spsummon
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(94988063,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -29,7 +26,6 @@ function c101010146.initial_effect(c)
 	e2:SetTarget(c101010146.sptg)
 	e2:SetOperation(c101010146.spop)
 	c:RegisterEffect(e2)
-	--lvchange
 	local e3=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(94988063,1))
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)

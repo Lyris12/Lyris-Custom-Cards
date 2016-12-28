@@ -1,14 +1,12 @@
 --created & coded by Lyris
---Cyberspace Leo
+--サイバー・スペース・レオ
 function c101010026.initial_effect(c)
---add LIGHT attribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e1:SetValue(ATTRIBUTE_LIGHT)
 	c:RegisterEffect(e1)
-	--extra summon
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
@@ -17,14 +15,12 @@ function c101010026.initial_effect(c)
 	e2:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
 	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x4093))
 	c:RegisterEffect(e2)
-	--self-banish
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
 	e3:SetValue(LOCATION_REMOVED)
 	e3:SetCondition(c101010026.con)
 	c:RegisterEffect(e3)
-	--add Big Bang Fusion
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

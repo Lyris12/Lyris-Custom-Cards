@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Crystapal Luna the Opal
+--Cmオパール・ルナ
 function c101010181.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
-	--If a player draws a Monster Card(s): That player reveals that card(s); excavate cards from the top of your Deck until you excavate a "Liquid Crystapal" monster, Special Summon that card to that player's field, then repeat this effect up to a number of times equal to the number of cards they revealed - 1. After this effect resolves, shuffle all excavated cards not Summoned by that effect back into the Deck.
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)

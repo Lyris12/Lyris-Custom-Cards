@@ -1,7 +1,6 @@
 --created & coded by Lyris
---PSYStream Tortise
+--PSYストリーム・タートル
 function c101010079.initial_effect(c)
---If you control at least 2 other "PSYStream" cards, except "PSYStream Tortise", other "PSYStream" monsters you control cannot be targeted by attacks or card effects.
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD)
 	e4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -16,7 +15,6 @@ function c101010079.initial_effect(c)
 	e5:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e5:SetValue(1)
 	c:RegisterEffect(e5)
-	--If this card is banished: You can target 1 "PSYStream" monster you control; it cannot be destroyed by card effects this turn.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_REMOVE)
@@ -25,12 +23,10 @@ function c101010079.initial_effect(c)
 	e1:SetTarget(c101010079.target)
 	e1:SetOperation(c101010079.operation)
 	c:RegisterEffect(e1)
-	--This card can attack your opponent directly.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_DIRECT_ATTACK)
 	c:RegisterEffect(e2)
-	--If this card attacks directly, any battle damage your opponent takes becomes 300 if the amount is more than than 600.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EVENT_PRE_BATTLE_DAMAGE)

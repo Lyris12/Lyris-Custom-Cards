@@ -1,7 +1,6 @@
 --created & coded by Lyris
---PSYStream Maiden
+--PSYストリーム・マーメイデン
 function c101010006.initial_effect(c)
---When this card is Special Summoned: You can target 1 of your banished "PSYStream" monsters, except "PSYStream Maiden"; Special Summon that target.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -11,19 +10,16 @@ function c101010006.initial_effect(c)
 	e1:SetTarget(c101010006.sptg)
 	e1:SetOperation(c101010006.spop)
 	c:RegisterEffect(e1)
-	--This card can attack your opponent directly.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_DIRECT_ATTACK)
 	c:RegisterEffect(e2)
-	--If this card attacks directly, any battle damage your opponent takes becomes 400 if the amount is more than than 600.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EVENT_PRE_BATTLE_DAMAGE)
 	e3:SetCondition(c101010006.rdcon)
 	e3:SetOperation(c101010006.rdop)
 	c:RegisterEffect(e3)
-	--You can banish this card you control; Special Summon 1 "PSYStream" monster from your Deck.
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010006,0))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)

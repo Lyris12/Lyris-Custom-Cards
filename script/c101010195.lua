@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Blitzkrieg Element - Infernil
+--襲雷属性－インフェルnil
 function c101010195.initial_effect(c)
---self-destruct
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_DESTROY)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -10,7 +9,6 @@ function c101010195.initial_effect(c)
 	e0:SetCondition(c101010195.descon)
 	e0:SetOperation(c101010195.desop)
 	c:RegisterEffect(e0)
-	--return
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY+CATEGORY_TODECK)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

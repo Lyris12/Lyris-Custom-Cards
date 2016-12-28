@@ -1,7 +1,6 @@
 --created & coded by Lyris
---ＳＳ－メッセンジャーシール
+--SSメッセージー・シース
 function c101010083.initial_effect(c)
---If this card is sent to the Graveyard for a Synchro Summon: target that Synchro Monster; Draw 1 card, plus another card if that target is WATER.
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010083,1))
 	e1:SetCategory(CATEGORY_DRAW)
@@ -18,7 +17,6 @@ function c101010083.initial_effect(c)
 	e0:SetCountLimit(1,EFFECT_COUNT_CODE_OATH)
 	e0:SetCondition(c101010083.con2)
 	c:RegisterEffect(e0)
-	--draw/special summon
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(101010083,0))
 	e2:SetCategory(CATEGORY_DRAW)

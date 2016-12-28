@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Cyber Network's Virus
+--サイバー・ネトワークのウィルス
 function c101010179.initial_effect(c)
-	--When a card or effect is activated that targets exactly 1 card on the field (and no other cards): Detach all Xyz Materials from 1 Xyz Monster you control (min. 1); Negate the activation, and if you do, banish that card.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_CHAINING)

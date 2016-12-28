@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Flame Flight - Crow
+--FFクロウ
 function c101010011.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_REMOVE)
@@ -14,7 +14,6 @@ local e1=Effect.CreateEffect(c)
 	e1:SetTarget(c101010011.target)
 	e1:SetOperation(c101010011.operation)
 	c:RegisterEffect(e1)
-	--material
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_BE_MATERIAL)

@@ -1,5 +1,5 @@
 --created & coded by Lyris
---EE・キデル
+--EEキデル
 function c101010047.initial_effect(c)
 c:EnableReviveLimit()
 	local e0=Effect.CreateEffect(c)
@@ -12,7 +12,6 @@ c:EnableReviveLimit()
 	e0:SetOperation(aux.XyzOperation(aux.FilterBoolFunction(Card.IsSetCard,0xeeb),0,2,2))
 	e0:SetValue(SUMMON_TYPE_XYZ)
 	c:RegisterEffect(e0)
-	--destroy
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DESTROY)
 	e1:SetType(EFFECT_TYPE_IGNITION)
@@ -23,7 +22,6 @@ c:EnableReviveLimit()
 	e1:SetTarget(c101010047.target)
 	e1:SetOperation(c101010047.desop)
 	c:RegisterEffect(e1)
-	--disable
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DISABLE)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)

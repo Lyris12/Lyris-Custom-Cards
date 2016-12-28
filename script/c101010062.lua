@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Big Bang Fusion
+--サイバー・スペースの爆破－ビッグバン・フュージョン
 function c101010062.initial_effect(c)
---Activate
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_ACTIVATE)
@@ -9,7 +8,6 @@ function c101010062.initial_effect(c)
 	e2:SetTarget(c101010062.target)
 	e2:SetOperation(c101010062.activate)
 	c:RegisterEffect(e2)
-	--to hand and return
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_TODECK)
 	e3:SetType(EFFECT_TYPE_IGNITION)

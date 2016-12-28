@@ -1,11 +1,8 @@
 --created & coded by Lyris
---any amount of LP in multiples of 100
---Flame Flight Dragon - Friday
+--FFDフライデイ
 function c101010034.initial_effect(c)
---fusion summon
 	c:EnableReviveLimit()
 	aux.AddFusionProcFun2(c,c101010034.ffilter1,c101010034.ffilter2,true)
-	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)

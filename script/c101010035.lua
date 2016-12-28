@@ -1,9 +1,8 @@
 --created & coded by Lyris
---鎧光竜－サイバー・ネット・ドラゴン
+--サイバーネット・ドラゴン
 function c101010035.initial_effect(c)
 c:EnableReviveLimit()
 	aux.AddFusionProcCode3(c,101010019,101010020,101010021,true,true)
-	--equip1
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_EQUIP)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -13,7 +12,6 @@ c:EnableReviveLimit()
 	e0:SetTarget(c101010035.eqtg)
 	e0:SetOperation(c101010035.eqop)
 	c:RegisterEffect(e0)
-	--atkup
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
@@ -24,7 +22,6 @@ c:EnableReviveLimit()
 	local e2=e1:Clone()
 	e2:SetCode(EFFECT_UPDATE_DEFENSE)
 	c:RegisterEffect(e2)
-	--Destroy replace
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -33,7 +30,6 @@ c:EnableReviveLimit()
 	e3:SetTarget(c101010035.desreptg)
 	e3:SetOperation(c101010035.desrepop)
 	c:RegisterEffect(e3)
-	--equip2
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_EQUIP)
 	e4:SetType(EFFECT_TYPE_IGNITION)

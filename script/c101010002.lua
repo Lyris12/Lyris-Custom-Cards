@@ -1,7 +1,6 @@
 --created & coded by Lyris
---EE・ウェーラー
+--EEウェイラ
 function c101010002.initial_effect(c)
---special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
@@ -9,7 +8,6 @@ function c101010002.initial_effect(c)
 	e1:SetRange(LOCATION_HAND)
 	e1:SetCondition(c101010002.spcon)
 	c:RegisterEffect(e1)
-	--If this card is detached from an "Earth Enforcer" Xyz Monster and sent to the Graveyard to activate that monster's effect: You can Special Summon this card from your Graveyard, but change it ATK and DEF to 0.
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

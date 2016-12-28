@@ -1,7 +1,6 @@
 --created & coded by Lyris
---翠玉のゴーントリット－ライリス
+--緑玉甲掛けライリサル
 function c101010241.initial_effect(c)
---Equip
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCountLimit(1)
@@ -10,13 +9,11 @@ function c101010241.initial_effect(c)
 	e0:SetCondition(c101010241.eqcon)
 	e0:SetOperation(c101010241.eqop)
 	c:RegisterEffect(e0)
-	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetTarget(c101010241.target)
 	c:RegisterEffect(e1)
-	--statup
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_EQUIP)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
@@ -27,7 +24,6 @@ function c101010241.initial_effect(c)
 	e5:SetCode(EFFECT_UPDATE_DEFENSE)
 	e5:SetValue(800)
 	c:RegisterEffect(e5)
-	--to hand
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e4:SetCategory(CATEGORY_TOHAND)
@@ -44,14 +40,12 @@ end
 function c101010241.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=eg:GetFirst()
-	--remain field
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_CHANGE_TYPE)
 	e3:SetValue(TYPE_SPELL+TYPE_EQUIP)
 	c:RegisterEffect(e3)
 	Duel.Equip(tp,c,tc)
-	--Equip limit
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_EQUIP_LIMIT)
@@ -77,7 +71,6 @@ end
 function c101010241.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return true end
-	--banish
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)

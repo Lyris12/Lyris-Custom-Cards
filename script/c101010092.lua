@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Liquid Crystapal Red
+--LCmレッド
 function c101010092.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DAMAGE)

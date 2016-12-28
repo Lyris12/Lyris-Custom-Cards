@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Jeweled Skydancer of Stellar Vine
+--S・Vine曲芸師Zumba
 function c101010248.initial_effect(c)
 aux.EnableDualAttribute(c)
-	--recruit
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e0:SetType(EFFECT_TYPE_IGNITION)

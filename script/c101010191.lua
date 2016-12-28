@@ -1,7 +1,6 @@
 --created & coded by Lyris
---クリアー・リューセイ
+--クリアー竜星
 function c101010191.initial_effect(c)
-	--protect
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetType(EFFECT_TYPE_FIELD)
 	ae1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
@@ -11,7 +10,6 @@ function c101010191.initial_effect(c)
 	ae1:SetTarget(c101010191.etarget)
 	ae1:SetValue(c101010191.efilter2)
 	c:RegisterEffect(ae1)
-	--atk
 	local ae2=Effect.CreateEffect(c)
 	ae2:SetType(EFFECT_TYPE_SINGLE)
 	ae2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -20,7 +18,6 @@ function c101010191.initial_effect(c)
 	ae2:SetCondition(c101010191.tpcon)
 	ae2:SetValue(c101010191.atkval)
 	c:RegisterEffect(ae2)
-	--immune
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -33,7 +30,6 @@ function c101010191.initial_effect(c)
 	e2:SetTargetRange(0,1)
 	e2:SetCondition(c101010191.ntpcon)
 	c:RegisterEffect(e2)
-	--cannot be material
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)

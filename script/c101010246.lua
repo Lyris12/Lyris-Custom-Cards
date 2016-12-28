@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Sea Scout - Bladace
+--SSブレードエース
 function c101010246.initial_effect(c)
 aux.EnablePendulumAttribute(c)
-	--You can also Pendulum Summon "Sea Scout" Synchro Monsters from your Extra Deck. (This is also treated as those monsters being Synchro Summoned.) This effect cannot be negated.
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010246,0))
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -14,7 +13,6 @@ aux.EnablePendulumAttribute(c)
 	e1:SetOperation(c101010246.psop)
 	e1:SetValue(SUMMON_TYPE_PENDULUM)
 	c:RegisterEffect(e1)
-	--Unless you have a card in your other Pendulum Zone that was originally WATER, this card's Pendulum Scale becomes 3.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_CHANGE_LSCALE)
@@ -26,7 +24,6 @@ aux.EnablePendulumAttribute(c)
 	local e3=e2:Clone()
 	e3:SetCode(EFFECT_CHANGE_RSCALE)
 	c:RegisterEffect(e3)
-	--Once per turn: You can increase this card's Pendulum Scale by 5, but you cannot Pendulum Summon monsters this turn, except "Sea Scout" monsters.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_PZONE)
@@ -34,7 +31,6 @@ aux.EnablePendulumAttribute(c)
 	e2:SetCondition(c101010246.sccon)
 	e2:SetOperation(c101010246.scop)
 	c:RegisterEffect(e2)
-	--If a "Sea Scout" monster you control attacks a Defense Position monster, inflict piercing battle damage to your opponent.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_PIERCE)

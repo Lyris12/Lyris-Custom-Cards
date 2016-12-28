@@ -1,5 +1,5 @@
 --created & coded by Lyris
---
+--「S・Vine」スターゲイザー
 function c101010160.initial_effect(c)
 local ss=Effect.CreateEffect(c)
 	ss:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOGRAVE)

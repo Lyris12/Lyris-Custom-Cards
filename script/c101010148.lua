@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Clear Beast
+--クリアー・ビースト
 function c101010148.initial_effect(c)
-	--destroy replace
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	ae1:SetCode(EFFECT_DESTROY_REPLACE)
@@ -11,7 +10,6 @@ function c101010148.initial_effect(c)
 	ae1:SetTarget(c101010148.reptg)
 	ae1:SetValue(c101010148.repval)
 	c:RegisterEffect(ae1)
-	--immune
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -24,7 +22,6 @@ function c101010148.initial_effect(c)
 	e2:SetTargetRange(0,1)
 	e2:SetCondition(c101010148.ntpcon)
 	c:RegisterEffect(e2)
-	--cannot be material
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)

@@ -1,7 +1,6 @@
 --created & coded by Lyris
---
+--サイバー・ライト・ドラゴン
 function c101010249.initial_effect(c)
---summon with no tribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -29,7 +28,6 @@ function c101010249.ntcon(e,c,minc)
 end
 function c101010249.ntop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	--extra summon
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetTargetRange(LOCATION_HAND+LOCATION_MZONE,0)

@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Sea Scout - Relic Trainee
+--SSレリック・シーカー
 function c101010183.initial_effect(c)
---Synchro
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(101010183,1))
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -12,7 +11,6 @@ function c101010183.initial_effect(c)
 	e3:SetTarget(c101010183.sptg)
 	e3:SetOperation(c101010183.spop)
 	c:RegisterEffect(e3)
-	--lv change
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetCountLimit(1)
@@ -20,7 +18,6 @@ function c101010183.initial_effect(c)
 	e1:SetTarget(c101010183.tg)
 	e1:SetOperation(c101010183.lvop)
 	c:RegisterEffect(e1)
-	--limit
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)

@@ -1,10 +1,8 @@
 --created & coded by Lyris
 --サイバー・タイガー
 function c101010045.initial_effect(c)
---synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_LIGHT),1)
 	c:EnableReviveLimit()
-	--atkup
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TODECK+CATEGORY_ATKCHANGE)
 	e1:SetType(EFFECT_TYPE_IGNITION)

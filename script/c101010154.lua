@@ -1,5 +1,5 @@
 --created & coded by Lyris
---ＳＳ－サブテリジェンス
+--SSサブテリジェンス
 function c101010154.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -39,7 +39,6 @@ function c101010154.operation(e,tp,eg,ep,ev,re,r,rp)
 		c:RegisterEffect(e1)
 		if Duel.IsExistingMatchingCard(c101010154.filter,tp,LOCATION_MZONE,0,1,tc,e) and at:IsDestructable() and not at:IsImmuneToEffect(e) then
 			local atk=at:GetBaseAttack()
-			--if atk<0 then atk=0 end
 			if Duel.Destroy(at,REASON_EFFECT)~=0 then
 				Duel.Damage(1-tp,atk/2,REASON_EFFECT)
 			end

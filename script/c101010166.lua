@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Super Power Bond
+--サイバー・スペースの併合－超ポワー・ボンド
 function c101010166.initial_effect(c)
---Activate
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_ACTIVATE)

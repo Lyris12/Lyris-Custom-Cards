@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Blazing Sky
+--燃焼空
 function c101010233.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

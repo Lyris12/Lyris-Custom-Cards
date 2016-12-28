@@ -1,7 +1,6 @@
 --created & coded by Lyris
---烈風のクリスタロス・エッジ
+--れっぷうのクリスタロス・エッジ
 function c101010119.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TODECK)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -11,7 +10,6 @@ function c101010119.initial_effect(c)
 	e1:SetTarget(c101010119.tg)
 	e1:SetOperation(c101010119.op)
 	c:RegisterEffect(e1)
-	--Unlocked by a "Synchro" Synchro Monster
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_QP_ACT_IN_NTPHAND)

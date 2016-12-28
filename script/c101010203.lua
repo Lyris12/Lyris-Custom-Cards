@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Cosmostech Astronomical Dragon
+--コスモステック・アストロノミカル・ドラゴン
 function c101010203.initial_effect(c)
 c:EnableReviveLimit()
-	--fusion material
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -10,21 +9,18 @@ c:EnableReviveLimit()
 	e1:SetCondition(c101010203.fscondition)
 	e1:SetOperation(c101010203.fsoperation)
 	c:RegisterEffect(e1)
-	--add LIGHT attribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e1:SetValue(ATTRIBUTE_LIGHT)
 	c:RegisterEffect(e1)
-	--spsummon condition
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e2:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e2:SetValue(c101010203.splimit)
 	c:RegisterEffect(e2)
-	--to hand
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_TOHAND)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -36,7 +32,6 @@ c:EnableReviveLimit()
 	e3:SetTarget(c101010203.thtg)
 	e3:SetOperation(c101010203.thop)
 	c:RegisterEffect(e3)
-	--remove
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_REMOVE)
 	e4:SetType(EFFECT_TYPE_IGNITION)
@@ -48,7 +43,6 @@ c:EnableReviveLimit()
 	e4:SetTarget(c101010203.rmtg)
 	e4:SetOperation(c101010203.rmop)
 	c:RegisterEffect(e4)
-	--extra attack
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_IGNITION)
 	e5:SetRange(LOCATION_MZONE)
@@ -92,8 +86,7 @@ function c101010203.fsoperation(e,tp,eg,ep,ev,re,r,rp,gc,chkf)
 	Duel.SetFusionMaterial(g1)
 end
 function c101010203.splimit(e,se,sp,st)
-	return (bit.band(st,SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION or bit.band(st,SUMMON_TYPE_FUSION+0x800)==SUMMON_TYPE_FUSION+0x800) and se:GetHandler():IsSetCard(0x4093) --true
-end
+	return (bit.band(st,SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION or bit.band(st,SUMMON_TYPE_FUSION+0x800)==SUMMON_TYPE_FUSION+0x800) and se:GetHandler():IsSetCard(0x4093) end
 function c101010203.csfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x4093)
 end

@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --機夜行襲雷－ダスク
 function c101010029.initial_effect(c)
---self-destruct
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -10,7 +9,6 @@ function c101010029.initial_effect(c)
 	e2:SetCondition(c101010029.descon)
 	e2:SetOperation(c101010029.desop)
 	c:RegisterEffect(e2)
-	--special summon
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)

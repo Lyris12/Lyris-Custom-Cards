@@ -1,9 +1,8 @@
 --created & coded by Lyris
---PSYStream Dragon
+--PSYストリーム・ドラゴニス
 function c101010040.initial_effect(c)
 c:EnableReviveLimit()
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsAttribute,ATTRIBUTE_WATER),1)
-	--If this card inflicts battle damage to your opponent: You can banish 1 "PSYStream" monster from your Graveyard, and if you do, banish 1 random card from your opponent's hand, face-up, until the end of the next turn.
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_REMOVE)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
@@ -15,7 +14,6 @@ c:EnableReviveLimit()
 	e0:SetTarget(c101010040.rmtg)
 	e0:SetOperation(c101010040.rmop)
 	c:RegisterEffect(e0)
-	--If this card is banished: You can target 1 of your banished "PSYStream" cards, except "PSYStream Dragon"; add that target to your hand.
 	if not c101010040.global_check then
 		c101010040.global_check=true
 		local e1=Effect.CreateEffect(c)
@@ -37,12 +35,10 @@ c:EnableReviveLimit()
 	e1:SetTarget(c101010040.sptg)
 	e1:SetOperation(c101010040.spop)
 	c:RegisterEffect(e1)
-	--This card can attack your opponent directly.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_DIRECT_ATTACK)
 	c:RegisterEffect(e2)
-	--If this card attacks directly, any battle damage your opponent takes becomes 900 if the amount is more than than 1300.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e3:SetRange(LOCATION_MZONE)

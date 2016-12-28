@@ -1,21 +1,18 @@
 --created & coded by Lyris
 --サイバー・キャット
 function c101010023.initial_effect(c)
-	--be material
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_TO_GRAVE)
 	e4:SetCondition(c101010023.matcon)
 	e4:SetOperation(c101010023.matop)
 	c:RegisterEffect(e4)
-	--synlimit
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_CANNOT_BE_SYNCHRO_MATERIAL)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1:SetValue(c101010023.synlimit)
 	c:RegisterEffect(e1)
-	--spsummon
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
@@ -25,7 +22,6 @@ function c101010023.initial_effect(c)
 	e2:SetTarget(c101010023.sptg)
 	e2:SetOperation(c101010023.spop)
 	c:RegisterEffect(e2)
-	--lvchange
 	local e3=Effect.CreateEffect(c)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e3:SetRange(LOCATION_MZONE)

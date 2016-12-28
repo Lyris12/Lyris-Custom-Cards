@@ -1,22 +1,12 @@
 --created & coded by Lyris
 --スターライト・クェーサー・ドラゴン
 function c101010219.initial_effect(c)
-	--[[summon condition
-	local ae1=Effect.CreateEffect(c)
-	ae1:SetType(EFFECT_TYPE_SINGLE)
-	ae1:SetRange(LOCATION_EXTRA)
-	ae1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-	ae1:SetCode(EFFECT_SPSUMMON_CONDITION)
-	ae1:SetValue(c101010219.slimit)
-	c:RegisterEffect(ae1)]]
-	--attribute
 	local ae2=Effect.CreateEffect(c)
 	ae2:SetType(EFFECT_TYPE_SINGLE)
 	ae2:SetRange(LOCATION_MZONE)
 	ae2:SetCode(EFFECT_CHANGE_ATTRIBUTE)
 	ae2:SetValue(ATTRIBUTE_DARK)
 	c:RegisterEffect(ae2)
-	--cripple monster
 	local ae3=Effect.CreateEffect(c)
 	ae3:SetType(EFFECT_TYPE_FIELD)
 	ae3:SetRange(LOCATION_MZONE)
@@ -35,7 +25,6 @@ function c101010219.initial_effect(c)
 	ae4:SetTarget(c101010219.dtarget)
 	ae4:SetValue(c101010219.ddval)
 	c:RegisterEffect(ae4)
-	--negate spell/trap
 	local ae5=Effect.CreateEffect(c)
 	ae5:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	ae5:SetCode(EVENT_EQUIP)
@@ -59,9 +48,7 @@ function c101010219.chk(e,tp,eg,ep,ev,re,r,rp)
 	Duel.CreateToken(tp,500)
 	Duel.CreateToken(1-tp,500)
 end
---[[function c101010219.slimit(e,se,sp,st)
-	return bit.band(st,0x7150)==0x7150
-end]]
+
 function c101010219.condition(e)
 	return bit.band(e:GetHandler():GetSummonType(),0x7150)==0x7150
 end
@@ -77,7 +64,6 @@ end
 function c101010219.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:GetFlagEffect(101010257)==0 then
-		--During the End Phase, banish all face-up Continuous cards on the field.
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetRange(LOCATION_MZONE)
@@ -86,7 +72,6 @@ function c101010219.regop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetOperation(c101010219.desop)
 		e1:SetReset(RESET_EVENT+0x1fe0000)
 		c:RegisterEffect(e1)
-		--Negate the effects of all Normal Traps and Quick-Play Spells (anywhere).
 		local e3=Effect.CreateEffect(c)
 		e3:SetType(EFFECT_TYPE_FIELD)
 		e3:SetCode(EFFECT_DISABLE)

@@ -1,7 +1,6 @@
 --created & coded by Lyris
---PSYStream Miniwhale
+--PSYストリーム・ドルフィン
 function c101010078.initial_effect(c)
---When this card is Special Summoned: You can banish 1 "PSYStream" monster from your Deck, except "PSYStream Miniwhale".
 	local e5=Effect.CreateEffect(c)
 	e5:SetCategory(CATEGORY_REMOVE)
 	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -9,7 +8,6 @@ function c101010078.initial_effect(c)
 	e5:SetTarget(c101010078.rmtg)
 	e5:SetOperation(c101010078.rmop)
 	c:RegisterEffect(e5)
-	--During either player's Main Phase, if this card was banished this turn: You can target 1 "PSYStream" monster you control; it gains this effect until the end of your turn; (effect below)
 	if not c101010078.global_check then
 		c101010078.global_check=true
 		local ge1=Effect.CreateEffect(c)
@@ -30,12 +28,10 @@ function c101010078.initial_effect(c)
 	e0:SetTarget(c101010078.target)
 	e0:SetOperation(c101010078.operation)
 	c:RegisterEffect(e0)
-	--This card can attack your opponent directly.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_DIRECT_ATTACK)
 	c:RegisterEffect(e2)
-	--If this card attacks directly, any battle damage your opponent takes becomes 900 if the amount is more than than 900.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EVENT_PRE_BATTLE_DAMAGE)
@@ -81,7 +77,6 @@ end
 function c101010078.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
-		--If it attacks directly, your opponent cannot activate monster effects until the end of the Damage Step.
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_FIELD)
 		e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)

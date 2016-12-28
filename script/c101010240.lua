@@ -1,10 +1,8 @@
 --created & coded by Lyris
 --ガーディアン・ライリス
 function c101010240.initial_effect(c)
---synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
 	c:EnableReviveLimit()
-	--sum limit
 	local e1=Effect.CreateEffect(c)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -14,7 +12,6 @@ function c101010240.initial_effect(c)
 	local e2=e1:Clone()
 	e2:SetCode(EFFECT_CANNOT_FLIP_SUMMON)
 	c:RegisterEffect(e2)
-	--Once per turn: You can target 1 monster you control; destroy that target, and if you do, Special Summon it. Any monster Special Summoned by this effect cannot be targeted by card effects.
 	local e9=Effect.CreateEffect(c)
 	e9:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e9:SetType(EFFECT_TYPE_IGNITION)
@@ -25,7 +22,6 @@ function c101010240.initial_effect(c)
 	e9:SetOperation(c101010240.desop)
 	c:RegisterEffect(e9)
 end
---You can target 1 monster you control;
 function c101010240.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and chkc:IsDestructable() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsDestructable,tp,LOCATION_MZONE,0,1,e:GetHandler()) end
@@ -36,11 +32,8 @@ end
 function c101010240.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	--destroy that target,
 	if tc:IsControler(tp) and tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT) then
-		--and if you do, Special Summon it.
 		if Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP) then
-			--Any monster Special Summoned by this effect cannot be targeted by card effects.
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)
 			e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)

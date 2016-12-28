@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Cyber Space Wolf
+--サイバー・スペース・ウルフ
 function c101010147.initial_effect(c)
 c:EnableReviveLimit()
 	local e6=Effect.CreateEffect(c)
@@ -8,7 +8,6 @@ c:EnableReviveLimit()
 	e6:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e6:SetValue(ATTRIBUTE_LIGHT)
 	c:RegisterEffect(e6)
-	--spsummon proc
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_SPSUMMON_PROC)
@@ -17,7 +16,6 @@ c:EnableReviveLimit()
 	e2:SetCondition(c101010147.spcon)
 	e2:SetOperation(c101010147.spop)
 	c:RegisterEffect(e2)
-	--atkup
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_SINGLE)
 	e5:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -25,7 +23,6 @@ c:EnableReviveLimit()
 	e5:SetCode(EFFECT_UPDATE_ATTACK)
 	e5:SetValue(c101010147.atkup)
 	c:RegisterEffect(e5)
-	--actlimit
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -35,7 +32,6 @@ c:EnableReviveLimit()
 	e1:SetValue(c101010147.aclimit)
 	e1:SetCondition(c101010147.actcon)
 	c:RegisterEffect(e1)
-	--banished effect
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)

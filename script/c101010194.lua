@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Blitzkrieg Element - PSYph
+--襲雷属性－PSYph
 function c101010194.initial_effect(c)
---self-destruct
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -10,7 +9,6 @@ function c101010194.initial_effect(c)
 	e2:SetCondition(c101010194.descon)
 	e2:SetOperation(c101010194.desop)
 	c:RegisterEffect(e2)
-	--def down
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -19,7 +17,6 @@ function c101010194.initial_effect(c)
 	e3:SetCondition(function(e) local ph=Duel.GetCurrentPhase() return ph==PHASE_DAMAGE or ph==PHASE_DAMAGE_CAL end)
 	e3:SetValue(function(e,tp,eg,ep,ev,re,r,rp) return -Duel.GetFieldGroupCount(c:GetControler(),0,LOCATION_MZONE)*600 end)
 	c:RegisterEffect(e3)
-	--damage break
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e4:SetRange(LOCATION_HAND)

@@ -1,7 +1,6 @@
 --created & coded by Lyris
---荒潮
+--荒海
 function c101010232.initial_effect(c)
---Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
@@ -11,7 +10,6 @@ function c101010232.initial_effect(c)
 	e0:SetTarget(c101010232.tg)
 	e0:SetOperation(c101010232.activate)
 	c:RegisterEffect(e0)
-		--destroy replace
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EFFECT_DESTROY_REPLACE)

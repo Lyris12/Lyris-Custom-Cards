@@ -1,8 +1,6 @@
 --created & coded by Lyris
---Change all monsters your opponent controls to face-up Attack Position, and if you do, those monsters cannot change their Battle Position, also, they must attack this card next turn.
---FFD-Eternity
+--FFDエターニッティー
 function c101010033.initial_effect(c)
---bounce
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e0:SetCode(EVENT_DAMAGE_STEP_END)
@@ -11,7 +9,6 @@ function c101010033.initial_effect(c)
 	e0:SetTarget(c101010033.rttg)
 	e0:SetOperation(c101010033.rtop)
 	c:RegisterEffect(e0)
-	--fusion summon
 	c:EnableReviveLimit()
 	aux.AddFusionProcFun2(c,c101010033.ffilter1,c101010033.ffilter2,true)
 end

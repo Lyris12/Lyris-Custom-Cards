@@ -1,7 +1,6 @@
 --created & coded by Lyris
---PSYStream Sprite
+--PSYストリーム・スピリット
 function c101010007.initial_effect(c)
-	--During the turn this card was banished by a "PSYStream" card, when your opponent activates a monster effect: You can reveal the bottom card of your Deck, and if it was a "PSYStream" card, add that card to your hand, then negate the activation, and if you do, banish it. (This is a Quick Effect.)
 	if not c101010007.global_check then
 		c101010007.global_check=true
 		local ge1=Effect.CreateEffect(c)
@@ -20,12 +19,10 @@ function c101010007.initial_effect(c)
 	e1:SetCondition(c101010007.con)
 	e1:SetOperation(c101010007.operation)
 	c:RegisterEffect(e1)
-	--This card can attack your opponent directly.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_DIRECT_ATTACK)
 	c:RegisterEffect(e2)
-	--If this card attacks directly, any battle damage your opponent takes becomes 800 if the amount is more than than 800.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EVENT_PRE_BATTLE_DAMAGE)
