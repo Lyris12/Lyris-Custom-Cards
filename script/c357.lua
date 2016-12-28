@@ -1,4 +1,6 @@
---Impure Procedure
+--created by NovaTsukimori
+--coded by Lyris
+--インピュア召喚
 function c357.initial_effect(c)
 	if not c357.global_check then
 		c357.global_check=true
@@ -32,7 +34,7 @@ function c357.op(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetOperation(c357.sumop)
 			e1:SetReset(RESET_EVENT+EVENT_ADJUST,1)
 			tc:RegisterEffect(e1)
-			if not tc.xyz_monster then
+			if not tc.impure_xyz then
 				local e3=Effect.CreateEffect(tc)
 				e3:SetType(EFFECT_TYPE_SINGLE)
 				e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)

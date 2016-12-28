@@ -1,4 +1,6 @@
---Evolute Summoning Procedure
+--created by Chadook
+--coded by Michael Lawrence Dee
+--エーボルート召喚
 function c388.initial_effect(c)
 	if not c388.global_check then
 		c388.global_check=true

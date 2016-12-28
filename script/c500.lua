@@ -1,4 +1,5 @@
---Spatial Procedure
+--created & coded by Lyris
+--スペーシャル召喚
 function c500.initial_effect(c)
 	if not c500.global_check then
 		c500.global_check=true
@@ -9,6 +10,7 @@ function c500.initial_effect(c)
 		e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e0:SetOperation(c500.op)
 		Duel.RegisterEffect(e0,0)
+		--redirect
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EFFECT_SEND_REPLACE)
@@ -36,6 +38,7 @@ function c500.op(e,tp,eg,ep,ev,re,r,rp)
 			e0:SetReset(RESET_EVENT+EVENT_ADJUST,1)
 			e0:SetValue(c500.splimit)
 			c:RegisterEffect(e0)
+			--spatial summon
 			local e1=Effect.CreateEffect(tc)
 			e1:SetType(EFFECT_TYPE_FIELD)
 			e1:SetCode(EFFECT_SPSUMMON_PROC)
@@ -46,14 +49,17 @@ function c500.op(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetOperation(c500.sptop)
 			e1:SetValue(0x4000)
 			tc:RegisterEffect(e1)
-			local e2=Effect.CreateEffect(tc)
-			e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-			e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-			e2:SetCode(EVENT_SPSUMMON_SUCCESS)
-			e2:SetReset(RESET_EVENT+EVENT_ADJUST,1)
-			e2:SetCondition(function(e) return bit.band(e:GetHandler():GetSummonType(),0x4000)==0x4000 end)
-			e2:SetOperation(function(e) e:GetHandler():CompleteProcedure() end)
-			tc:RegisterEffect(e2)
+			if not c.spatial_nomi then
+				local e2=Effect.CreateEffect(tc)
+				e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+				e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+				e2:SetCode(EVENT_SPSUMMON_SUCCESS)
+				e2:SetReset(RESET_EVENT+EVENT_ADJUST,1)
+				e2:SetCondition(function(e) return bit.band(e:GetHandler():GetSummonType(),0x4000)==0x4000 end)
+				e2:SetOperation(function(e) e:GetHandler():CompleteProcedure() end)
+				tc:RegisterEffect(e2)
+			end
+			--differentiate Spatial from Xyz
 			local e3=Effect.CreateEffect(tc)
 			e3:SetType(EFFECT_TYPE_SINGLE)
 			e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -61,6 +67,7 @@ function c500.op(e,tp,eg,ep,ev,re,r,rp)
 			e3:SetReset(RESET_EVENT+EVENT_ADJUST,1)
 			e3:SetValue(TYPE_XYZ)
 			tc:RegisterEffect(e3)
+			--cannot rank-up
 			local e4=Effect.CreateEffect(tc)
 			e4:SetType(EFFECT_TYPE_SINGLE)
 			e4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -68,6 +75,7 @@ function c500.op(e,tp,eg,ep,ev,re,r,rp)
 			e4:SetReset(RESET_EVENT+EVENT_ADJUST,1)
 			e4:SetValue(1)
 			tc:RegisterEffect(e4)
+			--destruction shield
 			local e5=Effect.CreateEffect(tc)
 			e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 			e5:SetCode(EFFECT_DESTROY_REPLACE)
@@ -77,6 +85,7 @@ function c500.op(e,tp,eg,ep,ev,re,r,rp)
 			e5:SetReset(RESET_EVENT+EVENT_ADJUST,1)
 			e5:SetTarget(c500.valcon)
 			tc:RegisterEffect(e5)
+			--reset destruction shield
 			local e6=Effect.CreateEffect(tc)
 			e6:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 			e6:SetCode(EVENT_TO_GRAVE)

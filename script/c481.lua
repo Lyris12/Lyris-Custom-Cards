@@ -1,4 +1,5 @@
---Relay Procedure
+--created & coded by Lyris
+--リーレ召喚
 function c481.initial_effect(c)
 	if not c481.global_check then
 		c481.global_check=true
@@ -20,7 +21,9 @@ function c481.op(e,tp,eg,ep,ev,re,r,rp)
 	local tc=g:GetFirst()
 	while tc do
 		if tc:GetFlagEffect(481)==0 then
+			--Add Initial Points
 			if tc.point then tc:RegisterFlagEffect(10001100,0,EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE,1,tc.point) end
+			--cannot special summon while face-up in extra except by relay summon
 			local rl=Effect.CreateEffect(tc)
 			rl:SetType(EFFECT_TYPE_SINGLE)
 			rl:SetCode(EFFECT_SPSUMMON_CONDITION)
@@ -28,12 +31,19 @@ function c481.op(e,tp,eg,ep,ev,re,r,rp)
 			rl:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 			rl:SetValue(c481.splimit)
 			tc:RegisterEffect(rl)
+			--differentiate relay from pendulum
 			local ge8=Effect.CreateEffect(tc)
 			ge8:SetType(EFFECT_TYPE_SINGLE)
 			ge8:SetCode(EFFECT_REMOVE_TYPE)
 			ge8:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_IGNORE_IMMUNE+EFFECT_FLAG_SET_AVAILABLE)
 			ge8:SetValue(TYPE_PENDULUM)
 			tc:RegisterEffect(ge8)
+			local ge7=Effect.CreateEffect(tc)
+			ge7:SetType(EFFECT_TYPE_SINGLE)
+			ge7:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+			ge7:SetCode(EFFECT_CANNOT_TO_DECK)
+			ge7:SetCondition(function(e) return e:GetHandler():GetDestination()==LOCATION_GRAVE end)
+			tc:RegisterEffect(ge7)
 			--redirect
 			local ge0=Effect.CreateEffect(tc)
 			ge0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
@@ -42,16 +52,9 @@ function c481.op(e,tp,eg,ep,ev,re,r,rp)
 			ge0:SetRange(LOCATION_ONFIELD)
 			ge0:SetTarget(c481.reen)
 			tc:RegisterEffect(ge0)
-			--redirect
-			local ge7=Effect.CreateEffect(tc)
-			ge7:SetType(EFFECT_TYPE_SINGLE)
-			ge7:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-			ge7:SetCode(EFFECT_CANNOT_TO_DECK)
-			ge7:SetCondition(function(e) return e:GetHandler():GetDestination()==LOCATION_GRAVE end)
-			tc:RegisterEffect(ge7)
-			--counter
 			if not point_track then
 				point_track=true
+				--count # of attacks
 				local ge1=Effect.CreateEffect(tc)
 				ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 				ge1:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -62,6 +65,7 @@ function c481.op(e,tp,eg,ep,ev,re,r,rp)
 				ge2:SetCode(EVENT_ATTACK_DISABLED)
 				ge2:SetOperation(c481.recheck)
 				Duel.RegisterEffect(ge2,0)
+				--count # of damage calculations performed
 				local ge3=Effect.CreateEffect(tc)
 				ge3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 				ge3:SetCode(EVENT_BATTLED)
