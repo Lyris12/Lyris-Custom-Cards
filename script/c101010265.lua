@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Crystapal Formator
+--Cmフォーメー
 function c101010265.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
 	local e1=Effect.CreateEffect(c)
@@ -18,7 +18,6 @@ function c101010265.initial_effect(c)
 	e2:SetTarget(c101010265.sumtg)
 	e2:SetOperation(c101010265.sumop)
 	c:RegisterEffect(e2)
-	--todeck
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_TODECK)
 	e0:SetType(EFFECT_TYPE_IGNITION)

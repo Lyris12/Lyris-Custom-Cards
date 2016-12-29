@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Liquid Crystapal Spring
+--LCm春
 function c101010253.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DESTROY+CATEGORY_RECOVER)

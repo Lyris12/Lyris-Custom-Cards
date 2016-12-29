@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Magma Fusion
+--マウマ・フュージョン
 function c101010298.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -13,31 +12,23 @@ end
 function c101010298.cnfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_FUSION) and c:IsSetCard(0xa88)
 end
---If you control a "Flame Flight" Fusion Monster
 function c101010298.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c101010298.cnfilter,tp,LOCATION_MZONE,0,1,nil)
 end
---Pay 1000 LP
 function c101010298.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,1000) end
 	Duel.PayLPCost(tp,1000)
 end
 function c101010298.filter0(c)
 	if not c:IsCanBeFusionMaterial() then return false end
-	--Deck, Hand, Field
 	return (c:IsLocation(LOCATION_DECK+LOCATION_HAND+LOCATION_MZONE) and c:IsAbleToGrave())
-		--banish
 		or (c:IsLocation(LOCATION_REMOVED) and c:IsAbleToDeck())
-		--Grave
 		or (c:IsLocation(LOCATION_GRAVE) and c:IsAbleToRemove())
 end
 function c101010298.filter1(c,e)
 	if not c:IsCanBeFusionMaterial() or c:IsImmuneToEffect(e) then return false end
-	--Deck, Hand, Field
 	return (c:IsLocation(LOCATION_DECK+LOCATION_HAND+LOCATION_MZONE) and c:IsAbleToGrave())
-		--banish
 		or (c:IsLocation(LOCATION_REMOVED) and c:IsAbleToDeck())
-		--Grave
 		or (c:IsLocation(LOCATION_GRAVE) and c:IsAbleToRemove())
 end
 function c101010298.filter2(c,e,tp,m,f,chkf)

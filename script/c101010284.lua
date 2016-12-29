@@ -3,7 +3,6 @@
 function c101010284.initial_effect(c)
 c:EnableReviveLimit()
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsAttribute,ATTRIBUTE_LIGHT),1)
-	--cannot effect target
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -14,13 +13,11 @@ c:EnableReviveLimit()
 	e2:SetTargetRange(LOCATION_MZONE,0)
 	e2:SetValue(aux.tgoval)
 	c:RegisterEffect(e2)
-	--cannot negate
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_CANNOT_DISABLE)
 	e3:SetCondition(function(e,tp,eg,ep,ev,re,r,rp) return Duel.IsExistingMatchingCard(c101010284.radiant,tp,LOCATION_HAND,0,1,nil) end)
 	c:RegisterEffect(e3)
-	--tokens
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOKEN)
 	e4:SetType(EFFECT_TYPE_IGNITION)

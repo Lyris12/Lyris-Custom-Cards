@@ -1,5 +1,5 @@
 --created & coded by Lyris
---アトリビュート・クロスボウ
+--アトリビュート・クロスボー
 function c101010168.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_EQUIP)

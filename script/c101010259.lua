@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --レイディアント・エンジェル
 function c101010259.initial_effect(c)
---summon
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_SUMMON)
 	e0:SetType(EFFECT_TYPE_IGNITION)
@@ -11,7 +10,6 @@ function c101010259.initial_effect(c)
 	e0:SetTarget(c101010259.sumtg)
 	e0:SetOperation(c101010259.sumop)
 	c:RegisterEffect(e0)
-	--reveal
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)

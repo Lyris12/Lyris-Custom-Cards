@@ -1,19 +1,13 @@
 --created & coded by Lyris
---2 or more "Crystal Beast" cards
---Must first be Fusion Summoned, or Special Summoned (from your banished, Graveyard, or Extra Deck) by banishing 7 "Crystal Beast" cards with different names from your field and/or Graveyard. (You do not use "Polymerization") If this card was Fusion Summoned, this card gains 350 ATK for each Fusion Material Monster with a different name used to Fusion Summon this card, also, apply these effects to this card:
---(all effects listed below)
---If this card was Special Summoned, except by Fusion Summon, this card's ATK becomes 4000, also, it gains the following effect:
---宝玉神 レインボー・プリズム・ドラゴン
+--究極宝玉神レインボー・プリズム・ドラゴン
 function c101010278.initial_effect(c)
 c:EnableReviveLimit()
-	--splimit
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_SINGLE)
 	e5:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e5:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e5:SetValue(c101010278.splimit)
 	c:RegisterEffect(e5)
-	--fusion material
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_FUSION_MATERIAL)
@@ -21,7 +15,6 @@ c:EnableReviveLimit()
 	e1:SetCondition(c101010278.fscondition)
 	e1:SetOperation(c101010278.fsoperation)
 	c:RegisterEffect(e1)
-	--special summon
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_SPSUMMON_PROC)
@@ -31,7 +24,6 @@ c:EnableReviveLimit()
 	e2:SetOperation(c101010278.spop)
 	e2:SetValue(SUMMON_TYPE_FUSION)
 	c:RegisterEffect(e2)
-	--summon success
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -99,7 +91,6 @@ function c101010278.effop(e,tp,eg,ep,ev,re,r,rp)
 		c:RegisterEffect(ae)
 		if ct>=1 then
 			local e1=Effect.CreateEffect(c)
-			--Rainbow Overdrive: During either player's turn: you can send all "Crystal Beast" cards you control to the Graveyard; this card gains 700 ATK for each card sent.
 			e1:SetCategory(CATEGORY_ATKCHANGE)
 			e1:SetDescription(aux.Stringid(101010278,0))
 			e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
@@ -114,7 +105,6 @@ function c101010278.effop(e,tp,eg,ep,ev,re,r,rp)
 		end
 		if ct>=2 then
 			local e2=Effect.CreateEffect(c)
-			--Prism Refraction: Each turn, this card can attack a monster (including your own) a number of times equal to half of the number of Fusion Material Monsters used for its Fusion Summon.
 			e2:SetType(EFFECT_TYPE_SINGLE)
 			e2:SetReset(RESET_EVENT+0x1ff0000)
 			e2:SetCode(EFFECT_EXTRA_ATTACK)
@@ -129,7 +119,6 @@ function c101010278.effop(e,tp,eg,ep,ev,re,r,rp)
 		end
 		if ct>=4 then
 			local e3=Effect.CreateEffect(c)
-			--Prism Wall: If this card attacks your monster, your opponent takes all Battle Damage that you would have taken from that battle.
 			e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 			e3:SetCode(EVENT_PRE_BATTLE_DAMAGE)
 			e3:SetReset(RESET_EVENT+0x1ff0000)
@@ -139,7 +128,6 @@ function c101010278.effop(e,tp,eg,ep,ev,re,r,rp)
 		end
 		if ct>=5 then
 			local e4=Effect.CreateEffect(c)
-			--Prism Protection: While this card is face-up on the field “Crystal Beast” cards you control cannot be targeted by your opponent's card effects.
 			e4:SetType(EFFECT_TYPE_FIELD)
 			e4:SetRange(LOCATION_MZONE)
 			e4:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
@@ -150,7 +138,6 @@ function c101010278.effop(e,tp,eg,ep,ev,re,r,rp)
 		end
 		if ct>=7 then
 			local e5=Effect.CreateEffect(c)
-			--Prism Power: Return all (min. 5) banished "Crystal Beast" monsters to the deck; shuffle all other cards on the field into the decks.
 			e5:SetCategory(CATEGORY_TODECK)
 			e5:SetDescription(aux.Stringid(101010278,2))
 			e5:SetType(EFFECT_TYPE_IGNITION)
@@ -168,7 +155,6 @@ function c101010278.effop(e,tp,eg,ep,ev,re,r,rp)
 		as:SetReset(RESET_EVENT+0x1ff0000)
 		c:RegisterEffect(as)
 		local e6=Effect.CreateEffect(c)
-		--Rainbow Protection: If this card would be destroyed, you can banish 1 "Crystal Beast" monster in your Graveyard instead.
 		e6:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 		e6:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 		e6:SetRange(LOCATION_MZONE)

@@ -1,5 +1,5 @@
 --created & coded by Lyris
---レイディアント・レオ
+--レイディアント・ライオン
 function c101010261.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -9,7 +9,6 @@ local e1=Effect.CreateEffect(c)
 	e1:SetTarget(c101010261.target)
 	e1:SetOperation(c101010261.operation)
 	c:RegisterEffect(e1)
-	--cannot target
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetRange(LOCATION_HAND)

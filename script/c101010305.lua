@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Dazzling Pendulum
+--結晶したペンデュラム
 function c101010305.initial_effect(c)
-	--If this card is Summoned: You can Tribute it; banish 1 monster from your hand and add from your Deck to your hand, 1 Pendulum Monster with the same Type, Attribute, and Level as that banished monster had in the hand, but with a different name, but for the rest of the turn, monsters with the same name as that monster added to your hand by this effect cannot be banished from the hand.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)
@@ -43,7 +42,6 @@ function c101010305.operation(e,tp,eg,ep,ev,re,r,rp)
 		local hc=g:GetFirst()
 		if hc and Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)~=0 and tc:IsLocation(LOCATION_REMOVED) and Duel.SendtoHand(hc,nil,REASON_EFFECT)~=0 and hc:IsLocation(LOCATION_HAND) then
 			Duel.ConfirmCards(1-tp,hc)
-			--Monsters with the same name as that monster added to your hand by this effect cannot be banished from the hand.
 			local e1=Effect.CreateEffect(e:GetHandler())
 			e1:SetType(EFFECT_TYPE_FIELD)
 			e1:SetCode(EFFECT_CANNOT_REMOVE)

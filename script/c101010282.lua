@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Advance Sea Scout - Oreph of the Passing Tide
+--AdSS終焉の潮オレフ
 function c101010282.initial_effect(c)
---synchro summon
 	c:EnableReviveLimit()
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
@@ -12,7 +11,6 @@ function c101010282.initial_effect(c)
 	e0:SetOperation(c101010282.synop)
 	e0:SetValue(SUMMON_TYPE_SYNCHRO)
 	c:RegisterEffect(e0)
-	--boost
 	local ae2=Effect.CreateEffect(c)
 	ae2:SetType(EFFECT_TYPE_FIELD)
 	ae2:SetCode(EFFECT_UPDATE_ATTACK)
@@ -22,7 +20,6 @@ function c101010282.initial_effect(c)
 	ae2:SetTarget(c101010282.syntg)
 	ae2:SetValue(800)
 	c:RegisterEffect(ae2)
-	--revive
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_IGNITION)
@@ -40,7 +37,6 @@ c101010282.maxntct=99
 c101010282.sync=true
 c101010282.dobtun=true
 c101010282.dtmlt=true
---[[c101010282.synfilter1=function(c,syncard,lv,f1,f2,minct,maxc,g1,g2,g3)
 	local tlv=c:GetSynchroLevel(syncard)
 	if lv-tlv<=0 then return false end
 	if c:IsHasEffect(EFFECT_HAND_SYNCHRO) then

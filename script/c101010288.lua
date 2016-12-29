@@ -1,10 +1,8 @@
 --created & coded by Lyris
---Cyber Dragon Truesdale Neo
+--サイバー・ドラゴン・丸藤NEO
 function c101010288.initial_effect(c)
-	--xyz summon
 	c:EnableReviveLimit()
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_DRAGON),8,3)
-	--add race
 	local ar=Effect.CreateEffect(c)
 	ar:SetType(EFFECT_TYPE_FIELD)
 	ar:SetTarget(c101010288.artg)
@@ -14,7 +12,6 @@ function c101010288.initial_effect(c)
 	ar:SetValue(RACE_MACHINE)
 	ar:SetCondition(c101010288.efcon)
 	c:RegisterEffect(ar)
-	--copy
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_ADJUST)
@@ -22,7 +19,6 @@ function c101010288.initial_effect(c)
 	e0:SetCondition(c101010288.condition)
 	e0:SetOperation(c101010288.copy)
 	c:RegisterEffect(e0)
-	--attach
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DAMAGE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -34,7 +30,6 @@ function c101010288.initial_effect(c)
 	e1:SetTarget(c101010288.oltg)
 	e1:SetOperation(c101010288.olop)
 	c:RegisterEffect(e1)
-	--last
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_IMMUNE_EFFECT)
@@ -43,7 +38,6 @@ function c101010288.initial_effect(c)
 	e2:SetCondition(c101010288.condition)
 	e2:SetValue(c101010288.efilter)
 	c:RegisterEffect(e2)
-	--detach
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e3:SetCode(EVENT_PHASE+PHASE_STANDBY)
@@ -53,7 +47,6 @@ function c101010288.initial_effect(c)
 	e3:SetOperation(c101010288.rmop)
 	c:RegisterEffect(e3)
 end
---This card's effects cannot be applied/resolved while you have a Monster or Ultima Card in your Graveyard whose original (printed) Type is not Machine.
 function c101010288.effilter
 	return c:GetOriginalRace()~=RACE_MACHINE
 end

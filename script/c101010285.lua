@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Fate's Illusioner
+--フェイツ・イリュージョンガイ
 function c101010285.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
-	--Once per turn, during either player's turn: You can send 1 "Fate's" monster you control to the Graveyard, then target 1 Pendulum card your opponent controls; Special Summon 1 "Illusioner Token" (Warrior-Type/Pendulum/LIGHT/Level 1/ATK 0/DEF 0), then place that Token in your Pendulum Zone. (When Summoned, its Pendulum Scale becomes equal to the targeted card's Pendulum Scale.)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
@@ -14,7 +13,6 @@ function c101010285.initial_effect(c)
 	e2:SetTarget(c101010285.pttg)
 	e2:SetOperation(c101010285.ptop)
 	c:RegisterEffect(e2)
-	--During either player's turn, when a card or effect is activated: You can Special Summon this card from your Graveyard.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_QUICK_O)
 	e3:SetCode(EVENT_CHAINING)
@@ -23,7 +21,6 @@ function c101010285.initial_effect(c)
 	e3:SetTarget(c101010285.sptg)
 	e3:SetOperation(c101010285.spop)
 	c:RegisterEffect(e3)
-	--If this card is Special Summoned from the hand or with another "Fate's" card, except by Pendulum Summon: You take no damage for the rest of this turn, also, if you control a "Fate's" monster, except "Fate's Illusioner", gain LP equal to the amount of damage you took this turn, then you can inflict damage to your opponent equal to the amount of LP you gained.
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -108,7 +105,6 @@ function c101010285.ptop(e,tp,eg,ep,ev,re,r,rp)
 			e3:SetValue(tc:GetRightScale())
 			token:RegisterEffect(e3,true)
 		end
-		--If you control a Pendulum Summoned monster, destroy all "Illusioner Tokens" on the field.
 		local e4=Effect.CreateEffect(c)
 		e4:SetType(EFFECT_TYPE_SINGLE)
 		e4:SetCode(EFFECT_SELF_DESTROY)

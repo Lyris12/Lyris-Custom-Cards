@@ -1,10 +1,8 @@
 --created & coded by Lyris
---Victory Dragon Libraker
+--制勝竜♎
 function c101010292.initial_effect(c)
---Xyz Summon
 	c:EnableReviveLimit()
 	aux.AddXyzProcedure(c,nil,4,2)
-	--dispose
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DECKDES)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -13,7 +11,6 @@ function c101010292.initial_effect(c)
 	e1:SetTarget(c101010292.tg)
 	e1:SetOperation(c101010292.op)
 	c:RegisterEffect(e1)
-	--detach
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_MZONE)
@@ -80,7 +77,6 @@ end
 function c101010292.mpop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
-		--disable
 		local e4=Effect.CreateEffect(e:GetHandler())
 		e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 		e4:SetCode(EVENT_ATTACK_ANNOUNCE)

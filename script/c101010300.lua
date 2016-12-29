@@ -1,11 +1,10 @@
 --created & coded by Lyris
---Crysta Cavern
+--クリスタ・ケーヴ
 function c101010300.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e1)
-	--cannot be target
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_FIELD)
 	e6:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
@@ -14,7 +13,6 @@ local e1=Effect.CreateEffect(c)
 	e6:SetTarget(c101010300.pendulum)
 	e6:SetValue(aux.tgoval)
 	c:RegisterEffect(e6)
-	--to hand
 	local e7=Effect.CreateEffect(c)
 	e7:SetDescription(aux.Stringid(101010300,0))
 	e7:SetCategory(CATEGORY_DESTROY+CATEGORY_TOHAND+CATEGORY_SEARCH)

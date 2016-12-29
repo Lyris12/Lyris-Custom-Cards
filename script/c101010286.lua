@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Magmastar Dragon
+--マグマ・スター・ドラゴン
 function c101010286.initial_effect(c)
 	c:EnableReviveLimit()
-	--You can also Xyz Summon this card once per turn by banishing 1 Level 7 Dragon-Type monster you control whose ATK is between 2100 and 2800.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
@@ -13,21 +12,18 @@ function c101010286.initial_effect(c)
 	e1:SetOperation(c101010286.xyzop)
 	e1:SetValue(SUMMON_TYPE_XYZ)
 	c:RegisterEffect(e1)
-	--This card can make a second attack during each Battle Phase, but if it does, your opponent takes no battle damage.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_EXTRA_ATTACK)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetValue(1)
 	c:RegisterEffect(e2)
-	--reduce
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_NO_BATTLE_DAMAGE)
 	e3:SetCondition(c101010286.rdcon)
 	e3:SetValue(1)
 	c:RegisterEffect(e3)
-	--Once per turn, during your Standby Phase: You can target 1 Level 7 or lower Dragon-Type monster in your Graveyard; Special Summon that target, then if possible, detach 1 Xyz Material from this card, and if you do, the Summoned monster cannot be targeted or destroyed by card effects this turn.
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
@@ -39,7 +35,6 @@ function c101010286.initial_effect(c)
 	e4:SetTarget(c101010286.sptg)
 	e4:SetOperation(c101010286.spop)
 	c:RegisterEffect(e4)
-	--cannot Grave (Do Not Remove)
 	local ge1=Effect.CreateEffect(c)
 	ge1:SetType(EFFECT_TYPE_FIELD)
 	ge1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_IGNORE_RANGE)
@@ -97,7 +92,6 @@ end
 function c101010286.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
 end
---You can target 1 Level 7 or lower Dragon-Type monster in your Graveyard;
 function c101010286.spfilter(c,e,tp)
 	return c:IsRace(RACE_DRAGON) and c:IsLevelBelow(7) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
@@ -111,13 +105,10 @@ function c101010286.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c101010286.spop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	--Special Summon that target
 	if tc and tc:IsRelateToEffect(e) and tc:IsRace(RACE_DRAGON) and Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP) then
-		--then if possible, detach 1 Xyz Material from this card
 		if e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_EFFECT) then
 			Duel.BreakEffect()
 			e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_EFFECT)
-			--and if you do, the Summoned monster cannot be targeted or destroyed by card effects this turn
 			local e1=Effect.CreateEffect(e:GetHandler())
 			e1:SetType(EFFECT_TYPE_SINGLE)
 			e1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)

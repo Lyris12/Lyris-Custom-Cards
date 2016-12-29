@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --集いし襲雷
 function c101010308.initial_effect(c)
---activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_DESTROY+CATEGORY_SPECIAL_SUMMON)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
@@ -10,7 +9,6 @@ function c101010308.initial_effect(c)
 	e0:SetTarget(c101010308.target)
 	e0:SetOperation(c101010308.activate)
 	c:RegisterEffect(e0)
-	--draw
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TODECK+CATEGORY_DESTROY+CATEGORY_DRAW)
 	e1:SetType(EFFECT_TYPE_IGNITION)
@@ -29,8 +27,7 @@ function c101010308.filter1(c,e)
 	return c:IsType(TYPE_EFFECT) and c:IsCanBeFusionMaterial() and c:IsDestructable() and not c:IsImmuneToEffect(e)
 end
 function c101010308.filter2(c,e,tp,m,f,chkf)
-	return c:IsType(TYPE_FUSION) and (not f or f(c)) and c:IsRace(RACE_DRAGON)-- and c:IsSetCard(0x167)
-		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
+	return c:IsType(TYPE_FUSION) and (not f or f(c)) and c:IsRace(RACE_DRAGON)		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
 function c101010308.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

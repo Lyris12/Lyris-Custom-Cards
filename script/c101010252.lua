@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Liquid Crystapal Orange
+--LCm炎
 function c101010252.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOGRAVE+CATEGORY_DAMAGE)

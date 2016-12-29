@@ -1,10 +1,8 @@
 --created & coded by Lyris
---
+--サイバー・ライト・エンド・ドラゴン
 function c101010275.initial_effect(c)
---fusion material
 	c:EnableReviveLimit()
 	aux.AddFusionProcCodeRep(c,101010249,3,true,true)
-	--Once per turn, during your Main Phase 1: you can activate this effect; and if you do, during the Battle Phase this turn, this card can attack all monsters your opponent controls.
 	local e5=Effect.CreateEffect(c)
 	e5:SetCategory(CATEGORY_ATKCHANGE)
 	e5:SetType(EFFECT_TYPE_IGNITION)
@@ -13,7 +11,6 @@ function c101010275.initial_effect(c)
 	e5:SetCondition(c101010275.atkdncon)
 	e5:SetOperation(c101010275.atkdnop)
 	c:RegisterEffect(e5)
-	--During your End Phase: you can pay 1000 LP; this card gains 1000 ATK.
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_QUICK_O)
 	e4:SetCode(EVENT_FREE_CHAIN)

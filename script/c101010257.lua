@@ -1,7 +1,6 @@
 --created & coded by Lyris
---チビ・ドラッグルーオン
+--禿びドラッグルーオン
 function c101010257.initial_effect(c)
---pendulum summon
 	aux.EnablePendulumAttribute(c)
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -11,7 +10,6 @@ function c101010257.initial_effect(c)
 	e4:SetTarget(c101010257.target)
 	e4:SetValue(c101010257.value)
 	c:RegisterEffect(e4)
-	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
@@ -20,14 +18,12 @@ function c101010257.initial_effect(c)
 	e1:SetCondition(c101010257.spcon)
 	e1:SetOperation(c101010257.spop)
 	c:RegisterEffect(e1)
-	--xyzlimit
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_CANNOT_BE_XYZ_MATERIAL)
 	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e3:SetValue(c101010257.xyzlimit)
 	c:RegisterEffect(e3)
-	--lv change
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_MZONE)
@@ -35,7 +31,6 @@ function c101010257.initial_effect(c)
 	e2:SetCondition(c101010257.condition)
 	e2:SetOperation(c101010257.operation)
 	c:RegisterEffect(e2)
-	--
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -86,7 +81,6 @@ function c101010257.spcon(e,c)
 		and Duel.IsExistingMatchingCard(c101010257.spfilter1,c:GetControler(),LOCATION_MZONE,0,1,nil)
 end
 function c101010257.spop(e,tp,eg,ep,ev,re,r,rp,c)
-	--change level
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)

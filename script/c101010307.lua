@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Diamonds of the Black Ring
+--黒輪ダイヤモンド達
 function c101010307.initial_effect(c)
-	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

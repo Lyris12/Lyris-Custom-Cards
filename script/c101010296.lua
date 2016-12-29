@@ -1,7 +1,6 @@
 --created & coded by Lyris
---真黒竜サイバー・ダークネス・ドラゴン "THE NIGHT"
+--夜黒竜サイバー・ナイト・ドラゴン"THE DARK"
 function c101010296.initial_effect(c)
---grave-down
 	local atd=Effect.CreateEffect(c)
 	atd:SetType(EFFECT_TYPE_SINGLE)
 	atd:SetCode(EFFECT_UPDATE_ATTACK)
@@ -12,7 +11,6 @@ function c101010296.initial_effect(c)
 	local dfd=atd:Clone()
 	dfd:SetCode(EFFECT_UPDATE_DEFENSE)
 	c:RegisterEffect(dfd)
-	--equip
 	local eq=Effect.CreateEffect(c)
 	eq:SetCategory(CATEGORY_EQUIP)
 	eq:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -21,7 +19,6 @@ function c101010296.initial_effect(c)
 	eq:SetTarget(c101010296.eqtg)
 	eq:SetOperation(c101010296.eqop)
 	c:RegisterEffect(eq)
-	--copy
 	local cp=Effect.CreateEffect(c)
 	cp:SetDescription(aux.Stringid(101010296,1))
 	cp:SetType(EFFECT_TYPE_QUICK_O)
@@ -31,7 +28,6 @@ function c101010296.initial_effect(c)
 	cp:SetCost(c101010296.scost)
 	cp:SetOperation(c101010296.soperation)
 	c:RegisterEffect(cp)
-	--Destroy replace
 	local e7=Effect.CreateEffect(c)
 	e7:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e7:SetProperty(EFFECT_FLAG_SINGLE_RANGE)

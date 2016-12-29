@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Blade's Oath
+--剣主のオース
 function c101010301.initial_effect(c)
---Special Summon 1 "Blademaster" monster attached to an Xyz Monster you control. You can only activate 1 "Blade's Oath" per turn.
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_ACTIVATE)

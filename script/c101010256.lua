@@ -1,7 +1,6 @@
 --created & coded by Lyris
---
+--ドラッグルーオ・プリースト
 function c101010256.initial_effect(c)
---special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
@@ -10,7 +9,6 @@ function c101010256.initial_effect(c)
 	e1:SetCondition(c101010256.spcon)
 	e1:SetValue(1)
 	c:RegisterEffect(e1)
-	--recruit
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -19,14 +17,12 @@ function c101010256.initial_effect(c)
 	e2:SetTarget(c101010256.sptg)
 	e2:SetOperation(c101010256.spop)
 	c:RegisterEffect(e2)
-	--xyzlimit
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_CANNOT_BE_XYZ_MATERIAL)
 	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e3:SetValue(c101010256.xyzlimit)
 	c:RegisterEffect(e3)
-	--
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)

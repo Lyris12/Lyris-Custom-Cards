@@ -1,14 +1,12 @@
 --created & coded by Lyris
---超竜星ドゥニンル
+--生竜星－ドゥ・ニン・ル
 function c101010263.initial_effect(c)
---attribute(field)
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e0:SetCondition(function(e) local c=e:GetHandler() return c:IsFaceup() and c:IsLocation(LOCATION_MZONE) end)
 	e0:SetValue(0x3f)
 	c:RegisterEffect(e0)
-	--spsummon
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010263,0))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -19,7 +17,6 @@ function c101010263.initial_effect(c)
 	e1:SetTarget(c101010263.target)
 	e1:SetOperation(c101010263.operation)
 	c:RegisterEffect(e1)
-	--synchro effect
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
@@ -37,7 +34,6 @@ function c101010263.initial_effect(c)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetValue(function(e,te) return te:GetOwnerPlayer()~=e:GetOwnerPlayer() end)
 	c:RegisterEffect(e4)
-	--pre-tuning
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e3:SetCode(EVENT_BE_PRE_MATERIAL)
@@ -97,7 +93,6 @@ function c101010263.tnop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local rc=c:GetReasonCard()
 	if bit.band(e:GetHandler():GetSummonType(),SUMMON_TYPE_SPECIAL)==0 or not c:IsLocation(LOCATION_GRAVE) then return end
-	--[[local at=0x6f
 	local mg=c:GetReasonCard():GetMaterial()
 	mg:RemoveCard(c)
 	local tc=mg:GetFirst()

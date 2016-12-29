@@ -1,7 +1,6 @@
 --created & coded by Lyris
---レイディアント・デビル
+--レイディアント・デヴィル
 function c101010260.initial_effect(c)
---reveal
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DESTROY)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
@@ -14,7 +13,6 @@ function c101010260.initial_effect(c)
 	e1:SetTarget(c101010260.tg)
 	e1:SetOperation(c101010260.op)
 	c:RegisterEffect(e1)
-	--boost
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetRange(LOCATION_HAND)

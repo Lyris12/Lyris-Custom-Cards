@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Blitzkrieg Spark Dragon - Sea Scout Tsunami
+--SSDスパーク・ツナミ
 function c101010280.initial_effect(c)
 c:EnableReviveLimit()
-	--synchro summon
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_SPSUMMON_PROC)
@@ -13,7 +12,6 @@ c:EnableReviveLimit()
 	e0:SetOperation(c101010280.synop)
 	e0:SetValue(SUMMON_TYPE_SYNCHRO)
 	c:RegisterEffect(e0)
-	--self-destruct
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -22,7 +20,6 @@ c:EnableReviveLimit()
 	e2:SetCondition(c101010280.descon)
 	e2:SetOperation(c101010280.desop)
 	c:RegisterEffect(e2)
-	--add attribute
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetRange(LOCATION_MZONE)
@@ -31,14 +28,12 @@ c:EnableReviveLimit()
 	e3:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e3:SetValue(ATTRIBUTE_WATER)
 	c:RegisterEffect(e3)
-	--on-Synchro Summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e1:SetCondition(c101010280.effcon)
 	e1:SetOperation(c101010280.effop)
 	c:RegisterEffect(e1)
-	--
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_DESTROY+CATEGORY_RECOVER)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)

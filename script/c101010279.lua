@@ -1,16 +1,14 @@
 --created by Shimering-Sky on Fanfiction.net
 --coded by Lyris
---Dark Diamond Time Dragon Яeverse
+--闇の時間竜ディアルガ"Я"
 function c101010279.initial_effect(c)
 	c:EnableReviveLimit()
-	--Must be Special Summoned with a "Black Ring" Spell Card, using 1 Dragon-Type monster and 1 Machine-Type monster, and cannot be Special Summoned by other ways.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1:SetValue(aux.FALSE)
 	c:RegisterEffect(e1)
-	--link
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_IMMUNE_EFFECT)
@@ -19,7 +17,6 @@ function c101010279.initial_effect(c)
 	e2:SetTarget(c101010279.f3filter1)
 	e2:SetValue(c101010279.efilter)
 	c:RegisterEffect(e2)
-	--Absolute Rewind
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_DESTROY+CATEGORY_REMOVE)
 	e3:SetType(EFFECT_TYPE_IGNITION)

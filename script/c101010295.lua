@@ -1,4 +1,5 @@
 --created & coded by Lyris
+--ブルーアイズ・ホワイト・ドラゴニス
 function c101010295.initial_effect
 	if not c101010295.global_check then
 		c101010295.global_check=true

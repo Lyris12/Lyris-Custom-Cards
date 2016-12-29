@@ -1,21 +1,18 @@
 --created & coded by Lyris
---Clarissa, Queen of Stellar Vine #2
+--S・Vineの第二女王
 function c101010294.initial_effect(c)
 	c:EnableCounterPermit(0x1)
-	--add counter
 	local ae3=Effect.CreateEffect(c)
 	ae3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	ae3:SetCode(EVENT_REMOVE)
 	ae3:SetRange(LOCATION_MZONE)
 	ae3:SetOperation(c101010294.acop)
 	c:RegisterEffect(ae3)
-	--Evolute Counter
 	local ae0=Effect.CreateEffect(c)
 	ae0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	ae0:SetCode(EVENT_CUSTOM+101010294)
 	ae0:SetOperation(c101010294.eop)
 	c:RegisterEffect(ae0)
-	--survival
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	ae1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -24,7 +21,6 @@ function c101010294.initial_effect(c)
 	ae1:SetTarget(c101010294.reptg)
 	ae1:SetOperation(c101010294.repop)
 	c:RegisterEffect(ae1)
-	--banish
 	local ae2=Effect.CreateEffect(c)
 	ae2:SetType(EFFECT_TYPE_QUICK_O)
 	ae2:SetRange(LOCATION_MZONE)

@@ -1,10 +1,8 @@
 --created & coded by Lyris
 --サイバー・ドラゴン・丸藤
 function c101010287.initial_effect(c)
---xyz summon
 	c:EnableReviveLimit()
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_MACHINE),5,3)
-	--continuous effects
 	local aa=Effect.CreateEffect(c)
 	aa:SetType(EFFECT_TYPE_FIELD)
 	aa:SetTarget(c101010287.addcon)
@@ -40,7 +38,6 @@ function c101010287.initial_effect(c)
 	cp:SetCondition(c101010287.condition)
 	cp:SetOperation(c101010287.copy)
 	c:RegisterEffect(cp)
-	--attach
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e1:SetCode(EVENT_PHASE+PHASE_END)
@@ -49,7 +46,6 @@ function c101010287.initial_effect(c)
 	e1:SetCondition(c101010287.atcon)
 	e1:SetOperation(c101010287.atop)
 	c:RegisterEffect(e1)
-	--detach
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(101010287,0))
 	e2:SetCategory(CATEGORY_REMOVE)

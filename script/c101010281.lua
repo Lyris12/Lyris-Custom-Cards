@@ -1,10 +1,8 @@
 --created & coded by Lyris
---Advance Sea Scout - Spectral Marksman
+--AdSSスペクトル・スナイパー
 function c101010281.initial_effect(c)
---synchro summon
 	c:EnableReviveLimit()
 	aux.AddSynchroProcedure2(c,nil,aux.FilterBoolFunction(Card.IsType,TYPE_TUNER))
-	--Synchro
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(101010281,1))
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -15,7 +13,6 @@ function c101010281.initial_effect(c)
 	e3:SetTarget(c101010281.sptg)
 	e3:SetOperation(c101010281.spop)
 	c:RegisterEffect(e3)
-	--lv change
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetCountLimit(1)
@@ -23,7 +20,6 @@ function c101010281.initial_effect(c)
 	e1:SetTarget(c101010281.tg)
 	e1:SetOperation(c101010281.lvop)
 	c:RegisterEffect(e1)
-	--limit
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)

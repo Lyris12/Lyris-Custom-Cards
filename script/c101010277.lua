@@ -1,10 +1,8 @@
 --created & coded by Lyris
---
+--サイバー・ライト・スター・ドラゴン
 function c101010277.initial_effect(c)
---fusion material
 	c:EnableReviveLimit()
 	aux.AddFusionProcCode2(c,101010275,101010276,false,false)
-	--selfdes
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)

@@ -1,9 +1,7 @@
 --created & coded by Lyris
---Dragluo Elder
+--ドラッグルーオ・エルダー
 function c101010258.initial_effect(c)
---pendulum summon
 	aux.EnablePendulumAttribute(c)
-	--splimit
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetRange(LOCATION_PZONE)
@@ -13,7 +11,6 @@ function c101010258.initial_effect(c)
 	e1:SetCondition(aux.nfbdncon)
 	e1:SetTarget(c101010258.splimit)
 	c:RegisterEffect(e1)
-	--destroy
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e2:SetCode(EVENT_DESTROYED)
@@ -22,21 +19,18 @@ function c101010258.initial_effect(c)
 	e2:SetTarget(c101010258.destg)
 	e2:SetOperation(c101010258.desop)
 	c:RegisterEffect(e2)
-	--xyzlimit
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_CANNOT_BE_XYZ_MATERIAL)
 	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e3:SetValue(c101010258.xyzlimit)
 	c:RegisterEffect(e3)
-	--
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e4:SetCondition(c101010258.con)
 	e4:SetOperation(c101010258.op)
 	c:RegisterEffect(e4)
-	--avoid battle damage
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_FIELD)
 	e5:SetCode(EFFECT_AVOID_BATTLE_DAMAGE)

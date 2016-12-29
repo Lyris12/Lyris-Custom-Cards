@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Sea Scout of Stellar Vine
+--SS「S・Vine」Starmos
 function c101010293.initial_effect(c)
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetType(EFFECT_TYPE_SINGLE)
@@ -8,7 +8,6 @@ function c101010293.initial_effect(c)
 	ae1:SetValue(TYPE_SYNCHRO)
 	ae1:SetCondition(c101010293.atcon)
 	c:RegisterEffect(ae1)
-	--boost
 	local ae2=Effect.CreateEffect(c)
 	ae2:SetType(EFFECT_TYPE_FIELD)
 	ae2:SetCode(EFFECT_UPDATE_ATTACK)

@@ -1,10 +1,8 @@
 --created & coded by Lyris
---Cyber Dragon Truesdale "Kaiser"
+--サイバー・ドラゴン・丸藤カイザー
 function c101010289.initial_effect(c)
-	--xyz summon
 	c:EnableReviveLimit()
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_DRAGON),6,4,c101010289.xyzfilter,aux.Stringid(101010289,0),4,c101010289.xyzop)
-	--continuous effects
 	local ar=Effect.CreateEffect(c)
 	ar:SetType(EFFECT_TYPE_FIELD)
 	ar:SetRange(LOCATION_MZONE+LOCATION_GRAVE)
@@ -25,7 +23,6 @@ function c101010289.initial_effect(c)
 	cp:SetRange(LOCATION_MZONE)
 	cp:SetOperation(c101010289.copy)
 	c:RegisterEffect(cp)
-	--detach
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
@@ -36,7 +33,6 @@ function c101010289.initial_effect(c)
 	e2:SetTarget(c101010289.target)
 	e2:SetOperation(c101010289.op)
 	c:RegisterEffect(e2)
-	--attach
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e1:SetCode(EVENT_PHASE+PHASE_END)
@@ -46,7 +42,6 @@ function c101010289.initial_effect(c)
 	e1:SetOperation(c101010289.operation)
 	c:RegisterEffect(e1)
 end
---You can also Xyz Summon this card by banishing 2 "Cyber" Spell/Trap Cards from your Graveyard, then using a "Cyber Dragon Truesdale" as the Xyz Material. (Xyz Materials attached to that monster also become Xyz Materials on this card.)
 function c101010289.xyzfilter(c)
 	return c:IsFaceup() and c:IsCode(101010287)
 end

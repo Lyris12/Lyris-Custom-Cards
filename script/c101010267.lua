@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Malefic Blitzkrieg Dragon - Big Bang
+--Sin機光襲雷竜－ビッグバン
 function c101010267.initial_effect(c)
 c:EnableReviveLimit()
-	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
@@ -11,7 +10,6 @@ c:EnableReviveLimit()
 	e1:SetCondition(c101010267.spcon)
 	e1:SetOperation(c101010267.spop)
 	c:RegisterEffect(e1)
-	--only 1 can exists
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_CANNOT_FLIP_SUMMON)
@@ -34,7 +32,6 @@ c:EnableReviveLimit()
 	local e6=e4:Clone()
 	e6:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
 	c:RegisterEffect(e6)
-	--selfdes
 	local e7=Effect.CreateEffect(c)
 	e7:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e7:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -52,14 +49,12 @@ c:EnableReviveLimit()
 	e8:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
 	e8:SetTarget(c101010267.destarget)
 	c:RegisterEffect(e8)
-	--spson
 	local e9=Effect.CreateEffect(c)
 	e9:SetType(EFFECT_TYPE_SINGLE)
 	e9:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e9:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e9:SetValue(aux.FALSE)
 	c:RegisterEffect(e9)
-	--cannot announce
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetRange(LOCATION_MZONE)
@@ -67,7 +62,6 @@ c:EnableReviveLimit()
 	e0:SetTargetRange(LOCATION_MZONE,0)
 	e0:SetTarget(c101010267.antarget)
 	c:RegisterEffect(e0)
-	--grave immune
 	local ea=Effect.CreateEffect(c)
 	ea:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	ea:SetCode(EFFECT_SEND_REPLACE)

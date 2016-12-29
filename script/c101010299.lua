@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Cybernet Zone
+--サイバー・ネット・ゾーン
 function c101010299.initial_effect(c)
-	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH+CATEGORY_TODECK+CATEGORY_REMOVE)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -9,7 +8,6 @@ function c101010299.initial_effect(c)
 	e1:SetCost(c101010299.actcost)
 	e1:SetOperation(c101010299.activate)
 	c:RegisterEffect(e1)
-	--atk
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_UPDATE_ATTACK)
@@ -18,7 +16,6 @@ function c101010299.initial_effect(c)
 	e0:SetTarget(c101010299.atktg)
 	e0:SetValue(c101010299.atkval)
 	c:RegisterEffect(e0)
-	--spsummon
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_REMOVE+CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)

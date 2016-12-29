@@ -1,5 +1,5 @@
 --created & coded by Lyris
---LCmイエロー
+--LCm黄
 function c101010143.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOGRAVE)

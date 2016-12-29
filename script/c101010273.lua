@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Victorial Dragon Dragotaurus
+--制勝竜♉
 function c101010273.initial_effect(c)
 c:EnableReviveLimit()
-	--damage
 	local ae2=Effect.CreateEffect(c)
 	ae2:SetCategory(CATEGORY_DAMAGE)
 	ae2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

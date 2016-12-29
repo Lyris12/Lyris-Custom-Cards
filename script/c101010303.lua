@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --レイディアント・スパーク
 function c101010303.initial_effect(c)
---Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_TOHAND)
 	e0:SetProperty(EFFECT_FLAG_CARD_TARGET)
@@ -11,7 +10,6 @@ function c101010303.initial_effect(c)
 	e0:SetTarget(c101010303.target)
 	e0:SetOperation(c101010303.activate)
 	c:RegisterEffect(e0)
-	--revealed
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetRange(LOCATION_HAND)

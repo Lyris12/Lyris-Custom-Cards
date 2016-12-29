@@ -1,5 +1,5 @@
 --created & coded by Lyris
---LCmグリーン
+--LCm緑
 function c101010093.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_RECOVER)

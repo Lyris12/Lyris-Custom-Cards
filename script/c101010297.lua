@@ -1,10 +1,7 @@
 --created & coded by Lyris
---Yu Gi Oh! EVOLUTE Card Template: This is a Template for Level 5/Rank 3 or Below, Please do not Delete the parts where are labelled as "Do not remove".
---If You wish a non Effect Evolute Monster, just keep the Summoning function and undeletable ones.
---After reading this boring line, delete this comment or replace it with your Card's Name!
+--レッドアイズ・ブラック・ドラゴニス
 
 function c101010297.initial_effect(c)
---
 	local e8=Effect.CreateEffect(c)
 	e8:SetDescription(aux.Stringid(101010297,1))
 	e8:SetCategory(CATEGORY_SPECIAL_SUMMON)

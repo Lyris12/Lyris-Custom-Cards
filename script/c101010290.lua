@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Blitzkrieg Meklight Dragon - Horos
+--機光襲雷竜－ホウロウ
 function c101010290.initial_effect(c)
 aux.AddXyzProcedure(c,nil,4,2)
-	--self-destruct
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_DESTROY)
 	e0:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -11,7 +10,6 @@ aux.AddXyzProcedure(c,nil,4,2)
 	e0:SetCondition(c101010290.descon)
 	e0:SetOperation(c101010290.desop)
 	c:RegisterEffect(e0)
-	--destroy
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DESTROY)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -22,7 +20,6 @@ aux.AddXyzProcedure(c,nil,4,2)
 	e1:SetTarget(c101010290.tg)
 	e1:SetOperation(c101010290.op)
 	c:RegisterEffect(e1)
-	--no battle damage
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_DESTROYED)
@@ -43,7 +40,6 @@ end
 function c101010290.dop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if eg:IsExists(Card.IsPreviousLocation,1,nil,LOCATION_ONFIELD) then
-		--no battle damage
 		local e2=Effect.CreateEffect(c)
 		e2:SetType(EFFECT_TYPE_SINGLE)
 		e2:SetCode(EFFECT_NO_BATTLE_DAMAGE)

@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Fate's Chaos Deity
+--フェイツ・カオス・ゴッデス
 function c101010272.initial_effect(c)
 	c:EnableReviveLimit()
-	--If exactly 1 card you control (and no other cards) would be targeted by battle or card effect, you can change the target of that battle/effect to another, appropriate target you control.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetRange(LOCATION_MZONE)
@@ -16,7 +15,6 @@ function c101010272.initial_effect(c)
 	e2:SetCode(EVENT_CHAIN_SOLVING)
 	e2:SetOperation(c101010272.tgchange)
 	c:RegisterEffect(e2)
-	--If this card is Ritual Summoned or Special Summoned with a "Fate's" card: Banish all DARK monsters from the Graveyard, and if you do, return all banished LIGHT monsters to the Graveyard.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)

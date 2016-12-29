@@ -1,9 +1,7 @@
 --created & coded by Lyris
 --サイバー・サーペント
 function c101010001.initial_effect(c)
-	--pendulum summon
 	aux.EnablePendulumAttribute(c)
-	--Spell effect
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e4:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
@@ -13,7 +11,6 @@ function c101010001.initial_effect(c)
 	e4:SetTarget(c101010001.target)
 	e4:SetValue(c101010001.value)
 	c:RegisterEffect(e4)
-	--scale
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_CHANGE_LSCALE)

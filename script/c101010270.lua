@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Victorial Dragon Capricornus
+--制勝竜♑
 function c101010270.initial_effect(c)
---to hand
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
