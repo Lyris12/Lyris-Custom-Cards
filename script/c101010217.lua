@@ -1,5 +1,5 @@
 --created & coded by Lyris
---S・Vineの零嬢天使ラグナClyssha
+--S・Vineの零嬢天使ラグナクライッシャ
 function c101010217.initial_effect(c)
 	local ae3=Effect.CreateEffect(c)
 	ae3:SetCategory(CATEGORY_REMOVE)

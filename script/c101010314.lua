@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Celestial Resonance - Xyz Fusion
+--天界共鳴－エクシーズ・フュージョン
 function c101010314.initial_effect(c)
---synchro effect
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

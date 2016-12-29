@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Liquid Crystapal Pink
+--LCm桃
 function c101010340.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_REMOVE+CATEGORY_DAMAGE)

@@ -1,15 +1,12 @@
 --created & coded by Lyris
---Blade Flight
+--剣主フライト
 function c101010383.initial_effect(c)
---"Blademaster" and "Bladewing" monsters you control cannot be targeted by your opponent's card effects. Once per turn, when a Spell, Trap, or Spell/Trap effect targets a "Blademaster" or "Bladewing" monster you control: You can return 1 of those targets to your hand, then you can Special Summon 1 monster from your hand with a different name than the returned monster.
-	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetTarget(c101010383.target1)
 	e1:SetOperation(c101010383.operation1)
 	c:RegisterEffect(e1)
-	--instant(chain)
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOHAND)
 	e2:SetDescription(aux.Stringid(101010383,1))
@@ -20,7 +17,6 @@ function c101010383.initial_effect(c)
 	e2:SetTarget(c101010383.target2)
 	e2:SetOperation(c101010383.operation2)
 	c:RegisterEffect(e2)
-	--cannot target
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)

@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Victorious Weapon - Aries
+--制勝武器♈
 function c101010375.initial_effect(c)
---Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetDescription(1068)
 	e0:SetCategory(CATEGORY_EQUIP)
@@ -16,20 +15,17 @@ function c101010375.initial_effect(c)
 	e4:SetCode(EFFECT_EQUIP_LIMIT)
 	e4:SetValue(1)
 	c:RegisterEffect(e4)
-	--atk up
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_EQUIP)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetValue(500)
 	c:RegisterEffect(e1)
-	--actlimit
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e2:SetOperation(c101010375.lmop)
 	c:RegisterEffect(e2)
-	--second effect
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_BATTLED)

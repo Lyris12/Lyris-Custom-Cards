@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Fate's Blue Lightning
+--フェイツ・ブルーLight－9
 function c101010408.initial_effect(c)
 	c:EnableReviveLimit()
-	--When this card is Ritual Summoned: You can target 1 other face-up monster you control, or 1 monster in your opponent's Graveyard if this card was Special Summoned with a "Fate's" card; Special Summon that target from the Graveyard, if possible, then regardless, inflict damage to your opponent equal to that target's original ATK.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DAMAGE)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Victorial Wield Gemini
+--制勝武器♊
 function c101010376.initial_effect(c)
---Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetDescription(1068)
 	e0:SetCategory(CATEGORY_EQUIP)
@@ -16,13 +15,11 @@ function c101010376.initial_effect(c)
 	e4:SetCode(EFFECT_EQUIP_LIMIT)
 	e4:SetValue(1)
 	c:RegisterEffect(e4)
-	--atk up
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_EQUIP)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetValue(500)
 	c:RegisterEffect(e1)
-	--actlimit
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DRAW)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -32,7 +29,6 @@ function c101010376.initial_effect(c)
 	e2:SetTarget(c101010376.drtg)
 	e2:SetOperation(c101010376.drop)
 	c:RegisterEffect(e2)
-	--second effect
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_DRAW)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)

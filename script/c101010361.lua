@@ -1,10 +1,8 @@
 --created & coded by Lyris
---Victory Dragon Ariesen
+--制勝竜♈
 function c101010361.initial_effect(c)
 c:EnableReviveLimit()
-	--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
-	--actlimit
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -14,7 +12,6 @@ c:EnableReviveLimit()
 	e1:SetValue(c101010361.aclimit)
 	e1:SetCondition(c101010361.actcon)
 	c:RegisterEffect(e1)
-	--dispose
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_QUICK_O)

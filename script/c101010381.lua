@@ -1,6 +1,6 @@
---Plasmaslash Blades
+--created & coded by Lyris
+--プラズマ・スラッシュ・ブレード
 function c101010381.initial_effect(c)
-	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(1068)
 	e1:SetCategory(CATEGORY_EQUIP)
@@ -10,19 +10,16 @@ function c101010381.initial_effect(c)
 	e1:SetTarget(c101010381.target)
 	e1:SetOperation(c101010381.activate)
 	c:RegisterEffect(e1)
-	--Equip limit
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_EQUIP_LIMIT)
 	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e2:SetValue(function(e,c) return c:IsControler(e:GetHandlerPlayer()) end)
 	c:RegisterEffect(e2)
-	--pierce
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_EQUIP)
 	e3:SetCode(EFFECT_PIERCE)
 	c:RegisterEffect(e3)
-	--remove
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e4:SetCode(EVENT_BATTLE_DAMAGE)

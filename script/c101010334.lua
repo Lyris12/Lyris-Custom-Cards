@@ -1,8 +1,7 @@
 --created & coded by Lyris
---White Wisteria Wyvern
+--ホワイト・ウィステリア・ワイバーン
 function c101010334.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
-	--You cannot Pendulum Summon monsters, except Normal Monsters. This effect cannot be negated.
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
@@ -12,14 +11,12 @@ function c101010334.initial_effect(c)
 	e0:SetCondition(aux.nfbdncon)
 	e0:SetTarget(c101010334.splimit)
 	c:RegisterEffect(e0)
-	--If a Normal Monster you control attacks a face-down monster, your monster gains 1000 ATK during the Damage Step only.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e1:SetRange(LOCATION_PZONE)
 	e1:SetOperation(c101010334.atktg)
 	c:RegisterEffect(e1)
-	--During your opponent's turn: You can target 1 Effect Monster your opponent controls; change that target to face-down Attack Position. Monsters changed to face-down Attack Position by this effect cannot change their battle positions this turn. You can only use the effect of "White Wisteria Wyvern" once per turn.
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_POSITION)
 	e2:SetType(EFFECT_TYPE_QUICK_O)

@@ -1,8 +1,6 @@
 --created & coded by Lyris
---Declare 1 number from 1 to 6; roll 1 six-sided die, and Special Summon from your Deck, 1 monster whose Level equals either one or both of those numbers, you can Special Summon 1 monster from your Extra Deck whose Rank equals the result, by using it as the Xyz Material (This is treated as an Xyz Summon.), and if you do, attach this card to that monster as a face-up Xyz Material.
---RUM-The Pair Numbers
+--RUM－ザ・ペア・ナンバーズ
 function c101010315.initial_effect(c)
---Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DICE+CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

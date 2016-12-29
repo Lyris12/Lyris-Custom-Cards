@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Rainbow-Eyes Starchaser
+--レインボー・アイズ・スターチェーサー
 function c101010351.initial_effect(c)
-	--During your Main Phase 1: You can dispose 1 of this card's Points; this card can attack your opponent directly this turn.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_MZONE)
@@ -9,7 +8,6 @@ function c101010351.initial_effect(c)
 	e3:SetCost(c101010351.dacost)
 	e3:SetOperation(c101010351.daop)
 	c:RegisterEffect(e3)
-	--At the start of your Battle Phase: You can shuffle this face-up card you control into the Deck.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_FREE_CHAIN)

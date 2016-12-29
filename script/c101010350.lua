@@ -1,12 +1,10 @@
 --created & coded by Lyris
---Bladewing Dawning
+--剣主翼九
 function c101010350.initial_effect(c)
---pierce
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_PIERCE)
 	c:RegisterEffect(e0)
-	--When this card is Summoned: You can Special Summon 1 "Blademaster" or "Bladewing" monster from your hand, except "Bladewing Dawning".
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -21,14 +19,12 @@ function c101010350.initial_effect(c)
 	local e4=e2:Clone()
 	e4:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
 	c:RegisterEffect(e4)
-	--effect gain
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e5:SetCode(EVENT_BE_MATERIAL)
 	e5:SetCondition(c101010350.effcon)
 	e5:SetOperation(c101010350.effop1)
 	c:RegisterEffect(e5)
-	--effect gain
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e6:SetCode(EVENT_BE_PRE_MATERIAL)

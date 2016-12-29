@@ -1,7 +1,6 @@
 --created & coded by Lyris
---FFD－サンデー
+--FFDサンデー
 function c101010410.initial_effect(c)
-	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -9,7 +8,6 @@ function c101010410.initial_effect(c)
 	e1:SetRange(LOCATION_EXTRA)
 	e1:SetValue(aux.fuslimit)
 	c:RegisterEffect(e1)
-	--spsummon
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_DESTROY+CATEGORY_SPECIAL_SUMMON)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
@@ -19,7 +17,6 @@ function c101010410.initial_effect(c)
 	e4:SetTarget(c101010410.drtg)
 	e4:SetOperation(c101010410.drop)
 	c:RegisterEffect(e4)
-	--fusion summon
 	c:EnableReviveLimit()
 	aux.AddFusionProcFun2(c,c101010410.ffilter1,c101010410.ffilter2,true)
 end

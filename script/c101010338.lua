@@ -1,7 +1,6 @@
 --created & coded by Lyris
---
+--サイバー・ライト・ドラゴン・ドライ
 function c101010338.initial_effect(c)
---lv
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010338,0))
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -10,7 +9,6 @@ function c101010338.initial_effect(c)
 	e1:SetTarget(c101010338.lvtg)
 	e1:SetOperation(c101010338.lvop)
 	c:RegisterEffect(e1)
-	--indes
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(101010338,1))
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
@@ -18,7 +16,6 @@ function c101010338.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e2:SetOperation(c101010338.operation)
 	c:RegisterEffect(e2)
-	--code
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)

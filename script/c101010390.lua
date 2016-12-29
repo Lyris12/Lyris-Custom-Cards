@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Galactic Mirror Force
+--新星光バリア－ギャラクシー・フォース
 function c101010390.initial_effect(c)
-	--When an opponent's monster declares an attack: Apply this effect, depending on the number of Attack Position monsters your opponent controls; (effects below)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -17,10 +16,8 @@ end
 function c101010390.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(Card.IsAttackPos,tp,0,LOCATION_MZONE,nil)
 	if g:GetCount()<3 then
-		--1 or 2: Banish all Attack Position monsters your opponent controls.
 		Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
 	else
-		--3 or more: The ATK of all Attack Position monsters your opponent controls becomes 0.
 		local tc=g:GetFirst()
 		while tc do
 			local e1=Effect.CreateEffect(c)

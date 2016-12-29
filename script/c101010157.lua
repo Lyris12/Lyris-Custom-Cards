@@ -1,5 +1,5 @@
 --created & coded by Lyris
---S・Vineの女王Clyssha
+--S・Vineの女王クライッシャ
 function c101010157.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)

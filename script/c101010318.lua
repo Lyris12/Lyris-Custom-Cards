@@ -1,8 +1,6 @@
 --created & coded by Lyris
---Bladewing Soaring
+--剣主飛翔
 function c101010318.initial_effect(c)
---When your oppoent activates a monster effect that targets a "Blademaster" or "Bladewing" monster you control: Negate the activation, and if you do, destroy it.
-	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

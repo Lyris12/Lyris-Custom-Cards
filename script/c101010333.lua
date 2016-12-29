@@ -1,8 +1,7 @@
 --created & coded by Lyris
---White Wisteria Wing
+--ホワイト・ウィステリア・ウイング
 function c101010333.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
-	--You cannot Pendulum Summon monsters, except Normal Monsters. This effect cannot be negated.
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
@@ -12,7 +11,6 @@ function c101010333.initial_effect(c)
 	e0:SetCondition(aux.nfbdncon)
 	e0:SetTarget(c101010333.splimit)
 	c:RegisterEffect(e0)
-	--Face-down Attack Position monsters you control cannot be destroyed by card effects.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
@@ -21,7 +19,6 @@ function c101010333.initial_effect(c)
 	e1:SetTarget(aux.TargetBoolFunction(Card.IsPosition,POS_FACEDOWN_ATTACK))
 	e1:SetValue(1)
 	c:RegisterEffect(e1)
-	--When a Normal Monster you control is targeted by an attack or effect: You can return that monster to your hand and Special Summon this card from your Pendulum Zone in face-down Attack Position.
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)

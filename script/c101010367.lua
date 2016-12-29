@@ -1,10 +1,7 @@
 --created & coded by Lyris
---Yu Gi Oh! EVOLUTE Card Template: This is a Template for Level 5/Rank 3 or Below, Please do not Delete the parts where are labelled as "Do not remove".
---If You wish a non Effect Evolute Monster, just keep the Summoning function and undeletable ones.
+--レッドアイズ・ダークネス・ドラゴニス
 
---レッドアイズ・ダークネスドラゴニス
 function c101010367.initial_effect(c)
---atk
 	local e8=Effect.CreateEffect(c)
 	e8:SetType(EFFECT_TYPE_SINGLE)
 	e8:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -12,7 +9,6 @@ function c101010367.initial_effect(c)
 	e8:SetRange(LOCATION_MZONE)
 	e8:SetValue(c101010367.val)
 	c:RegisterEffect(e8)
-	--special summon
 	local e9=Effect.CreateEffect(c)
 	e9:SetDescription(aux.Stringid(101010367,1))
 	e9:SetCategory(CATEGORY_SPECIAL_SUMMON)

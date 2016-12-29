@@ -1,5 +1,5 @@
 --created & coded by Lyris
---S・Vine曲芸師Zumba
+--S・Vine曲芸師ズンバ
 function c101010248.initial_effect(c)
 aux.EnableDualAttribute(c)
 	local e0=Effect.CreateEffect(c)

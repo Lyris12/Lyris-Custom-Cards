@@ -1,5 +1,5 @@
 --created & coded by Lyris
---伝説融合
+--伝説の融合
 function c101010228.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)

@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Liquid Crystapal Cerulean
+--LCm紺
 function c101010339.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DESTROY+CATEGORY_TODECK)

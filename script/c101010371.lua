@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Bladewing's Aerial Advantage
+--剣主のエアリアル・アドバンテージ
 function c101010371.initial_effect(c)
---Discard 1 "Blademaster" or "Bladewing" monster; Draw 2 cards, then if your opponent controls more monsters than you do, change 1 monster your opponent controls to face-down Defense Position, also, if you control no monsters, Draw 1 card. You can only activate 1 "Bladewing's Aerial Advantage" per turn.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DRAW)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

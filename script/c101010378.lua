@@ -1,8 +1,7 @@
 --created & coded by Lyris
---Victorial Wield Ophichius
+--制勝武器⛎
 function c101010378.initial_effect(c)
 c:SetUniqueOnField(1,0,101010378)
-	--Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetDescription(1068)
 	e0:SetCategory(CATEGORY_EQUIP)
@@ -17,13 +16,11 @@ c:SetUniqueOnField(1,0,101010378)
 	e4:SetCode(EFFECT_EQUIP_LIMIT)
 	e4:SetValue(1)
 	c:RegisterEffect(e4)
-	--atk up
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_EQUIP)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetValue(500)
 	c:RegisterEffect(e1)
-	--to hand
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
@@ -34,7 +31,6 @@ c:SetUniqueOnField(1,0,101010378)
 	e2:SetTarget(c101010378.tg)
 	e2:SetOperation(c101010378.op)
 	c:RegisterEffect(e2)
-	--second effect
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_BATTLED)

@@ -1,12 +1,10 @@
 --created & coded by Lyris
---Bladewing Shinob
+--剣主翼六
 function c101010348.initial_effect(c)
---pierce
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_PIERCE)
 	c:RegisterEffect(e0)
-	--When you take Battle Damage: You can Special Summon this card from your hand, then if you control a "Blademaster" or "Bladewing" monster, except "Bladewing Shinob", you can apply the following effect. You can only apply this effect of "Bladewing Shinob" once per duel;
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)

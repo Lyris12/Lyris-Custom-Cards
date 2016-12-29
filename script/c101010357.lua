@@ -1,9 +1,8 @@
 --created & coded by Lyris
---Victorial Dragon Sagitton
+--制勝竜♐
 function c101010357.initial_effect(c)
 c:EnableReviveLimit()
 	aux.AddFusionProcFunRep(c,aux.FilterBoolFunction(Card.IsSetCard,0x50b),2,64,true)
-	--spsum condition
 	local rl=Effect.CreateEffect(c)
 	rl:SetType(EFFECT_TYPE_SINGLE)
 	rl:SetCode(EFFECT_SPSUMMON_CONDITION)
@@ -11,13 +10,11 @@ c:EnableReviveLimit()
 	rl:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	rl:SetValue(c101010357.splimit)
 	c:RegisterEffect(rl)
-	--attack all
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_ATTACK_ALL)
 	e1:SetValue(function(e,c) return c:IsFaceup() and c:IsLevelBelow(5) end)
 	c:RegisterEffect(e1)
-	--dispose
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EFFECT_DESTROY_REPLACE)

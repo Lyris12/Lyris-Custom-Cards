@@ -1,7 +1,6 @@
 --created & coded by Lyris
---準星誕生
+--純正誕生
 function c101010415.initial_effect(c)
-	--Activate After "Dark Hole" resolves and destroys a "Stardust Dragon"(s), "Shooting Star Dragon"(s), and/or 3 or more "Photon" monsters: Special Summon 1 "Shooting Quasar Dragon" from your Extra Deck. (This is treated as a Synchro Summon. All LIGHT monsters and WIND Dragon-Type monsters that were destroyed by that "Dark Hole" become the Summoned Monster's Synchro Materials.)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

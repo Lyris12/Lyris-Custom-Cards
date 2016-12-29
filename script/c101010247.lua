@@ -1,5 +1,5 @@
 --created & coded by Lyris
---S・Vine王子Zyphyr
+--S・Vine王子ザフィル
 function c101010247.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_REMOVE)

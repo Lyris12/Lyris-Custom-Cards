@@ -1,7 +1,6 @@
 --created & coded by Lyris
---
+--サイバー・ライト・ドラゴン・コア
 function c101010337.initial_effect(c)
---search
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010337,0))
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
@@ -14,7 +13,6 @@ function c101010337.initial_effect(c)
 	local e0=e1:Clone()
 	e0:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e0)
-	--spsummon
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(101010337,1))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -26,7 +24,6 @@ function c101010337.initial_effect(c)
 	e2:SetTarget(c101010337.sptg)
 	e2:SetOperation(c101010337.spop)
 	c:RegisterEffect(e2)
-	--code
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_CHANGE_CODE)

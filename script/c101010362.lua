@@ -1,7 +1,7 @@
---Crystapal Dharc the Tourmaline
+--created & coded by Lyris
+--Cmトルマリン・ダルク
 function c101010362.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
-	--If a player Summons a non-"Liquid Crystapal" monster(s): Excavate cards from the top of your Deck until you excavate a "Liquid Crystapal" monster, add that card to that player's hand, then repeat this effect up to a number of times equal to the number of monsters they Summoned - 1. After this effect resolves, shuffle all excavated cards not added by that effect back into the Deck.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)

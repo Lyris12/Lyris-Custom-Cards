@@ -1,9 +1,8 @@
 --created & coded by Lyris
---White Wisteria Widow
+--ホワイト・ウィステリア・ウイロー
 function c101010387.initial_effect(c)
 	c:EnableCounterPermit(0x63)
 	aux.EnablePendulumAttribute(c,false)
-	--You cannot Pendulum Summon monsters, except Normal Monsters. This effect cannot be negated.
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
@@ -13,7 +12,6 @@ function c101010387.initial_effect(c)
 	e0:SetCondition(aux.nfbdncon)
 	e0:SetTarget(c101010387.splimit)
 	c:RegisterEffect(e0)
-	--Pendulum Summoned Normal Monsters you control cannot be destroyed by card effects.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
@@ -22,14 +20,12 @@ function c101010387.initial_effect(c)
 	e1:SetTarget(c101010387.pcttg)
 	e1:SetValue(1)
 	c:RegisterEffect(e1)
-	--When this card is activated: You can add 1 "White Wisteria" Spell/Trap Card from your Deck to your hand.
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e2:SetType(EFFECT_TYPE_ACTIVATE)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetOperation(c101010387.activate)
 	c:RegisterEffect(e2)
-	--If a "White Wisteria" Spell/Trap Card(s) you control is targeted by a card effect your opponent controls: You can return 1 of those cards to your hand and place 1 Wisteria Counter on this card. When the 5th Wisteria Counter is placed on this card, Special Summon this card in face-down Attack Position.
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_COUNTER)
 	e3:SetType(EFFECT_TYPE_QUICK_O)
@@ -39,7 +35,6 @@ function c101010387.initial_effect(c)
 	e3:SetTarget(c101010387.tg)
 	e3:SetOperation(c101010387.op)
 	c:RegisterEffect(e3)
-	--You can only control 1 "White Wisteria Widow".
 	c:SetUniqueOnField(1,0,101010387)
 end
 function c101010387.splimit(e,c,tp,sumtp,sumpos)

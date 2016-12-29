@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Vicarious Summoning
+--追体召喚－エンパシー・サモン
 function c101010313.initial_effect(c)
-	--Return all monsters whose controllers are different from their owners to the hand, then each player can Special Summon 1 monster that was returned this way from their hand or Extra Deck to their side of the field.
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_TOHAND+CATEGORY_SPECIAL_SUMMON)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
@@ -9,7 +8,6 @@ function c101010313.initial_effect(c)
 	e0:SetTarget(c101010313.target)
 	e0:SetOperation(c101010313.activate)
 	c:RegisterEffect(e0)
-	--If possession of a monster(s) switches from their owners': that player's opponent can add this card from your Deck or either player's Graveyard to their hand.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)

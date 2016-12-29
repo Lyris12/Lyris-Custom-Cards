@@ -1,17 +1,14 @@
 --created & coded by Lyris
---青光神竜－サイバー・アイス・ドラゴン
+--青氷神竜サイバー・アイス・ドラゴン
 function c101010409.initial_effect(c)
-	--fusion material
 	c:EnableReviveLimit()
 	aux.AddFusionProcFun2(c,aux.FilterBoolFunction(c101010409.ffilter),aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_WATER),true)
-	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e1:SetValue(c101010409.splimit)
 	c:RegisterEffect(e1)
-	--special summon rule
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_SPSUMMON_PROC)
@@ -20,7 +17,6 @@ function c101010409.initial_effect(c)
 	e2:SetCondition(c101010409.sprcon)
 	e2:SetOperation(c101010409.sprop)
 	c:RegisterEffect(e2)
-	--cannot be fusion material
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_SINGLE_RANGE)
@@ -28,7 +24,6 @@ function c101010409.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetValue(1)
 	c:RegisterEffect(e3)
-	--spsummon success
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_EQUIP)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -37,7 +32,6 @@ function c101010409.initial_effect(c)
 	e4:SetTarget(c101010409.eqtg)
 	e4:SetOperation(c101010409.eqop)
 	c:RegisterEffect(e4)
-	--material check
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_SINGLE)
 	e5:SetCode(EFFECT_MATERIAL_CHECK)
@@ -130,14 +124,12 @@ function c101010409.eqop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetValue(c101010409.eqlimit)
 		tc:RegisterEffect(e1)
 		if bit.band(ct,ATTRIBUTE_LIGHT)~=0 then
-			--Destroy replace
 			local e3=Effect.CreateEffect(c)
 			e3:SetType(EFFECT_TYPE_EQUIP)
 			e3:SetCode(EFFECT_DESTROY_SUBSTITUTE)
 			e3:SetReset(RESET_EVENT+0x1fe0000)
 			e3:SetValue(1)
 			tc:RegisterEffect(e3)
-			--disable
 			local e2=Effect.CreateEffect(c)
 			e2:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
 			e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_QUICK_F)

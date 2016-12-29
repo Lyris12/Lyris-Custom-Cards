@@ -1,15 +1,12 @@
 --created & coded by Lyris
---Superpowered Metropolis - San Fransokyo
---超大国の都市ーサン・フランソ京
+--超大都市サン・フランソキョ
 function c101010380.initial_effect(c)
---Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	e0:SetOperation(c101010380.activate)
 	c:RegisterEffect(e0)
-	--search
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_EQUIP)
 	e1:SetType(EFFECT_TYPE_IGNITION)
@@ -19,7 +16,6 @@ function c101010380.initial_effect(c)
 	e1:SetTarget(c101010380.tg)
 	e1:SetOperation(c101010380.op)
 	c:RegisterEffect(e1)
-	--cannot target
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetRange(LOCATION_FZONE)

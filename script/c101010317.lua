@@ -1,7 +1,6 @@
 --created & coded by Lyris
---
+--サイバー・ライト・リバース
 function c101010317.initial_effect(c)
---Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
@@ -22,8 +21,7 @@ function c101010317.chainfilter(re,tp,cid)
 end
 function c101010317.filter1(c,e,tp)
 	local lv=c:GetLevel()
-	return lv>0 and c:IsAbleToRemoveAsCost() and c:IsSetCard(0x93) --and (c:IsCode(70095154) or aux.IsMaterialListCode(c,70095154))
-		and Duel.IsExistingMatchingCard(c101010317.filter2,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_EXTRA,0,1,nil,lv,e,tp)
+	return lv>0 and c:IsAbleToRemoveAsCost() and c:IsSetCard(0x93) 		and Duel.IsExistingMatchingCard(c101010317.filter2,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_EXTRA,0,1,nil,lv,e,tp)
 end
 function c101010317.filter2(c,lv,e,tp)
 	return c:GetLevel()==lv and c:IsCanBeSpecialSummoned(e,0,tp,true,true)

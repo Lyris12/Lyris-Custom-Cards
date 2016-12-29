@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Victorial Wield Sagittarius
+--制勝武器♐
 function c101010377.initial_effect(c)
---Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetDescription(1068)
 	e0:SetCategory(CATEGORY_EQUIP)
@@ -16,20 +15,17 @@ function c101010377.initial_effect(c)
 	e4:SetCode(EFFECT_EQUIP_LIMIT)
 	e4:SetValue(1)
 	c:RegisterEffect(e4)
-	--atk up
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_EQUIP)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetValue(500)
 	c:RegisterEffect(e1)
-	--double damage
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_PRE_BATTLE_DAMAGE)
 	e4:SetCondition(c101010377.damcon)
 	e4:SetOperation(c101010377.damop)
 	c:RegisterEffect(e4)
-	--spsummon
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(2)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)

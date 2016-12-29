@@ -1,12 +1,10 @@
 --created & coded by Lyris
---Bladewing Tara
+--剣主翼七
 function c101010349.initial_effect(c)
---pierce
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_PIERCE)
 	c:RegisterEffect(e0)
-	--When this card is Normal Summoned: You can shuffle 3 "Blademaster" or "Bladewing" monsters from your hand or Graveyard into the Deck, and if you do, draw 2 cards.
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DRAW+CATEGORY_TODECK)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

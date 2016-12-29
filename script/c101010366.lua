@@ -1,13 +1,11 @@
 --created & coded by Lyris
---Starry-Eyes Stripe Dragon
+--青速竜スターリアイズ・ストライプ・ドラゴン
 function c101010366.initial_effect(c)
-	--If this face-up card would be banished, return it to the Extra Deck instead.
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EFFECT_SEND_REPLACE)
 	e0:SetTarget(c101010366.reptg)
 	c:RegisterEffect(e0)
-	--You can dispose 1 of this card's Points, then target 1 banished monster; shuffle that target into the Deck, then all monsters your opponent controls lose ATK and DEF equal to its ATK or DEF in the Deck (whichever is higher).
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_MZONE)
@@ -33,7 +31,6 @@ function c101010366.initial_effect(c)
 	end
 end
 c101010366.spatial=true
---Spatial Formula filter(s)
 c101010366.alterf=  function(mc)
 						return mc.spatial or (mc.relay and mc:GetLevel()==7)
 					end

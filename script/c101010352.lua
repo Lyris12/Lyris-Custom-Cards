@@ -1,6 +1,6 @@
---Destiny HERO Loyal Prince
+--created & coded by Lyris
+--D－HERO ディボートガイ
 function c101010352.initial_effect(c)
-	--If this card is Normal or Special Summoned: You can target 1 Level 4 "Destiny HERO" monster in your Graveyard, except "Destiny HERO Loyal Prince"; Special Summon it, but it cannot be used as an Xyz Material this turn.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -12,7 +12,6 @@ function c101010352.initial_effect(c)
 	local e2=e1:Clone()
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e2)
-	--control
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)

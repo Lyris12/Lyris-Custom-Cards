@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Rainbow-Eyes Amaranth Pulse
+--レインボー・アイズ・アマランス・パルス
 function c101010312.initial_effect(c)
 local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)

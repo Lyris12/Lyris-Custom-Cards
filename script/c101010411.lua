@@ -1,7 +1,6 @@
 --created & coded by Lyris
---FF－フェニックス
+--FFフェニックス
 function c101010411.initial_effect(c)
-	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -13,7 +12,6 @@ function c101010411.initial_effect(c)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetOperation(c101010411.regop)
 	c:RegisterEffect(e2)
-	--fusion summon
 	c:EnableReviveLimit()
 	aux.AddFusionProcFun2(c,c101010411.ffilter1,c101010411.ffilter2,true)
 end
@@ -26,7 +24,6 @@ end
 function c101010411.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsHasEffect(101010055) then
-		--Special summon
 		local e2=Effect.CreateEffect(c)
 		e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 		e2:SetType(EFFECT_TYPE_IGNITION)

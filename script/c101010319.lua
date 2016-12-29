@@ -1,20 +1,17 @@
 --created & coded by Lyris
 --ドラッグルーオンの伝説
 function c101010319.initial_effect(c)
---Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	e0:SetCost(c101010319.cost)
 	c:RegisterEffect(e0)
-	--effect advantage
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_ADJUST)
 	e1:SetRange(LOCATION_SZONE)
 	e1:SetOperation(c101010319.eqop)
 	c:RegisterEffect(e1)
-	--def
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_UPDATE_DEFENSE)
@@ -24,7 +21,6 @@ function c101010319.initial_effect(c)
 	e2:SetTarget(c101010319.deftg)
 	e2:SetValue(c101010319.defval)
 	c:RegisterEffect(e2)
-	--disable
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetRange(LOCATION_SZONE)
@@ -33,13 +29,11 @@ function c101010319.initial_effect(c)
 	e3:SetTarget(c101010319.disable)
 	e3:SetCode(EFFECT_DISABLE)
 	c:RegisterEffect(e3)
-	--act in hand
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE)
 	e4:SetCode(EFFECT_TRAP_ACT_IN_HAND)
 	e4:SetCondition(c101010319.handcon)
 	c:RegisterEffect(e4)
-	--remove brainwashing
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_FIELD)
 	e5:SetCode(EFFECT_CANNOT_CHANGE_CONTROL)

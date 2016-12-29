@@ -1,8 +1,7 @@
 --created & coded by Lyris
---White Wisteria Wisp
+--ホワイト・ウィステリア・ウィスプ
 function c101010335.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
-	--You cannot Pendulum Summon monsters, except Normal Monsters. This effect cannot be negated.
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
@@ -12,7 +11,6 @@ function c101010335.initial_effect(c)
 	e0:SetCondition(aux.nfbdncon)
 	e0:SetTarget(c101010335.splimit)
 	c:RegisterEffect(e0)
-	--"White Wisteria" Spell/Trap Cards cannot be targeted by your opponent's Spell/Trap effects.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
@@ -21,7 +19,6 @@ function c101010335.initial_effect(c)
 	e1:SetTarget(c101010335.pcttg)
 	e1:SetValue(c101010335.pctval)
 	c:RegisterEffect(e1)
-	--Once per turn: You can target 1 Normal Monster you control; change that target to face-down Attack Position, and if you do, your opponent cannot activate Trap Cards during this turn's Battle Phase.
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_POSITION)
 	e2:SetType(EFFECT_TYPE_IGNITION)

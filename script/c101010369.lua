@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Victorial Dragon Snakesisfy
+--制勝竜⛎
 function c101010369.initial_effect(c)
---enhance summon
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_SPSUMMON_PROC)
@@ -11,7 +10,6 @@ function c101010369.initial_effect(c)
 	e0:SetOperation(c101010369.sprop)
 	e0:SetValue(0x7327)
 	c:RegisterEffect(e0)
-	--If this card is Relay Summoned: You can target 1 other monster you control; shuffle it into the Deck, and if you do, draw 2 cards, then if you do not have a face-up Relay Monster in your Extra Deck, it becomes the End Phase of this turn.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DRAW+CATEGORY_TODECK)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -21,7 +19,6 @@ function c101010369.initial_effect(c)
 	e1:SetTarget(c101010369.target)
 	e1:SetOperation(c101010369.operation)
 	c:RegisterEffect(e1)
-	--When a monster you control is destroyed by battle: You can dispose 1 of this card's Points; Special Summon 1 monster from your Deck with the same Level as the destroyed monster in face-up Attack Position.
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(2)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)

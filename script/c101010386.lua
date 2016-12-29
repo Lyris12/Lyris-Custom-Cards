@@ -1,23 +1,20 @@
 --created & coded by Lyris
---
+--機光襲雷竜－イグニスター
 function c101010386.initial_effect(c)
 	c:EnableReviveLimit()
 	aux.AddFusionProcFunRep(c,c101010386.ffilter,2,false)
 	
-	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e1:SetValue(aux.fuslimit)
 	c:RegisterEffect(e1)
-	--During either player's turn, if this card was Fusion Summoned: You can destroy this card, then inflict damage to your opponent equal to the total ATK of this card's Fusion Materials. You can only use this effect of "Ignister Dragon" once per turn.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_MATERIAL_CHECK)
 	e2:SetValue(c101010386.mat)
 	c:RegisterEffect(e2)
-	--damage
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e0:SetCode(EVENT_DESTROYED)

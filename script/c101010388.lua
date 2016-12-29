@@ -1,5 +1,5 @@
 --created & coded by Lyris
---White Wisteria World
+--ホワイト・ウィステリア・ワールド
 function c101010388.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
@@ -7,7 +7,6 @@ function c101010388.initial_effect(c)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetOperation(c101010388.op)
 	c:RegisterEffect(e1)
-	--Normal Monsters you control and face-down Attack Position monsters cannot be targeted by attacks or your opponent's card effects.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -26,7 +25,6 @@ function c101010388.initial_effect(c)
 	e3:SetCondition(c101010388.pctcon)
 	e3:SetValue(c101010388.pcttg)
 	c:RegisterEffect(e3)
-	--If all monsters a player controls are face-down Attack Position, their opponent can attack 1 of those monsters at random.
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e5:SetRange(LOCATION_SZONE)
@@ -34,7 +32,6 @@ function c101010388.initial_effect(c)
 	e5:SetCondition(c101010388.con1)
 	e5:SetOperation(c101010388.op1)
 	c:RegisterEffect(e5)
-	--choice2
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e6:SetRange(LOCATION_SZONE)
@@ -75,7 +72,6 @@ function c101010388.op1(e,tp,eg,ep,ev,re,r,rp)
 	local at=Duel.GetAttackTarget()
 	if ats:GetCount()==0 or (at and ats:GetCount()==1) then return end
 	Duel.ShuffleSetCard(ats)
-	--[[Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010388,1))
 	local g=ats:Select(tp,1,1,at)
 	Duel.Hint(HINT_CARD,0,101010388)
 	Duel.HintSelection(g)
@@ -89,7 +85,6 @@ function c101010388.op2(e,tp,eg,ep,ev,re,r,rp)
 	local at=Duel.GetAttackTarget()
 	if ats:GetCount()==0 or (at and ats:GetCount()==1) then return end
 	Duel.ShuffleSetCard(ats)
-	--[[Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(101010388,0))
 	local g=ats:Select(1-tp,1,1,nil)
 	Duel.HintSelection(g)
 	Duel.ChangeAttackTarget(g:GetFirst())]]
