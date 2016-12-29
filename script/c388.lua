@@ -22,6 +22,17 @@ function c388.op(e,tp,eg,ep,ev,re,r,rp)
 	local tc=g:GetFirst()
 	while tc do
 		if tc:GetFlagEffect(388)==0 then
+			tc:EnableReviveLimit()
+			local e0=Effect.CreateEffect(tc)
+			e0:SetType(EFFECT_TYPE_SINGLE)
+			e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+			e0:SetCode(EFFECT_SPSUMMON_CONDITION)
+			if not tc.evolute_nomi then
+				e0:SetRange(LOCATION_EXTRA)
+			end
+			e0:SetReset(RESET_EVENT+EVENT_ADJUST,1)
+			e0:SetValue(function(e,se,sp,st) return bit.band(st,388)==388 end)
+			tc:RegisterEffect(e0)
 			local e1=Effect.CreateEffect(tc)
 			e1:SetType(EFFECT_TYPE_FIELD)
 			e1:SetCode(EFFECT_SPSUMMON_PROC)
@@ -48,7 +59,7 @@ function c388.op(e,tp,eg,ep,ev,re,r,rp)
 			e3:SetReset(RESET_EVENT+EVENT_ADJUST,1)
 			e3:SetValue(TYPE_XYZ)
 			tc:RegisterEffect(e3)
-			tc:RegisterFlagEffect(388,RESET_EVENT+EVENT_ADJUST,0,1) 	
+			tc:RegisterFlagEffect(388,RESET_EVENT+EVENT_ADJUST,0,1)  
 		end
 		tc=g:GetNext()
 	end

@@ -23,6 +23,17 @@ function c357.op(e,tp,eg,ep,ev,re,r,rp)
 	while tc do
 		if tc:IsLocation(LOCATION_DECK) then Duel.SendtoHand(tc,nil,REASON_RULE) end
 		if tc:GetFlagEffect(357)==0 then
+			tc:EnableReviveLimit()
+			local e0=Effect.CreateEffect(tc)
+			e0:SetType(EFFECT_TYPE_SINGLE)
+			e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+			e0:SetCode(EFFECT_SPSUMMON_CONDITION)
+			if not tc.impure_nomi then
+				e0:SetRange(LOCATION_EXTRA)
+			end
+			e0:SetReset(RESET_EVENT+EVENT_ADJUST,1)
+			e0:SetValue(function(e,se,sp,st) return bit.band(st,0x400)==0x400 end)
+			tc:RegisterEffect(e0)
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_FIELD)
 			e1:SetCode(EFFECT_SPSUMMON_PROC)
