@@ -28,13 +28,14 @@ function c101010202.mfilter1(c,tp)
 	return not c:IsLocation(LOCATION_MZONE+LOCATION_HAND) or c:IsReleasableByEffect()
 end
 function c101010202.mfilter2(c,g,f1,f2)
+	if c:IsFacedown() then return false end
 	if not f1(c) and not f2(c) then return false end
 	if f1(c) and not f2(c) then return g:IsExists(c101010202.mfilter3,1,c,f1,f2) end
 	if f2(c) and not f1(c) then return g:IsExists(c101010202.mfilter3,1,c,f2,f1) end
 	return g:IsExists(c101010202.mfilter3,1,c,nil,f1,f2)
 end
 function c101010202.mfilter3(c,f1,f2)
-	return f1(c) and not f2(c)
+	return c:IsFaceup() and f1(c) and not f2(c)
 end
 function c101010202.material(tp,loc1,loc2,chk)
 	local g=Duel.GetMatchingGroup(c101010202.mfilter1,tp,loc1,loc2,nil,tp)

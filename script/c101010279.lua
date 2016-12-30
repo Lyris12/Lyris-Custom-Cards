@@ -32,27 +32,30 @@ function c101010279.mfilter1(c,tp)
 	return not c:IsLocation(LOCATION_MZONE+LOCATION_HAND) or c:IsReleasableByEffect()
 end
 function c101010279.mfilter2(c,g,f1,f2)
+	if c:IsFacedown() then return false end
 	if not f1(c) and not f2(c) then return false end
 	if f1(c) and not f2(c) then return g:IsExists(c101010279.mfilter3,1,c,f1,f2) end
 	if f2(c) and not f1(c) then return g:IsExists(c101010279.mfilter3,1,c,f2,f1) end
 	return g:IsExists(c101010279.mfilter3,1,c,nil,f1,f2)
 end
 function c101010279.mfilter3(c,f1,f2)
-	return f1(c) and not f2(c)
+	return c:IsFaceup() and f1(c) and not f2(c)
 end
 function c101010279.material(tp,loc1,loc2,chk)
 	local g=Duel.GetMatchingGroup(c101010279.mfilter1,tp,loc1,loc2,nil,tp)
 	local f0=((c:IsOnField() and c:IsControler(tp)) or Duel.GetLocationCount(tp,LOCATION_MZONE)>0)
-	local f1=aux.FilterBoolFunction(Card.IsRace,RACE_DRAGON)
-	local f2=aux.FilterBoolFunction(Card.IsRace,RACE_MACHINE)
-	if chk==0 then return g:IsExists(c101010202.mfilter2,1,nil,g,f1,f2) end
-	local g1=g:FilterSelect(tp,c101010202.mfilter2,1,1,nil,g,f1,f2)
+	local f1=aux.FilterBoolFunction(Card.IsRace,RACE_DRAGON) and f0
+	local f2=aux.FilterBoolFunction(Card.IsRace,RACE_MACHINE) and f0
+	if chk==0 then return g:IsExists(c101010279.mfilter2,1,nil,g,f1,f2) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
+	local g1=g:FilterSelect(tp,c101010279.mfilter2,1,1,nil,g,f1,f2)
 	local tc=g1:GetFirst()
 	local g2=nil
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
 	if f1(tc) and not f2(tc) then
-		g2=g:FilterSelect(tp,c101010202.mfilter3,1,1,tc,f1,f2)
+		g2=g:FilterSelect(tp,c101010279.mfilter3,1,1,tc,f1,f2)
 	elseif f2(tc) and not f1(tc) then
-		g2=g:FilterSelect(tp,c101010202.mfilter3,1,1,tc,f2,f1)
+		g2=g:FilterSelect(tp,c101010279.mfilter3,1,1,tc,f2,f1)
 	else
 		g2=g:Select(tp,1,1,tc)
 	end

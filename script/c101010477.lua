@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Speed Stripe Relay Dragon
+--スピード・ストライプ・リーレ・ドラゴン
 function c101010477.initial_effect(c)
-	--During the Damage Step of either player's turn, when this card is battling: You can dispose 1 of this card's Points, halve the ATK/DEF of the monster it is battling.
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_ATKCHANGE)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
@@ -13,7 +12,6 @@ function c101010477.initial_effect(c)
 	e2:SetCost(c101010477.cost2)
 	e2:SetOperation(c101010477.operation2)
 	c:RegisterEffect(e2)
-	--When your opponent Special Summons a Level 5 or higher monster, if this card has no Points: Shuffle that monster and this card into the Deck.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TODECK)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -23,7 +21,6 @@ function c101010477.initial_effect(c)
 	e1:SetTarget(c101010477.thtg)
 	e1:SetOperation(c101010477.thop)
 	c:RegisterEffect(e1)
-	--deck master effects
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_BE_BATTLE_TARGET)

@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --機光襲雷－ドーン
 function c101010414.initial_effect(c)
---self-destruct
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -10,13 +9,11 @@ function c101010414.initial_effect(c)
 	e2:SetCondition(c101010414.descon)
 	e2:SetOperation(c101010414.desop)
 	c:RegisterEffect(e2)
-	--protect
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e0:SetCode(EVENT_TO_GRAVE)
 	e0:SetOperation(c101010414.regop)
 	c:RegisterEffect(e0)
-	--fetch
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -26,7 +23,6 @@ function c101010414.initial_effect(c)
 	e3:SetTarget(c101010414.tg)
 	e3:SetOperation(c101010414.op)
 	c:RegisterEffect(e3)
-	--destroy & draw During your turn: You can destroy 1 Dragon-Type monster you control or in your hand; draw 1 card. (This is a Quick Effect.)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DRAW)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
@@ -59,8 +55,7 @@ function c101010414.con(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(300)>0 and Duel.GetTurnPlayer()==tp
 end
 function c101010414.cfilter(c)
-	return c:IsSetCard(0x167) and c:IsType(TYPE_MONSTER) and c:IsDestructable() --and (c:IsFaceup() or c:IsLocation(LOCATION_HAND))
-end
+	return c:IsSetCard(0x167) and c:IsType(TYPE_MONSTER) and c:IsDestructable() end
 function c101010414.dmcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c101010414.cfilter,tp,LOCATION_HAND+LOCATION_MZONE,0,1,e:GetHandler()) end
 	local d1=Duel.SelectMatchingCard(tp,c101010414.cfilter,tp,LOCATION_HAND+LOCATION_MZONE,0,1,1,e:GetHandler())

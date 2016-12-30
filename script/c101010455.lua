@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Starry-Eyes Spatial Dragon (DM)
+--スターリ・アイズ・スぺーシュル・ドラゴン
 function c101010455.initial_effect(c)
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetCategory(CATEGORY_TOGRAVE)
@@ -11,7 +11,6 @@ function c101010455.initial_effect(c)
 	ae1:SetTarget(c101010455.bantg)
 	ae1:SetOperation(c101010455.banop)
 	c:RegisterEffect(ae1)
-	--deck master effects
 	local ae2=Effect.CreateEffect(c)
 	ae2:SetType(EFFECT_TYPE_IGNITION)
 	ae2:SetRange(LOCATION_PZONE)
