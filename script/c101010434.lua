@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Starry-Eyes Spatial Dragon
+--スターリ・アイズ・スぺーシュル・ドラゴン
 function c101010434.initial_effect(c)
-	--attack banish
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetCategory(CATEGORY_TOGRAVE)
 	ae1:SetType(EFFECT_TYPE_IGNITION)

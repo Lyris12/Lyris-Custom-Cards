@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Dimension-Magica Darknova
+--ディメンション魔騎竜ダーク・ノヴァ
 function c101010400.initial_effect(c)
-	--If this card was Spatial Summoned using "Starry-Eyes Spatial Dragon" as any of its Space Materials: You can target 1 of your banished "Dimension-Magica" monsters, except "Dimension-Magica Darknova"; add it to your hand. You can only use this effect of "Dimension-Magica Darknova" once per turn.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -12,7 +11,6 @@ function c101010400.initial_effect(c)
 	e1:SetTarget(c101010400.thtg)
 	e1:SetOperation(c101010400.thop)
 	c:RegisterEffect(e1)
-	--Once per turn: You can banish 1 other "Dimension-Magica" monster from your hand or field, then target 1 card your opponent controls; destroy it.
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_IGNITION)

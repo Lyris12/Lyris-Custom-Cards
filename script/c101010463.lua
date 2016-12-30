@@ -1,13 +1,11 @@
 --created & coded by Lyris
---Monument Aluminum Cloth
+--モニュメント・ハンケチ
 function c101010463.initial_effect(c)
-	--set
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_MONSTER_SSET)
 	e0:SetValue(TYPE_TRAP)
 	c:RegisterEffect(e0)
-	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -16,13 +14,11 @@ function c101010463.initial_effect(c)
 	e1:SetTarget(c101010463.sptg)
 	e1:SetOperation(c101010463.spop)
 	c:RegisterEffect(e1)
-	--check: from field to grave
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_TO_GRAVE)
 	e2:SetOperation(c101010463.regop)
 	c:RegisterEffect(e2)
-	--If this card is Special Summoned from the Graveyard after being sent there from the field: You can halve the ATK of 1 monster your opponent controls. You can only use this effect of "Monument Aluminum Cloth" once per turn.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)

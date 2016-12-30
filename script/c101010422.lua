@@ -1,8 +1,7 @@
 --created & coded by Lyris
---ファントム・ペンデュレーディ　ドラコ・旋風
+--ファントム妖怪女性－ドラコ旋風
 function c101010422.initial_effect(c)
 	c:EnableReviveLimit()
-	--synchro summon
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_SPSUMMON_PROC)
@@ -13,7 +12,6 @@ function c101010422.initial_effect(c)
 	e0:SetOperation(c101010422.sprop)
 	e0:SetValue(SUMMON_TYPE_SYNCHRO)
 	c:RegisterEffect(e0)
-	--immune
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_SINGLE)
 	e6:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_CANNOT_DISABLE)
@@ -31,7 +29,6 @@ function c101010422.initial_effect(c)
 	e4:SetTarget(c101010422.sptg)
 	e4:SetOperation(c101010422.spop)
 	c:RegisterEffect(e4)
-	--While you control a Token, this card cannot be destroyed by battle or card effects.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -43,7 +40,6 @@ function c101010422.initial_effect(c)
 	local e3=e2:Clone()
 	e3:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
 	c:RegisterEffect(e3)
-	--You can Tribute 1 "Senpu Bunshin Token" OR shuffle 1 other "Senpu" monster you control into the Main Deck, then target 1  on the field; shuffle that target into its owner's deck. This card cannot attack during the turn you activate this effect.
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(101010422,2))
 	e5:SetCategory(CATEGORY_TODECK)
@@ -91,7 +87,6 @@ function c101010422.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToDeck,tp,LOCATION_HAND,0,1,ft,nil)
-	-- local rg=g:FilterSelect(tp,Card.IsAbleToDeck,1,ft,nil)
 	e:SetLabel(g:GetCount())
 	Duel.SendtoDeck(g,nil,2,REASON_COST)
 end

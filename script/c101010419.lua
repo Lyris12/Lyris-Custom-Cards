@@ -1,8 +1,7 @@
 --created & coded by Lyris
---機夜行襲雷竜－モルニング
+--機夜行襲雷竜－モーニング
 function c101010419.initial_effect(c)
 	c:EnableReviveLimit()
-	--add race
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetTarget(c101010419.atcon)
@@ -11,7 +10,6 @@ function c101010419.initial_effect(c)
 	e0:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e0:SetValue(ATTRIBUTE_DARK)
 	c:RegisterEffect(e0)
-	--fusion material
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -19,21 +17,18 @@ function c101010419.initial_effect(c)
 	e1:SetCondition(c101010419.fscondition)
 	e1:SetOperation(c101010419.fsoperation)
 	c:RegisterEffect(e1)
-	--set atk & def
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e4:SetCondition(c101010419.succon)
 	e4:SetOperation(c101010419.sucop)
 	c:RegisterEffect(e4)
-	--halve damage
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EVENT_PRE_BATTLE_DAMAGE)
 	e3:SetCondition(c101010419.hcon)
 	e3:SetOperation(c101010419.hop)
 	c:RegisterEffect(e3)
-	--self-destruct
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -42,7 +37,6 @@ function c101010419.initial_effect(c)
 	e2:SetCondition(c101010419.descon)
 	e2:SetOperation(c101010419.desop)
 	c:RegisterEffect(e2)
-	--pos
 	local e5=Effect.CreateEffect(c)
 	e5:SetCategory(CATEGORY_POSITION)
 	e5:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_FIELD)

@@ -1,10 +1,8 @@
 --created & coded by Lyris
---ＳＳ－優美のテンプラー
+--SS優雅のテンプル
 function c101010421.initial_effect(c)
-	--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
 	c:EnableReviveLimit()
-	--When this card inflicts Battle Damage, if at least 3 other monsters you control have attacked this turn: The player who took the Battle Damage targets 1 monster they control; banish that target.
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_REMOVE)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -30,7 +28,6 @@ function c101010421.initial_effect(c)
 		ge2:SetLabelObject(ge1)
 		e3:SetLabelObject(ge1)
 	end
-	--level
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetCountLimit(1)

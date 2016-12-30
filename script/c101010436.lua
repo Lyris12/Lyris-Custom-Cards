@@ -1,12 +1,10 @@
 --created & coded by Lyris
---Frozen Flower Garden
+--FrFガーデン
 function c101010436.initial_effect(c)
-	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e1)
-	--fusion
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(101010157,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)

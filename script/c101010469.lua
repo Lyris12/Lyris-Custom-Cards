@@ -1,17 +1,14 @@
 --created & coded by Lyris
---Monument Brasscube
+--モニュメント・キューブ
 function c101010469.initial_effect(c)
-	--materials
 	c:EnableReviveLimit()
 	aux.AddFusionProcFunRep(c,c101010469.ffilter,2,false)
-	--splimit
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e0:SetRange(LOCATION_EXTRA)
 	e0:SetValue(aux.fuslimit)
 	c:RegisterEffect(e0)
-	--Once per turn: You can target 1 Level 5 or lower LIGHT Machine-Type monster in your Graveyard; this card gains a number of additional attacks equal to half of that target's Level.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_MZONE)

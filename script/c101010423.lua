@@ -1,10 +1,8 @@
 --created & coded by Lyris
---サイバー・ハイドラ
+--サイバー・ヒドラ
 function c101010423.initial_effect(c)
-	--synchro summon
 	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_MACHINE),aux.NonTuner(Card.IsAttribute,ATTRIBUTE_LIGHT),1)
 	c:EnableReviveLimit()
-	--atkup
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010014,0))
 	e1:SetCategory(CATEGORY_TODECK+CATEGORY_ATKCHANGE)
@@ -14,7 +12,6 @@ function c101010423.initial_effect(c)
 	e1:SetTarget(c101010423.atktg)
 	e1:SetOperation(c101010423.atkop)
 	c:RegisterEffect(e1)
-	--copy
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(101010014,1))
 	e2:SetType(EFFECT_TYPE_IGNITION)

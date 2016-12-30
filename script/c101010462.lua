@@ -1,13 +1,11 @@
 --created & coded by Lyris
---Monument Shattered Pyramid
+--モニュメント・ピラミッド
 function c101010462.initial_effect(c)
-	--set
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_MONSTER_SSET)
 	e0:SetValue(TYPE_TRAP)
 	c:RegisterEffect(e0)
-	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -16,13 +14,11 @@ function c101010462.initial_effect(c)
 	e1:SetTarget(c101010462.sptg)
 	e1:SetOperation(c101010462.spop)
 	c:RegisterEffect(e1)
-	--check: from field to grave
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_TO_GRAVE)
 	e2:SetOperation(c101010462.regop)
 	c:RegisterEffect(e2)
-	--If this card is Special Summoned from the Graveyard after being sent there from the field: You can target 1 Set Spell/Trap Card on the field; destroy that target and 1 card on the field that is not controlled by that target's controller. You can only use this effect of "Monument Shattered Pyramid" once per turn.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)

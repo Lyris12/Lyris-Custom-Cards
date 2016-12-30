@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Dimension-Magical － Downpower
+--ディメンション魔法－パワー
 function c101010395.initial_effect(c)
-	--Activate Target 1 Spatial Monster you control; Special Summon from your Extra Deck, 1 monster with the same Type and/or Attribute as that monster control but with a lower Dimensional Number by banishing that monster you control and using it as a Space Material. (This is treated as a Spatial Summon. Any Space Material Monsters used for its Spatial Summon also become Space Materials for this Spatial Summon.)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

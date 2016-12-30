@@ -1,17 +1,14 @@
 --created & coded by Lyris
---Monument Bronzeboard
+--モニュメント・マザーボード
 function c101010475.initial_effect(c)
-	--Fusion Material: 2 Level 4, 5, or 6 LIGHT Machine-Type monsters
 	c:EnableReviveLimit()
 	aux.AddFusionProcFunRep(c,c101010475.ffilter,2,false)
-	--Must first be Fusion Summoned with the above Fusion Materials.
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e0:SetRange(LOCATION_EXTRA)
 	e0:SetValue(aux.fuslimit)
 	c:RegisterEffect(e0)
-	--During either player's turn: You can target 2 face-up monsters your opponent controls, and apply the appropriate effects with both of those targets, depending on the original Levels of the monsters used as Fusion Material (in sequence); (effects below) You can only use this effect of "Monument Bronzeboard" once per turn.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_MATERIAL_CHECK)
@@ -117,7 +114,6 @@ function c101010475.operation(e,tp,eg,ep,ev,re,r,rp)
 	local ex2,tg2=Duel.GetOperationInfo(0,CATEGORY_DESTROY)
 	local g=tg:Clone()
 	if bit.band(e:GetLabel(),0x1)==0x1 then
-		--Level 4: Negate 1 of those targets' effects.
 		if mg:IsExists(c101010475.mfilter,2,nil,4) then tg1=tg end
 		local tc1=tg1:GetFirst()
 		while tc1 do
@@ -137,14 +133,12 @@ function c101010475.operation(e,tp,eg,ep,ev,re,r,rp)
 		g:Sub(tg1)
 	end
 	if bit.band(e:GetLabel(),0x2)==0x2 then
-		--Level 5: Destroy 1 of those targets.
 		if bit.band(e:GetLabel(),0x1)==0x1 then Duel.BreakEffect() end
 		if mg:IsExists(c101010475.mfilter,2,nil,5) then tg2=tg end
 		Duel.Destroy(tg2,REASON_EFFECT)
 		g:Sub(tg2)
 	end
 	if bit.band(e:GetLabel(),0x4)==0x4 then
-		--Level 6: Inflict damage to your opponent equal to 1 of those targets' ATK on the field.
 		local dam=0
 		if bit.band(e:GetLabel(),0x3)~=0 then Duel.BreakEffect() end
 		if mg:IsExists(c101010475.mfilter,2,nil,6) then

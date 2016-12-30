@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Dimension-Magical Plus Power
+--ディメンション魔法+パワー
 function c101010392.initial_effect(c)
-	--Activate Target 1 Spatial Monster you control; Special Summon from your Extra Deck, 1 monster with the same Type and/or Attribute as that monster control but 1 Dimension higher by banishing that monster you control and using it as a Space Material. (This is treated as a Spatial Summon. Any Space Material Monsters used for its Spatial Summon also become Space Materials for this Spatial Summon.)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -15,7 +14,6 @@ function c101010392.filter1(c,e,tp)
 	local rk=c:GetRank()
 	if not c.spatial then return false end
 	return c:IsFaceup() and c:IsAbleToRemove()
-		--and 
 		and Duel.IsExistingMatchingCard(c101010392.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,rk,c:GetRace(),c:GetAttribute())
 end
 function c101010392.filter2(c,e,tp,rk,rc,att)

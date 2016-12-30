@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Osa, Princess of Stellar Vine
+--S・Vineの姫オサ
 function c101010431.initial_effect(c)
-	--to grave
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetCategory(CATEGORY_TOGRAVE)
 	ae1:SetType(EFFECT_TYPE_IGNITION)
@@ -24,7 +23,6 @@ function c101010431.initial_effect(c)
 	end
 end
 c101010431.spatial=true
---Spatial Formula filter(s)
 c101010431.material=function(mc) return mc:IsAttribute(ATTRIBUTE_WATER) end
 function c101010431.chk(e,tp,eg,ep,ev,re,r,rp)
 	Duel.CreateToken(tp,500)

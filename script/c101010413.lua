@@ -1,17 +1,15 @@
 --created & coded by Lyris
---Attribrutal VILLAIN Cyber Space Kaiser
+--A・VILLAINサイバー・スペース・カイザー
 function c101010413.initial_effect(c)
     c:EnableReviveLimit()
     aux.AddFusionProcFun2(c,c101010413.ffilter,aux.FilterBoolFunction(Card.IsSetCard,0x93),false)
-    --Must be Fusion Summoned, and cannot be Special Summoned by other ways.
-    local e2=Effect.CreateEffect(c)
+        local e2=Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_SINGLE)
     e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
     e2:SetCode(EFFECT_SPSUMMON_CONDITION)
     e2:SetValue(aux.fuslimit)
     c:RegisterEffect(e2)
-    --If this card is targeted by a card effect controlled by your opponent: Banish this card.
-    local e3=Effect.CreateEffect(c)
+        local e3=Effect.CreateEffect(c)
     e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_QUICK_F)
     e3:SetCode(EVENT_BECOME_TARGET)
     e3:SetRange(LOCATION_MZONE)
@@ -21,8 +19,7 @@ function c101010413.initial_effect(c)
     e3:SetTarget(c101010413.rmtg)
     e3:SetOperation(c101010413.rmop)
     c:RegisterEffect(e3)
-    --If this card is banished: Banish 1 LIGHT monster from your Graveyard, then, Special Summon this card, ignoring the Summoning conditions, and if you do, this card gains 700 ATK and 800 DEF.
-    local e4=Effect.CreateEffect(c)
+        local e4=Effect.CreateEffect(c)
     e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
     e4:SetCode(EVENT_REMOVE)
     e4:SetCategory(CATEGORY_REMOVE+CATEGORY_SPECIAL_SUMMON)

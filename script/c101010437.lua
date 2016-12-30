@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Victorial Wield Aquarius
+--制勝武器♒
 function c101010437.initial_effect(c)
-	--Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetDescription(1068)
 	e0:SetCategory(CATEGORY_EQUIP)
@@ -16,20 +15,17 @@ function c101010437.initial_effect(c)
 	e4:SetCode(EFFECT_EQUIP_LIMIT)
 	e4:SetValue(1)
 	c:RegisterEffect(e4)
-	--atk up
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_EQUIP)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetValue(500)
 	c:RegisterEffect(e1)
-	--revive
 	local e2=e0:Clone()
 	e2:SetDescription(aux.Stringid(101010427,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetTarget(c101010437.sptarget)
 	e2:SetOperation(c101010437.spoperation)
 	c:RegisterEffect(e2)
-	--second effect
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_RECOVER)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
@@ -68,7 +64,6 @@ function c101010437.spoperation(e,tp,eg,ep,ev,re,r,rp)
 	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
 		if Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP_ATTACK)==0 then return end
 		Duel.Equip(tp,c,tc)
-		--Add Equip limit
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_EQUIP_LIMIT)

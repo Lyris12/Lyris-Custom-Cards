@@ -1,13 +1,11 @@
 --created & coded by Lyris
---Monument Leadlocket
+--モニュメント・ロケット
 function c101010465.initial_effect(c)
-	--set
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_MONSTER_SSET)
 	e0:SetValue(TYPE_TRAP)
 	c:RegisterEffect(e0)
-	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -16,13 +14,11 @@ function c101010465.initial_effect(c)
 	e1:SetTarget(c101010465.sptg)
 	e1:SetOperation(c101010465.spop)
 	c:RegisterEffect(e1)
-	--check: from field to grave
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_TO_GRAVE)
 	e2:SetOperation(c101010465.regop)
 	c:RegisterEffect(e2)
-	--to hand
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)

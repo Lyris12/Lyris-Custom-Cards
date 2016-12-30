@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Astral Dragon of Stellar Vine
+--「S・Vine」アストラル・ドラゴン
 function c101010432.initial_effect(c)
 	if not c101010432.global_check then
 		c101010432.global_check=true
@@ -13,7 +13,6 @@ function c101010432.initial_effect(c)
 	end
 end
 c101010432.spatial=true
---Spatial Formula filter(s)
 c101010432.material=function(mc) return mc:IsSetCard(0x785a) end
 function c101010432.chk(e,tp,eg,ep,ev,re,r,rp)
 	Duel.CreateToken(tp,500)

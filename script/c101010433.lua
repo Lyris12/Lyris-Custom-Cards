@@ -1,7 +1,6 @@
 --created & coded by Lyris
---ＳーＶｉｎｅ(セイクリド・ヴァイン)の騎士－クライッシャ
+--S－Vineの騎士クライッシャ
 function c101010433.initial_effect(c)
-	--Once per turn, during either player's turn: You can banish 1 card from your hand, then target 1 card on the field, then apply the effect based on its type. (If the target is Set, reveal it first.) ● Monster: Banish it. ● Spell: Shuffle it into the Deck. ● Trap: Return it to the hand.
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetType(EFFECT_TYPE_QUICK_O)
 	ae1:SetRange(LOCATION_MZONE)
@@ -24,7 +23,6 @@ function c101010433.initial_effect(c)
 	end
 end
 c101010433.spatial=true
---Spatial Formula filter(s)
 c101010433.material=function(mc) return mc:IsSetCard(0x785a) or mc:IsSetCard(0x53) end
 c101010433.dimension_loss=2
 function c101010433.chk(e,tp,eg,ep,ev,re,r,rp)

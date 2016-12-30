@@ -1,7 +1,6 @@
 --created & coded by Lyris
---Cyberspace Eclipse Dragon
+--サイバー・スペース・エクリプス・ドラゴン
 function c101010427.initial_effect(c)
-	--xyz summon
 	aux.AddXyzProcedure(c,c101010427.xyzfilter,10,3,c101010427.ovfilter,aux.Stringid(101010341,0),3,nil)
 	c:EnableReviveLimit()
 	local e6=Effect.CreateEffect(c)
@@ -10,7 +9,6 @@ function c101010427.initial_effect(c)
 	e6:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e6:SetValue(ATTRIBUTE_LIGHT)
 	c:RegisterEffect(e6)
-	--attach
 	local e5=Effect.CreateEffect(c)
 	e5:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e5:SetType(EFFECT_TYPE_IGNITION)
@@ -18,7 +16,6 @@ function c101010427.initial_effect(c)
 	e5:SetCountLimit(1)
 	e5:SetOperation(c101010427.atop)
 	c:RegisterEffect(e5)
-	--negate(effect)
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
 	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
@@ -30,7 +27,6 @@ function c101010427.initial_effect(c)
 	e3:SetTarget(c101010427.negtg)
 	e3:SetOperation(c101010427.negop)
 	c:RegisterEffect(e3)
-	--Activate(summon)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DISABLE_SUMMON+CATEGORY_DESTROY)
 	e1:SetType(EFFECT_TYPE_QUICK_O)

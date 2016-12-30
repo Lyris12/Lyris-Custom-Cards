@@ -1,5 +1,5 @@
 --created & coded by Lyris
---Dimension-Magica White Kuribohle
+--ディメンション魔騎士ホワイト・クリボール
 function c101010399.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(101010399,0))

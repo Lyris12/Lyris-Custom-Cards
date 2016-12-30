@@ -1,7 +1,6 @@
 --created & coded by Lyris
 --機光襲雷竜－ビッグバン
 function c101010435.initial_effect(c)
-	--self-destruct
 	local ae1=Effect.CreateEffect(c)
 	ae1:SetCategory(CATEGORY_DESTROY)
 	ae1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -10,7 +9,6 @@ function c101010435.initial_effect(c)
 	ae1:SetCondition(c101010435.descon)
 	ae1:SetOperation(c101010435.desop)
 	c:RegisterEffect(ae1)
-	--banish
 	local ae3=Effect.CreateEffect(c)
 	ae3:SetDescription(aux.Stringid(101010435,0))
 	ae3:SetCategory(CATEGORY_REMOVE)
@@ -23,7 +21,6 @@ function c101010435.initial_effect(c)
 	ae3:SetTarget(c101010435.rmtg)
 	ae3:SetOperation(c101010435.rmop)
 	c:RegisterEffect(ae3)
-	--return
 	local ae5=Effect.CreateEffect(c)
 	ae5:SetDescription(aux.Stringid(101010435,1))
 	ae5:SetCategory(CATEGORY_TOGRAVE+CATEGORY_DESTROY)
@@ -48,7 +45,6 @@ function c101010435.initial_effect(c)
 	end
 end
 c101010435.spatial=true
---Spatial Formula filter(s)
 c101010435.material=function(mc) return mc:IsSetCard(0x167) end
 function c101010435.chk(e,tp,eg,ep,ev,re,r,rp)
 	Duel.CreateToken(tp,500)

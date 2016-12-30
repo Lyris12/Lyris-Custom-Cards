@@ -1,10 +1,8 @@
 --created & coded by Lyris
---, also, other monsters you control cannot attack this turn
---ＳＳＤ－津波
+--SSD津波
 function c101010420.initial_effect(c)
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsAttribute,ATTRIBUTE_WATER),2)
 	c:EnableReviveLimit()
-	--actlimit
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -14,7 +12,6 @@ function c101010420.initial_effect(c)
 	e1:SetValue(c101010420.aclimit)
 	e1:SetCondition(c101010420.actcon)
 	c:RegisterEffect(e1)
-	--When this card inflicts Battle Damage, if at least 3 other monsters you control have attacked this turn: The player who took the Battle Damage destroys all other monsters they control.
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_DESTROY)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -47,7 +44,6 @@ end
 function c101010420.actcon(e)
 	return Duel.GetAttacker()==e:GetHandler()
 end
---[[function c101010420.fatg(e,c)
 	return c~=e:GetHandler() and c:IsAttackable()
 end
 function c101010420.condition(e,tp,eg,ep,ev,re,r,rp)
@@ -77,8 +73,7 @@ function c101010420.con(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp and e:GetLabelObject():GetLabel()>2
 end
 function c101010420.tg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end--Duel.IsExistingMatchingCard(Card.IsDestructable,ep,LOCATION_MZONE,0,e:GetHandler())
-	local g=Duel.GetMatchingGroup(Card.IsDestructable,ep,LOCATION_MZONE,0,e:GetHandler())
+	if chk==0 then return true end	local g=Duel.GetMatchingGroup(Card.IsDestructable,ep,LOCATION_MZONE,0,e:GetHandler())
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
 end
 function c101010420.op(e,tp,eg,ep,ev,re,r,rp)
