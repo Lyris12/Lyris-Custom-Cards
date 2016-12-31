@@ -18,7 +18,7 @@ function c101010392.filter1(c,e,tp)
 end
 function c101010392.filter2(c,e,tp,rk,rc,att)
 	return c:GetRank()==rk+1 and (c:IsRace(rc) or c:IsAttribute(att))
-		and c:IsCanBeSpecialSummoned(e,0x7150,tp,true,false)
+		and c:IsCanBeSpecialSummoned(e,0x4000,tp,true,false)
 end
 function c101010392.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and c101010392.filter1(chkc,e,tp) end
@@ -37,11 +37,11 @@ function c101010392.activate(e,tp,eg,ep,ev,re,r,rp)
 	local sc=sg:GetFirst()
 	if sc then
 		local tg=Group.FromCards(tc)
-		if tc:GetSummonType()-SUMMON_TYPE_SPECIAL==0x7150 then
+		if tc:GetSummonType()-SUMMON_TYPE_SPECIAL==0x4000 then
 			tg:Merge(tc:GetMaterial())
 		end
 		sc:SetMaterial(tg)
 		Duel.Remove(Group.FromCards(tc),POS_FACEUP,REASON_EFFECT+REASON_MATERIAL+0x400000)
-		Duel.SpecialSummon(sc,0x7150,tp,tp,true,false,POS_FACEUP)
+		Duel.SpecialSummon(sc,0x4000,tp,tp,true,false,POS_FACEUP)
 	end
 end

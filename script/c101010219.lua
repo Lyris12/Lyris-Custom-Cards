@@ -50,7 +50,7 @@ function c101010219.chk(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c101010219.condition(e)
-	return bit.band(e:GetHandler():GetSummonType(),0x7150)==0x7150
+	return bit.band(e:GetHandler():GetSummonType(),0x4000)==0x4000
 end
 function c101010219.dtarget(e,c)
 	return c:IsFaceup() and not c:IsRace(RACE_DRAGON+RACE_WYRM)

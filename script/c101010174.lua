@@ -19,7 +19,7 @@ function c101010174.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c101010174.mgfilter(c,e,tp,fusc)
 	return not c:IsLocation(LOCATION_REMOVED)
-		or c:GetReasonCard()~=fusc or bit.band(c:GetReason(),0x71500000000+SUMMON_TYPE_XYZ)==0
+		or c:GetReasonCard()~=fusc or bit.band(c:GetReason(),0x40000000000+SUMMON_TYPE_XYZ)==0
 		or not c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c101010174.activate(e,tp,eg,ep,ev,re,r,rp)
@@ -30,7 +30,7 @@ function c101010174.activate(e,tp,eg,ep,ev,re,r,rp)
 	local mg=c:GetMaterial()
 	local sumable=true
 	local sumtype=c:GetSummonType()
-	if Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)==0 or bit.band(sumtype,SUMMON_TYPE_XYZ+0x7150)==0 or mg:GetCount()==0
+	if Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)==0 or bit.band(sumtype,SUMMON_TYPE_XYZ+0x4000)==0 or mg:GetCount()==0
 		or mg:GetCount()>Duel.GetLocationCount(tp,LOCATION_MZONE)
 		or mg:IsExists(c101010174.mgfilter,1,nil,e,tp,c) then
 		sumable=false

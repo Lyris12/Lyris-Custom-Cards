@@ -41,7 +41,7 @@ function c101010357.chk(e,tp,eg,ep,ev,re,r,rp)
 	Duel.CreateToken(1-tp,481)
 end
 function c101010357.splimit(e,se,sp,st)
-	return c:IsFaceup() and bit.band(st,0x8773)==0x8773 or aux.fuslimit(e,se,sp,st)
+	return c:IsFaceup() and bit.band(st,0x8000)==0x8000 or aux.fuslimit(e,se,sp,st)
 end
 function c101010357.repfilter(c,tp)
 	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0x50b)

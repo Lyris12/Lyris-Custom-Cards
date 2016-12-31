@@ -33,16 +33,16 @@ function c101010400.initial_effect(c)
 	end
 end
 c101010400.spatial=true
-c101010400.alterf=  function(mc)
-						return mc.spatial
-					end
 c101010400.alterct=2
-c101010400.alterop= function(e,tp,chk)
-						local rc=e:GetLabelObject()
-						if chk==0 then return rc:IsExists(c101010400.alfilter,1,nil,rc) end
-						local mc=Duel.SelectMatchingCard(tp,c101010400.altfilter,tp,LOCATION_MZONE,0,1,1,rc:GetFirst(),rc:GetFirst():GetRace(),rc:GetFirst():GetAttribute())
-						return mc:GetFirst()
-					end
+function c101010400.alterf(mc)
+	return mc.spatial
+end
+function c101010400.alterop(e,tp,chk)
+	local rc=e:GetLabelObject()
+	if chk==0 then return rc:IsExists(c101010400.alfilter,1,nil,rc) end
+	local mc=Duel.SelectMatchingCard(tp,c101010400.altfilter,tp,LOCATION_MZONE,0,1,1,rc:GetFirst(),rc:GetFirst():GetRace(),rc:GetFirst():GetAttribute())
+	return mc:GetFirst()
+end
 function c101010400.check(e,tp,eg,ep,ev,re,r,rp)
 	Duel.CreateToken(tp,500)
 	Duel.CreateToken(1-tp,500)
@@ -55,7 +55,7 @@ function c101010400.altfilter(c,rc,at)
 end
 function c101010400.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return bit.band(c:GetSummonType(),0x7150)==0x7150 and c:GetMaterial():IsExists(Card.IsCode,1,nil,101010434)
+	return bit.band(c:GetSummonType(),0x4000)==0x4000 and c:GetMaterial():IsExists(Card.IsCode,1,nil,101010434)
 end
 function c101010400.filter(c)
 	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsSetCard(0xa03) and c:IsAbleToHand() and not c:IsCode(101010400)

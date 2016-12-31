@@ -28,7 +28,7 @@ function c101010312.filter2(c,e,tp,lv)
 end 
 function c101010312.cfilter(c,e,tp,lv1,lv2)
 	return c.spatial and (c:IsSetCard(0xb2d) or (c:IsRace(RACE_DRAGON) and c:GetAttack()==2500 and c:GetDefense()==2000))
-		and c:GetRank()==lv1+lv2 and c:IsCanBeSpecialSummoned(e,0x7150,tp,true,false)
+		and c:GetRank()==lv1+lv2 and c:IsCanBeSpecialSummoned(e,0x4000,tp,true,false)
 end
 function c101010312.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
@@ -65,6 +65,6 @@ function c101010312.activate(e,tp,eg,ep,ev,re,r,rp)
 	local sc=g:GetFirst()
 	if sc then
 		sc:SetMaterial(e:GetLabelObject())
-		Duel.SpecialSummon(sc,0x7150,tp,tp,true,false,POS_FACEUP)
+		Duel.SpecialSummon(sc,0x4000,tp,tp,true,false,POS_FACEUP)
 	end
 end

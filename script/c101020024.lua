@@ -30,7 +30,7 @@ function c101020024.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c101020024.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToRemove,tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,c101020024.rfilter,tp,LOCATION_DECK,0,1,1,nil)
 	local tg=g:GetFirst()
 	if tg==nil then return end
 	Duel.Remove(tg,POS_FACEUP,REASON_EFFECT)

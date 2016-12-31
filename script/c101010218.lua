@@ -51,7 +51,7 @@ function c101010218.rmop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Remove(re:GetHandler(),POS_FACEUP,REASON_EFFECT)
 end
 function c101010218.tgcon(e)
-	return bit.band(e:GetHandler():GetSummonType(),0x7150)==0x7150
+	return bit.band(e:GetHandler():GetSummonType(),0x4000)==0x4000
 end
 function c101010218.atkucon(e)
 	return not c101010218.tgcon(e)
