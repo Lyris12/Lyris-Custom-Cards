@@ -1,5 +1,5 @@
 --created & coded by Lyris
---れっぷうのクリスタロス・エッジ
+--烈風のクリスタロス・エッジ
 function c101010119.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TODECK)

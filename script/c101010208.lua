@@ -1,5 +1,5 @@
 --created & coded by Lyris
---SS静かなりの潮ソートレオ
+--SS静かなりの潮ソートリオ
 function c101010208.initial_effect(c)
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
 	c:EnableReviveLimit()
