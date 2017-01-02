@@ -25,7 +25,7 @@ function c101010237.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c101010237.op(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and Duel.SendtoGrave(tc,REASON_EFFECT)~=0 and tc:GetDefense()>0 then
+	if tc and tc:IsRelateToEffect(e) and Duel.SendtoGrave(tc,REASON_EFFECT)~=0 and tc:IsLocation(LOCATION_GRAVE) and tc:GetDefense()>0 then
 		Duel.BreakEffect()
 		Duel.Recover(1-tp,tc:GetDefense(),REASON_EFFECT)
 	end

@@ -117,15 +117,19 @@ function c500.splimit(e,se,sp,st)
 	return bit.band(st,0x4000)==0x4000
 end
 function c500.sptfilter1(c,tp,djn,f)
-	return c:IsFaceup() and c:GetLevel()>0 and (not f or f(c)) and c:IsAbleToRemove()
-		and Duel.IsExistingMatchingCard(c500.sptfilter2,tp,LOCATION_MZONE,0,1,c,djn,f,c:GetAttribute(),c:GetRace(),c:GetLevel())
+	local lv=c:GetLevel()
+	if c.spatial_level~=nil then lv=c.spatial_level end
+	return c:IsFaceup() and lv>0 and (not f or f(c)) and c:IsAbleToRemove()
+		and Duel.IsExistingMatchingCard(c500.sptfilter2,tp,LOCATION_MZONE,0,1,c,djn,f,c:GetAttribute(),c:GetRace(),lv)
 end
 function c500.sptafilter(c,alterf)
 	return c:IsFaceup() and alterf(c) and c:IsAbleToRemove()
 end
-function c500.sptfilter2(c,djn,f,at,rc,lv)
+function c500.sptfilter2(c,djn,f,at,rc,tlv)
+	local lv=c:GetLevel()
+	if c.spatial_level~=nil then lv=c.spatial_level end
 	return c:IsFaceup() and c:GetAttribute()==at and c:GetRace()==rc
-		and c:GetLevel()>0 and (djn==lv or djn==c:GetLevel())
+		and c:GetLevel()>0 and (djn==tlv or djn==lv)
 		and (not f or f(c)) and c:IsAbleToRemove()
 end
 function c500.sptcon(e,c)
@@ -166,8 +170,10 @@ function c500.sptop(e,tp,eg,ep,ev,re,r,rp,c)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 		local m1=mg:FilterSelect(tp,c500.sptfilter1,1,1,nil,tp,x,c.material)
 		local tc=m1:GetFirst()
+		local lv=tc:GetLevel()
+		if tc.spatial_level~=nil then lv=tc.spatial_level end
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-		local m2=mg:FilterSelect(tp,c500.sptfilter2,1,1,tc,x,c.material,tc:GetAttribute(),tc:GetRace(),tc:GetLevel())
+		local m2=mg:FilterSelect(tp,c500.sptfilter2,1,1,tc,x,c.material,tc:GetAttribute(),tc:GetRace(),lv)
 		m1:Merge(m2)
 		mg=m1
 		c:SetMaterial(mg)
